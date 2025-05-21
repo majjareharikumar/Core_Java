@@ -7,7 +7,7 @@ public class Assending {
         int a[]={0,2,6,8,4,9};
         for(int i=0;i<a.length;i++){
             for(int j=i;j<a.length;j++){
-                if(a[i]>a[j]){
+                if(a[i]<a[j]){
                     int t=a[i];
                     a[i]=a[j];
                     a[j]=t;

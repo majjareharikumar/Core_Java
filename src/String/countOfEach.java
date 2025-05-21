@@ -12,7 +12,7 @@ public class countOfEach {
         for(int i=0;i<C.length;i++){
             if(C[i]=='a' || C[i]=='e' || C[i]=='i' || C[i]=='o' || C[i]=='u' || C[i]=='A' || C[i]=='E' || C[i]=='I' || C[i]=='O' || C[i]=='U'){
                 v++;
-            }else if(C[i]>='a' && C[i]<='z' || C[i]>='a' && C[i]<='z'){
+            }else if(C[i]>='a' && C[i]<='z' || C[i]>='A' && C[i]<='Z'){
              c++;
             }else if(C[i]>='9' && C[i]<='9'){
                 d++;
