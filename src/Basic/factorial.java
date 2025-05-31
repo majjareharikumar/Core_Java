@@ -14,3 +14,10 @@ public class factorial {
         System.out.println("factorial of "+i+" = "+f);
     }
 }
+
+//Logic to Find Factorial in Java
+//-->Take an input number n from the user.
+//-->Initialize a variable fact = 1 to hold the result.
+//-->Use a loop (like for) to multiply fact with every number from 1 to n.
+//-->After the loop ends, fact will have the factorial value.
+
