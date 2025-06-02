@@ -1,4 +1,4 @@
-package sorting;
+package sorting_and_searching;
 
 //Quick Sort is a divide-and-conquer sorting algorithm that works by:
 //Choosing a pivot element from the array.

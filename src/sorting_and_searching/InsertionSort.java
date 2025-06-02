@@ -1,4 +1,4 @@
-package sorting;
+package sorting_and_searching;
 
 //Step-by-Step:
 //Start from the second element (index 1).

@@ -1,4 +1,4 @@
-package sorting;
+package sorting_and_searching;
 
 //Merge Sort – Simple Explanation
 //Merge Sort is a divide and conquer algorithm:

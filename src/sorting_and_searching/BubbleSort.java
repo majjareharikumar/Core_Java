@@ -1,4 +1,4 @@
-package sorting;
+package sorting_and_searching;
 
 
 //Bubble Sort – Logic

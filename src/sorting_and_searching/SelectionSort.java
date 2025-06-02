@@ -1,4 +1,4 @@
-package sorting;
+package sorting_and_searching;
 
 //Selection sort will work based on the index swap.
 //        Here's how:
