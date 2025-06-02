@@ -5,7 +5,7 @@ package sorting;
 //Selection Sort uses indexes to:
 //Track the current position (i) in the array where the next smallest element should go.
 //Search for the smallest element by checking every element from index i+1 to the end.
-//wap the element at index i with the index of the smallest element found.
+//Swap the element at index i with the index of the smallest element found.
 //        🔁 Example with Indexes
 //For array: [5, 3, 8, 4, 2]
 //i = 0 → check from j = 1 to 4
