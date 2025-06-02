@@ -24,7 +24,7 @@ public class SelectionSort {
                     index=j;
                 }
             }
-            if(1!=index){
+            if(i!=index){
                 int t=a[i];
                 a[i]=a[index];
                 a[index]=t;
