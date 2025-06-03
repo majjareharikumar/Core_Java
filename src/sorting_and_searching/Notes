@@ -1,0 +1,37 @@
+1)Bubble Sort
+---------------
+It is used Repeatedly compares and swaps adjacent elements until the array is sorted.
+Only for teaching/demo, not used in real projects due to poor performance.
+	Too slow (O(n²)); used only for teaching or very tiny datasets.
+
+2)Selection Sort
+------------------
+Selection sort will work based on the index swap.
+It will Selects the smallest (or largest) element and places it at the correct position.
+Simple to understand; use for small data or learning purposes.
+It is Also Too slow O(n²); rarely used in production. Good for understanding sorting basics.
+
+3)Insertion Sort
+-----------------
+It will select the one value as a key and will compare  the other  values to insert the correct  location.
+Works well for small/nearly sorted lists (e.g., hand-sorting a few records).
+
+4)Merge Sort
+------------
+It will divide the array into equal parts and compare the 2 values in the small array and it will swap the both values if first value is greater than the second value.
+Good for large data, stable sort, and works well in linked lists.Stable, predictable (O(n log n)); used in external sorting (e.g., files).
+
+5)Quick Sort
+---------------
+It will select one mid value as pivot and compare the array values. If the pivot value is less than compare value it will insert that into left side. other wise it will insert that value in to right side.
+Fastest for most cases; use when memory is limited (in-place sorting).Very fast and widely used
+
+6)Linear Search
+------------------
+it will Checks each element one by one to find the target.
+Works for unsorted data or small arrays.Okay for very small or unsorted data
+
+7)Binary Search
+----------------------
+it will Divides the sorted array and searches half each time.
+Use when array is sorted and you want fast search.Very fast (O(log n)); widely used in sorted lists/arrays.
