@@ -1,0 +1,58 @@
+Definition:
+A Queue is a linear data structure that follows the FIFO (First In First Out) principle.
+The element added first will be removed first, just like people standing in a line.
+
+Queue Interface
+Package: java.util
+Interface: Queue<E>
+Extends: Collection<E>
+ex:-
+public interface Queue<E> extends Collection<E>
+
+Important Implementing Classes
+Class	              Description
+LinkedList	       Implements both Queue and Deque, allows nulls
+PriorityQueue	   Orders elements by priority, not insertion order
+ArrayDeque	       Resizable array-based Deque, faster than LinkedList, no nulls
+
+Queue interface is implemented by 3 classes in Java. those are:
+ 1. PriorityQueue
+ 2. ArrayDeque
+ 3. LinkedList
+ Initialization/Creation of a Queue
+ Queue<Order> orders = new PriorityQueue<>();
+ Queue<Integer> tickets = new ArrayDeque<>();
+ Queue<String> tasks = new LinkedList<>()
+
+ Commonly Used Methods in Queue
+ Method	Description
+ add(E e)	Adds an element. Throws exception if full (for capacity-restricted queues)
+ offer(E e)	Adds element. Returns false if it can't be added
+ remove()	Removes and returns head. Throws exception if queue is empty
+ poll()	Removes and returns head. Returns null if queue is empty
+ element()	Returns head without removing. Throws exception if empty
+ peek()	Returns head without removing. Returns null if empty
+ isEmpty()	Checks if queue is empty
+ size()	Returns number of elements in the queue
+ clear()	Removes all elements
+ contains(E e)	Checks if element exists
+
+
+ Inserting elements
+  tickets.add(74);
+  tasks.offer("Learn Collections");
+  orders.add(new Order("Dosa"));
+  tickets.addLast(95);
+  tasks.offerFirst("Read a book");
+
+ Retrieving elements
+  tickets.element();
+  tasks.peek();
+  tickets.peekLast();
+
+ Deleting elements
+  orders.remove();
+  tasks.poll();
+  tickets.remove(85);
+  tasks.removeLast();
+  tickets.pollLast();
