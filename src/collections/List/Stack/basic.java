@@ -20,10 +20,15 @@ public class basic {
     public static void main(String[] args) {
         //Create stack
         Stack<Integer> s=new Stack<>();
+
+        //capasicty of stack
+        System.out.println("Capacity of Stack:- "+s.capacity());
+
         //add values to the stack
         s.add(1);
         s.add(2);
         s.add(3);
+        s.add(1,4);
 
         System.out.println("Original Stack "+s);
 
@@ -51,5 +56,8 @@ public class basic {
         s.clear();
         System.out.println("Stack after clearing the values :- "+s);
         System.out.println("after clearing the Stack,Is stack empty? :- "+s.isEmpty());
+
+        //capasicty of stack
+        System.out.println("Capacity of Stack:- "+s.capacity());
     }
 }
