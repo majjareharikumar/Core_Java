@@ -1,0 +1,43 @@
+The Set interface in Java represents a collection that does not allow duplicate elements.
+It is part of the java.util package and extends the Collection interface.
+
+Commonly Used Methods in Set
+Since Set extends Collection, it inherits these methods:
+
+Method	Description
+add(E e)	Adds element if not already present
+addAll(Collection c)	Adds all elements from another collection
+remove(Object o)	Removes the element if present
+contains(Object o)	Checks if element exists
+isEmpty()	Checks if set is empty
+size()	Returns number of elements
+clear()	Removes all elements
+iterator()	Returns an iterator over the set
+
+most methods are the same across all Set implementations (HashSet, LinkedHashSet, TreeSet) because:
+✅ All of them implement the Set interface,
+which in turn extends the Collection interface, so they inherit all the common collection methods
+
+Then what's the difference between HashSet, LinkedHashSet, and TreeSet?
+They differ in how elements are stored and accessed, not what methods are available.
+
+Feature	             HashSet	                LinkedHashSet	                TreeSet
+Order	          ❌ Unordered	              ✅ Insertion Order	        ✅ Sorted Order
+Allows null	      ✅ Yes (1 null)	          ✅ Yes (1 null)	            ❌ No null allowed
+Performance	      ✅ Fastest	              Slightly slower	          Slowest (due to sorting)
+Duplicate Allowed	  ❌ No	                  ❌ No	                       ❌ No
+Backed By	      Hash table	              Hash table + LinkedList	   Red-Black Tree
+
+Example: Same Code Works Across Implementations
+Set<String> set = new HashSet<>();         // Try with LinkedHashSet or TreeSet
+set.add("C");
+set.add("A");
+set.add("B");
+set.add("A");  // Duplicate
+
+System.out.println("Set: " + set);
+
+-->With HashSet: [A, B, C] or any random order
+-->With LinkedHashSet: [C, A, B] (insertion order)
+-->With TreeSet: [A, B, C] (sorted)
+
