@@ -1,0 +1,19 @@
+A Map is an object that maps keys to values.
+Each key is unique, and each key maps to at most one value.
+
+It is not a subtype of Collection — it behaves differently from List or Set.
+
+Commonly Used Methods in Map
+Method	                       Description
+put(K key, V value)	         Adds or updates a key-value pair
+get(Object key)	             Returns the value for the given key
+remove(Object key)           Removes the mapping for a key
+containsKey(Object key)	     Checks if a key exists
+containsValue(Object value)	 Checks if a value exists
+isEmpty()	                 Checks if map is empty
+size()	                     Returns number of entries
+clear()	                     Removes all mappings
+keySet()	                 Returns a Set of keys
+values()	                 Returns a Collection of values
+entrySet()	                 Returns a Set of key-value pairs
+
