@@ -1,235 +1,363 @@
-1. What is the Java Collection Framework?
-✅ Definition:
-The Java Collection Framework is a set of classes and interfaces that help in storing and manipulating groups of data (objects). Instead of using arrays, collections are dynamic, more flexible, and come with many utility methods like sorting, searching, iteration, etc.
+✅ Q1. What is the Java Collections Framework?
+Java Collections Framework is a set of interfaces and classes for storing, manipulating, and accessing data efficiently.
+It includes List, Set, Queue, Map interfaces and their implementations like ArrayList, HashSet, HashMap, etc.
+It supports sorting, searching, synchronization, and thread-safe operations.
+Collections reduce coding effort and improve performance using reusable algorithms and data structures.
 
-✅ Key Features:
-Resizable (unlike arrays)
-Built-in methods for searching, sorting, etc.
-Works on objects (not primitives)
-Supports interfaces like List, Set, Map, Queue
+✅ Q2. What is the difference between Collection and Collections?
+Collection is an interface (part of java.util) for group of objects (List, Set, Queue).
+Collections is a utility class (in java.util.Collections) with static methods like sort(), reverse(), max(), etc.
+Collection<String> list = new ArrayList<>();
+Collections.sort(list);
 
--->List Interface
---------------------
-✅ Definition:
-The List interface is a part of the Java Collection Framework and is used to store ordered collections (elements are stored in insertion order).
-It allows duplicate elements and you can access elements using index.
-✅ Important Implementations of List:
-ArrayList
-LinkedList
-Vector
-Stack
+✅ Q3. What are the advantages of Collections Framework?
+Provides ready-to-use data structures.
+Ensures code reusability and maintainability.
+Supports thread-safe, sorted, and unique collections.
+Improves performance with well-tested algorithms.
+Reduces boilerplate code using utility methods from Collections class.
 
-List Interface Implementations – Full Comparison Table
-Feature	                   ArrayList	          LinkedList	     Vector	           Stack
-DC (Default Capacity)	     10	                    N/A 	          10	      Inherits from Vector
-IC (Initial Capacity)	   Can specify	       Can specify         size during add	Can specify	Same as Vector
-AD (Allow Duplicates)	     ✅ Yes	               ✅ Yes	         ✅ Yes	            ✅ Yes
-AN (Allow Null Values)	     ✅ Yes	               ✅ Yes	         ✅ Yes	            ✅ Yes
-IO (Insertion Order)	  ✅ Maintained	       ✅ Maintained	  ✅ Maintained	   ✅ Maintained
-SO (Sorted Order)	         ❌ No	               ❌ No	         ❌ No	             ❌ No
-RA (Random Access)	         ✅ Fast (O(1))	      ❌ Slow (O(n))	✅ Fast (O(1))	 ✅ Fast (O(1))
-SYNC (Synchronization)	     ❌ No	              ❌ No	            ✅ Yes	             ✅ Yes
-Thread-safe	                 ❌ No	              ❌ No	            ✅ Yes	             ✅ Yes
+✅ Q4. What are the main interfaces in the Collections Framework?
+List – Ordered, allows duplicates (ArrayList, LinkedList)
+Set – No duplicates, unordered (HashSet, TreeSet)
+Queue – FIFO structure (PriorityQueue, ArrayDeque)
+Map – Key-value pairs (HashMap, TreeMap)
+All extend from Collection, except Map.
 
-Basics :
-What is Java Collection  Framework?
------------------------------------
-Java Collection Framework is a  framework which provides some predefined classes and interfaces to store and manipulate the group of objects.
-Using Java collection framework, you can store the objects as a List or as a Set or as a Queue or as a Map and perform basic operations like adding,
-removing, updating, sorting, searching etc. with ease.
-Why Java Collection Framework?
------------------------------
-Earlier, arrays are used to store the group of objects. But, arrays are of fixed size. You can’t change the size of an array once it is defined.It causes
-lots of difficulties while handling the group of objects. To overcome this drawback of arrays, Java Collection Framework is introduced from JDK 1.2.
-Java Collections Hierarchy :
-----------------------------
-All the classes and interfaces related to Java collections are kept in "java.util package". List, Set, Queue and Map are four top level interfaces of Java
-collection framework. All these interfaces (except Map) are the sub interfaces of java.util.Collection interface.
-Let’s see these primary interfaces one by one.
-List :
-------
-Intro :
--------
--List is a sequential collection of objects.
--Elements are positioned using "zero-based" index.
--Elements can be inserted or removed or retrieved from any arbitrary position using an "integer index".
-Popular Implementations :
--------------------------
-ArrayList, Vector And LinkedList
-Internal Structure :
---------------------
-ArrayList   : Internally uses "re-sizable" array which grows or shrinks as we add or delete elements.
-Vector      : Same as ArrayList but it is "synchronized".
-LinkedList  : Elements are stored as "Nodes" where each node consists of three parts – Reference To Previous Element, Value Of The Element and Reference To Next Element.
-Null Elements :
---------------
-ArrayList  : Yes
-Vector     : Yes
-LinkedList : Yes
-Duplicate Elements :
---------------------
-ArrayList  : Yes
-Vector     : Yes
-LinkedList : Yes
-Order Of Elements :
--------------------
-ArrayList  : Insertion Order
-Vector     : Insertion Order
-LinkedList : Insertion Order
-Synchronization :
------------------
-ArrayList  : Not synchronized
-Vector     : Synchronized
-LinkedList : Not synchronized
-Performance :
-------------
-ArrayList  :
-                Insertion : O(1) (if insertion causes restructuring of internal array, it will be O(n))
-                Removal : O(1) (if removal causes restructuring of internal array, it will be O(n))
-                Retrieval : O(1)
-Vector     : Similar to ArrayList but little slower because of synchronization.
-LinkedList : Insertion -> O(1), Removal -> O(1), Retrieval -> O(n)
-When to use?
-------------
-ArrayList  : Use it when more search operations are needed then insertion and removal.
-Vector     : Use it when you need synchronized list.
-LinkedList : Use it when insertion and removal are needed frequently.
-Queue :
-------
-Intro :
-------
-Queue is a data structure where elements are added from one end called tail of the queue and elements are removed from another end called head of the queue.
-Queue is typically FIFO (First-In-First-Out) type of data structure.
-Popular Implementations :
--------------------------
-PriorityQueue, ArrayDeque and LinkedList (implements List also)
-Internal Structure :
---------------------
-PriorityQueue : It internally uses re-sizable array to store the elements and a Comparator to place the elements in some specific order.
-ArrayDeque    : It internally uses re-sizable array to store the elements.
-Null Elements :
----------------
-PriorityQueue : Not allowed
-ArrayDeque    : Not allowed
-Duplicate Elements :
---------------------
-PriorityQueue : Yes
-ArrayDeque    : Yes
-Order Of Elements :
--------------------
-PriorityQueue : Elements are placed according to supplied Comparator or in natural order if no Comparator is supplied.
-ArrayDeque    : Supports both LIFO and FIFO
-Synchronization :
------------------
-PriorityQueue : Not synchronized
-ArrayDeque    : Not synchronized
-Methods :
----------
-PriorityQueue : add(), offer(), remove(), poll(), element(), peek(), clear(), comparator(), iterator(), forEach(), contains(), spliterator()
-ArrayDeque    : add(), addAll(), addFirst(), addLast(), getFirst(), getLast(), offer(), offerFirst(), offerLast(), peek(), poll(), pop(), push(),
-                contains(), remove(), removeAll(), removeFirst(), removeFirstOccurrence(), removeLast(), removeLastOccurrence(), removeIf(), size(),
-                clear(), isEmpty(), iterator(), spliterator().
-Performance :
--------------
-PriorityQueue : Insertion -> O(log(n)), Removal -> O(log(n)), Retrieval -> O(1)
-ArrayDeque    : Insertion -> O(1) , Removal -> O(n), Retrieval -> O(1)
-When to use?
-------------
-PriorityQueue : Use it when you want a queue of elements placed in some specific order.
-ArrayDeque    : You can use it as a queue OR as a stack.
-Set :
------
-Intro :
--------
-Set is a linear collection of objects with no duplicates.
-Set interface does not have its own methods. All it’s methods are inherited from Collection interface.
-It just applies restriction on methods so that duplicate elements are always avoided.
-Popular Implementations :
--------------------------
-HashSet, LinkedHashSet and TreeSet
-Internal Structure :
---------------------
-HashSet       : Internally uses HashMap to store the elements.
-LinkedHashSet : Internally uses LinkedHashMap to store the elements.
-TreeSet       : Internally uses TreeMap to store the elements.
-Null Elements :
----------------
-HashSet       : Maximum one null element
-LinkedHashSet : Maximum one null element.
-TreeSet       : Doesn’t allow even a single null element
-Duplicate Elements :
---------------------
-HashSet       : Not allowed
-LinkedHashSet : Not allowed
-TreeSet       : Not allowed
-Order Of Elements :
--------------------
-HashSet       : No order
-LinkedHashSet : Insertion order
-TreeSet       : Elements are placed according to supplied Comparator or in natural order if no Comparator is supplied.
-Synchronization :
------------------
-HashSet       : Not synchronized
-LinkedHashSet : Not synchronized
-TreeSet       : Not synchronized
-Methods :
----------
-add(), addAll(), remove(), removeAll(), contains(), containsAll(), retainAll(), size(), clear(), isEmpty(), iterator(), spliterator(), toArray(), copyOf(), of()
-Performance :
--------------
-HashSet       : Insertion -> O(1), Removal -> O(1), Retrieval -> O(1)
-LinkedHashSet : Insertion -> O(1), Removal -> O(1), Retrieval -> O(1)
-TreeSet       : Insertion -> O(log(n)), Removal -> O(log(n)), Retrieval -> O(log(n))
-When to use?
-------------
-HashSet       : Use it when you want only unique elements without any order.
-LinkedHashSet : Use it when you want only unique elements in insertion order.
-TreeSet       : Use it when you want only unique elements in some specific order.
-Map :
------
-Intro :
--------
-Map stores the data in the form of key-value pairs where each key is associated with a value.
-Map interface is part of Java collection  framework, but it doesn’t inherit Collection interface.
-Popular Implementations :
--------------------------
-HashMap, LinkedHashMap And TreeMap
-Internal Structure :
---------------------
-HashMap       : It internally uses an array of buckets where each bucket internally uses linked list to hold the elements.
-LinkedHashMap : Same as HashMap but it additionally uses a doubly linked list to maintain insertion order of elements.
-TreeMap       : It internally uses Red-Black tree.
-Null Elements :
----------------
-HashMap       : Only one null key and can have multiple null values.
-LinkedHashMap : Only one null key and can have multiple null values.
-TreeMap       : Doesn’t allow even a single null key but can have multiple null values.
-Duplicate Elements :
---------------------
-HashMap       : Doesn’t allow duplicate keys but can have duplicate values.
-LinkedHashMap : Doesn’t allow duplicate keys but can have duplicate values.
-TreeMap       : Doesn’t allow duplicate keys but can have duplicate values.
-Order Of Elements :
--------------------
-HashMap       : No Order
-LinkedHashMap : Insertion Order
-TreeMap      \\\ : Elements are placed according to supplied Comparator or in natural order of keys if no Comparator is supplied.
-Synchronization :
------------------
-HashMap       : Not synchronized
-LinkedHashMap : Not Synchronized
-TreeMap       : Not Synchronized
-Methods :
----------
-put(), putAll(), putIfAbsent(), get(), getOrDefault(), remove(), containsKey(), containsValue(), keySet(), values(), entrySet(), size(), isEmpty(), clear(),
-compute(), computeIfAbsent(), computeIfPresent(), forEach(), merge(), replace(), replaceAll()
-Performance :
--------------
-HashMap       : Insertion -> O(1), Removal -> O(1), Retrieval -> O(1)
-LinkedHashMap : Insertion -> O(1), Removal -> O(1), Retrieval -> O(1)
-TreeMap       : Insertion -> O(log(n)), Removal -> O(log(n)), Retrieval -> O(log(n))
-When to use?
-------------
-HashMap       : Use it if you want only key-value pairs without any order.
-LinkedHashMap : Use it if you want key-value pairs in insertion order.
-TreeMap       : Use it when you want key-value pairs sorted in some specific order.
+✅ Q5. What is the difference between List, Set, and Map?
+List stores elements, allows duplicates, and maintains insertion order. It uses index-based access.
+Set stores unique elements, does not allow duplicates, and may or may not maintain order.
+Map stores key-value pairs, does not allow duplicate keys, and uses keys to access values.
+
+✅ Q6. What is the difference between Array and ArrayList in Java?
+An Array is a fixed-size data structure that can hold elements of a specific type.
+An ArrayList is a dynamic array from the Collections Framework that grows or shrinks automatically.
+Arrays can hold primitive types (e.g., int[]), while ArrayList holds objects (Integer, String, etc.).
+Arrays have better performance for fixed data size, but are less flexible.
+ArrayList provides many useful methods like add(), remove(), contains(), etc.
+Use ArrayList when you need dynamic resizing and built-in methods.
+
+✅ Q7. What is the difference between ArrayList and LinkedList?
+ArrayList uses a dynamic array, while LinkedList uses a doubly linked list internally.
+ArrayList provides fast random access using indexes but is slow at insertions/removals in the middle.
+LinkedList is faster for frequent insertions/deletions but slower in access by index.
+ArrayList is more memory-efficient; LinkedList has extra overhead for node pointers.
+Both allow duplicates and maintain insertion order.
+Choose based on access vs. modification needs.
+
+✅ Q8. How to remove duplicates from an ArrayList?
+Use a HashSet to automatically eliminate duplicates since it doesn’t allow repeated elements.
+List<Integer> list = Arrays.asList(1, 2, 2, 3);
+Set<Integer> set = new HashSet<>(list);
+List<Integer> uniqueList = new ArrayList<>(set);
+
+Alternatively, use Java 8 Streams:
+list.stream().distinct().collect(Collectors.toList());
+
+✅ Q9. What is Java PriorityQueue?
+PriorityQueue is a queue where elements are ordered based on their natural order or a provided comparator.
+It does not maintain insertion order, but keeps the smallest (or highest priority) element at the head.
+It is part of the java.util package and implements the Queue interface.
+It is not thread-safe and does not allow null elements.
+Common methods: add(), offer(), peek(), poll(), remove().
+Useful in scheduling, simulations, and algorithms like Dijkstra’s.
+
+✅ Q10. What is LinkedHashMap in Java?
+LinkedHashMap is a subclass of HashMap that maintains insertion order of key-value pairs.
+It stores elements in a doubly-linked list along with a hash table.
+It allows one null key and multiple null values.
+Good choice when you want predictable iteration order.
+Commonly used when caching or displaying data in the same order it was inserted.
+
+Map<Integer, String> map = new LinkedHashMap<>();
+
+✅ Q11. What is the difference between HashMap and Hashtable?
+HashMap is not synchronized, while Hashtable is synchronized, making it thread-safe but slower.
+HashMap allows one null key and multiple null values; Hashtable does not allow any null keys or values.
+HashMap is preferred in single-threaded or concurrent setups (with manual sync); Hashtable is outdated.
+HashMap was introduced in Java 1.2; Hashtable is from legacy Java 1.0.
+In modern applications, use HashMap with Collections.synchronizedMap() or use ConcurrentHashMap for thread safety.
+
+✅ Q12. What is EnumSet in Java?
+EnumSet is a specialized implementation of the Set interface designed specifically to work with enum types. It belongs to the java.util package and was introduced in Java 5 along with enums.
+Unlike general-purpose sets such as HashSet or TreeSet, EnumSet is optimized for enums, internally using a bit vector (bitmask) to represent the set elements. This implementation makes it very fast and memory-efficient compared to other Set implementations when dealing with enums.
+EnumSet stores enum elements in their natural order, which is the order in which the enum constants are declared. It does not allow null elements and only accepts elements of a single enum type, ensuring type safety.
+Commonly, EnumSet is used for representing a group of enum constants, for example, days of the week, states of a process, or feature flags. It supports methods like allOf(), noneOf(), of(), and range() to conveniently create sets of enum elements.
+Because it is not synchronized, EnumSet should be externally synchronized if used in multithreaded environments.
+In summary, EnumSet offers a clear, efficient, and type-safe way to work with sets of enums in Java.
+
+✅ Q13. what is  fail-fast and fail-safe iterator? What is the difference between fail-fast and fail-safe iterator?
+-->A fail-fast iterator immediately throws a ConcurrentModificationException if the collection is structurally modified after the iterator is created, except through the iterator's own methods (like remove()).
+Structural modifications include adding, removing, or changing elements in the collection.
+Fail-fast iterators do not allow concurrent modification during iteration.
+Examples: Iterators returned by ArrayList, HashSet, HashMap are fail-fast.
+
+USe:- Fail-Fast Iterator should be used when your application works in a single-threaded environment or when concurrent modifications are not expected during iteration. It helps in detecting programming errors early by throwing a ConcurrentModificationException if the collection is structurally modified while iterating. This behavior is useful to maintain data integrity and quickly identify unintended modifications.
+Fail-fast iterators are faster and use less memory since they operate directly on the original collection without creating copies.
+
+-->A fail-safe iterator allows concurrent modification of the collection while iterating without throwing exceptions.
+It works on a clone or a copy of the collection's data.
+Therefore, it is not affected by modifications to the original collection during iteration.
+However, changes made during iteration may not be reflected in the iterator.
+Examples: Iterators of CopyOnWriteArrayList, ConcurrentHashMap are fail-safe.
+
+Use:-Fail-Safe Iterator is suitable in multi-threaded or concurrent environments where multiple threads may modify the collection while another thread is iterating over it. Fail-safe iterators operate on a separate copy or snapshot of the collection’s data, allowing iteration without throwing exceptions. This ensures thread safety and prevents runtime errors caused by concurrent modifications.
+However, fail-safe iterators may not reflect the latest changes made to the collection after the iterator was created, so they provide eventual consistency rather than real-time consistency. They typically consume more memory and have a performance overhead due to copying the collection.
+
+✅ Q14. What are concurrent collection classes?
+Concurrent Collection Classes are a special set of collection implementations in Java designed to support safe and efficient access by multiple threads simultaneously. They belong to the java.util.concurrent package.
+Unlike regular collections (like ArrayList or HashMap), which are not thread-safe and can cause data inconsistency or runtime exceptions if accessed concurrently, concurrent collections provide built-in thread safety without requiring external synchronization.
+These classes use advanced techniques such as lock-free algorithms, fine-grained locking, or copy-on-write mechanisms to allow high concurrency with better performance.
+
+-->Examples of Concurrent Collection Classes:
+ConcurrentHashMap — A thread-safe hash map supporting full concurrency of retrievals and high expected concurrency for updates.
+CopyOnWriteArrayList — A thread-safe variant of ArrayList where all mutative operations (add, set, remove) are implemented by making a fresh copy of the underlying array.
+ConcurrentLinkedQueue — A thread-safe unbounded non-blocking queue based on linked nodes.
+BlockingQueue implementations (like ArrayBlockingQueue, LinkedBlockingQueue) — Thread-safe queues supporting operations that wait for the queue to become non-empty or non-full.
+
+-->Why Use Concurrent Collections?
+To avoid manual synchronization and reduce the risk of concurrency bugs.
+To improve scalability and performance in multi-threaded environments.
+To safely share and modify data structures between threads.
+
+✅ Q15. What is the difference between Enumeration and Iterator interface?
+In Java, both Enumeration and Iterator are used to traverse through elements of a collection, but they differ in features, usage, and purpose.
+Enumeration is a legacy interface introduced in Java 1.0 and is used mainly with older collection classes like Vector and Hashtable. It provides only two methods: hasMoreElements() and nextElement(), which support read-only traversal of elements.
+Iterator, introduced in Java 2 (Java Collections Framework), is more powerful and widely used. It provides methods like hasNext(), next(), and remove(), allowing both traversal and removal of elements during iteration. It also supports fail-fast behavior by throwing ConcurrentModificationException if the collection is structurally modified during iteration (except through the iterator itself).
+In summary, Enumeration is for legacy use and read-only traversal, while Iterator is used in modern Java collections and supports element removal and concurrent modification detection.
+
+✅ Q16. What are Generics and why are they used in Collections?
+Generics in Java allow you to write type-safe and reusable code by enabling classes, interfaces, and methods to operate on objects of a specified type. Generics were introduced in Java 5 as part of the Java Collections Framework to provide compile-time type checking and eliminate the need for type casting.
+In collections, generics ensure that you store and retrieve elements of a specific type, reducing runtime errors like ClassCastException. For example, List<String> only allows String objects, preventing accidental addition of other types.
+
+Why Use Generics in Collections?
+-->Type safety – Ensures only the specified type of elements are added to the collection.
+-->No casting required – Eliminates the need for manual type casting when retrieving elements.
+-->Compile-time checking – Catches type-related errors early at compile time instead of at runtime.
+-->Code reusability – Generic classes and methods can be reused with different data types.
+-->Improved readability – Makes code more readable and self-documenting.
+
+✅ Q17. What is the default capacity of ArrayList, Vector, HashMap, Hashtable, and HashSet?
+1. ArrayList
+Initial (default) capacity: 10
+Growth policy:
+When full, capacity increases by 50% of the current size.
+Formula: new capacity = old capacity + (old capacity >> 1)
+Example: 10 → 15 → 22 → 33 → ...
+Resizable? Yes, internally resizes the array.
+
+2. Vector
+Initial (default) capacity: 10
+Growth policy:
+When full, capacity doubles.
+Formula: new capacity = old capacity * 2
+Example: 10 → 20 → 40 → 80 → ...
+Thread-safe? Yes (synchronized).
+Resizable? Yes, via dynamic resizing.
+
+3. HashMap
+Initial (default) capacity: 16
+Default load factor: 0.75
+Resize policy:
+Resizes when the number of entries exceeds capacity * load factor.
+E.g., when size exceeds 16 * 0.75 = 12, it resizes.
+Growth pattern:
+Capacity doubles: 16 → 32 → 64 → 128 → ...
+Internally uses: Array of buckets and linked list/tree (after Java 8).
+
+4. Hashtable
+Initial (default) capacity: 11
+Default load factor: 0.75
+Growth policy:
+Capacity grows to (old capacity * 2) + 1
+Example: 11 → 23 → 47 → ...
+Thread-safe? Yes (synchronized).
+Resizable? Yes, when threshold is crossed.
+
+5. HashSet
+Initial (default) capacity: 16
+Default load factor: 0.75
+Resize behavior:
+Same as HashMap since it uses HashMap internally.
+Resizes when size exceeds 16 * 0.75 = 12.
+Growth pattern: 16 → 32 → 64 → ...
+
+6. LinkedHashMap
+Initial capacity: 16
+Load factor: 0.75
+Resize policy: Same as HashMap (doubles when threshold is crossed).
+Extra feature: Maintains insertion/access order.
+
+7. TreeMap
+Capacity concept: Doesn’t have fixed initial capacity.
+Internals: Backed by a Red-Black Tree.
+Ordering: Sorted by natural order or custom comparator.
+Resizable? Grows with number of elements (log(n) performance).
+
+8. LinkedList
+Capacity concept: No fixed capacity — grows as elements are added.
+Internals: Doubly linked list.
+Resizable? Yes, grows linearly as elements are added.
+
+9. CopyOnWriteArrayList (concurrent class)
+Initial capacity: 10
+Resize policy:
+Copies the entire array to a new one when modified.
+Performance: Good for read-heavy use cases, bad for frequent writes.
+
+10. ConcurrentHashMap
+Initial capacity: 16
+Default load factor: 0.75
+Resize policy: Same as HashMap (but thread-safe and more granular).
+Internals: Buckets are split into segments (Java 7) or nodes/trees (Java 8+).
+
+✅18 What is the difference between HashMap and ConcurrentHashMap?
+HashMap is not thread-safe, and if multiple threads access it concurrently with at least one modifying the map, it may lead to data inconsistency.
+ConcurrentHashMap is thread-safe and allows concurrent reads and controlled writes without locking the entire map.
+Internally, ConcurrentHashMap uses bucket-level or segment-level locking in Java 7, and CAS operations and synchronized blocks in Java 8+.
+HashMap allows null keys and values; ConcurrentHashMap does not allow null keys or null values.
+Use ConcurrentHashMap in multithreaded environments instead of using Collections.synchronizedMap().
+
+✅ 19 Why are hashCode() and equals() important in collections?
+Both hashCode() and equals() are used by hash-based collections like HashMap, HashSet, and Hashtable.
+hashCode() determines the bucket(index) where the element will be stored.
+equals() is used to check for equality when keys collide (i.e., same hash code).
+If only equals() is overridden and not hashCode(), collections may fail to locate or store items properly.
+It’s a contract: equal objects must have the same hash code to behave correctly in hash-based collections.
+
+✅ 20 Can we store a null key or null value in HashMap? What happens?
+Yes, HashMap allows one null key and multiple null values.
+The null key is always stored at index 0 (if hash is 0) in the bucket array.
+During retrieval, if the key is null, it directly checks the null key’s bucket.
+Storing multiple null keys will replace the existing one.
+Note: Hashtable and ConcurrentHashMap do not allow null keys or values.
+
+✅ 21 What is the difference between HashMap and TreeMap?
+HashMap stores entries in no specific order, while TreeMap stores them in sorted (ascending) order based on keys.
+TreeMap implements the NavigableMap and SortedMap interfaces; HashMap does not.
+TreeMap is backed by a Red-Black tree, so operations are O(log n); HashMap is backed by a hash table with O(1) average time.
+TreeMap does not allow null keys, but HashMap allows one null key.
+Use TreeMap when you need sorted key traversal.
+
+✅ 22 What is load factor and how does it affect performance?
+The load factor in a hash-based collection (like HashMap) defines the threshold for resizing the underlying bucket array.
+Default value is 0.75, meaning when 75% of the capacity is filled, the map resizes.
+A lower load factor reduces collisions but increases memory usage.
+A higher load factor saves memory but increases the chance of collisions, reducing performance.
+Balancing load factor is important for optimal memory and performance trade-offs.
+
+✅ 23 What is rehashing in HashMap and when does it occur?
+Rehashing is the process of resizing the bucket array and recalculating hash codes for existing keys.
+It occurs when the number of entries exceeds the capacity × load factor threshold.
+During rehashing, all entries are moved to a new array of larger size, usually double the old one.
+This improves lookup performance but is a costly operation.
+Frequent rehashing can slow down performance if not planned properly (e.g., by setting initial capacity).
+
+✅ 24 Why is String a good key for HashMap?
+String is immutable and overrides both hashCode() and equals() effectively.
+Its immutability ensures that once a string is created, its hash code remains constant, avoiding key corruption.
+Its hashCode() implementation is well-distributed, reducing chances of collision.
+Strings are commonly used and easy to compare, making them reliable and predictable for keys.
+This is why String is often used for keys in configuration, properties, and user data.
+
+✅ 25 How does ConcurrentHashMap avoid locking the whole map?
+ConcurrentHashMap avoids full map locking by using fine-grained locking or lock-free techniques.
+In Java 7, it used segment-level locking, allowing concurrent access to multiple segments.
+In Java 8+, it uses CAS (Compare-And-Swap) and synchronized blocks at bucket level.
+This allows high concurrency for read/write operations.
+Only the specific bucket or node is locked/updated, not the entire map.
+
+✅ 26 Can the size of HashSet grow dynamically? How?
+Yes, HashSet grows dynamically as more elements are added.
+Internally, it uses a HashMap, and the underlying array resizes just like in a HashMap.
+When the number of elements exceeds the capacity × load factor, it resizes (rehashing).
+Initial capacity is 16 and load factor is 0.75 by default.
+Resizing helps maintain constant-time performance for add, remove, and contains operations.
+
+✅ 27 What is the internal structure of TreeMap?
+TreeMap is implemented using a Red-Black Tree, a self-balancing binary search tree.
+It stores keys in sorted order, either natural (Comparable) or based on a custom comparator.
+All key-based operations like put(), get(), and remove() have O(log n) time complexity.
+It does not allow null keys but can store multiple null values.
+Useful when you need a sorted map with range-based operations like subMap(), headMap(), or tailMap().
+
+✅ 27 What will be the problem if you do not override hashCode() method?
+If you override equals() but not hashCode(), hash-based collections like HashMap or HashSet will not work correctly.
+The object may not be found during retrieval, even if it exists.
+It can lead to duplicate entries or incorrect behavior.
+This breaks the general contract: equal objects must have equal hash codes.
+Always override hashCode() when equals() is overridden.
+
+✅ 28. What is the benefit of Generics in Collections Framework?
+Generics provide compile-time type safety and eliminate the need for casting.
+They ensure that only the specified type of objects can be stored in the collection.
+This reduces ClassCastException and makes code cleaner and more readable.
+For example, List<String> ensures only String elements are stored.
+Generics also improve code reusability and IDE auto-completion.
+
+✅ 29 What is WeakHashMap? How does it work in Java?
+WeakHashMap is a special Map implementation where keys are weakly referenced.
+This means if no strong references to a key exist elsewhere in the app, it can be garbage collected, even if it's still in the map.
+Internally, it uses java.lang.ref.WeakReference for keys.
+When the key is garbage collected, the entry is automatically removed from the map.
+It’s commonly used in caching, where memory-sensitive keys can be cleaned up to save space.
+
+✅ 30 How to make an ArrayList read-only in Java?
+Use Collections.unmodifiableList(yourList) to get a read-only (immutable) view of the ArrayList.
+Any attempt to modify this list (add, remove, clear) will throw an UnsupportedOperationException.
+The original list can still be modified, but the unmodifiable view prevents accidental changes through it.
+This is useful to protect data when passing collections to other parts of a program.
+
+Example:
+List<String> readOnlyList = Collections.unmodifiableList(originalList);
+
+✅ 31 Why ConcurrentHashMap is faster than Hashtable in Java?
+ConcurrentHashMap uses lock striping (locks on smaller segments), allowing multiple threads to read/write concurrently.
+Hashtable uses a single lock on the entire map, causing thread contention and slower performance.
+ConcurrentHashMap supports concurrent reads without locking, increasing throughput.
+It also avoids blocking the entire map for write operations.
+Hence, ConcurrentHashMap is more efficient for high-concurrency environments.
+
+✅ 32 What is the difference between peek(), poll(), and remove() methods of the Queue interface?
+peek() returns the head element without removing it; returns null if the queue is empty.
+poll() retrieves and removes the head element; returns null if empty.
+remove() also removes the head element but throws NoSuchElementException if empty.
+Use peek() to check the head safely, poll() to retrieve and remove safely, and remove() when you want an exception on empty queue.
+These methods help manage queue elements safely with different behaviors on empty queues.
+
+✅ 33 How HashMap works in Java?
+HashMap stores key-value pairs in an array of buckets, where each bucket is a linked list or tree (after Java 8).
+It computes a hash code from the key to find the bucket index.
+If multiple keys map to the same bucket (collision), entries are stored in a linked list or balanced tree.
+On retrieval, it uses the hash code and equals() to find the exact key.
+The map resizes and rehashes entries when the load factor (default 0.75) is exceeded to maintain performance.
+
+✅ 34 How does HashMap handle collisions in Java?
+Collisions happen when different keys have the same hash bucket index.
+Before Java 8, collisions were handled by storing entries in a linked list inside that bucket.
+From Java 8 onward, if the number of elements in a bucket exceeds a threshold (usually 8), the linked list is replaced by a balanced tree (Red-Black Tree) for faster access.
+This improves worst-case performance from O(n) to O(log n) for collision-heavy buckets.
+Properly overriding hashCode() and equals() helps reduce collisions.
+
+✅ 35 What is Comparable and Comparator Interface in Java?
+Comparable defines natural ordering for objects by implementing the compareTo() method inside the class.
+Comparator is used for custom ordering by creating separate classes or lambda expressions that implement compare().
+Comparable allows only one sorting logic per class; Comparator allows multiple sorting sequences.
+Both interfaces are used by sorting methods like Collections.sort() or Arrays.sort().
+Use Comparable for default sorting and Comparator for alternate/custom sorting.
+
+✅ 36 Difference between containsKey(), keySet() and values() in HashMap
+containsKey(key) checks if a specific key is present; returns true or false.
+keySet() returns a Set view of all keys in the map.
+values() returns a Collection view of all values in the map.
+containsKey() is used to test presence; keySet() and values() are used to iterate keys and values.
+These methods help access and manipulate the contents of a HashMap.
+
+
+
+
+
+
+
+
+
