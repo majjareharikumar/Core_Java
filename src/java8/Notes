@@ -1,0 +1,562 @@
+Q1. What are the main features introduced in Java 8?
+Answer:
+Java 8 introduced powerful features aimed at writing cleaner, more functional code:
+Lambda Expressions
+Functional Interfaces
+Stream API
+Default & Static methods in interfaces
+java.time (new Date/Time API)
+Optional class
+These features help improve performance, parallelism, and code readability.
+
+Q2. What is a Lambda Expression?
+Answer:
+A Lambda Expression is a short block of code that takes in parameters and returns a value, used to implement functional interfaces.
+It allows us to write short and clear code without creating a separate method or class.
+Syntax:
+(parameter) -> { body }
+Example:
+List<Integer> list = Arrays.asList(1, 2, 3);
+list.forEach(n -> System.out.println(n));
+
+Q3. What is a Functional Interface?
+Answer:
+A functional interface has only one abstract method.
+It can have multiple default or static methods.
+They are the basis for lambda expressions.
+Annotated with @FunctionalInterface to indicate intention.
+
+Example:
+@FunctionalInterface
+interface MyFunc { void sayHello(); }
+
+Q4. What is the Stream API?
+Answer:
+The Stream API processes sequences of data using functional-style operations like map(), filter(), reduce(), etc.
+It does not store data, and it is lazy, meaning operations are performed only when needed.
+You can chain operations to create powerful data transformations.
+
+Example:
+List<String> names = list.stream().filter(n -> n.startsWith("A")).collect(Collectors.toList());
+
+Q5.What is map() and flatMap()? in java 8 & What is the difference between map() and flatMap()?
+map() is a method in Java 8 Stream API used to transform each element of a stream by applying a function.
+It returns a new stream with the same number of elements, each transformed individually.
+
+👉 Think of it as: one input → one output
+
+Example:
+List<String> names = List.of("john", "smith");
+List<String> upper = names.stream()
+                          .map(String::toUpperCase)
+                          .collect(Collectors.toList());
+// Output: ["JOHN", "SMITH"]
+
+🔹 What is flatMap() in Java 8?
+flatMap() is used to flatten and transform a stream of collections (like List of Lists).
+It combines multiple streams into one single stream after applying the transformation.
+
+👉 Think of it as: one input → many outputs (flattened into one stream)
+
+Example:
+List<List<String>> namesList = List.of(
+    List.of("john", "doe"),
+    List.of("smith", "jane")
+);
+
+List<String> flatList = namesList.stream()
+                                 .flatMap(List::stream)
+                                 .collect(Collectors.toList());
+// Output: ["john", "doe", "smith", "jane"]
+
+🔸 Difference Between map() and flatMap()
+Feature	             map()	              flatMap()
+Transformation	One-to-one	        One-to-many (then flattened)
+Output Type	   Stream of values	    Flattened single stream of all values
+Used With	     Simple objects	    Nested structures like List of Lists
+Flattening	  ❌ Does not flatten	✅ Flattens the stream
+
+Q6. What is the Optional class in Java 8?
+Optional is a container class introduced in Java 8 to handle null values safely.
+It helps avoid NullPointerException by forcing developers to explicitly deal with missing values.
+You can create an Optional using Optional.of(), Optional.ofNullable(), or Optional.empty().
+It provides useful methods like isPresent(), ifPresent(), orElse(), orElseGet(), and orElseThrow().
+
+✅ Example:
+Optional<String> name = Optional.ofNullable(getName());
+name.ifPresent(n -> System.out.println(n)); // prints if value is present
+This avoids null checks manually and promotes safer, cleaner code.
+
+🔹 Q7. What are default and static methods in interfaces?
+Before Java 8, interfaces could only have abstract methods.
+Java 8 introduced:
+Default methods to provide a common implementation within interfaces.
+Static methods that belong to the interface itself and can be called without an object.
+Default methods allow backward compatibility, so old interfaces can evolve without breaking classes.
+
+✅ Example:
+interface MyInt {
+  default void show() { System.out.println("Default method"); }
+  static void print() { System.out.println("Static method"); }
+}
+Default methods can be overridden; static methods can’t.
+
+🔹 Q8. What is method reference in Java 8?
+Method references (::) are a shorter way to call methods via lambdas when no logic needs to be added.
+They improve readability and reduce boilerplate code.
+Types:
+Reference to a static method: ClassName::staticMethod
+Reference to an instance method: object::instanceMethod
+Reference to constructor: ClassName::new
+
+✅ Example:
+List<String> list = Arrays.asList("A", "B");
+list.forEach(System.out::println); // same as list.forEach(s -> System.out.println(s));
+
+🔹 Q9. What is the difference between findFirst() and findAny()?
+Both methods are terminal operations in Stream API and return an Optional.
+findFirst() returns the first element of the stream — deterministic and order-preserving.
+findAny() may return any element, and is faster for parallel streams.
+Use findFirst() when order matters, and findAny() when performance is preferred over order.
+
+✅ Example:
+list.stream().findFirst();         // Always returns first
+list.parallelStream().findAny();   // May return any element
+
+🔹 Q10. How does Java 8 improve Date and Time handling?
+Java 8 introduced a new java.time package that solves many problems of the old Date and Calendar classes.
+It provides clear, immutable, and thread-safe classes like LocalDate, LocalTime, LocalDateTime, and ZonedDateTime.
+These APIs support ISO and timezone handling, and formatting/parsing.
+Arithmetic operations like adding days or months are simple and intuitive.
+
+✅ Example:
+LocalDate today = LocalDate.now();
+System.out.println(today.plusDays(5)); // Adds 5 days to current date
+
+Q11. What is the difference between orElse() and orElseGet() in Optional?
+Both methods provide a fallback value if the Optional is empty:
+orElse(value) always evaluates the value, even if it's not used.
+orElseGet(Supplier) executes only if needed, so it's more efficient for expensive operations.
+Use orElse() for static or cheap values, and orElseGet() for dynamic or costly values.
+
+✅ Example:
+String name = Optional.ofNullable(null)
+                      .orElseGet(() -> getDefault()); // getDefault() called only if null
+
+🔹 Q12. What is a predicate in Java 8?
+A Predicate is a functional interface from java.util.function package.
+It represents a boolean-valued function (i.e., it tests a condition).
+It’s often used with filter() in streams and supports and(), or(), negate() for chaining logic.
+It has the method:
+boolean test(T t);
+✅ Example:
+Predicate<String> isLong = s -> s.length() > 5;
+System.out.println(isLong.test("HelloWorld")); // true
+
+🔹 Q13. What are some common functional interfaces in Java 8?
+Java 8 provides many built-in functional interfaces in the java.util.function package:
+Predicate<T> – returns boolean
+Function<T, R> – converts T to R
+Consumer<T> – accepts T, returns nothing
+Supplier<T> – provides a value of type T
+BiFunction<T,U,R>, BiPredicate<T,U>, etc.
+These are heavily used in lambda expressions and Stream API operations.
+
+✅ Example:
+Consumer<String> printer = s -> System.out.println(s);
+printer.accept("Hello");
+
+🔹 Q14. What is the reduce() method in Stream API?
+reduce() is a terminal operation that combines elements of a stream into a single result.
+It takes a BinaryOperator or initial identity value and applies it repeatedly to elements.
+It’s useful for sum, product, concatenation, etc.
+✅ Example:
+int sum = Arrays.asList(1, 2, 3).stream().reduce(0, (a, b) -> a + b); // sum = 6
+If no identity is given, it returns an Optional.
+
+🔹 Q15. What are the advantages of using Stream API?
+Stream API enables functional-style operations on collections with better readability and less code.
+It supports lazy evaluation, making it memory and performance efficient.
+It simplifies data transformation using map, filter, and reduce.
+It also supports easy parallel processing using .parallelStream().
+✅ Example:
+List<String> result = names.stream().filter(n -> n.startsWith("A")).collect(Collectors.toList());
+
+Q16. What is the use of peek() in Stream API?
+peek() is an intermediate operation used mainly for debugging or performing side-effects.
+It lets you look at each element in the stream as it flows through, without modifying the stream.
+Since it doesn't terminate the stream, it must be followed by a terminal operation like collect() or forEach().
+It’s often used for logging or inspecting data during processing.
+
+✅ Example:
+list.stream()
+    .peek(e -> System.out.println("Processing: " + e))
+    .filter(e -> e.startsWith("A"))
+    .collect(Collectors.toList());
+
+🔹 Q17. What is the difference between map() and flatMap() in Java 8?
+map() transforms each element into another object (one-to-one mapping).
+flatMap() is used when each element can be transformed into multiple elements or streams (one-to-many).
+flatMap() flattens nested structures like List<List<T>> into a single List<T>.
+Use flatMap() when dealing with nested collections or Optional streams.
+
+✅ Example:
+List<String> words = Arrays.asList("a b", "c d");
+words.stream()
+     .flatMap(w -> Arrays.stream(w.split(" ")))
+     .forEach(System.out::println);  // a, b, c, d
+
+🔹 Q18. What is a functional interface?
+A functional interface is an interface with exactly one abstract method.
+It can have multiple default or static methods, but only one abstract method.
+Functional interfaces are used as the target types for lambda expressions and method references.
+Common examples include Runnable, Callable, Predicate, and Function.
+
+✅ Example:
+@FunctionalInterface
+interface MyFunc {
+    void show();
+}
+
+🔹 Q19. What is the difference between Collection and Stream API?
+Collection stores data in memory and represents a data structure like List or Set.
+Stream is a pipeline to process data from a Collection in a functional style.
+Collection is eager (data is fetched/stored), whereas Stream is lazy (data is processed when needed).
+Streams don’t store elements; they transform and filter them on-the-fly.
+
+✅ Example:
+List<String> list = Arrays.asList("A", "B");
+list.stream().map(String::toLowerCase).forEach(System.out::println);
+
+🔹 Q20. How does Collectors.toList(), toSet(), and joining() work?
+These are collector utilities used to collect stream results into collections or strings:
+toList() collects elements into a List
+toSet() collects elements into a Set
+joining(delimiter) combines elements into a single String with a delimiter
+
+✅ Example:
+List<String> names = list.stream().collect(Collectors.toList());
+String joined = list.stream().collect(Collectors.joining(", "));
+
+Q21. What is the Stream.of() method?
+Stream.of() is a static method used to create a sequential stream from given values or an array.
+It’s useful for quick testing or creating a small data pipeline without needing a collection.
+The returned stream can be processed using standard Stream operations like map(), filter(), etc.
+It’s part of java.util.stream.Stream.
+
+✅ Example:
+Stream.of("Java", "Python", "C++")
+      .filter(lang -> lang.contains("a"))
+      .forEach(System.out::println);
+
+🔹 Q22. What is IntStream, LongStream, and DoubleStream in Java 8?
+Java 8 provides primitive specializations of Stream API for better performance:
+IntStream, LongStream, and DoubleStream deal with int, long, and double primitives.
+They avoid autoboxing overhead and support methods like sum(), average(), range(), etc.
+These are in java.util.stream package.
+
+✅ Example:
+IntStream.range(1, 5).forEach(System.out::print); // prints 1234
+
+🔹 Q23. What is the purpose of the limit() and skip() methods in Stream?
+limit(n) is used to restrict the number of elements in the stream to the first n.
+skip(n) is used to ignore the first n elements of the stream.
+Both are intermediate operations and are useful for pagination, batching, or slicing data.
+
+✅ Example:
+list.stream()
+    .skip(2)
+    .limit(3)
+    .forEach(System.out::println);  // skips first 2, prints next 3
+
+
+🔹 Q24. What is the difference between Stream.iterate() and Stream.generate()?
+Stream.iterate(seed, UnaryOperator) creates an infinite stream by applying a function repeatedly.
+Stream.generate(Supplier) creates an infinite stream of random or constant values.
+Both need to be limited using limit() to prevent infinite processing.
+
+✅ Example:
+
+Stream.iterate(1, n -> n + 2).limit(5).forEach(System.out::println);  // 1 3 5 7 9
+Stream.generate(Math::random).limit(3).forEach(System.out::println); // 3 random numbers
+
+🔹 Q25. What is Collectors.groupingBy() in Java 8?
+Collectors.groupingBy() is used to group elements of a stream based on a classifier function.
+It returns a Map<K, List<T>>, where K is the group key and T is the original stream element.
+It’s a powerful tool for grouping and summarizing data.
+
+✅ Example:
+Map<String, List<String>> grouped = names.stream()
+    .collect(Collectors.groupingBy(name -> name.substring(0, 1)));
+
+Q26. What is Collectors.partitioningBy() in Java 8?
+partitioningBy() is a special type of grouping that splits data into two groups: true and false.
+It takes a Predicate and returns a Map<Boolean, List<T>>.
+Useful when you want to divide elements into two categories based on a condition.
+
+✅ Example:
+Map<Boolean, List<Integer>> partitioned =
+    numbers.stream().collect(Collectors.partitioningBy(n -> n % 2 == 0));
+System.out.println(partitioned.get(true));  // Even numbers
+System.out.println(partitioned.get(false)); // Odd numbers
+
+🔹 Q27. What is the difference between forEach() and forEachOrdered()?
+forEach() processes elements in any order, especially when used with parallelStream().
+forEachOrdered() maintains the encounter order of elements, even in parallel streams.
+Use forEachOrdered() when output order is important.
+
+✅ Example:
+list.parallelStream().forEach(System.out::print);        // may be unordered
+list.parallelStream().forEachOrdered(System.out::print); // ordered output
+
+
+🔹 Q28. What is the use of Optional.map() and flatMap()?
+map() is used to transform the value inside Optional if present.
+flatMap() is used when the transformation also returns an Optional, avoiding nested Optionals.
+They make chaining Optional operations clean and null-safe.
+
+✅ Example:
+Optional<String> name = Optional.of("Hari");
+Optional<Integer> length = name.map(String::length); // Optional[4]
+
+🔹 Q29. Can we create an infinite stream in Java 8?
+Yes, Java 8 supports infinite streams using Stream.generate() or Stream.iterate().
+These streams must be bounded with limit(), otherwise they can lead to infinite processing.
+Useful for generating random values, sequences, or simulation data.
+
+✅ Example:
+Stream.generate(() -> "Hello").limit(3).forEach(System.out::println); // prints Hello 3 times
+
+🔹 Q30. What is the use of distinct() method in Stream API?
+The distinct() method removes duplicate elements from a stream.
+It uses equals() to compare elements, so custom objects should override equals() and hashCode().
+It’s an intermediate operation and returns a stream with unique elements.
+
+✅ Example:
+Stream.of(1, 2, 2, 3, 3).distinct().forEach(System.out::println); // 1 2 3
+
+Q31. What is the takeWhile() method in Java 9? (For awareness in Java 8 context)
+Even though takeWhile() was added in Java 9, it’s often asked to check Java 8 knowledge boundaries.
+takeWhile() processes elements until the condition fails and then stops.
+This avoids full iteration and helps improve performance in ordered streams.
+Not available in Java 8, but you can implement similar logic manually using filter() and flags.
+
+✅ Example (Java 9+):
+Stream.of(1, 2, 3, 4, 5, 0).takeWhile(n -> n < 4).forEach(System.out::println); // 1 2 3
+
+🔹 Q32. How do you sort a collection using Stream API?
+You can sort a stream using sorted() method.
+It can work with natural order or custom Comparator.
+sorted() returns a new sorted stream without changing the original list.
+
+✅ Example:
+list.stream()
+    .sorted() // natural order
+    .forEach(System.out::println);
+
+list.stream()
+    .sorted(Comparator.reverseOrder()) // custom order
+    .forEach(System.out::println);
+
+
+🔹 Q33. Can we perform parallel processing in Java 8 Streams?
+Yes, Java 8 introduced parallelStream() to support parallelism using multiple threads.
+It splits data and processes chunks in parallel, improving performance on large data.
+Use it carefully when order doesn’t matter or with thread-safe operations.
+Avoid shared mutable state to prevent bugs.
+
+✅ Example:
+list.parallelStream().forEach(System.out::println);
+
+🔹 Q34. What is the use of anyMatch(), allMatch(), and noneMatch()?
+These methods are used to check conditions on elements in a stream:
+anyMatch() returns true if at least one element matches the condition.
+allMatch() returns true if all elements match the condition.
+noneMatch() returns true if no elements match the condition.
+
+✅ Example:
+boolean hasEven = list.stream().anyMatch(n -> n % 2 == 0);
+
+🔹 Q35. What is Collectors.toMap() in Java 8?
+toMap() is used to collect stream elements into a Map.
+You need to provide keyMapper and valueMapper functions.
+In case of duplicate keys, it throws an exception unless you handle with a merge function.
+
+✅ Example:
+Map<String, Integer> map =
+    list.stream().collect(Collectors.toMap(
+        s -> s,             // key
+        s -> s.length()     // value
+    ));
+
+Q36. What is Collectors.counting() in Java 8?
+Collectors.counting() is a collector used to count the number of elements in a stream.
+It acts as a terminal operation that returns a Long value.
+This is especially useful when combined with groupingBy() for grouped counts.
+
+✅ Example:
+long count = list.stream().collect(Collectors.counting());
+
+Map<String, Long> countByName = list.stream()
+    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+
+🔹 Q37. How do you convert a list to a map using Java 8 Streams?
+Use Collectors.toMap() by providing a key extractor and value extractor function.
+Make sure keys are unique, or handle duplicates using a merge function.
+This is a common task in data transformation using streams.
+
+✅ Example:
+Map<Integer, String> map = employees.stream()
+    .collect(Collectors.toMap(
+        emp -> emp.getId(),
+        emp -> emp.getName()
+    ));
+
+🔹 Q38. How do you remove null values from a list using Streams?
+Use filter() method to exclude null values while processing the stream.
+This is a clean and efficient way to avoid NullPointerException.
+Java 8’s functional style makes this operation concise and readable.
+
+✅ Example:
+List<String> result = list.stream()
+    .filter(Objects::nonNull)
+    .collect(Collectors.toList());
+
+
+🔹 Q39. How can you find the max or min value in a stream?
+You can use max() and min() with a Comparator to get the largest or smallest element.
+These methods return an Optional to safely handle empty streams.
+Useful in analytics, ranking, and data comparison.
+
+✅ Example:
+Optional<Integer> max = list.stream().max(Integer::compareTo);
+Optional<Integer> min = list.stream().min(Integer::compareTo);
+
+🔹 Q40. How can you convert a stream to an array?
+Use the toArray() terminal operation.
+You can also provide a generator function like String[]::new to get a typed array.
+This is useful when you need array-based processing after stream operations.
+
+✅ Example:
+String[] names = list.stream().toArray(String[]::new);
+
+Q41. How can you filter a Map using Java 8?
+To filter a Map, convert it into a Stream using entrySet().stream() and apply filter().
+Then collect the result back into a Map using Collectors.toMap().
+This is useful for selecting specific entries based on keys or values.
+
+✅ Example:
+Map<String, Integer> filtered = map.entrySet().stream()
+    .filter(e -> e.getValue() > 50)
+    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+
+🔹 Q42. How can you merge two lists in Java 8?
+Use Stream.concat() to combine two streams and collect the result into a list.
+This is a clean way to merge collections functionally.
+You can also apply distinct() if you want to remove duplicates.
+
+✅ Example:
+List<String> merged = Stream.concat(list1.stream(), list2.stream())
+    .collect(Collectors.toList());
+
+🔹 Q43. What is the use of peek() in Java 8 Stream?
+peek() is an intermediate operation used for debugging or logging stream elements.
+It doesn’t modify the stream but allows you to look at elements as they flow through the pipeline.
+Avoid using peek() for modifying data — it should only be used for inspection.
+
+✅ Example:
+list.stream()
+    .peek(e -> System.out.println("Processing: " + e))
+    .filter(e -> e.startsWith("J"))
+    .collect(Collectors.toList());
+
+🔹 Q44. What is the difference between map() and flatMap()?
+map() transforms each element and wraps it, returning a Stream<Stream<T>> in nested cases.
+flatMap() flattens nested structures into a single stream, returning Stream<T>.
+Use flatMap() when you deal with List<List<T>>, Optional<Optional<T>>, etc.
+
+✅ Example:
+list.stream()
+    .map(String::toUpperCase); // Stream<String>
+
+nestedList.stream()
+    .flatMap(List::stream);    // Stream<String> from Stream<List<String>>
+
+🔹 Q45. What are terminal and intermediate operations in streams?
+Intermediate operations (like map(), filter(), sorted()) return a new stream. They are lazy and only executed when a terminal operation is called.
+Terminal operations (like collect(), forEach(), count()) trigger stream processing and return a result or side effect.
+Without a terminal operation, intermediate steps are never executed.
+
+✅ Example:
+long count = list.stream()
+    .filter(e -> e.length() > 3) // intermediate
+    .count();                    // terminal
+
+Q46. How can you convert a list of objects into a map using Java 8?
+You can use Collectors.toMap() to convert a list of objects into a Map.
+Provide key and value mapping logic, often using object fields.
+Be sure to handle duplicate keys with a merge function, if needed.
+
+✅ Example:
+Map<Integer, String> empMap = employeeList.stream()
+    .collect(Collectors.toMap(
+        Employee::getId,
+        Employee::getName
+    ));
+
+🔹 Q47. What is the difference between Stream.of() and Arrays.stream()?
+Stream.of() can take any number of individual values or an array and return a stream.
+Arrays.stream() is specifically for arrays and can avoid boxing in some cases.
+Both create streams, but Arrays.stream() is preferred for primitive arrays.
+
+✅ Example:
+Stream<Integer> s1 = Stream.of(1, 2, 3);
+Stream<Integer> s2 = Arrays.stream(new Integer[]{1, 2, 3});
+
+🔹 Q48. How to perform grouping in Java 8 using Stream API?
+Use Collectors.groupingBy() to group elements by a specific key.
+It returns a Map where the key is the grouping field, and the value is a list of grouped items.
+Useful in data classification and aggregation.
+
+✅ Example:
+Map<String, List<Employee>> groupedByDept = employeeList.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+
+🔹 Q49. What is the use of Collectors.joining() in Java 8?
+Collectors.joining() is used to concatenate strings from a stream.
+You can also add a delimiter, prefix, and suffix to the joined string.
+Commonly used for formatting or combining output strings.
+
+✅ Example:
+String names = list.stream()
+    .collect(Collectors.joining(", ", "[", "]")); // e.g., [Ram, Hari, John]
+
+🔹 Q50. How does lazy evaluation work in Java 8 Streams?
+Java 8 Streams use lazy evaluation, meaning intermediate operations are not executed until a terminal operation is called.
+This allows optimization and avoids unnecessary processing.
+For example, a filter() won’t run unless followed by collect(), count(), or forEach().
+
+✅ Example:
+Stream<String> stream = list.stream().filter(s -> {
+    System.out.println(s); // won’t print unless terminal op runs
+    return s.startsWith("A");
+});
+long count = stream.count(); // triggers evaluation
+
+Q53. How can you handle checked exceptions in lambda expressions?
+Lambdas in Java can’t throw checked exceptions directly unless caught or wrapped.
+You can use try-catch inside the lambda or write a custom functional interface.
+Java 8 doesn’t support throwing checked exceptions from Function, Consumer, etc.
+
+✅ Example:
+list.forEach(s -> {
+    try {
+        someMethodThatThrowsException(s);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+});
+
+

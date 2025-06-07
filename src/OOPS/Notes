@@ -1,0 +1,651 @@
+Q1. What is Object-Oriented Programming (OOP)?
+Answer:
+Object-Oriented Programming (OOP) is a programming paradigm(approach/model/style) based on the concept of “objects” which contain data (fields) and behavior (methods).
+It allows programs to be structured as a collection of reusable objects.
+The main goals of OOP are modularity, reusability, and maintainability.
+OOP makes it easier to model real-world systems, which improves software design.
+Java, C++, Python are popular OOP languages.
+Key principles include abstraction, encapsulation, inheritance, and polymorphism.
+
+Q2. What is a Class and an Object in Java?
+Answer:
+A class is a blueprint or template for creating objects. It defines the structure and behavior (methods) common to all objects of that type.
+An object is an instance of a class. It holds actual values and can perform actions defined in the class.
+You can create multiple objects from a single class.
+ex:-
+class Car {
+    String color;
+    void drive() { System.out.println("Driving..."); }
+}
+Car myCar = new Car();  // object created
+Here, Car is the class and myCar is the object.
+
+What is Encapsulation?
+Answer:
+Encapsulation is the concept of wrapping data and methods that operate on the data into a single unit (class).
+It helps protect internal state of the object from outside interference.
+You use private for fields and public for getters/setters to control access.
+It improves security, maintainability, and modularity.
+ex:-
+class Employee {
+    private int salary;
+    public void setSalary(int s) { salary = s; }
+    public int getSalary() { return salary; }
+}
+
+Q4. What is Inheritance?
+Answer:
+Inheritance is the mechanism where a child class acquires the properties and behaviors of a parent class.
+It promotes code reusability and supports method overriding for polymorphism.
+Java supports single inheritance (one parent per class).
+ex:-
+class Animal {
+    void sound() { System.out.println("Animal sound"); }
+}
+class Dog extends Animal {
+    void bark() { System.out.println("Dog barks"); }
+}
+Here, Dog inherits from Animal.
+
+Q5. What is Polymorphism?
+Answer:
+Polymorphism means "many forms". It allows methods to behave differently based on the object calling them.
+There are two types:
+Compile-time (Method Overloading)
+Runtime (Method Overriding)
+It improves code flexibility and scalability.
+
+Ex:-
+class Shape {
+    void draw() { System.out.println("Drawing shape"); }
+}
+class Circle extends Shape {
+    void draw() { System.out.println("Drawing circle"); }
+}
+Here, the draw() method is overridden in Circle.
+
+Q6. What is Abstraction?
+Answer:
+Abstraction is the process of hiding internal implementation and showing only the essential features.
+It reduces complexity and increases efficiency.
+You can achieve abstraction in Java using abstract classes and interfaces.
+ex:-
+abstract class Vehicle {
+    abstract void start();
+}
+class Bike extends Vehicle {
+    void start() { System.out.println("Bike starts"); }
+}
+Here, start() is abstract and must be implemented by Bike.
+
+Q7. What is the difference between Abstraction and Encapsulation?
+Answer:
+Abstraction hides implementation details and shows only the essential features to the user.
+Encapsulation hides internal data by binding fields and methods inside a class.
+Abstraction is achieved using abstract classes or interfaces.
+Encapsulation is achieved using access modifiers (private, public).
+Example:
+// Abstraction
+interface Vehicle { void start(); }
+
+// Encapsulation
+class Car {
+  private String model;
+  public void setModel(String m) { model = m; }
+  public String getModel() { return model; }
+}
+
+🔹 Q8. What is Method Overloading?
+Answer:
+Method overloading is when multiple methods in the same class have the same name but different parameters (type or number).
+It is a form of compile-time polymorphism.
+Overloading makes the code cleaner and more readable.
+
+class MathUtils {
+    int add(int a, int b) { return a + b; }
+    double add(double a, double b) { return a + b; }
+}
+Here, the add() method is overloaded with different parameter types.
+
+🔹 Q9. What is Method Overriding?
+Answer:
+Method overriding occurs when a subclass provides a specific implementation for a method already defined in its superclass.
+It is a form of runtime polymorphism.
+The method name, return type, and parameters must be exactly the same.
+class Animal {
+    void sound() { System.out.println("Animal sound"); }
+}
+class Cat extends Animal {
+    void sound() { System.out.println("Meow"); }
+}
+Here, Cat overrides the sound() method from Animal.
+
+🔹 Q10. What is a Constructor in Java?
+Answer:
+A constructor is a special method that is called when an object is created.
+It is used to initialize objects. It has the same name as the class and no return type.
+If you don’t write one, Java provides a default constructor.
+class Student {
+    String name;
+    Student(String n) { name = n; }
+}
+Student s = new Student("Hari");
+
+🔹 Q11. What is the difference between Constructor and Method?
+Answer:
+Constructor is called automatically when an object is created; method is called explicitly.
+Constructor has no return type; methods must have a return type.
+Constructor name is same as class name; method name can be anything.
+Constructors are used for initializing objects; methods are used for business logic.
+Example:
+class Person {
+    Person() { System.out.println("Constructor called"); }
+    void greet() { System.out.println("Hello!"); }
+}
+
+🔹 Q12. What is the difference between Class and Interface in Java?
+Answer:
+A class can have both implementation and state (variables), whereas an interface only declares methods (until Java 7).
+A class uses extends to inherit, an interface uses implements.
+Java allows multiple interfaces to be implemented, but only one class to be extended.
+Interfaces are used for abstraction and loose coupling.
+Example:
+interface Animal { void sound(); }
+class Dog implements Animal {
+    public void sound() { System.out.println("Bark"); }
+}
+
+Q13. What is the difference between Abstract Class and Interface in Java?
+Answer:
+An abstract class can have both abstract and concrete (implemented) methods.
+An interface only had abstract methods before Java 8; now it can also have default and static methods.
+A class can extend only one abstract class, but can implement multiple interfaces.
+Use abstract class when methods have common code; use interface for contracts between unrelated classes.
+Example:
+abstract class Vehicle { abstract void run(); }
+interface Flyable { void fly(); }
+class Bike extends Vehicle { void run() { System.out.println("Running"); } }
+
+🔹 Q14. What is the use of the 'this' keyword in Java?
+Answer:
+The this keyword is used to refer to the current object of the class.
+It helps differentiate between class fields and method parameters with the same name.
+It can also be used to call another constructor inside the same class.
+class Student {
+    String name;
+    Student(String name) {
+        this.name = name; // refers to the current object's 'name'
+    }
+}
+
+🔹 Q15. What is the difference between static and non-static members in Java?
+Answer:
+Static members belong to the class and not to any specific object.
+Non-static members belong to individual objects.
+Static variables are shared across all instances.
+Static methods can't access non-static members directly.
+class Example {
+    static int count = 0; // shared
+    int id; // unique per object
+}
+
+🔹 Q16. What is an IS-A relationship in OOP?
+Answer:
+IS-A is a relationship based on inheritance. It represents a parent-child relationship where the subclass "is a" type of the parent class.
+This helps in code reusability and polymorphism.
+Example:
+class Animal {}
+class Dog extends Animal {}  // Dog IS-A Animal
+Here, Dog inherits from Animal, so we can say "Dog IS-A Animal".
+
+🔹 Q17. What is a HAS-A relationship in OOP?
+Answer:
+HAS-A is a relationship based on composition (using objects of other classes).
+It represents a "has a" relationship where one class contains a reference to another class.
+It supports code reuse without inheritance.
+Example:
+class Engine {}
+class Car {
+    Engine engine = new Engine(); // Car HAS-A Engine
+}
+Here, Car has an object of Engine.
+
+
+🔹 Q18. Can you give a real-world example of OOP concepts?
+Answer:
+Let’s take a Car as an example:
+Class: Car is a class (blueprint).
+Object: Your BMW is an object of Car.
+Encapsulation: Speed is private and accessed via methods.
+Inheritance: SportsCar extends Car.
+Polymorphism: Different cars override start() method differently.
+Abstraction: You use steering and accelerator without knowing the inner mechanics.
+
+Q19. What is the difference between final, finally, and finalize in Java?
+Answer:
+final: A keyword used to mark a variable as constant, a method as non-overridable, or a class as non-inheritable.
+finally: A block used with try-catch to execute code regardless of exception occurrence.
+finalize(): A method called by the Garbage Collector before destroying an object (deprecated in Java 9+).
+Example:
+final int x = 10;
+try { } finally { System.out.println("Always runs"); }
+protected void finalize() { System.out.println("Cleanup"); }
+
+🔹 Q20. What is the use of the super keyword in Java?
+Answer:
+The super keyword refers to the parent class (superclass) of a child class.
+It is used to:
+Call the parent class constructor using super().
+Access parent class methods or variables that are overridden in the child.
+Example:-
+class A {
+    int x = 10;
+    void display() { System.out.println("From A"); }
+}
+class B extends A {
+    void display() {
+        super.display(); // call A's display
+        System.out.println(super.x); // access A's variable
+    }
+}
+
+🔹 Q21. What are the commonly used methods from the Object class?
+Answer:
+The Object class is the parent of all Java classes, and provides common methods:
+toString() – returns string representation of the object
+equals() – compares objects for equality
+hashCode() – returns the hash code of the object
+clone() – creates a copy of the object
+finalize() – called before garbage collection
+All classes implicitly inherit these methods.
+
+🔹 Q22. What is the difference between Composition and Aggregation?
+Answer:
+Composition is a strong HAS-A relationship where the child object cannot exist without the parent.
+Aggregation is a weak HAS-A relationship where the child can exist independently of the parent.
+In composition, both objects are tightly bound, while in aggregation they are loosely bound.
+
+Example:
+
+// Composition
+class Heart {}
+class Human {
+    private Heart heart = new Heart(); // Heart dies with Human
+}
+
+// Aggregation
+class Department {}
+class Student {
+    Department dept; // Student can exist without department
+}
+
+🔹 Q23. What is a marker interface?
+Answer:
+A marker interface is an interface that has no methods or fields.
+It is used to mark or tag a class to give it special behavior.
+Examples: Serializable, Cloneable in Java.
+The JVM or frameworks check if a class implements a marker interface and then provide special treatment.
+
+Example:
+class Employee implements Serializable {
+    // Now Employee can be serialized
+}
+
+Q24. What is the difference between Overloading and Overriding?
+Answer:
+Overloading: Same method name, different parameter list, within the same class (compile-time polymorphism).
+Overriding: Same method name and signature in subclass, replaces parent’s version (runtime polymorphism).
+Overloading is resolved by compiler, overriding by JVM during execution.
+Overriding needs inheritance; overloading does not.
+
+Example:
+
+// Overloading
+int add(int a, int b) {...}
+double add(double a, double b) {...}
+
+// Overriding
+class Animal { void speak() {} }
+class Dog extends Animal {
+    void speak() { System.out.println("Bark"); }
+}
+🔹 Q25. What are the types of Inheritance in Java?
+Answer:
+Java supports the following types of inheritance:
+Single: One class inherits from one superclass.
+Multilevel: A class inherits from a class that is already a child of another class.
+Hierarchical: Multiple classes inherit from one parent class.
+❌ Java does not support multiple inheritance with classes (to avoid ambiguity), but it supports it through interfaces.
+
+Example:
+
+class A {}
+class B extends A {}           // Single
+class C extends B {}           // Multilevel
+class D extends A {}           // Hierarchical
+
+🔹 Q26. What is the use of instanceof keyword?
+Answer:
+The instanceof keyword is used to check if an object is an instance of a specific class or subclass.
+It returns true or false and prevents ClassCastException during type casting.
+It is commonly used when working with polymorphism and type checks.
+
+Example:
+Animal a = new Dog();
+if (a instanceof Dog) {
+    System.out.println("a is a Dog");
+}
+
+🔹 Q27. What deep copy and shallow copy?What is the difference between deep copy and shallow copy?
+Answer:
+
+Shallow Copy
+Shallow copy means creating a new object and copying the values of the fields from the original object to the new one. However, if the field is a reference to another object (like arrays, objects, collections), shallow copy only copies the reference, not the actual object. So both the original and the copied object share the same nested objects in memory. This means, if the nested object changes through one reference, it will affect the other as well.
+In Java, shallow copy can be performed using the clone() method from Object class (default behavior) or by manually copying fields.
+Key idea: Only the top-level object is copied, nested objects are shared.
+
+Ex:-
+class Student implements Cloneable {
+    String name;
+    int[] marks;
+
+    Student(String name, int[] marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); // Shallow copy
+    }
+}
+
+Deep Copy
+Deep copy means creating a new object and also recursively copying all objects referenced by the original object. So, it creates completely independent objects for both the top-level object and all nested objects inside it. Changes made to the nested objects in the copied object do not affect the original object, and vice versa.
+Deep copy requires explicitly copying all nested objects, which can be done by overriding clone() method and manually cloning nested objects, or by serialization/deserialization.
+Key idea: Copies everything completely, including all nested objects.
+
+Ex:-
+class Student implements Cloneable {
+    String name;
+    int[] marks;
+
+    Student(String name, int[] marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        int[] copiedMarks = marks.clone(); // Deep copy of array
+        return new Student(name, copiedMarks);
+    }
+}
+
+hallow Copy vs Deep Copy
+-->Shallow Copy copies only the outer object, not the inner (nested) objects.
+-->Deep Copy copies both the outer object and all inner objects.
+-->In shallow copy, nested objects are shared between original and copy.
+-->In deep copy, nested objects are duplicated, so both are independent.
+-->If you change a nested object in shallow copy, both will reflect the change.
+-->In deep copy, changes in one object don’t affect the other.
+-->Shallow copy is faster and uses less memory.
+-->Deep copy is slower and uses more memory.
+-->Shallow copy is easy to implement using clone() or copy constructor.
+-->Deep copy is more complex, often needs manual or recursive copying.
+-->Use shallow copy when shared data is okay.
+-->Use deep copy when full independence is needed.
+
+
+🔹 Q28. What is a nested class? What are its types?
+Answer:
+A nested class is a class defined inside another class.
+It helps logically group classes that are only used in one place.
+Java supports 4 types:
+Static Nested Class
+Non-static (Inner) Class
+Local Inner Class (inside method)
+Anonymous Inner Class (no name, used for one-time use)
+
+Example:
+
+class Outer {
+    static class StaticNested {}
+    class Inner {}
+}
+
+🔹 Q29. What is object cloning in Java?
+Answer:
+
+Cloning means creating an exact copy of an object.
+Java provides a clone() method from the Object class.
+To enable cloning, the class must implement Cloneable interface and override clone().
+Without implementing Cloneable, calling clone() throws CloneNotSupportedException.
+
+Example:
+class Student implements Cloneable {
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+}
+
+Q30. What is Cohesion in OOP?
+Answer:
+Cohesion refers to how closely the functions (methods) within a class are related to each other.
+A class with high cohesion has methods that perform closely related tasks.
+High cohesion makes code easier to maintain, test, and reuse.
+Low cohesion means the class is doing too many unrelated things.
+
+Example:
+A Student class having methods for enrollCourse(), viewGrades() is high cohesion.
+If it also handles file reading, printing, and logging, it becomes low cohesion.
+
+🔹 Q31. What is Coupling in OOP?
+Answer:
+Coupling refers to the degree of dependency between different classes or modules.
+Low (loose) coupling is good—it means classes are independent.
+High coupling means classes are tightly dependent on each other, which makes maintenance hard.
+Loose coupling is achieved using interfaces, abstraction, or dependency injection.
+
+Example:
+
+class Engine {}
+class Car {
+    Engine engine; // Car depends on Engine (some coupling)
+}
+
+🔹 Q32. What are the 5 SOLID Principles of OOP?
+Answer:
+S – Single Responsibility Principle: A class should have only one reason to change (one job).
+O – Open/Closed Principle: Software should be open for extension, but closed for modification.
+L – Liskov Substitution Principle: Subclasses should be replaceable for their parent classes.
+I – Interface Segregation Principle: Prefer small interfaces over large, general-purpose ones.
+D – Dependency Inversion Principle: Depend on abstractions, not on concrete classes.
+
+🔹 Q33. What is the difference between interface and abstract class? (Detailed version)
+Answer:
+An abstract class can have both abstract and concrete methods; interfaces could only have abstract methods (before Java 8).
+A class can extend one abstract class, but can implement multiple interfaces.
+Abstract classes can have constructors and fields, interfaces cannot (only static/final constants).
+Use an interface to define a contract, use an abstract class for shared behavior.
+
+Example:
+abstract class Animal { void eat() {} abstract void sound(); }
+interface Pet { void play(); }
+
+
+🔹 Q34. Can we create an object of an abstract class?
+Answer:
+No, we cannot create an object of an abstract class directly.
+Because abstract classes may contain incomplete methods (abstract), they are meant to be extended by subclasses.
+However, you can use a reference of an abstract class to point to a subclass object.
+
+Example:
+abstract class Shape { abstract void draw(); }
+class Circle extends Shape {
+    void draw() { System.out.println("Drawing Circle"); }
+}
+Shape s = new Circle(); // Allowed
+
+🔹 Q35. What is an anonymous inner class?
+Answer:
+An anonymous inner class is a class without a name that is defined and instantiated in a single expression.
+It is often used to implement interfaces or abstract classes on the fly, especially for event handling or one-time use.
+
+Example:
+Runnable r = new Runnable() {
+    public void run() {
+        System.out.println("Running...");
+    }
+};
+new Thread(r).start();
+
+
+🔹 Q36. What is the difference between new and clone() in object creation?
+Answer:
+new creates a completely new object by calling a constructor.
+clone() creates a copy of an existing object without calling the constructor.
+clone() is faster but requires implementing Cloneable and overriding the clone() method.
+
+Example:
+
+Student s1 = new Student("Hari");
+Student s2 = (Student) s1.clone();  // s2 is a copy of s1
+
+39. Why Java does not support multiple inheritance with classes?
+Answer:
+Java avoids multiple inheritance with classes to prevent ambiguity problems, such as the diamond problem—where two parent classes have the same method.
+Instead, Java uses interfaces to allow multiple inheritance.
+With interfaces, method conflicts can be explicitly resolved in the implementing class.
+
+Example:
+
+interface A { void show(); }
+interface B { void show(); }
+class C implements A, B {
+    public void show() { System.out.println("Resolved"); }
+}
+
+🔹 Q40. What is the diamond problem in OOP?
+Answer:
+The diamond problem occurs in languages that support multiple inheritance with classes.
+If two classes have a method and a third class inherits both, it’s unclear which version to use.
+Java avoids this by not supporting multiple class inheritance, and handles this cleanly with interfaces.
+
+Example:
+
+       A
+      / \
+     B   C
+      \ /
+       D   ← conflict if B & C have the same method from A
+
+🔹 Q41. What is the difference between early binding and late binding?
+Answer:
+Early binding (static binding): Method call is resolved at compile time.
+Example: Method overloading.
+
+Late binding (dynamic binding): Method call is resolved at runtime.
+Example: Method overriding using polymorphism.
+
+Example:
+
+class A {
+    void show() { System.out.println("A"); }
+}
+class B extends A {
+    void show() { System.out.println("B"); }
+}
+A obj = new B(); // Late binding – B's show() is called at runtime
+
+🔹 Q42. What is method hiding in Java?
+Answer:
+Method hiding occurs when a static method in a subclass has the same name and signature as a static method in its superclass.
+It’s not overriding, because static methods belong to the class, not objects.
+Method hiding is resolved at compile-time, based on the reference type.
+
+Example:
+
+class A { static void display() { System.out.println("A"); } }
+class B extends A { static void display() { System.out.println("B"); } }
+A obj = new B();
+obj.display(); // Output: A (not B)
+
+🔹 Q43. Can an interface extend another interface?
+Answer:
+Yes, in Java, an interface can extend one or more interfaces.
+It inherits abstract methods from the parent interfaces.
+This allows for better modular design and flexibility.
+
+Example:
+
+interface A { void show(); }
+interface B extends A { void display(); }
+class C implements B {
+    public void show() { ... }
+    public void display() { ... }
+}
+
+Q44. Can we override a private or static method in Java?
+Answer:
+No, private and static methods cannot be overridden.
+private methods are not visible to subclasses.
+static methods belong to the class, not the object, so they can only be hidden, not overridden.
+If a subclass defines a static or private method with the same signature, it's treated as a new method, not an override.
+
+Example:
+
+class A { private void show() {} static void display() {} }
+class B extends A {
+    // This is NOT an override, it's a new method
+    private void show() {}
+    static void display() {}
+}
+
+Q48. What is method chaining in OOP?
+Answer:
+Method chaining is a technique where multiple methods are called on the same object, one after another, in a single line.
+Each method returns the object itself (this), enabling the next method call.
+It improves code readability and fluency.
+
+Example:
+
+class User {
+    User setName(String name) { ... return this; }
+    User setAge(int age) { ... return this; }
+}
+new User().setName("Hari").setAge(28);
+
+Q51. What is composition in OOP?
+Answer:
+Composition is a design principle where one class contains an object of another class and uses its functionality.
+It’s a HAS-A relationship (e.g., Car HAS-A Engine).
+Unlike inheritance, composition gives better flexibility and loose coupling.
+Changes in one class have less impact on others.
+
+Example:
+
+class Engine { void start() { System.out.println("Engine starts"); } }
+class Car {
+    Engine e = new Engine(); // composition
+    void drive() { e.start(); }
+}
+
+Q56. Can a class be both abstract and final?
+Answer:
+No, a class cannot be both abstract and final.
+abstract means the class must be subclassed to provide implementation.
+final means the class cannot be subclassed.
+So using both together creates a conflict in purpose and causes a compile-time error.
+
+Q60. What is object reusability in OOP?
+Answer:
+Object reusability means reusing the existing class/object code for new functionality instead of writing it again.
+It’s mainly achieved through:
+Inheritance (code reuse with some modification).
+Composition (reuse by including objects).
+Helps in reducing code duplication, improving productivity.
+
+
+
+
+
+
