@@ -1,0 +1,173 @@
+Q1. What is new in Java 11 compared to Java 8?
+Java 11 introduced several key features beyond Java 8. It includes the var keyword in lambda parameters, new String methods, the HttpClient API, and local variable syntax for lambda. It removed some deprecated APIs and added support for running Java files without compiling (java HelloWorld.java). It also includes improvements to garbage collection and performance.
+
+Q2. What is the use of the HttpClient API in Java 11?
+Java 11 introduced a new java.net.http.HttpClient API to replace the old HttpURLConnection. It supports HTTP/1.1 and HTTP/2, making it easier to send synchronous and asynchronous requests. It provides a cleaner and more modern way to build and send HTTP requests and receive responses.
+
+Q3. What are the new String methods in Java 11?
+Java 11 added useful String methods like isBlank(), lines(), strip(), stripLeading(), stripTrailing(), and repeat(int count). These methods simplify tasks like checking for blank strings, stripping whitespaces, and repeating strings. For example, " abc ".strip() returns "abc".
+
+Q4. What is the var keyword in Java 11?
+The var keyword allows you to declare local variables without specifying the type explicitly. In Java 11, it can also be used in lambda parameters, e.g., (var x, var y) -> x + y. It improves readability but should be used wisely to avoid confusion about variable types.
+
+Q5. How does Java 11 improve garbage collection?
+Java 11 includes support for experimental garbage collectors like ZGC and enhancements to G1 GC. ZGC is a scalable low-latency collector designed for large heaps, while G1 improvements help reduce pause times. These changes aim to improve overall application performance and responsiveness.
+
+Q6. What removed features should we be aware of in Java 11?
+Java 11 removed several deprecated modules and APIs, like Java EE and CORBA modules (javax.xml.bind, javax.annotation, etc.). It also removed the Java Applet API. Developers need to migrate applications using these to alternatives or include external libraries for compatibility.
+
+Q7. Can we run Java programs without compiling in Java 11?
+Yes, Java 11 allows running single-file programs without explicitly compiling them. You can directly execute a .java file using java Hello.java, and the compiler runs it in the background. This is helpful for quick testing and scripting, especially for small utilities or prototypes.
+
+Q8. What is the difference between strip() and trim() in Java 11?
+strip() is a new method in Java 11 that removes all Unicode whitespace characters using Unicode-aware logic, while trim() only removes ASCII spaces (i.e., characters with value ≤ 32). For international applications, strip() is more reliable and standards-compliant than trim().
+
+Q9. What does the isBlank() method do in Java 11?
+The isBlank() method checks whether a string is empty or contains only whitespace characters. It's an improvement over isEmpty() which only checks if the length is 0. For example, " \n ".isBlank() returns true, but isEmpty() would return false.
+
+Q10. What is the purpose of lines() method in Java 11 Strings?
+The lines() method splits the string into a stream of lines based on line terminators like \n or \r\n. It's useful when processing multi-line strings, as it returns a Stream<String> that you can easily filter, map, or collect.
+
+Q11. What is the use of repeat() method in Java 11?
+The repeat(int count) method in the String class repeats the string a specified number of times. For example, "ha".repeat(3) will return "hahaha". It makes string manipulation easier and eliminates the need for manual loops or custom methods.
+
+Q12. What is the Optional.isEmpty() method in Java 11?
+Java 11 introduced the isEmpty() method in the Optional class to check whether a value is present or not. It's the opposite of isPresent(). Instead of writing !optional.isPresent(), you can now simply use optional.isEmpty() for cleaner and more readable code.
+
+
+Q13. What is Z Garbage Collector (ZGC) in Java 11?
+ZGC is a low-latency, scalable garbage collector introduced in Java 11. It is designed to handle heaps ranging from a few gigabytes to multiple terabytes with pause times not exceeding 10ms. ZGC works concurrently with application threads, making it ideal for applications needing minimal latency, such as real-time systems or trading apps.
+
+Q14. How is the Files.readString() method useful in Java 11?
+Java 11 introduced Files.readString(Path) to simplify reading the content of a file into a String. It removes the need for BufferedReader or manually reading bytes and converting them to Strings. For example:
+String content = Files.readString(Paths.get("sample.txt"));```
+
+---
+
+**Q15. What is the `Predicate.not()` method in Java 11?**
+`Predicate.not()` is a static utility method that returns the logical negation of a given predicate. It helps improve code readability when filtering streams. For example:
+```java
+list.stream().filter(Predicate.not(String::isEmpty))```
+filters out empty strings more clearly than using `s -> !s.isEmpty()`.
+
+---
+
+**Q16. What are the new `Collection.toArray()` enhancements in Java 11?**
+Java 11 enhanced the `toArray()` method by adding a default implementation in the `Collection` interface:
+```java
+<T> T[] toArray(IntFunction<T[]> generator)```
+This allows creating arrays with proper type safety without needing to cast or manually create arrays, e.g.,
+```java
+String[] names = list.toArray(String[]::new);```
+
+---
+
+**Q17. Can you explain the Local-Variable Syntax for Lambda Parameters in Java 11?**
+Java 11 allows using `var` in lambda parameters to improve consistency and enable annotations. For example:
+```java
+(list.stream().map((@Nonnull var s) -> s.toUpperCase()))```
+This makes it easier to apply annotations or modifiers without declaring full types.
+
+---
+
+**Q18. What is the impact of removing Java EE and CORBA modules in Java 11?**
+Java 11 removed older Java EE modules like JAXB, JAX-WS, and CORBA, which were deprecated in Java 9. Applications relying on these must add external dependencies (like JAXB API from Maven). This modular cleanup makes the JDK smaller and more maintainable.
+
+Q19. What is the String.stripLeading() and stripTrailing() in Java 11?
+Java 11 introduced stripLeading() to remove only leading (beginning) whitespaces and stripTrailing() to remove only trailing (ending) whitespaces from a string. These methods are Unicode-aware and more accurate than using regular expressions or substring(). For example, " Java ".stripLeading() returns "Java ".
+
+Q20. What is the difference between Java 11 LTS and non-LTS versions?
+Java 11 is a Long-Term Support (LTS) release, meaning it receives extended updates and support for several years. Non-LTS versions like Java 9, 10, 12, etc., receive only six months of support. Enterprises prefer LTS versions for production due to stability and long-term security updates.
+
+Q21. What are the new methods added in the Optional class in Java 11?
+Java 11 added the Optional.isEmpty() method to simplify null-checking and make code more expressive. It complements isPresent() and helps write cleaner conditionals. Also, the Optional class remains useful in avoiding NullPointerException by using methods like ifPresent, orElse, and orElseThrow().
+
+Q22. How can we launch a single Java file using java command in Java 11?
+In Java 11, you can run a .java file directly from the command line using:
+
+bash
+Copy
+Edit
+java Hello.java```
+This feature compiles and runs the code without creating a `.class` file manually, making it ideal for scripting or testing small pieces of code.
+
+---
+
+**Q23. What are some deprecated APIs removed in Java 11?**
+Java 11 removed deprecated Java EE modules like `java.xml.bind`, `java.activation`, `java.xml.ws`, and `java.corba`. These were already marked for removal in Java 9. If your application uses them, you must add external libraries to restore compatibility, typically through Maven or Gradle dependencies.
+
+---
+
+**Q24. How does Java 11 help with scripting and quick testing?**
+Java 11 supports "single-file source code programs," allowing developers to write and run Java programs like scripts using just one `.java` file. No need for `javac` or creating a `.class` file. This streamlines testing and prototyping small features without setting up a full project.
+
+---
+Q25. What is the use of String.indent(int n) method in Java 11?
+Java 11 introduced the indent(int n) method to adjust indentation of each line in a multi-line string. If n is positive, it adds spaces; if negative, it removes leading spaces. This is useful when formatting text for logs, reports, or UI output.
+
+Q26. What is Pattern.asMatchPredicate() in Java 11?
+Java 11 added asMatchPredicate() to the Pattern class, which converts a regular expression into a Predicate<String>. This is useful in stream filtering. For example:
+Pattern.compile("\\d+").asMatchPredicate() can be used to filter numeric strings in a stream.
+
+Q27. What is Collection.toArray(IntFunction<T[]>) and how is it useful?
+Java 11 added a default method to Collection interface allowing conversion to arrays in a type-safe way. For example:
+String[] array = list.toArray(String[]::new);
+This avoids casting and makes the code cleaner and more concise compared to older toArray(new String[0]) method.
+
+Q28. What does Files.writeString() do in Java 11?
+Files.writeString(Path, String) allows you to write a string directly to a file, making file operations much simpler. It eliminates the need for streams or writers. Example:
+Files.writeString(path, "Hello Java 11");
+This improves code readability and reduces boilerplate.
+
+Q29. How can Java 11 help in creating smaller JDK distributions?
+Java 11 continues the use of the Java Platform Module System (introduced in Java 9) and allows creation of custom JDK runtimes using jlink. With jlink, you can package only the necessary modules for your application, reducing deployment size and improving startup performance.
+
+Q30. What is the use of Nest-Based Access Control introduced in Java 11?
+Java 11 introduced Nest-Based Access Control to simplify access between nested classes (like inner, static, or anonymous classes). Previously, compilers had to generate synthetic bridge methods. Now, nested classes in the same "nest" can directly access each other's private members, improving performance and reducing generated bytecode.
+
+Q31. What is java.lang.constant package introduced in Java 11?
+Java 11 introduced the java.lang.constant package to model constants in the JVM in a standard way. It includes classes like ClassDesc, MethodTypeDesc, and DynamicConstantDesc which represent constants in a symbolic form. This package is mainly used in frameworks, tools, and language-level APIs that work with low-level bytecode or reflection.
+
+Q32. What are Flight Recorder and Mission Control in Java 11?
+Java 11 integrates Java Flight Recorder (JFR) — a low-overhead tool to monitor and profile JVM performance. It records metrics like CPU usage, garbage collection, and thread activity. Combined with Java Mission Control (JMC), it helps developers analyze production issues without impacting performance significantly.
+
+Q33. What is the role of var in lambda expressions in Java 11?
+Java 11 allows using var in lambda parameters, enabling developers to use annotations or modifiers with lambda variables. For example:
+(var a, var b) -> a + b
+You must use var for all parameters if you choose it. It improves consistency when annotations like @Nonnull are needed.
+
+Q34. What are the benefits of new GC options in Java 11?
+Java 11 supports advanced garbage collectors like ZGC (low-latency GC) and improved G1 GC with reduced pause times. These collectors enhance application responsiveness, especially for large-scale, memory-intensive apps. ZGC’s pause time is typically under 10ms even on very large heaps.
+
+Q35. How has var improved developer productivity in Java 11?
+Though var was introduced in Java 10, Java 11 extends its use to lambda parameters. It reduces boilerplate and improves readability by inferring types. However, developers should use it carefully to avoid confusion, especially in complex code where the type isn’t obvious.
+
+Q36. What is the difference between strip() and trim() methods in terms of Unicode?
+strip() uses Unicode code points to remove all kinds of whitespace characters from the beginning and end of a string, making it suitable for international text. trim() only removes characters with ASCII values less than or equal to 32, and may not work well with non-English characters.
+
+Q37. What is the purpose of the HttpRequest.BodyPublishers.ofString() in Java 11?
+The HttpClient API in Java 11 uses BodyPublishers to send request bodies. HttpRequest.BodyPublishers.ofString("data") creates a request body from a string. This simplifies sending POST or PUT requests with text content, improving readability over previous lower-level approaches.
+
+Q38. How does HttpClient support asynchronous calls in Java 11?
+The Java 11 HttpClient supports asynchronous HTTP calls using CompletableFuture. By calling .sendAsync(), you can handle the response without blocking the main thread. This enables building reactive, non-blocking applications using modern concurrency tools like lambdas and streams.
+
+Q39. What is the purpose of String.transform() method in Java 11?
+transform(Function<? super String, ? extends R>) allows you to apply a transformation function to a string and return the result. It improves readability by avoiding temporary variables. Example:
+"hari".transform(s -> s.toUpperCase()) returns "HARI".
+
+Q40. What is NullPointerException message enhancement in Java 11?
+Java 11 can generate detailed messages for NullPointerException by enabling the JVM option:
+-XX:+ShowCodeDetailsInExceptionMessages.
+This tells exactly which variable was null in the expression, making debugging much faster and easier.
+
+Q41. What are dynamic class-file constants introduced in Java 11?
+Java 11 introduced dynamic constants via the CONSTANT_Dynamic constant pool entry in class files. This allows lazy computation of constants and is useful for optimizing class loading, reducing memory footprint, and enabling advanced JVM-level features and frameworks.
+
+Q42. How does Java 11 improve modularization and deployment?
+Java 11 builds on Java 9’s module system and supports jlink, which creates custom runtime images. You can build a minimal JDK containing only the modules your app needs. This helps reduce application size and startup time, which is useful in Docker and microservices.
+
+
+
+
+
+
