@@ -1,0 +1,71 @@
+
+
+
+1. Scenario: Your application pods are crashing repeatedly after deployment. How do you troubleshoot this in Kubernetes?
+Answer:
+First, check pod status with kubectl get pods to identify crash loops. Use kubectl describe pod <pod-name> to see events and reasons. Then check logs with kubectl logs <pod-name>. Investigate resource limits, environment variables, or image issues. Also verify liveness/readiness probes. Adjust configuration or fix the app code accordingly.
+
+2. Scenario: You want to update your application with zero downtime. How do you achieve this using Kubernetes?
+Answer:
+Use a Deployment object and perform a rolling update. Update the Deployment image or spec using kubectl set image or by editing the YAML. Kubernetes will gradually replace old pods with new ones, ensuring that the minimum required pods remain available throughout the update, thus preventing downtime.
+
+3. Scenario: You have a stateful database application that needs persistent storage. How do you manage this in Kubernetes?
+Answer:
+Use a StatefulSet to manage the database pods because it provides stable network identities and ordered deployment. Attach PersistentVolumeClaims (PVCs) to each pod so that storage persists independently of pod lifecycle. Use a suitable StorageClass to provision volumes dynamically or use pre-provisioned persistent volumes.
+
+4. Scenario: Your Kubernetes cluster has resource constraints and some pods are pending scheduling. How do you resolve this?
+Answer:
+Pods remain pending usually due to insufficient resources. Check the node resources with kubectl describe nodes. If resources are low, you can either increase node capacity (scale up), add new nodes, or optimize pod resource requests and limits. Use kubectl describe pod to see scheduling events and reasons.
+
+5. Scenario: You want to securely store sensitive data like passwords or API keys and make them accessible to your pods. What Kubernetes object would you use?
+Answer:
+Use Kubernetes Secrets to securely store sensitive data. Secrets are base64 encoded and can be injected as environment variables or mounted as files inside pods. This keeps secrets out of container images and config files, enhancing security.
+
+6. Scenario: You deployed a new version of your application but realize it has a critical bug. How do you roll back to the previous stable version?
+Answer:
+If using a Deployment, Kubernetes automatically keeps a history of revisions. Rollback can be done via kubectl rollout undo deployment/<deployment-name>. This command reverts to the previous deployment version, restoring the stable pods without downtime.
+
+7. Scenario: Your service is accessible inside the cluster but you want it to be accessible externally. What changes would you make?
+Answer:
+Change the Service type to NodePort or LoadBalancer. NodePort exposes the service on each node’s IP at a static port. LoadBalancer (if supported by the cloud provider) creates an external load balancer that routes traffic to the service. Update the service YAML accordingly.
+
+8. Scenario: How do you monitor the health of your pods and ensure they are restarted automatically if they fail?
+Answer:
+Use liveness probes and readiness probes in pod specs. Liveness probes detect if the container is alive; if it fails, Kubernetes restarts the container. Readiness probes check if the container is ready to accept traffic. Combined with ReplicaSets, Kubernetes ensures desired pod counts and restarts failed pods automatically.
+
+9. Scenario: You want to run multiple versions of your application simultaneously for A/B testing. How do you set this up in Kubernetes?
+Answer:
+Create multiple Deployments, each running different versions of your app. Use Services or Ingress with routing rules to direct traffic to the appropriate version based on criteria (like headers or URLs). This allows gradual testing and comparison between versions without impacting all users.
+
+10. Scenario: You notice some pods are evicted unexpectedly. What could be the cause and how do you handle it?
+Answer:
+Pod eviction often happens due to resource pressure (CPU, memory, disk) on the node. Kubernetes evicts pods to free resources for system stability. Check node status with kubectl describe node. Adjust pod resource requests/limits or add more nodes. Use QoS classes to prioritize important pods to avoid eviction.
+
+11. Scenario: How do you ensure that sensitive environment variables do not appear in plain text in your pod specs?
+Answer:
+Store sensitive environment variables in Kubernetes Secrets instead of ConfigMaps or plain pod specs. Reference the Secrets in the pod environment variables or mount them as files. This helps avoid exposure of secrets in the pod definitions and keeps them encrypted in etcd.
+
+12. Scenario: You want to run batch jobs or one-time tasks in Kubernetes. What object do you use and how?
+Answer:
+Use Jobs or CronJobs for batch or scheduled tasks. A Job creates one or more pods that run to completion. A CronJob schedules jobs periodically like a Linux cron. This helps manage background or batch processing workloads reliably.
+
+13. Scenario: Your application needs to communicate securely between services inside the cluster. How do you implement this?
+Answer:
+Use Network Policies to control traffic flow between pods and services. Define policies that allow or restrict communication based on pod labels or namespaces. For encryption, use service meshes like Istio or Linkerd that provide mutual TLS and fine-grained security.
+
+14. Scenario: You deployed your app with a Deployment but you want to change the number of pod replicas. How do you do it?
+Answer:
+Scale the Deployment using the command kubectl scale deployment <deployment-name> --replicas=<number>. This dynamically increases or decreases pod count, allowing your app to handle changing loads without downtime.
+
+15. Scenario: A node in your Kubernetes cluster is down. How does Kubernetes handle this?
+Answer:
+Kubernetes continuously monitors node health via the kubelet and controller manager. When a node is detected as unhealthy or down, it marks the node as NotReady. Pods running on that node are rescheduled onto healthy nodes automatically to maintain availability.
+
+16. Scenario: You want to limit resource usage per namespace to prevent one team from exhausting cluster resources. How do you enforce this?
+Answer:
+Use ResourceQuotas and LimitRanges in Kubernetes. ResourceQuota restricts total resource consumption (CPU, memory, pods) per namespace. LimitRange sets default and max resource limits for individual pods or containers within that namespace. This ensures fair resource sharing.
+
+17. Scenario: How do you debug network connectivity issues between pods?
+Answer:
+Start by checking pod IP addresses and DNS resolution. Use tools like kubectl exec to enter pods and run ping or curl. Verify Network Policies aren’t blocking traffic. Check kube-proxy logs and CNI plugin health. Monitoring tools can help detect bottlenecks or dropped packets.
+

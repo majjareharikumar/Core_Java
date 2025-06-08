@@ -1,0 +1,49 @@
+❓ What is Kubernetes?
+Kubernetes (often abbreviated as K8s) is an open-source container orchestration platform developed by Google and now maintained by the Cloud Native Computing Foundation (CNCF).
+It automates the deployment, scaling, and management of containerized applications (like Docker containers).
+Kubernetes groups containers into pods, manages their lifecycle, and ensures high availability and self-healing.
+It provides features like load balancing, auto-scaling, rolling updates, and service discovery.
+It can run on-premise or on cloud platforms like AWS, Azure, or GCP.
+Kubernetes is widely used in Microservices architectures to manage distributed services efficiently.
+
+
+1. What is Kubernetes and why is it used?
+Answer:
+Kubernetes is an open-source platform to automate containerized application deployment, scaling, and management. It groups containers into pods, manages their lifecycle, and provides features like load balancing, self-healing, and automated rollouts. It enables easy scaling and management of microservices and works across on-premises or cloud environments.
+
+2. What are the main components of Kubernetes architecture?
+Answer:
+Kubernetes architecture includes the Master Node (with API Server, Scheduler, Controller Manager, etcd) and Worker Nodes (which run Pods via the kubelet agent). The API Server handles communication, etcd stores cluster state, the Scheduler assigns workloads, and Controller Manager maintains cluster state. Worker Nodes host the containerized applications.
+
+3. What is a Pod in Kubernetes?
+Answer:
+A Pod is the smallest deployable unit in Kubernetes. It can contain one or more containers that share storage, network, and specification. Pods provide a way to run containerized applications together and manage them as a single entity. They are ephemeral and get recreated if they fail, managed by higher-level controllers.
+
+4. What is the difference between a Deployment and a StatefulSet?
+Answer:
+A Deployment manages stateless applications by handling scaling and rolling updates for pods. Pods created by deployments are interchangeable.
+A StatefulSet manages stateful applications requiring stable, unique network IDs and persistent storage. It guarantees the order of deployment, scaling, and termination, suitable for databases and distributed systems.
+
+5. How does Kubernetes perform load balancing?
+Answer:
+Kubernetes uses Services to provide load balancing. A Service defines a logical set of Pods and a policy to access them. The most common is the ClusterIP Service which load balances internal traffic across Pods. For external traffic, LoadBalancer or NodePort Services expose the app. kube-proxy manages routing to Pods.
+
+6. What is a Namespace in Kubernetes?
+Answer:
+Namespaces are virtual clusters within a Kubernetes cluster that isolate resources like pods, services, and deployments. They allow multiple teams or projects to share the same physical cluster without interference. Namespaces help in resource quota management, access control, and organization.
+
+7. What is a ConfigMap and how is it used?
+Answer:
+ConfigMap stores configuration data as key-value pairs, separate from container images. It allows injecting environment variables, command-line arguments, or config files into pods. This helps keep configuration decoupled from code, enabling flexibility and easier management.
+
+8. How do you perform rolling updates in Kubernetes?
+Answer:
+Rolling updates in Kubernetes are managed via Deployments. When you update the Deployment spec, Kubernetes gradually replaces old pods with new ones without downtime. It ensures at least a minimum number of pods are available during the update, allowing smooth transitions and easy rollback if needed.
+
+9. What is etcd in Kubernetes?
+Answer:
+etcd is a distributed key-value store used by Kubernetes to store all cluster data, including configuration and state. It is highly available and consistent, providing reliable storage for Kubernetes master components. Losing etcd data can cause cluster failure, so backups are critical.
+
+10. How does Kubernetes ensure high availability?
+Answer:
+Kubernetes ensures high availability by replicating Pods across multiple nodes, using controllers like ReplicaSets to maintain the desired number of pod replicas. It supports node health checks and automatically reschedules pods if a node fails. Load balancing distributes traffic to healthy pods, minimizing downtime.
