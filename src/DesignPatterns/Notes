@@ -1,0 +1,252 @@
+1. What is the Singleton Design Pattern? Explain with example.
+Answer:
+The Singleton pattern ensures that a class has only one instance throughout the application and provides a global point of access to it. It is useful when exactly one object is needed to coordinate actions across the system. In Java, it can be implemented by making the constructor private and providing a static method that returns the instance. In Spring, beans are singleton by default, so Spring manages this automatically. This pattern helps save resources and maintain consistent state.
+Example:
+
+java
+Copy
+Edit
+public class Singleton {
+    private static Singleton instance;
+    private Singleton() {}
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+2. What is the Factory Method Pattern? Give an example.
+Answer:
+The Factory Method pattern defines an interface for creating an object but allows subclasses to decide which class to instantiate. This promotes loose coupling by avoiding direct use of constructors. It is commonly used when the exact type of the object cannot be determined beforehand. In Spring, BeanFactory acts as a factory for beans, hiding the creation details from the client. This pattern increases flexibility and encapsulates object creation logic.
+Example:
+
+java
+Copy
+Edit
+interface Animal { void sound(); }
+class Dog implements Animal { public void sound() { System.out.println("Bark"); } }
+class Cat implements Animal { public void sound() { System.out.println("Meow"); } }
+
+class AnimalFactory {
+    public static Animal getAnimal(String type) {
+        if ("dog".equals(type)) return new Dog();
+        else if ("cat".equals(type)) return new Cat();
+        else return null;
+    }
+}
+3. Explain the Proxy Pattern with a use case.
+Answer:
+The Proxy pattern provides a placeholder or surrogate for another object to control access to it. It is useful when adding functionality like lazy loading, access control, or logging without modifying the original object. In Spring, proxies are used heavily in AOP to add cross-cutting concerns like transactions and security transparently. The client interacts with the proxy as if it is the real object, but the proxy controls method calls. This improves modularity and separation of concerns.
+Example:
+Spring creates a proxy around your service bean to apply transactional behavior without changing your code.
+
+4. What is the Observer Pattern? Where is it used in Spring?
+Answer:
+The Observer pattern defines a one-to-many dependency so that when one object changes state, all its dependents are notified automatically. This pattern is used to implement event-driven systems. In Spring, ApplicationEvent and ApplicationListener implement this pattern, allowing beans to publish and listen for events asynchronously. It helps decouple event producers from consumers, enhancing modularity and scalability.
+Example:
+
+java
+Copy
+Edit
+@Component
+public class MyEventListener implements ApplicationListener<MyEvent> {
+    public void onApplicationEvent(MyEvent event) {
+        System.out.println("Event received: " + event.getMessage());
+    }
+}
+5. Describe the Strategy Pattern with example.
+Answer:
+The Strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. This allows the algorithm to vary independently from clients that use it. In Spring Security, different authentication mechanisms (form login, OAuth, LDAP) are strategies that can be swapped easily. This pattern improves code flexibility and adheres to the Open/Closed Principle by enabling new behaviors without modifying existing code.
+Example:
+
+java
+Copy
+Edit
+interface PaymentStrategy {
+    void pay(int amount);
+}
+class CreditCardStrategy implements PaymentStrategy {
+    public void pay(int amount) { System.out.println("Paid " + amount + " by credit card."); }
+}
+class PayPalStrategy implements PaymentStrategy {
+    public void pay(int amount) { System.out.println("Paid " + amount + " using PayPal."); }
+}
+6. What is the Template Method pattern? Give an example.
+Answer:
+The Template Method pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses. It allows subclasses to redefine certain steps without changing the overall algorithm’s structure. In Spring, JdbcTemplate uses this pattern by handling common JDBC operations while letting developers define SQL queries or row mapping. This pattern promotes code reuse and enforces a consistent process structure.
+Example:
+
+java
+Copy
+Edit
+abstract class DataProcessor {
+    public final void process() {
+        readData();
+        processData();
+        saveData();
+    }
+    abstract void readData();
+    abstract void processData();
+    abstract void saveData();
+}
+7. What is the Circuit Breaker pattern in Microservices?
+Answer:
+The Circuit Breaker pattern helps improve the resilience of microservices by preventing repeated calls to a failing service. When failures reach a threshold, the circuit “trips,” and calls are stopped temporarily to give the failing service time to recover. This avoids cascading failures and improves overall system stability. Libraries like Hystrix or Resilience4j implement this pattern. It’s essential in distributed systems where service dependencies are unreliable.
+
+8. What is the Builder Design Pattern? Explain with an example.
+Answer:
+The Builder pattern helps in constructing complex objects step-by-step without using telescoping constructors. It separates the construction and representation of an object and allows setting values only for required fields. This is commonly used when an object has many optional fields or configurations. In Java, it's used in StringBuilder or in object creation where immutability is needed. It promotes cleaner and more readable object creation.
+
+Example:
+
+class User {
+    private String name, email;
+    public static class Builder {
+        private String name, email;
+        public Builder setName(String name) { this.name = name; return this; }
+        public Builder setEmail(String email) { this.email = email; return this; }
+        public User build() { return new User(this); }
+    }
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.email = builder.email;
+    }
+}
+User user = new User.Builder().setName("Hari").setEmail("hari@email.com").build();
+9. What is the Facade Pattern? How is it used in Spring?
+Answer:
+The Facade pattern provides a simple interface to a complex subsystem. It hides internal complexity and exposes only the necessary operations. In Spring, JdbcTemplate is a classic example of a facade. It wraps JDBC operations and simplifies exception handling, connection management, and boilerplate code. This makes the system easier to use and improves maintainability.
+
+Example:
+Without Facade:
+
+
+Connection conn = DriverManager.getConnection(...);
+PreparedStatement ps = conn.prepareStatement("SELECT * FROM users");
+ResultSet rs = ps.executeQuery();
+With Facade (Spring):
+
+String name = jdbcTemplate.queryForObject("SELECT name FROM users WHERE id=?", String.class, 1);
+10. What is the Adapter Pattern? Where is it used in Spring?
+Answer:
+The Adapter pattern acts as a bridge between two incompatible interfaces. It allows classes to work together that otherwise couldn’t due to incompatible interfaces. In Spring MVC, HandlerAdapter is used to adapt various controller types (like @Controller, HttpRequestHandler) to work with the dispatcher servlet. This allows plugging in new controller types without modifying the dispatcher logic.
+
+Example:
+Spring’s SimpleControllerHandlerAdapter adapts Controller-based classes for processing:
+public class MyController implements Controller {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        return new ModelAndView("welcome");
+    }
+}
+Spring adapts this via HandlerAdapter.
+
+11. What is the Command Pattern?
+Answer:
+The Command pattern encapsulates a request as an object, allowing us to parameterize clients with different requests. It decouples the sender and receiver of a command, which makes it easy to implement undo/redo operations, queues, and logging. In Spring, scheduling tasks using @Scheduled or sending commands via message queues (e.g., RabbitMQ or Kafka) follows this pattern.
+
+Example (Spring Boot Scheduled Task):
+
+@Component
+public class ReportTask {
+    @Scheduled(fixedRate = 5000)
+    public void generateReport() {
+        System.out.println("Generating report...");
+    }
+}
+Here, the method is encapsulated and scheduled to be invoked as a command at regular intervals.
+
+12. What is the Chain of Responsibility Pattern?
+Answer:
+The Chain of Responsibility pattern passes a request along a chain of handlers. Each handler decides whether to process the request or pass it to the next handler. This is useful when multiple objects can handle the request, and the handler isn’t known in advance. In Spring Security, filters like authentication, authorization, and exception handling form a chain, each doing its job and passing the request down the chain.
+
+Example (Spring Security Filter Chain):
+
+Request → AuthenticationFilter → AuthorizationFilter → LoggingFilter → Controller
+Each filter has a chance to handle or forward the request, enabling modular and pluggable behavior.
+
+13. What is the Observer Pattern in Microservices?
+Answer:
+In Microservices, the Observer pattern is implemented via event-driven architecture, where one service publishes an event, and others subscribe and react to it. This decouples services, improves scalability, and supports asynchronous communication. Tools like Apache Kafka, RabbitMQ, or Spring EventPublisher implement this pattern effectively.
+
+Example (Spring Boot + Application Event):
+public class OrderCreatedEvent extends ApplicationEvent {
+    public OrderCreatedEvent(Object source) { super(source); }
+}
+
+@Component
+public class InventoryListener {
+    @EventListener
+    public void handleOrder(OrderCreatedEvent event) {
+        System.out.println("Inventory updated for order.");
+    }
+}
+
+14. What is the Saga Pattern in Microservices?
+Answer:
+The Saga pattern manages distributed transactions across microservices using a series of local transactions. Each service performs its operation and triggers the next via events. If any step fails, it invokes a compensating transaction to undo the previous step. Sagas are either choreographed (event-driven) or orchestrated (central controller). This pattern ensures eventual consistency and avoids distributed locking.
+Example (Order Service Saga Flow):
+Order Service creates order → publishes OrderCreatedEvent.
+Inventory Service reserves stock → publishes StockReservedEvent.
+Payment Service charges payment → publishes PaymentSuccessEvent.
+If Payment fails, StockReleasedEvent is triggered as a compensation.
+
+15. What is the CQRS (Command Query Responsibility Segregation) Pattern?
+Answer:
+CQRS separates the read (query) and write (command) operations into different models. This allows better scalability, performance tuning, and clear separation of concerns. The write model handles state changes, while the read model is optimized for querying. It’s often used in event-driven or microservice-based systems to improve performance under high load. It fits well with Event Sourcing and asynchronous message processing.
+Example:
+Command: POST /createUser → writes to DB
+Query: GET /getUser?id=5 → reads from a denormalized, optimized view
+In Spring, you might use different service layers or APIs for queries and commands.
+
+16. What is the Event Sourcing Pattern?
+Answer:
+Event Sourcing stores the state of an entity as a series of events rather than the current state. Each change (event) is recorded, and the state is rebuilt by replaying events. This provides a full audit log, better debugging, and easy rollback capabilities. It’s useful in banking, auditing, and distributed systems. Event Sourcing is often combined with CQRS.
+Example:
+Instead of updating a user:
+UPDATE user SET name='Hari' WHERE id=1;
+You store:
+UserCreated
+UserNameChanged to Hari
+Then rebuild state by applying these events sequentially.
+
+17. What is the API Gateway Pattern in Microservices?
+Answer:
+API Gateway acts as a single entry point for all client requests to microservices. It handles request routing, authentication, rate limiting, and sometimes response aggregation. This simplifies client interaction and centralizes cross-cutting concerns. Spring Cloud Gateway or Netflix Zuul are commonly used in Spring Boot apps.
+
+Example (Spring Cloud Gateway):
+routes:
+  - id: user-service
+    uri: http://localhost:8081
+    predicates:
+      - Path=/users/**
+Clients call GET /users/1, and the gateway routes it to the user-service.
+
+18. What is the Service Discovery Pattern?
+Answer:
+In microservices, Service Discovery allows services to automatically register and discover each other without hardcoding IPs or ports. It helps services scale dynamically and reduces manual config. Spring Cloud integrates with tools like Eureka, Consul, and Zookeeper to support this pattern.
+
+Example (Spring Eureka Client):
+@EnableDiscoveryClient
+@SpringBootApplication
+public class ProductServiceApp { ... }
+The service registers itself to the Eureka server and can be discovered by other services via service name.
+
+19. What is the Circuit Breaker Pattern?
+Answer:
+Circuit Breaker prevents system overload by stopping repeated calls to a failing service. If failures reach a threshold, it opens the circuit and stops requests for a time. After a cooldown, it allows a few test requests (half-open), then closes the circuit on success. This avoids cascading failures and ensures resilience.
+Example (Spring + Resilience4j):
+
+@CircuitBreaker(name = "orderService", fallbackMethod = "fallbackOrder")
+public String placeOrder() {
+    return restTemplate.getForObject("http://inventory-service/check", String.class);
+}
+If inventory-service fails repeatedly, the fallback method is triggered.
+
+20. What is the Strangler Fig Pattern?
+Answer:
+The Strangler Fig pattern helps in gradually replacing a legacy system with a new system. New features are developed in the new system, while existing ones are slowly migrated. Over time, the legacy app is "strangled" and replaced entirely. It minimizes risk and allows a smooth transition.
+Example:
+/users/** routes to the new Spring Boot service
+/orders/** still handled by legacy system
+Eventually, all features move to the new microservices.
