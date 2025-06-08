@@ -1,0 +1,296 @@
+✅ 1. Scenario: Your Docker container crashes after a few seconds. How do you debug it?
+Answer:
+You can use docker logs <container_id> to view logs. Run the container in interactive mode using docker run -it image bash to debug manually. Also check docker inspect for configuration issues.
+Example: A Spring Boot app crashing due to missing environment variables can be found using logs.
+
+✅ 2. Scenario: You made a change in your application code. How do you update your Docker image and container?
+Answer:
+Rebuild the image using docker build -t myapp:latest . and redeploy the container. Remove the old one using docker rm -f <container_id> and run the new image.
+Example: You updated a REST endpoint; now rebuild and run with the new image.
+
+✅ 3. Scenario: You need to share your Dockerized app with your team. What do you do?
+Answer:
+Push the image to Docker Hub using docker push <username>/myapp. Your team can pull it with docker pull. Or, share a Dockerfile and let them build locally.
+Example: docker tag myapp:latest username/myapp && docker push username/myapp
+
+✅ 4. Scenario: How do you run multiple services (e.g., app + database) together?
+Answer:
+Use Docker Compose. Define each service in docker-compose.yml and run them with docker-compose up.
+Example:
+
+yaml
+services:
+  app:
+    image: myapp
+    ports:
+      - "8080:8080"
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+
+✅ 5. Scenario: You deployed a Spring Boot app using Docker, but it fails with a Connection refused error when accessing the MySQL database. What will you check?
+Answer:
+Ensure both containers are on the same Docker network.
+Check if the database container is running and accepting connections.
+Use container name as the DB host, not localhost.
+Confirm port mappings and env variables like DB_USER and DB_PASS are correct.
+Use docker exec and ping or telnet to test connectivity.
+
+✅ 6. Scenario: You have a large Docker image that takes a long time to build. How do you reduce the build time?
+Answer:
+Use a smaller base image (e.g., alpine).
+Reorder Dockerfile commands to leverage caching.
+Avoid copying unnecessary files—use a .dockerignore file.
+Combine RUN instructions using && to reduce layers.
+Use multi-stage builds to separate build and runtime layers.
+
+✅ 7. Scenario: You want to run the same app with different configurations in dev, test, and prod. How do you manage that with Docker?
+Answer:
+Use environment variables passed via -e or .env files.
+Use Docker Compose with multiple override files (docker-compose.override.yml).
+Mount external config files using volumes.
+For secrets, use Docker secrets or integrate with external tools like Vault.
+
+✅ 8. Scenario: Your container stops unexpectedly after starting. How do you troubleshoot it?
+Answer:
+Run docker logs <container_id> to see error messages.
+Use docker inspect for metadata and failure reasons.
+If it starts and exits immediately, try running it interactively using docker run -it image bash.
+Validate the ENTRYPOINT/CMD in the Dockerfile.
+Check if the app requires user input or has a missing dependency.
+
+✅ 35. Scenario: You need to copy a file from a running container to your host machine. How do you do that?
+Answer:
+Use the docker cp command:
+docker cp <container_id>:/path/in/container /path/on/host
+This copies a file or folder from inside the container to your local system.
+Example: Copy log files from /var/logs to your machine for debugging.
+
+✅ 9. Scenario: You have multiple microservices. How do you manage them using Docker?
+Answer:
+Use Docker Compose to define and manage services. Each microservice runs in its own container.
+Define services in docker-compose.yml, specifying image, ports, env variables, and volumes.
+Use docker-compose up to start everything.
+This simplifies orchestration and ensures all services work together in dev/test.
+
+✅ 10. Scenario: You want to test a Docker image locally before pushing it to production. What steps will you follow?
+Answer:
+Build the image using docker build -t myapp:latest .
+Run it locally using docker run -p 8080:8080 myapp
+Test all endpoints and logs.
+Check for image size, exposed ports, and unused dependencies.
+Use tools like dive or docker scan for security and layer inspection.
+
+✅ 11. Scenario: Your team reports high CPU usage from a container. How do you analyze and fix it?
+Answer:
+Use docker stats to monitor real-time usage.
+Inspect logs for application issues or infinite loops.
+Use top or htop inside the container via docker exec.
+Set CPU limits using --cpus or --cpu-shares.
+Consider optimizing the app or containerizing with fewer resources.
+
+✅ 12. Scenario: You pushed an image to Docker Hub but want to delete it. What’s the process?
+Answer:
+Docker Hub doesn't support direct image deletion via CLI.
+Go to Docker Hub’s website, log in.
+Navigate to the repository → tags → delete the tag manually.
+You can also make the repo private if you no longer want it public.
+
+✅ 13. Scenario: You want to clean up unused Docker containers, images, and volumes. How do you do it?
+Answer:
+Use Docker's system prune commands:
+bash
+docker system prune           # remove unused containers, networks, images
+docker volume prune           # remove unused volumes
+Use -a with system prune to remove all unused images too.
+Great for freeing up disk space in dev/test environments.
+
+
+✅ 14. Scenario: You need to ensure your Docker container restarts if it crashes. How do you configure it?
+Answer:
+Use Docker’s --restart policy when running the container.
+Options include:
+no (default)
+on-failure
+always
+unless-stopped
+Example:
+docker run --restart=always myapp
+This ensures the container is restarted automatically if it stops or crashes.
+
+✅ 15. Scenario: A containerized app works locally but fails in staging. What could be the reasons?
+Answer:
+Environment variables might differ.
+Configuration files (like .env) might not be mounted properly.
+The image version may not match between environments.
+Networking or volume paths may differ.
+Check docker inspect and logs to compare environment-specific configurations.
+
+✅ 16. Scenario: You want to reduce Docker image size in a CI/CD pipeline. What techniques would you apply?
+Answer:
+Use multi-stage builds to avoid shipping build-time tools.
+Choose minimal base images like alpine.
+Use .dockerignore to exclude unnecessary files.
+Merge RUN commands to reduce layers.
+Clean temp files in the same layer to avoid leaving residue.
+
+✅ 17. Scenario: How would you handle secret credentials (e.g., API keys) in Docker containers?
+Answer:
+Never hardcode secrets in Dockerfiles.
+Pass secrets using environment variables at runtime or externalize to .env.
+For sensitive data in production, use Docker secrets or integrate with Vault/KMS.
+Mount config files or secrets using read-only volumes.
+Example:
+docker run -e DB_PASSWORD=$DB_PASSWORD myapp
+
+✅ 18. Scenario: A Docker container is using too much disk space. How do you debug and fix it?
+Answer:
+Use docker system df to see what is consuming space.
+Run docker image prune, docker volume prune, and docker container prune to clean unused resources.
+Remove dangling images and orphaned volumes.
+Ensure your app logs to stdout/stderr instead of growing log files in the container.
+
+✅ 19. Scenario: You want to share your Dockerized project with someone who doesn’t have your local files. What do you share?
+Answer:
+Push your Docker image to a registry like Docker Hub, then share the image name.
+OR
+Share the Dockerfile and related files in a zip or Git repo.
+They can build using docker build . or pull using docker pull <your_image>.
+Include a README.md with run instructions.
+
+✅ 20. Scenario: You accidentally removed a running container. Can you recover its data?
+Answer:
+If the container’s data was stored inside the container (not in a volume), it's lost.
+If a Docker volume or bind mount was used, the data is still safe.
+You can re-create a container and mount the same volume.
+Tip: Always use named volumes for persistent data like DBs, logs, and uploads.
+
+✅ 21. Scenario: Your team wants to test how an app behaves under high load using Docker. How do you approach it?
+Answer:
+Use Docker to run multiple instances of the app using docker-compose or scripts.
+Simulate traffic using tools like Apache JMeter or Locust inside Docker.
+Monitor CPU, memory, and response time using docker stats or external tools like Prometheus + Grafana.
+
+✅ 22. Scenario: Your CI pipeline fails while building Docker images. How do you debug it?
+Answer:
+Enable verbose output in the build step (docker build --progress=plain).
+Check the Dockerfile for build errors or missing files.
+Ensure .dockerignore doesn’t exclude required files.
+Run the same build locally to replicate the issue.
+Ensure base image or dependencies are accessible (not private or removed).
+
+✅ 23. Scenario: Two containers need to talk to each other. How do you set that up using Docker Compose?
+Answer:
+In Docker Compose, containers in the same service can communicate using service names.
+Example:
+
+yaml
+
+services:
+  app:
+    image: myapp
+  db:
+    image: mysql
+From app, you can connect to db:3306. No extra configuration is needed.
+
+✅ 24. Scenario: You have multiple versions of the same app. How do you manage them using Docker?
+Answer:
+Tag each image with a version: myapp:1.0, myapp:2.0.
+Use proper semantic versioning and maintain tags like latest, stable, etc.
+Run different versions on different ports or networks if testing locally.
+Example:
+
+bash
+
+docker run -d -p 8080:80 myapp:1.0
+docker run -d -p 8081:80 myapp:2.0
+
+✅ 25. Scenario: You want to schedule your container to run every night at 12 AM. How would you do it?
+Answer:
+Create a cron job on the host machine that runs docker run or docker start.
+Alternatively, use a container with cron inside (not recommended unless container handles scheduling).
+Example (host-side cron):
+bash
+0 0 * * * docker run myapp:latest
+
+✅ 26. Scenario: You’re working with a team, and everyone needs the same environment. How do you ensure consistency using Docker?
+Answer:
+Package the environment with a Dockerfile and share it via Git or Docker Hub.
+Use Docker Compose to define dependencies and configurations (DBs, services).
+Use versioned images and .env files for consistency.
+This makes onboarding faster and removes “it works on my machine” issues.
+
+✅ 27. Scenario: You need to run a database container but persist data after restarts. How do you do it?
+Answer:
+Mount a named volume or host path to the container’s data directory.
+Example (MySQL):
+
+bash
+
+docker run -v mysql_data:/var/lib/mysql mysql
+This way, data is stored even if the container is removed and re-created.
+
+✅ 28. Scenario: You updated the Dockerfile but changes don’t reflect when rebuilding. Why and how to fix?
+Answer:
+Docker may cache old layers.
+Use --no-cache flag in docker build to force rebuild.
+Ensure the changed lines are not at the end of the Dockerfile to avoid cache reuse.
+Example:
+
+bash
+
+docker build --no-cache -t myapp:latest .
+
+✅ 29. Scenario: Docker container works, but DNS resolution fails inside the container. How to resolve it?
+Answer:
+Restart Docker service to regenerate resolv.conf.
+Use --dns flag to set a custom DNS server (e.g., 8.8.8.8).
+Ensure Docker is not blocked by a firewall or proxy.
+Example:
+
+bash
+docker run --dns=8.8.8.8 myapp
+
+✅ 30. Scenario: Your app needs config changes without rebuilding the Docker image. How do you handle it?
+Answer:
+Pass configurations as environment variables (-e) or mount external config files using volumes.
+Avoid hardcoding configs in the image.
+Example:
+bash
+
+docker run -v /host/config.yml:/app/config.yml myapp
+
+✅ 31. Scenario: You want to check what files are inside a running container. What do you do?
+Answer:
+Use docker exec or docker cp to access the container’s filesystem.
+Example:
+
+docker exec -it mycontainer sh
+ls /app
+Or copy files from the container to host:
+bash
+docker cp mycontainer:/app/logs ./logs
+
+✅ 32. Scenario: How would you move a Docker image from one machine to another without Docker Hub?
+Answer:
+Save the image using docker save, then copy the .tar file and load it on the other machine.
+Example:
+bash
+
+docker save myapp > myapp.tar
+# copy via scp or USB
+docker load < myapp.tar
+
+✅ 33. Scenario: You want to view environment variables of a running container. How do you check?
+Answer:
+Use the docker inspect command:
+bash
+docker inspect <container_id> | grep -i env
+Or run:
+bash
+docker exec <container_id> printenv
+This shows all env variables defined inside the running container.
+
+
