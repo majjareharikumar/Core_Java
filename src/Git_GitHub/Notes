@@ -1,0 +1,240 @@
+1. What is Git and how is it different from GitHub?
+Answer:
+Git is a distributed version control system that helps developers track changes in source code during software development. It manages code locally on your machine, enabling commits, branching, and merging. GitHub, on the other hand, is a cloud-based platform that hosts Git repositories online. It adds collaboration features like pull requests, code reviews, and issue tracking on top of Git. Simply put, Git is the tool, and GitHub is a service to share and collaborate using Git.
+
+2. How do you create a new Git repository and push it to GitHub?
+Answer:
+First, create a local Git repository using git init inside your project folder. Add files using git add . and commit changes with git commit -m "initial commit". Next, create a new repository on GitHub. Link it to your local repo by adding the remote with git remote add origin <GitHub-URL>. Finally, push your code using git push -u origin main (or master depending on the branch). This publishes your local work to the GitHub repository.
+
+3. What is a branch in Git? How do you create and switch branches?
+Answer:
+A branch in Git is a separate line of development, allowing you to work on features or fixes independently without affecting the main codebase. To create a branch, use git branch <branch-name>. To switch to that branch, use git checkout <branch-name>. Alternatively, git checkout -b <branch-name> creates and switches in one command. Branches help in parallel development and keep the main branch stable.
+
+4. Scenario: You have committed changes to the wrong branch. How do you move those commits to the correct branch?
+Answer:
+First, switch to the correct branch using git checkout correct-branch. Then use git cherry-pick <commit-hash> to apply the wrong commit(s) to the correct branch. If the commits are recent and local, another way is to reset the wrong branch with git reset --hard HEAD~n to remove those commits, then switch to the correct branch and cherry-pick or re-commit. This way, commits are moved without losing work.
+
+5. How do you resolve a merge conflict in Git?
+Answer:
+A merge conflict happens when Git cannot automatically merge changes from two branches. To resolve it, open the conflicted files; Git marks conflicting areas with <<<<<<, ======, and >>>>>>. Manually edit the code to keep the desired changes. After fixing, stage the resolved files with git add <file>, then complete the merge with git commit. It’s important to test your code after resolving conflicts.
+
+6. Scenario: Two team members pushed conflicting changes to the same file. How would you handle it?
+Answer:
+First, pull the latest changes from the remote branch using git pull. This will fetch and attempt to merge the changes. If a conflict occurs, Git stops the merge. Then, open the conflicted files, review differences, and manually merge the code. After resolving conflicts, add the resolved files (git add) and commit the merge. Communicate with the team to ensure understanding and avoid repeated conflicts.
+
+7. What is a pull request in GitHub?
+Answer:
+A pull request (PR) is a feature on GitHub that lets developers notify others about changes pushed to a branch in a repository. It is a request to merge these changes into another branch (usually main or master). PRs enable code review, discussion, and continuous integration checks before merging. This process helps maintain code quality and promotes collaboration.
+
+8. Scenario: You accidentally deleted a branch on GitHub. How can you restore it?
+Answer:
+If the branch was recently deleted, GitHub allows you to restore it via the web interface in the repository's branches section. If you have the branch locally, simply push it back using git push origin <branch-name>. If the branch was deleted both locally and remotely but commits still exist, you can find the commit hash in the reflog (git reflog) and recreate the branch from it with git branch <branch-name> <commit-hash> and push it.
+
+9. How can you see the history of commits in Git?
+Answer:
+You use the git log command to view commit history. It lists commits in reverse chronological order, showing commit hashes, author info, dates, and commit messages. You can add options like git log --oneline for a summarized view or git log -p to see diffs introduced by each commit. Filtering by author or date is also possible, making it easier to track changes.
+
+10. Scenario: Your teammate force-pushed to the shared branch and overwrote your commits. What will you do?
+Answer:
+Force-push (git push --force) overwrites history, which can cause loss of commits. First, communicate with the teammate to understand why it was done. To recover lost commits, check if you or others have a local copy of those commits (git reflog can help). You can create a new branch from those commits to recover work. Going forward, use git push --force-with-lease to minimize risks, or avoid force-push on shared branches.
+
+11. What is the difference between git fetch and git pull?
+Answer:
+git fetch downloads commits, files, and refs from a remote repository but does not merge them into your local branch. It updates your remote tracking branches only. git pull does both: it fetches changes from the remote and automatically merges them into your current branch. Use fetch if you want to review changes before merging, and pull to update your branch quickly.
+
+12. How do you revert a commit that has already been pushed to a remote repository?
+Answer:
+To revert a commit that’s already pushed, use git revert <commit-hash>. This creates a new commit that undoes the changes introduced by the specified commit without altering the commit history. It’s a safe way to undo changes in a shared repo. Avoid using git reset on pushed commits because it rewrites history and can cause conflicts for others.
+
+13. Scenario: You accidentally committed sensitive data like passwords to your repository. How would you handle it?
+Answer:
+Immediately remove the sensitive data from the latest commit using git rm --cached <file> or by rewriting history with git filter-branch or the BFG Repo Cleaner. Then, force-push the cleaned history to the remote with care (git push --force). Also, invalidate or rotate the exposed credentials. Communicate with the team to avoid using that data and prevent future exposure.
+
+14. What are Git tags? How are they used?
+Answer:
+Git tags are references to specific commits used to mark important points in history like releases (v1.0, v2.0). Tags come in two types: lightweight (just a name for a commit) and annotated (store metadata like author, date, and message). Tags are helpful to track release versions and can be pushed to remote repos with git push origin <tag-name>.
+
+15. Scenario: How do you squash multiple commits into a single commit before merging?
+Answer:
+You can squash commits by using interactive rebase: run git rebase -i HEAD~n where n is the number of commits to squash. In the editor, change pick to squash (or s) for commits you want to merge into the first one. After saving, edit the commit message and finish the rebase. This cleans up commit history and is useful before merging feature branches.
+
+16. How do you check what files are staged, modified, or untracked in Git?
+Answer:
+Use git status to see the current state of your working directory and staging area. It shows which files are staged (ready for commit), modified but unstaged, and untracked files not yet added to Git. This command is essential to understand what will be included in the next commit.
+
+17. Scenario: You want to discard local changes in a file and reset it to the last committed version. How do you do that?
+Answer:
+Run git checkout -- <file> to discard all local changes to that file, reverting it to the last commit’s state. Alternatively, git restore <file> (in newer Git versions) does the same. Be careful as this operation is irreversible for unstaged changes.
+
+18. What is the difference between git merge and git rebase?
+Answer:
+git merge combines two branches by creating a new “merge commit” that has two parents, preserving the full branch history. git rebase moves or reapplies your commits on top of another branch’s tip, creating a linear history without merge commits. Merge keeps history intact, rebase makes history cleaner but rewrites commits.
+
+19. Scenario: Your repository is cluttered with too many branches. How do you clean up merged branches safely?
+Answer:
+First, list merged branches using git branch --merged. These branches have already been merged into the current branch (usually main). Delete them locally with git branch -d <branch-name>. To delete branches remotely, use git push origin --delete <branch-name>. Always ensure branches are merged before deleting to avoid losing work.
+
+20. How can you undo the last commit but keep the changes staged?
+Answer:
+Use git reset --soft HEAD~1. This command undoes the last commit but leaves the changes in the staging area, so you can fix your commit message or add more changes before recommitting. It’s useful when you want to quickly amend your last commit.
+
+21. What is a fork in GitHub and how is it different from cloning?
+Answer:
+A fork is a personal copy of someone else’s repository on GitHub, allowing you to freely experiment without affecting the original project. Cloning is copying a repository (either original or forked) to your local machine for development. Forking is done on GitHub’s server to enable independent contributions and pull requests, while cloning is a local copy operation.
+
+22. Scenario: You want to contribute to an open-source project but don’t have write access. How do you do it using GitHub?
+Answer:
+First, fork the repository to your GitHub account. Clone your fork locally. Create a new branch for your changes. Make commits, then push your branch to your fork on GitHub. Finally, open a pull request from your branch in your fork to the original repository’s branch, proposing your changes for review and merge.
+
+23. How do you stash changes in Git and when is it useful?
+Answer:
+git stash temporarily saves your uncommitted changes (both staged and unstaged) so you can work on something else without committing incomplete work. It’s useful when you need to switch branches but want to save your current progress. You can reapply stashed changes later with git stash apply or git stash pop (which also deletes the stash).
+
+24. Scenario: You pulled changes but realized it broke your local work. How do you undo the pull?
+Answer:
+If the pull introduced unwanted changes, you can reset your branch to the previous state using git reset --hard ORIG_HEAD. This command resets your local branch to where it was before the pull. Be careful as this discards any local changes made after that point.
+
+25. What is the difference between git clone and git init?
+Answer:
+git clone <repo-url> creates a local copy of an existing remote repository, including all commits and branches. git init creates a new, empty Git repository in the current directory, typically used for starting version control on a new project. Cloning copies an existing repo; init starts a new repo from scratch.
+
+26. Scenario: How do you check the difference between two commits or branches?
+Answer:
+Use git diff <commit1> <commit2> to see line-by-line changes between two commits or branches. For example, git diff main feature-branch compares the main branch with feature-branch. This is helpful for reviewing changes before merging or for understanding code evolution.
+
+27. What is the purpose of .gitignore file?
+Answer:
+The .gitignore file specifies intentionally untracked files that Git should ignore. This includes build files, logs, temporary files, and sensitive data you don’t want to commit. It helps keep the repository clean by avoiding unnecessary or sensitive files from being tracked.
+
+28. Scenario: You want to delete a file from the Git repository but keep it locally. How do you do it?
+Answer:
+Use git rm --cached <file> to remove the file from Git tracking but keep it on your local file system. Then commit the change. This is useful when a file was mistakenly added to the repo but you want to preserve it locally.
+
+29. What is the difference between origin and upstream in Git remotes?
+Answer:
+origin is the default name for the remote repository you cloned from or push your changes to. upstream is typically used to refer to the original repository from which you forked, allowing you to fetch and merge changes from the main project. This setup is common in open-source collaboration.
+
+30. Scenario: How do you sync your forked repository with the original repository?
+Answer:
+Add the original repo as a remote named upstream using git remote add upstream <original-repo-URL>. Fetch changes with git fetch upstream. Merge or rebase those changes into your local main branch with git merge upstream/main or git rebase upstream/main. Finally, push the updated branch to your fork on GitHub.
+
+31. What is Git rebase and when should you use it?
+Answer:
+Git rebase is a way to move or combine a sequence of commits to a new base commit. It rewrites history by applying your changes on top of another branch, creating a linear and cleaner commit history. Use rebase to update your feature branch with the latest changes from the main branch before merging, but avoid rebasing public/shared branches to prevent rewriting shared history.
+
+32. Scenario: You started working on a feature branch but later realized you branched off from the wrong base branch. How do you fix this?
+Answer:
+You can use git rebase to change the base branch. First, switch to your feature branch, then run git rebase --onto correct-base wrong-base feature-branch. This rebases your commits from the wrong base onto the correct base. Alternatively, create a new branch from the correct base and cherry-pick your commits.
+
+33. How do you squash commits in Git and why is it useful?
+Answer:
+Squashing commits means combining multiple commits into a single one. Use git rebase -i HEAD~n to interactively squash the last n commits. This is useful to clean up messy commit history before merging, making it easier for reviewers to understand the changes as one logical unit rather than many small commits.
+
+34. Scenario: You accidentally committed a large file that shouldn't be in the repo and want to remove it from all history. How do you proceed?
+Answer:
+You can remove the file from Git history using tools like git filter-branch or the BFG Repo Cleaner. These rewrite the entire history to delete the file completely. After cleanup, force-push the updated history with git push --force. Remember to notify your team because this rewrites commit history and requires everyone to reset their local copies.
+
+35. What is a detached HEAD state in Git? How do you fix it?
+Answer:
+Detached HEAD occurs when you check out a specific commit (not a branch), so HEAD points directly to that commit instead of a branch. Changes made here are not attached to any branch and may be lost. To fix, create a new branch from the detached HEAD using git checkout -b <new-branch> to preserve your work.
+
+36. Scenario: You want to undo a pushed commit but keep subsequent commits intact. What command will you use?
+Answer:
+You can use git revert <commit-hash> to create a new commit that reverses the changes made by the specified commit without affecting later commits. This is safe for shared branches as it doesn’t rewrite history, unlike git reset.
+
+37. What is Git cherry-pick and when would you use it?
+Answer:
+git cherry-pick <commit-hash> applies a single commit from one branch onto another. It’s useful when you want to selectively apply specific bug fixes or features without merging the whole branch. This allows granular control over changes moved across branches.
+
+38. Scenario: Your local branch has diverged from the remote branch with different commits. How do you synchronize them?
+Answer:
+You can synchronize by first pulling the remote changes using git pull --rebase to replay your commits on top of the updated remote branch. If conflicts occur, resolve them, then continue the rebase with git rebase --continue. Finally, push your updated commits. This keeps history linear and avoids unnecessary merge commits.
+
+39. How do you create a new GitHub repository and push your existing local project to it?
+Answer:
+Create a new repository on GitHub via the website. Then, in your local project folder, initialize Git with git init (if not already done). Add remote with git remote add origin <GitHub-repo-URL>. Add and commit files (git add . and git commit -m "Initial commit"), then push with git push -u origin main. This uploads your project to GitHub.
+
+40. Scenario: You need to undo changes made to a file after staging but before committing. How do you do this?
+Answer:
+Use git reset HEAD <file> to unstage the file, moving it back to modified but unstaged state. To discard changes after unstaging, run git checkout -- <file> or git restore <file>. This sequence lets you remove files from staging and optionally discard local edits before committing.
+
+41. Scenario: You merged a feature branch into main by mistake and want to undo the merge. How do you fix this?
+Answer:
+If the merge was the latest commit, you can use git reset --hard HEAD~1 to remove the merge commit locally. Then force-push the corrected history with git push --force to update the remote branch. If the merge is not the latest commit, use git revert -m 1 <merge-commit-hash> to create a new commit that undoes the merge safely without rewriting history.
+
+42. Scenario: You want to rename a remote branch on GitHub. How would you do it safely?
+Answer:
+Rename the branch locally with git branch -m old-branch new-branch. Then delete the old remote branch with git push origin --delete old-branch. Push the new branch to remote using git push origin new-branch. Finally, reset the upstream tracking branch with git push --set-upstream origin new-branch. Notify your team about the change to update their remotes.
+
+43. Scenario: You want to compare your local branch with the remote branch to see if you are ahead or behind. What commands do you use?
+Answer:
+Use git fetch to update remote tracking branches. Then run git status which shows if your branch is ahead or behind. Alternatively, git log --oneline origin/main..HEAD lists commits you have locally but not pushed, and git log --oneline HEAD..origin/main shows commits on remote not in your local branch.
+
+44. Scenario: You accidentally deleted a local branch but want to recover it. How?
+Answer:
+If the branch was recently deleted, run git reflog to find the last commit the branch pointed to. Then recreate the branch with git branch <branch-name> <commit-hash>. This restores the branch to the commit state before deletion.
+
+45. Scenario: You have conflicts during a merge. How do you resolve them?
+Answer:
+Git will pause the merge and mark conflicted files. Open those files and manually resolve conflicts by choosing or combining changes. After fixing, stage the resolved files with git add <file>. Finally, complete the merge with git commit (or git merge --continue if rebasing). Always test the code after resolving conflicts.
+
+46. Scenario: You want to force push changes but want to avoid disrupting others. What precautions do you take?
+Answer:
+Before force-pushing, communicate with your team to ensure no one else is working on the branch. Use git push --force-with-lease instead of a simple --force to safely update only if the remote hasn’t changed since your last fetch. This avoids accidentally overwriting others’ work.
+
+47. Scenario: You want to create a GitHub pull request but realize your branch is behind the base branch. What do you do?
+Answer:
+First, update your branch with the latest changes from the base branch by pulling or rebasing. You can run git fetch origin then git rebase origin/main (if main is the base). Resolve any conflicts, then push your rebased branch. This keeps the PR clean and easy to merge.
+
+48. Scenario: You want to add a file to the repository but exclude it from future commits after initial addition. How?
+Answer:
+First, commit the file normally. To exclude future changes, add it to .gitignore so new changes aren’t tracked. Then run git update-index --assume-unchanged <file> to tell Git to ignore local changes for that file without removing it from the repo.
+
+49. Scenario: Your local repository is out of sync with remote due to a force push. How do you safely recover?
+Answer:
+Fetch the remote changes with git fetch origin. Reset your branch to the remote’s latest commit using git reset --hard origin/main. Be careful as this discards local changes. Communicate with your team about the force push and coordinate to avoid future conflicts.
+
+50. Scenario: You want to contribute documentation improvements but only want to submit a single commit. How do you do this after making multiple commits locally?
+Answer:
+Use interactive rebase (git rebase -i HEAD~n) to squash your multiple documentation commits into one. Edit the commit message to summarize your changes, then force-push your branch (if already pushed) or push normally. This keeps the project history clean and concise.
+
+51. Scenario: You started a commit but realize you forgot to add a file. How do you add the file without creating a new commit?
+Answer:
+You can stage the missed file using git add <file>, then amend the last commit with git commit --amend --no-edit. This updates the previous commit by including the new file without changing the commit message, keeping your history clean.
+
+52. Scenario: You want to make your commit history more readable by combining several commits before pushing. How?
+Answer:
+Use interactive rebase git rebase -i HEAD~n where n is the number of commits. Mark all commits except the first as squash or fixup to merge them. After saving, edit the combined commit message. Finally, push your cleaned-up history with git push --force if already pushed.
+
+53. Scenario: You and a teammate edited the same lines of a file and pushed changes causing conflicts. How do you resolve?
+Answer:
+Pull the latest changes with git pull (which may trigger conflicts). Manually open conflicted files, decide which changes to keep or combine, then mark conflicts resolved with git add <file>. Commit the resolution and push your changes. Always communicate with your teammate to avoid repeated conflicts.
+
+54. Scenario: You want to view the commit history in a graphical way on the command line. What command do you use?
+Answer:
+Use git log --oneline --graph --decorate --all. This shows a concise, decorated commit history with branches and merges visualized as a graph, helping you understand the branch structure and commit relationships.
+
+55. Scenario: You accidentally staged a large binary file and want to remove it from the repository entirely, including history. What steps?
+Answer:
+Use tools like BFG Repo Cleaner or git filter-branch to remove the file from all commits. After cleaning, force-push the updated history. Add the file to .gitignore to prevent future additions. Inform your team because rewriting history affects everyone.
+
+56. Scenario: You want to make a quick fix directly on GitHub’s website without cloning the repo. How?
+Answer:
+Navigate to the file on GitHub, click the edit (pencil) icon, make your changes, add a descriptive commit message at the bottom, and select “Create a new branch for this commit and start a pull request” or commit directly to the branch if you have permissions.
+
+57. Scenario: You want to see what changes were made in a specific commit. How do you do that?
+Answer:
+Run git show <commit-hash> to see the commit details, including author, date, commit message, and the diff of what was changed in that commit. It helps to review specific changes or debug issues.
+
+58. Scenario: Your remote branch has been deleted, but you still have it locally. What happens and how to fix?
+Answer:
+If you try to push, Git will warn that the remote branch is missing. You can push the local branch as a new remote branch using git push origin <branch-name>. If the deletion was intentional, consider deleting your local branch with git branch -d <branch-name>.
+
+59. Scenario: You want to work on multiple features simultaneously without mixing their changes. How do you organize your workflow?
+Answer:
+Create separate branches for each feature (git checkout -b feature1, git checkout -b feature2). Work independently on each branch, commit changes, and push. Merge each feature branch into main separately, reducing conflicts and keeping changes modular.
+
+60. Scenario: You want to set up a branch protection rule on GitHub to enforce code reviews before merging. What steps do you take?
+Answer:
+On GitHub, navigate to the repository’s settings, then to Branches. Add a branch protection rule for the branch (e.g., main). Enable required pull request reviews before merging and other rules like status checks, signed commits, or required CI tests. This improves code quality and collaboration safety.
+
