@@ -1,0 +1,169 @@
+Q1. What is Exception Handling in Java?
+Exception Handling in Java is a powerful mechanism to handle runtime errors and maintain normal application flow. It allows the program to catch and deal with unexpected events like invalid input, file not found, etc. Java uses try, catch, finally, throw, and throws keywords. Proper exception handling improves program stability and makes debugging easier.
+
+Q2. Difference between Checked and Unchecked Exceptions?
+Checked exceptions are checked at compile time (e.g., IOException, SQLException) and must be either caught or declared using throws. Unchecked exceptions are not checked at compile time (e.g., NullPointerException, ArithmeticException). They usually indicate programming errors and occur at runtime. Both extend from Throwable but checked exceptions extend Exception, not RuntimeException.
+
+Q3. What is the difference between throw and throws in Java?
+throw is used to explicitly throw an exception object in the code.
+throws is used to declare exceptions a method might throw.
+Example:
+
+void read() throws IOException { ... }
+throw new IOException("File not found");
+throw is used inside methods; throws is used in method signatures.
+
+Q4. What is the use of finally block?
+The finally block is used to execute important code like resource cleanup (closing files, releasing DB connections) regardless of whether an exception is thrown or caught. It always runs after the try and catch blocks. Even if a return is called or an exception occurs, finally will still execute (except for System.exit()).
+
+Q5. What is the difference between final, finally, and finalize?
+final: Keyword to define constants or prevent inheritance/overriding.
+
+finally: Block used in exception handling to ensure code execution.
+
+finalize(): A method called by Garbage Collector before destroying an object, used for cleanup.
+They sound similar but serve very different purposes in Java.
+
+Q6. Can a try block exist without a catch block?
+Yes, a try block can exist without a catch block, only if it has a finally block. Either catch or finally must follow the try block. This is often used when you want to perform some cleanup in finally, regardless of whether an exception is caught.
+
+Q7. What is custom exception in Java?
+A custom exception is a user-defined exception class that extends Exception or RuntimeException. It's used when Java’s built-in exceptions don't describe your specific error scenario. Example:
+
+class AgeNotValidException extends Exception {
+  AgeNotValidException(String msg) { super(msg); }
+}
+Custom exceptions make error handling clearer and domain-specific.
+
+Q8. What happens if an exception is not handled?
+If an exception is not handled, the program will terminate abnormally and print a stack trace. This can lead to poor user experience and potential data loss. Unhandled exceptions bubble up the call stack until caught or until the JVM handles them by printing the error and exiting the program.
+
+Q9. Can we have multiple catch blocks for a single try block?
+Yes, Java allows multiple catch blocks to handle different types of exceptions that may occur in a single try block. They are evaluated in order, from top to bottom. Always place subclass exceptions before superclass ones to avoid unreachable code.
+
+Q10. What is the use of multi-catch block in Java 7+?
+Java 7 introduced the multi-catch block, allowing you to catch multiple exceptions in a single catch using the | (pipe) symbol:
+
+catch (IOException | SQLException ex) {
+  // handle both exceptions
+}
+It reduces code duplication when multiple exceptions have similar handling logic.
+
+
+Q11. What is the base class for all exceptions in Java?
+The root class for all exceptions in Java is java.lang.Throwable. It has two main subclasses:
+Error: Serious problems like JVM crashes, memory errors (not usually handled).
+Exception: Recoverable issues. This is further divided into:
+Checked Exceptions (e.g., IOException)
+Unchecked Exceptions (e.g., NullPointerException)
+
+Q12. What is the difference between Exception and Error?
+Exception indicates conditions a program can catch and recover from (e.g., file not found, invalid input).
+Error represents serious problems that are usually not recoverable (e.g., OutOfMemoryError, StackOverflowError).
+We handle exceptions in code, but errors are often handled by the JVM.
+
+Q13. Can we catch an Error in Java?
+Yes, technically we can catch an Error using a catch (Error e) block, but it is not recommended. Errors indicate serious problems (like memory issues) that shouldn't be handled in code. Catching them may prevent the JVM from shutting down properly or cause unpredictable behavior.
+
+Q14. Scenario: A file operation throws an IOException. How would you handle it?
+You can use try-catch-finally like this:
+
+try {
+  FileReader fr = new FileReader("file.txt");
+} catch (IOException e) {
+  System.out.println("File not found or unreadable.");
+} finally {
+  System.out.println("Cleanup actions.");
+}
+This ensures the exception is handled, and the finally block executes cleanup.
+
+Q15. What is exception chaining in Java?
+Exception chaining is when one exception causes another. Java allows linking exceptions using the Throwable constructor or initCause() method.
+Example:
+
+throw new IOException("Failed to read file", new FileNotFoundException());
+It helps in debugging by preserving the original root cause of the error.
+
+Q16. Can we override a method that declares exceptions with a method that doesn’t?
+Yes. In method overriding, the overriding method in the subclass can declare fewer or no exceptions than the superclass method.
+But it cannot declare new or broader checked exceptions.
+Unchecked exceptions can be declared freely, as they’re not checked by the compiler.
+
+Q17. Can a finally block modify the return value of a method?
+Yes, if a value is returned in the try or catch, but modified in finally, the final return value will be from finally.
+Example:
+
+try {
+  return 10;
+} finally {
+  return 20;
+}
+Output will be 20. This behavior can be confusing and should be avoided.
+
+Q18. What is the purpose of try-with-resources in Java 7+?
+try-with-resources is used for automatic resource management. It ensures that resources like streams, files, DB connections are closed automatically when the block finishes.
+Example:
+
+try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+  // use br
+}
+It eliminates the need for explicit finally block to close resources.
+
+Q19. Scenario: You have a method that connects to a DB and might throw SQLException and IOException. How would you handle it?
+Use multi-catch or separate catch blocks:
+
+try {
+  connectDB();
+} catch (SQLException | IOException e) {
+  System.out.println("Connection failed: " + e.getMessage());
+}
+This keeps the code clean and handles both exceptions efficiently in one place.
+
+Q20. What is the best practice for custom exception naming and structure?
+Custom exceptions should end with the word Exception and be meaningful (e.g., InvalidAgeException).
+They should extend Exception (checked) or RuntimeException (unchecked) based on whether the caller must handle it.
+Include constructors with message and cause, and optionally override toString() or getMessage().
+
+Q21. What is the use of getMessage(), printStackTrace(), and toString() in exceptions?
+getMessage(): Returns a short description of the exception.
+printStackTrace(): Prints complete stack trace to console.
+toString(): Returns string with exception type and message.
+Example:
+
+catch (Exception e) {
+  System.out.println(e.getMessage());
+  e.printStackTrace();
+}
+
+
+Q22 . how many ways we can create custom exceptions
+
+In Java, there are 2 main ways to create custom exceptions — depending on whether you want a checked or unchecked exception.
+✅ 1. Create a Custom Checked Exception (by extending Exception)
+These must be declared using throws and handled explicitly.
+class MyCheckedException extends Exception {
+    public MyCheckedException(String message) {
+        super(message);
+    }
+}
+Usage:
+
+public void validate(int age) throws MyCheckedException {
+    if (age < 18) {
+        throw new MyCheckedException("Age must be 18+");
+    }
+}
+✅ 2. Create a Custom Unchecked Exception (by extending RuntimeException)
+These are not mandatory to declare or catch. They're used for programming bugs or logic errors.
+
+class MyUncheckedException extends RuntimeException {
+    public MyUncheckedException(String message) {
+        super(message);
+    }
+}
+Usage:
+public void validate(int age) {
+    if (age < 18) {
+        throw new MyUncheckedException("Age must be 18+");
+    }
+}
