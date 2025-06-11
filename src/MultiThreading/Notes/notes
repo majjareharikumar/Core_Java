@@ -1,0 +1,221 @@
+1. What is multithreading in Java?
+Answer:
+Multithreading is a process of executing multiple threads simultaneously. Each thread is a lightweight sub-process that shares the same memory space. It helps to perform tasks in parallel, improving CPU utilization and performance. For example, you can download a file while typing in a text editor. Java provides multithreading support via the Thread class and Runnable interface. It’s commonly used in gaming, servers, and real-time applications.
+
+2. What is the difference between a process and a thread?
+Answer:
+
+A process is an independent unit of execution with its own memory space.
+
+A thread is a smaller unit of execution inside a process and shares memory with other threads.
+Processes are heavy and take more time to switch, while threads are lightweight and switch faster.
+In Java, multiple threads can run inside a single Java program (process).
+
+3. How do you create a thread in Java?
+Answer:
+There are two main ways to create a thread in Java:
+Extending the Thread class and overriding the run() method.
+Implementing the Runnable interface and passing it to a Thread object.
+Using Runnable is preferred when you want to extend another class, as Java doesn't support multiple inheritance.
+
+4. What is the lifecycle of a thread?
+Answer:
+A Java thread goes through these states:
+New → Thread is created but not started.
+Runnable → Thread is ready to run.
+Running → Thread is executing.
+Blocked/Waiting → Thread is paused for a condition.
+Terminated (Dead) → Thread has finished or stopped.
+
+5. What is the difference between start() and run()?
+Answer:
+Calling start() creates a new thread and calls the run() method in a separate thread.
+Calling run() directly just runs the method like a normal function in the main thread.
+So, always use start() to actually create a new thread.
+
+6. What is synchronization in Java? Why is it needed?
+Answer:
+Synchronization is used to control access to shared resources by multiple threads.
+It prevents race conditions where two or more threads try to change shared data at the same time.
+You can use the synchronized keyword in methods or blocks.
+It ensures that only one thread at a time can execute the critical section.
+
+7. What is a deadlock in multithreading?
+Answer:
+A deadlock occurs when two or more threads are waiting forever for each other to release locks.
+For example, Thread A holds Lock1 and waits for Lock2, while Thread B holds Lock2 and waits for Lock1.
+This situation causes the threads to be stuck forever.
+To avoid deadlock, always acquire locks in a fixed order.
+
+8. What is a thread pool?
+Answer:
+A thread pool is a collection of pre-created threads that can be reused to execute tasks.
+It improves performance by avoiding the cost of creating a new thread for every task.
+Java provides ExecutorService and Executors to manage thread pools.
+Example: Executors.newFixedThreadPool(5) creates a pool of 5 threads.
+
+9. What is the difference between wait() and sleep()?
+Answer:
+wait() is used for inter-thread communication and releases the object lock.
+sleep() is used to pause a thread for some time and doesn't release the lock.
+Also, wait() must be called inside a synchronized block, while sleep() doesn’t need it.
+Both throw InterruptedException.
+
+10. What is the difference between Runnable and Callable in Java?
+Answer:
+Runnable has a run() method and doesn’t return a result or throw checked exceptions.
+Callable has a call() method, returns a result, and can throw checked exceptions.
+Callable is used with ExecutorService and returns a Future object.
+
+11. What is the volatile keyword in Java?
+Answer:
+The volatile keyword tells the JVM that a variable’s value may change unexpectedly, so threads should always read it from main memory, not from their local cache.
+It ensures visibility, not atomicity.
+It’s useful when multiple threads read/write a shared variable.
+Example: private volatile boolean flag = false;
+
+12. What is the difference between synchronized and volatile?
+Answer:
+synchronized is used for mutual exclusion (only one thread can access a block at a time) and visibility.
+volatile only provides visibility, not mutual exclusion.
+Use synchronized when you need atomicity, and use volatile for simple flags or status sharing.
+
+13. What is inter-thread communication in Java?
+Answer:
+Inter-thread communication allows threads to communicate and cooperate using methods like wait(), notify(), and notifyAll().
+One thread can pause itself using wait(), and another can wake it up using notify().
+These must be used inside a synchronized block.
+Example: Producer-Consumer problem.
+
+14. What are daemon threads?
+Answer:
+Daemon threads are background service threads that run in the background and do not prevent the JVM from exiting.
+Examples include Garbage Collector and monitoring threads.
+Set a thread as daemon using thread.setDaemon(true) before calling start().
+JVM exits when only daemon threads are left.
+
+15. What is a race condition?
+Answer:
+A race condition occurs when multiple threads access shared data and try to change it at the same time.
+Because the thread execution order is unpredictable, it can lead to inconsistent results.
+It’s typically fixed using synchronization or atomic variables.
+
+16. How does join() work in threads?
+Answer:
+The join() method makes the current thread wait until the target thread finishes execution.
+Example: thread.join();
+It’s useful when one thread depends on another thread’s result before continuing.
+It throws InterruptedException.
+
+17. What is ThreadLocal in Java?
+Answer:
+ThreadLocal provides thread-specific variables. Each thread accessing it gets its own independent copy.
+It’s useful when you don’t want threads to share variables.
+Example: database connection per thread.
+Syntax:
+ThreadLocal<Integer> local = new ThreadLocal<>();
+
+18. What are Atomic classes in Java?
+Answer:
+Atomic classes (like AtomicInteger, AtomicBoolean) are part of the java.util.concurrent.atomic package.
+They provide lock-free, thread-safe operations on single variables.
+Useful alternative to synchronized for counters or flags.
+
+19. What are the benefits of multithreading?
+Answer:
+Better CPU utilization by running tasks in parallel.
+Improved performance for I/O or background tasks.
+Enables responsive UI in GUI apps.
+Ideal for real-time, web, and server-based applications.
+
+20. Can we restart a thread in Java?
+Answer:
+No, a thread cannot be restarted once it enters the terminated (dead) state.
+Once run() finishes or an exception occurs, the thread is dead.
+You need to create a new Thread object to start the task again.
+
+21. What is the ExecutorService in Java?
+Answer:
+ExecutorService is an advanced thread pool framework introduced in java.util.concurrent.
+It manages and executes threads efficiently using methods like submit(), invokeAll(), and shutdown().
+It separates task submission from thread management.
+Example:
+
+ExecutorService service = Executors.newFixedThreadPool(5);
+service.submit(task);
+22. What is Future in Java?
+Answer:
+Future represents the result of an asynchronous computation.
+When you submit a Callable task to ExecutorService, it returns a Future object.
+You can use future.get() to block and retrieve the result when it's ready.
+It also allows canceling tasks and checking status.
+
+23. What is ReentrantLock in Java? How is it different from synchronized?
+Answer:
+ReentrantLock is part of java.util.concurrent.locks and offers more control than synchronized.
+It allows:
+Explicit lock/unlock
+Try-lock with timeout
+Interruptible lock acquisition
+It must be unlocked explicitly in a finally block.
+Example:
+lock.lock();
+try { /* critical section */ } finally { lock.unlock(); }
+
+24. What are the types of thread priorities in Java?
+Answer:
+Java threads have priorities from 1 (MIN_PRIORITY) to 10 (MAX_PRIORITY).
+Default is 5 (NORM_PRIORITY).
+You can set a thread’s priority using setPriority(int), but thread scheduling still depends on the OS.
+Higher priority may run before lower ones, but it’s not guaranteed.
+
+25. How to prevent thread interference in Java?
+Answer:
+Thread interference occurs when threads modify shared data without proper synchronization.
+To prevent it:
+Use synchronized blocks or methods
+Use Lock classes like ReentrantLock
+Use Atomic variables like AtomicInteger
+Avoid shared mutable state where possible
+
+26. What are CyclicBarrier and CountDownLatch?
+Answer:
+Both are synchronization aids:
+CountDownLatch waits for threads to complete, then proceeds.
+CyclicBarrier waits until a fixed number of threads reach a common point, and then releases them all.
+CountDownLatch can't be reused; CyclicBarrier can.
+
+27. What is a thread-safe class? Give examples.
+Answer:
+A thread-safe class can be safely used by multiple threads at the same time without causing inconsistent data.
+Examples:
+Vector
+Hashtable
+ConcurrentHashMap
+StringBuffer
+Thread safety is achieved using synchronization, locks, or concurrent collections.
+
+28. What is a BlockingQueue in Java?
+Answer:
+BlockingQueue is part of java.util.concurrent.
+It supports thread-safe producer-consumer operations.
+If the queue is full, put() blocks the producer.
+If the queue is empty, take() blocks the consumer.
+Popular implementations: ArrayBlockingQueue, LinkedBlockingQueue.
+
+29. What is ForkJoinPool in Java?
+Answer:
+ForkJoinPool is used for parallel processing by splitting a task into smaller subtasks (fork), then combining their results (join).
+It works well for divide-and-conquer algorithms.
+It’s part of java.util.concurrent and supports RecursiveTask and RecursiveAction.
+
+30. Can we make a class thread-safe without using synchronized?
+Answer:
+Yes, by using:
+Atomic variables for counters
+ConcurrentHashMap instead of HashMap
+ThreadLocal for thread-specific storage
+volatile for visibility of shared flags
+Also, prefer immutable objects to avoid synchronization altogether.
+
+
