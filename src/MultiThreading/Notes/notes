@@ -47,6 +47,39 @@ For example, Thread A holds Lock1 and waits for Lock2, while Thread B holds Lock
 This situation causes the threads to be stuck forever.
 To avoid deadlock, always acquire locks in a fixed order.
 
+How to Avoid Deadlocks in Java?
+✅ 1. Always Acquire Locks in a Fixed Order
+Make sure all threads acquire locks in the same order.
+If Thread A locks Resource 1 then Resource 2, all other threads should follow the same order.
+
+🔸 Example:
+synchronized(lock1) {
+    synchronized(lock2) {
+        // do something
+    }
+}
+
+ 2. Use Try-Lock with Timeout (from ReentrantLock)
+Instead of waiting forever, try to acquire the lock with a timeout using tryLock().
+This way, thread can back off if lock is not available.
+
+🔸 Example:
+
+if (lock1.tryLock(1, TimeUnit.SECONDS)) {
+    try {
+        if (lock2.tryLock(1, TimeUnit.SECONDS)) {
+            try {
+                // do work
+            } finally {
+                lock2.unlock();
+            }
+        }
+    } finally {
+        lock1.unlock();
+    }
+}
+
+
 8. What is a thread pool?
 Answer:
 A thread pool is a collection of pre-created threads that can be reused to execute tasks.
