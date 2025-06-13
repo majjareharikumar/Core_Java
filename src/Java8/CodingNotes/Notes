@@ -1,0 +1,80 @@
+1. Write a Java 8 program to count the number of strings starting with a specific letter in a list.
+import java.util.Arrays;
+import java.util.List;
+
+public class CountStrings {
+
+    public static void main(String[] args) {
+        List<String> names= Arrays.asList("Hari","Hani","Harsh","Mani");
+
+        Long count=names.stream()
+                .filter(name->name.startsWith("H"))
+                .count();
+        System.out.println("Count of H words:- "+count);
+    }
+}
+
+2.Sort a list of strings by length using Java 8.
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class SortByLength {
+    public static void main(String[] args) {
+
+        List<String> name= Arrays.asList("Hari","Ram","Krishna","Mani","Kumar");
+
+        List<String> Sortednames=name.stream().sorted((s1,s2)->s1.length()-s2.length()).collect(Collectors.toList());
+        System.out.println(Sortednames);
+    }
+}
+
+3.Java 8 Program to Filter Even and Odd Numbers
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Even_Odd {
+    public static void main(String[] args) {
+        List<Integer> numbers= Arrays.asList(1,2,4,3,5,6,7,5,7,8,7,9,10);
+
+        Set<Integer> s=new HashSet<>(numbers);
+        List<Integer> even=s.stream().filter(n->n%2==0).collect(Collectors.toList());
+
+        List<Integer> odd=s.stream().filter(n->n%2!=0).collect(Collectors.toList());
+        System.out.println("Even Numbers:- "+even);
+        System.out.println("Odd Numbers:- "+odd);
+    }
+}
+
+4.Find all numbers starting with 1 using Stream functions
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StartsWithOne {
+    public static void main(String[] args) {
+        List<Integer> numbser= Arrays.asList(12,2,13,4,1,515,122);
+
+        List<String> startsWithOne =numbser.stream()
+                .map(String::valueOf)
+                .filter(n->n.startsWith("1"))
+                .collect(Collectors.toList());
+
+        System.out.println("Numbers start with 1:- "+startsWithOne);
+    }
+}
+
+5.Find the total number of elements present in the list using Stream functions
+public class CountElements {
+
+    public static void main(String[] args) {
+        List<Integer> numbers= Arrays.asList(1,2,3,4,5,6);
+        Long count=numbers.stream().count();
+
+        System.out.println("Total elements in the list is :- "+count);
+    }
+}
+
