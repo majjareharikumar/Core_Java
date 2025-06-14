@@ -78,3 +78,114 @@ public class CountElements {
     }
 }
 
+6.Write a Java 8 program to calculate the sum of integers in a list ?
+import java.util.Arrays;
+import java.util.List;
+
+public class NumberSum {
+    public static void main(String[] args) {
+        List<Integer> list= Arrays.asList(1,2,3,4,5,6,7);
+
+        Integer sum=list.stream().reduce(0,Integer::sum);
+        System.out.println("Sum of elements in list:- "+sum);
+    }
+}
+
+7.Write a Java 8 program to find the maximum element from a list ?
+  import java.util.Arrays;
+  import java.util.List;
+  import java.util.Optional;
+
+  public class max_element {
+      public static void main(String[] args) {
+          List<Integer> list= Arrays.asList(1,2,43,14,55,6,7,8,9);
+          Optional<Integer> max=list.stream().max(Integer::compareTo);
+
+          System.out.println("Max number in the list:- "+max);
+      }
+  }
+
+8.Write a Java 8 program to check if a list contains a specific element ?
+  public class TargetNumber {
+      public static void main(String[] args) {
+          List<Integer> list= Arrays.asList(1,2,3,4,5,7,8,5,9,6);
+          int target=5;
+
+          boolean isPresent=list.stream().anyMatch(n->n==target);
+
+          System.out.println("List Contains "+ target+":- "+isPresent);
+      }
+  }
+
+9.Write a Java 8 program to find the sum of all even numbers in a list of integers ?
+  public class EvenSum {
+      public static void main(String[] args) {
+          List<Integer> list= Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,14,16,18,20);
+
+          int evenSum= list.stream().filter(n->n%2==0).mapToInt(n->n).sum();
+
+          System.out.println("Sum of Even numbers in the list:- "+evenSum);
+      }
+  }
+
+10.Write a Java 8 program to concatenate all strings in a list ?
+   public class StringConcatenation {
+       public static void main(String[] args) {
+           List<String> words= Arrays.asList("Majjare","Hari","Kumar");
+
+           String result=words.stream().reduce("",(s1,s2)->s1+s2);
+
+           System.out.println("Concatenated String:- "+result);
+       }
+   }
+
+11.Write a Java 8 program to find the average length of strings in a list of strings?
+   public class AverageStringLength {
+       public static void main(String[] args) {
+           List<String> list= Arrays.asList("Majjare","Hari","Nath","Kumar","Babu");
+
+           double averageStringLength = list.stream().mapToInt(String::length).average().orElse(0.0);
+
+           System.out.println("AverageStringLength :- "+averageStringLength);
+       }
+   }
+
+12.Write a Java 8 program to count the occurrences of a given character in a list of strings?
+   public class CharacterCount {
+       public static void main(String[] args) {
+
+           List<String> list= Arrays.asList("Majjare","Hari","Nath","Kumar","Babu");
+
+           char targetChar='a';
+
+           long count=list.stream().flatMapToInt(String::chars).mapToObj(c->(char)c).filter(ch->ch==targetChar || ch==Character.toLowerCase(targetChar)).count();
+
+           System.out.println("Target Character a count:- "+count);
+       }
+   }
+
+13.Write a Java 8 program to print all elements in a list are greater than a given value?
+   public class GratorNumbers {
+
+       public static void main(String[] args) {
+           List<Integer> list= Arrays.asList(23,12,43,45,56,76,56);
+           int a=25;
+           List<Integer> gratorNumbers=list.stream().filter(n->n>a).collect(Collectors.toList());
+           System.out.println("GratorNumbers of 25 in the list :- "+gratorNumbers);
+       }
+
+   }
+
+14.Write a Java 8 program to find the factorial of a given number ?
+   public class Factorial {
+       public static void main(String[] args) {
+           int a=5;
+           int factorial= IntStream.rangeClosed(1,a).reduce(1,(i,b)->i*b);
+
+           System.out.println("Factorial of 5 is :- "+factorial);
+       }
+   }
+
+15.
+
+
