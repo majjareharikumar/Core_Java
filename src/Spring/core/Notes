@@ -30,6 +30,34 @@ Each bean has a scope like Singleton, Prototype, Request, Session, etc.
 Spring beans are reusable components that help in building modular applications.
 The lifecycle of a bean includes instantiation, dependency injection, initialization, and destruction.
 
+-->Different Methods to Create a Spring Bean
+----------------------------------------------------
+   Here we are going to discuss how to create a Spring Bean in 3 different ways as follows:
+   Method 1: Creating Bean Inside an XML Configuration File (beans.xml) :- One of the most popular ways to create a spring bean is to define a bean in an XML configuration file something like this.
+   <bean id="AnyUniqueId" class="YourClassName">
+   </bean>
+
+   Method 2: Using @Component Annotation:-
+   @Component("collegeBean")
+    // Class
+   public class College {
+   }
+    Method 3: Using @Bean Annotation :- One of the most important annotations in spring is the @Bean annotation which is applied on a method to specify that it returns a bean to be managed by Spring context. Spring Bean annotation is usually declared in Configuration classes methods.
+   @Configuration
+   public class CollegeConfig {
+     // Using Bean annotation to create
+       // College class Bean
+       @Bean
+     // Here the method name is the
+       // bean id/bean name
+       public College collegeBean()
+       {
+           // Return the College object
+           return new College();
+       }
+   }
+
+
 Q5. What is the difference between BeanFactory and ApplicationContext?
 Both are interfaces for Spring IoC container but with different features.
 BeanFactory is the basic container and is used for simple scenarios.
