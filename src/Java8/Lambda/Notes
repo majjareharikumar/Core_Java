@@ -1,0 +1,20 @@
+✅ What is a Lambda Expression in Java?
+A lambda expression is a short block of code that takes in parameters and returns a value. It's mainly used to implement functional interfaces (interfaces with a single abstract method).
+
+✅ Syntax of Lambda:
+
+(parameters) -> { body }
+
+✅ Explanation of Key Functional Interfaces
+Interface	Description	Example Lambda
+Runnable	No input, no output	() -> { ... }
+Consumer<T>	Takes T, returns nothing	s -> System.out.println(s)
+Supplier<T>	Takes nothing, returns T	() -> Math.random()
+Predicate<T>	Takes T, returns boolean	x -> x > 5
+Function<T,R>	Takes T, returns R	s -> s.length()
+BiFunction<T,U,R>	Takes T,U, returns R	(x, y) -> x + y
+
+✅ Interview Tips:
+Know where lambdas can be used (functional interfaces, collection processing).
+Be confident with Predicate, Consumer, Function, and Supplier.
+Practice writing lambda expressions with Streams API (filter, map, forEach, collect, sorted).
