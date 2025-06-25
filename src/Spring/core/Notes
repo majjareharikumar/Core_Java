@@ -33,12 +33,20 @@ Ex:- <bean class="full class path" name="bean/object name">
 
 
 Q3. What is Inversion of Control (IoC)?
-IoC is a design principle where the control of creating and managing objects is transferred from the program to the framework.
-In Spring, IoC is implemented using the ApplicationContext or BeanFactory.
-It promotes loose coupling and separation of concerns.
-Developers define how beans should be created, and Spring manages their lifecycle.
-This helps in writing modular, reusable, and testable code.
-IoC is the core concept on which the entire Spring Framework is built.
+Spring IoC (Inversion of Control) Container is the core of Spring Framework. It creates the objects, configures and assembles their dependencies, manages their entire life cycle. The Container uses Dependency Injection(DI) to inject or assign values to the fields or object which are required to assign values in the class . It gets the information about the objects from a configuration file(XML) or Java Code or Java Annotations and Java POJO class. These objects are called Beans.
+There are 2 types of IoC containers:
+•	BeanFactory
+•	ApplicationContext
+That means if you want to use an IoC container in spring whether we need to use a BeanFactory or ApplicationContext. The BeanFactory is the most basic version of IoC containers, and the ApplicationContext extends the features of BeanFactory. The followings are some of the main features of Spring IoC,
+•	Creating Object for us,
+•	Managing our objects,
+•	Helping our application to be configurable,
+•	Managing dependencies
+
+Example of IOC:- We have bank application . interface called bank and it has 2 abstract methods like deposit account and check balance. We have 2 bank class(SBI & ICICI) which is implementing the bank interface. Now we need to deposit amount in to the bank account. Now we are going to main method and we are creating object to SBI bank class to deposit. In future we want to deposit amount in to ICICI, Again we need to go main class and we need to create ICICI object to deposit. It is ok for now. In future another bank came and we need to deposit amount to that bank. Again we need to go source code and we need to do changes. That’s not a good to go source code and change . We don’t want to touch source code again and again. But we need to use all banks. To avoid this changes , Spring IOC came into the picture. Simply we need to create 1 file called beans.xml and in mail method we can use any one of the IOC container to get the beans or objects.
+In xml file we can create bean like :- <bean id="sbi" class="SBI"></bean>.
+To get the bean from xml, In main class/method we need to create container like :-  Bank bank = applicationContext.getBean("sbi", SBI.class);
+
 
 Q4. What is a Spring Bean?
 A Spring Bean is an object managed by the Spring IoC container.
