@@ -13,6 +13,24 @@ There are two main types: Constructor Injection and Setter Injection.
 Spring handles the creation and wiring of objects via the IoC container.
 It makes the code easier to test, maintain, and extend.
 DI is configured using XML, annotations, or Java-based configuration.
+•	Setter Dependency Injection (SDI): This is the simpler of the two DI methods. In this, the DI will be injected with the help of setter and/or getter methods. Now to set the DI as SDI in the bean, it is done through the bean-configuration file For this, the property to be set with the SDI is declared under the <property> tag in the bean-config file.
+Ex:- <bean class="full class path" name="bean/object name">
+   <property name="field name in class ">
+               <value> value </value>
+       <property/>
+     <property name="field name in class">
+               <value> value </value>
+          <property/>
+    </bean>
+
+
+•	Constructor Dependency Injection (CDI): In this, the DI will be injected with the help of constructors. Now to set the DI as CDI in bean, it is done through the bean-configuration file For this, the property to be set with the CDI is declared under the <constructor-arg> tag in the bean-config file.
+<bean id="object name" class="YourClassName">
+  <constructor-arg name="attributes that you have defined
+    in your class" value="And its corresponding values"/>
+    </bean>
+
+
 
 Q3. What is Inversion of Control (IoC)?
 IoC is a design principle where the control of creating and managing objects is transferred from the program to the framework.
