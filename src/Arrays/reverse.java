@@ -9,6 +9,7 @@ public class reverse {
         for(int i=0;i<a.length;i++){
             b[i]=a[a.length-1-i];
         }
+
         System.out.println(Arrays.toString(b));
     }
 }
