@@ -34,7 +34,9 @@ Namespaces are virtual clusters within a Kubernetes cluster that isolate resourc
 
 7. What is a ConfigMap and how is it used?
 Answer:
-ConfigMap stores configuration data as key-value pairs, separate from container images. It allows injecting environment variables, command-line arguments, or config files into pods. This helps keep configuration decoupled from code, enabling flexibility and easier management.
+ConfigMap stores configuration data as key-value pairs, separate from container images.
+It allows injecting environment variables, command-line arguments, or config files into pods. 
+This helps keep configuration decoupled from code, enabling flexibility and easier management.
 
 8. How do you perform rolling updates in Kubernetes?
 Answer:

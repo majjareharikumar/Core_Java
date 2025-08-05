@@ -3,11 +3,15 @@
 
 1. Scenario: Your application pods are crashing repeatedly after deployment. How do you troubleshoot this in Kubernetes?
 Answer:
-First, check pod status with kubectl get pods to identify crash loops. Use kubectl describe pod <pod-name> to see events and reasons. Then check logs with kubectl logs <pod-name>. Investigate resource limits, environment variables, or image issues. Also verify liveness/readiness probes. Adjust configuration or fix the app code accordingly.
+First, check pod status with kubectl get pods to identify crash loops. 
+Use kubectl describe pod <pod-name> to see events and reasons. Then check logs with kubectl logs <pod-name>. 
+Investigate resource limits, environment variables, or image issues. Also verify liveness/readiness probes. 
+Adjust configuration or fix the app code accordingly.
 
 2. Scenario: You want to update your application with zero downtime. How do you achieve this using Kubernetes?
 Answer:
-Use a Deployment object and perform a rolling update. Update the Deployment image or spec using kubectl set image or by editing the YAML. Kubernetes will gradually replace old pods with new ones, ensuring that the minimum required pods remain available throughout the update, thus preventing downtime.
+Use a Deployment object and perform a rolling update. Update the Deployment image or spec using kubectl set image or by editing the YAML. 
+Kubernetes will gradually replace old pods with new ones, ensuring that the minimum required pods remain available throughout the update, thus preventing downtime.
 
 3. Scenario: You have a stateful database application that needs persistent storage. How do you manage this in Kubernetes?
 Answer:
