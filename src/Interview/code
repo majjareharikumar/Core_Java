@@ -1,0 +1,45 @@
+1)Given a list of integers (main list) and a list of lists of integers (inner lists), write a Java program to return a new list containing only the elements from the main list that are not present in any of the inner lists.
+import java.util.*;
+class Main {
+
+    public static List<Integer> filterUniqeElements(List<Integer> mainList, List<List<Integer>> innerList){
+        Set<Integer> innerSet=new HashSet<>();
+
+        for(List<Integer> k:innerList){
+            innerSet.addAll(k);
+        }
+
+        List<Integer> result=new ArrayList<>();
+        for(Integer n:mainList){
+            if(!innerSet.contains(n)){
+                result.add(n);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> mainList=Arrays.asList(1,2,3,4,5,6,7,8,9);
+        List<List<Integer>> innerList=Arrays.asList(Arrays.asList(2,3,6,4),Arrays.asList(7,3,9));
+
+        List<Integer> r=filterUniqeElements(mainList,innerList);
+        System.out.println(r);
+
+
+    }
+}
+
+2) Write a java program to find out the day of the week for a given date (day, month, year).
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        String datestr="2025-08-06";
+
+                LocalDate date=LocalDate.parse(datestr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                DayOfWeek day=date.getDayOfWeek();
+                System.out.println(day);
+    }
+}

@@ -43,3 +43,178 @@ Real example: APIs apply rate limiting to enforce quotas, ensuring no single use
 -->Asynchronous Processing/Queueing
 What it means: Long-running tasks or heavy computations are queued and processed in the background. This frees up the main service so it handles requests faster.
 Real example: Order processing systems put payment and order fulfillment tasks on queues (like RabbitMQ or Kafka), letting the API respond instantly to users and process the order asynchronously.
+
+3)How to Handle Exceptions in Spring Boot
+Spring Boot provides a structured way to handle exceptions, keeping your APIs robust and user-friendly. The three most common approaches are:
+
+1. Using @ExceptionHandler in a Controller
+Use case: Handle exceptions for a specific controller only.
+ @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> handleNoSuchElement(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+}
+How it works: If getCustomer() throws a NoSuchElementException, the handleNoSuchElement method will handle it and return a 404 response.
+
+2. Using @ControllerAdvice for Global Exception Handling
+Use case: Handle exceptions across all controllers—centralized error management.
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(CustomerAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public @ResponseBody ErrorResponse
+How it works: Any controller that throws these exceptions will automatically get a structured JSON error response and the right HTTP status code—no extra handling in each controller needed.
+
+3. Creating Custom Exceptions
+To represent application-specific problems clearly, define custom exceptions:
+
+java
+public class CustomerAlreadyExistsException extends RuntimeException {
+    public CustomerAlreadyExistsException(String message) {
+        super(message);
+    }
+}
+public class NoSuchCustomerExistsException extends RuntimeException {
+    public NoSuchCustomerExistsException(String message) {
+        super(message);
+    }
+}
+
+One-line Interview Summary
+In Spring Boot, use @ExceptionHandler in controllers for local handling and @ControllerAdvice for centralized global exception logic. Always define custom exceptions and structured error responses to keep your APIs robust and maintainable.
+
+Bonus Tip: For REST APIs, use @RestControllerAdvice (which is the same as @ControllerAdvice but returns JSON by default).
+This approach is production-ready and requested in most Spring Boot interviews!
+
+4)Can you explain about unit testing and Unit testing scenarios
+What is Unit Testing?
+Unit testing is a software testing method where individual parts of the code—usually functions, methods, or classes—are tested in isolation to ensure they work as expected. The main goal is to verify that each piece of code produces the correct result for a given input
+How Do Unit Tests Work (Java Example)
+Suppose you have a Calculator class:
+
+java
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+}
+A unit test for these methods (using JUnit) could look like:
+
+java
+import org.junit.Assert;
+import org.junit.Test;
+
+public class CalculatorTest {
+    Calculator calculator = new Calculator();
+
+    @Test
+    public void testAdd() {
+        Assert.assertEquals(8, calculator.add(5, 3));
+    }
+
+    @Test
+    public void testSubtract() {
+        Assert.assertEquals(2, calculator.subtract(5, 3));
+    }
+}
+Example Scenarios for a Banking Application
+Deposit Funds: Verify that the account balance increases correctly for a valid deposit.
+Withdraw Funds: Check that withdrawal reduces the balance and does not allow overdraft (withdrawal greater than balance).
+Transfer Funds: Ensure successful transfers between accounts and correct updates of balances.
+Invalid Input: Attempt to deposit a negative amount—should throw an exception or error.
+Boundary Check: Withdraw the exact total account balance—should leave balance at zero.
+
+5)About Regression testing
+Regression testing is a software testing process that involves re-running previously executed test cases to ensure that recent changes—like adding new features, fixing bugs, or making optimizations—haven’t broken existing functionality.
+
+Why is Regression Testing Important?
+Prevents new bugs: Even a small code change can accidentally introduce issues elsewhere in the application.
+Ensures stability: Regression tests confirm the software remains stable and reliable after each update.
+Supports rapid development: In continuous integration and fast release cycles, regression testing helps catch problems early.
+
+Example
+Suppose your e-commerce app allows:
+Searching for products
+Price calculation
+Checkout
+If you add a new “apply discount" feature, regression testing ensures searching, calculation, and checkout features still work correctly. If the new feature accidentally breaks price calculation, regression tests will catch this.
+
+Types of Regression Testing
+Type	             Description
+Unit Regression --> Testing	Runs tests on small, individual units or modules affected by the code change
+Partial Regression--> Testing	Tests only the areas of the system that were affected by the most recent change
+Complete Regression--> Testing	Executes all the tests for the entire application to ensure nothing is broken
+Selective Regression-->	Runs a subset of relevant test cases, not the full suite
+
+Techniques & Tools
+Automated Regression Testing: Tools like Selenium, Cypress, JUnit, and TestNG help automate test case execution for better efficiency and coverage.
+Test Case Prioritization: Run high-risk or affected tests first.
+
+6)What is static in a class
+In Java, the keyword static means that a member (variable, method, block, or nested class) belongs to the class itself rather than to any specific instance (object) of that class.
+
+What does static mean in a class?
+Static variables (class variables): There is only one copy of the variable shared by all instances of the class. It exists even if no objects of the class are created.
+Static methods: Can be called on the class itself without creating an object. They cannot access instance variables or methods directly.
+Static blocks: Executes once when the class is loaded, used for initializing static variables.
+Static nested classes: Associated with the outer class, but do not require an object of the outer class.
+
+7)About CI/CD
+CI/CD stands for Continuous Integration and Continuous Delivery/Deployment. It is a set of automated practices and tools that streamline how software is built, tested, and delivered, so you can release code updates quickly, safely, and reliably.
+
+Continuous Integration (CI)
+Developers frequently merge their code changes into a shared repository (like Git).
+Each merge triggers an automated build and automated tests to check if the new code integrates smoothly and does not break anything.
+CI helps catch bugs early, reduces integration problems, and allows teams to develop collaboratively and efficiently.
+
+Example:
+A developer pushes code to GitHub. An automated tool (like Jenkins) runs tests and a build. If something fails, the developer gets immediate feedback.
+
+Continuous Delivery (CD)
+After CI, continuous delivery takes the code and automatically prepares it for release (deploys to production-like environments such as staging or QA).
+Code is always in a deployable state, but the final decision to move to production might be manual.
+Ensures every change is tested and can be released quickly.
+
+Continuous Deployment (CD)
+Takes automation one step further; every change that passes tests is automatically deployed to production with no manual intervention.
+Enables rapid, small, and safe updates to end users.
+
+CI/CD Pipeline
+A CI/CD pipeline is an automated sequence that builds, tests, and deploys code. Each step catches issues earlier, speeds up feedback, reduces human errors, and accelerates software delivery.
+
+Benefits of CI/CD
+Faster releases: Updates can reach users in minutes or hours, not weeks.
+Higher quality: Automated testing prevents many bugs from reaching production.
+Quick feedback: Developers get notified of issues right away.
+Reliability and consistency: Automation reduces human error, allowing repeatable and safe deployment
+
+8)About junit testing
+JUnit is a popular open-source framework in Java used for writing and running automated unit tests. Its main goal is to help developers verify that individual sections of code (like classes or methods) work as expected.
+Key Features of JUnit Testing
+Automation: JUnit allows quick and automated testing of code whenever changes are made, making it easy to spot issues early.
+Annotations: Special annotations like @Test, @Before, @After, etc., make test setup and execution straightforward.
+Assertions: Built-in assertion methods (like assertEquals, assertTrue, etc.) let you easily check if results are as expected.
+Integration: Works seamlessly with tools like Maven, Gradle, and CI/CD pipelines for automated build and test processes.
+Readability and Maintainability: Clear test structures and methods improve collaboration and simplify code maintenance.
+
+Explanation:
+@Test marks the method as a test case.
+Assert.assertEquals(5, result) checks if the actual output matches the expected value (5).
+
+Common JUnit Annotations
+Annotation	Purpose
+@Test	-->Marks a method as a test case
+@Before	-->Runs before each test to set up test data
+@After	-->Runs after each test for cleanup
+@BeforeClass-->	Runs once before all tests in the class
+@AfterClass	-->Runs once after all tests in the class
+
+Why Use JUnit?
+Early bug detection: Ensures each part of your program works correctly right from the start.
+Supports regression testing: Makes it easy to re-run tests whenever code changes, checking for new bugs.
+Test-driven development (TDD): Encourages writing tests first and production code later, increasing reliability.
+
+9)
