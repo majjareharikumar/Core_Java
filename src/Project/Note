@@ -76,6 +76,19 @@ I used the Outbox Pattern to ensure transactional consistency between CockroachD
 a corresponding event was written to an outbox table and later published to Kafka, ensuring eventual consistency and decoupled processing. 
 Kafka topics were used for propagating changes to other microservices (e.g., notification or reporting). We were able to process 50K+ events per second reliably with this approach.
 
+✅ What is the Outbox Pattern?
+The Outbox Pattern is a reliable event publishing strategy used in microservices architecture to ensure data consistency between a service's database and a message broker like Kafka, 
+RabbitMQ, etc.
+
+🔧 Problem it Solves:
+In microservices, if you update a database and then publish an event to Kafka in the same transaction, and the Kafka call fails (or the service crashes), 
+the systems can become inconsistent — database has the data, but Kafka has no event. This breaks event-driven consistency.
+
+✅ How Outbox Pattern Works:
+Instead of publishing the event directly, you write the event into a special outbox table in the same database transaction as your main data update.
+A background process or separate service reads the outbox table and publishes those events to Kafka or another broker.
+After publishing, it marks the event as published (or deletes it).
+
 ✅ 4. Actively involved in Agile ceremonies, sprint planning, and peer code reviews.
 Interview explanation:
 Throughout the project, I worked in an Agile development team, actively participating in daily stand-ups, sprint planning, backlog grooming, and retrospectives. 
