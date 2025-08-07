@@ -4,78 +4,64 @@
  The Customer Chase Relationship project is a Spring Boot microservices-based suite designed to facilitate client needs in managing customer-to-account and account-to-customer relationship information. It exposes APIs providing operations such as retrieving customer-linked accounts and identifying related customers for a given account. This microservice operates as a Level 4 service, reading and maintaining data from a local datastore for faster response and reduced dependency on external systems.
 
 What is “Account Relationship” here?
-
 In banking and financial systems, a customer can have multiple accounts (savings, checking, loans, credit cards), and an account can be linked to multiple customers (like joint accounts, authorized users, or business accounts with multiple owners).
 
 In your Customer Chase Relationship microservices project:
-
 ✅ Customer-to-Account Relationship
 – Identifies all accounts linked to a given customer.
 – Example: For customerId = 123, return all accountIds where this customer is the owner, joint holder, or authorized user.
-
 ✅ Account-to-Customer Relationship
 – Identifies all customers linked to a given account.
 – Example: For accountId = 456, return all customerIds who are owners, joint holders, or authorized users on this account.
 
-
  Key Features:
-
  Accounts API: Fetches all accounts linked to a specific customer (Customer to Account Relationship).
-
  Related Customers API: Retrieves all customers linked to a specific account (Account to Customer Relationship).
-
 
  Business Value:
  This service aligns with Photon target architecture, aiming to eliminate channel dependency on downstream systems during processing interruptions, ensuring high availability and resilience for client-facing channels.
 
-
 Your Role (What you will tell in the interview)
-
 > “In this project, I worked as a Java backend developer, responsible for developing and maintaining RESTful APIs using Spring Boot for customer-to-account and account-to-customer relationship services. I implemented service layer logic, integrated with the local datastore using Spring Data JPA, and ensured proper exception handling and logging. I also wrote unit and integration tests using JUnit and Mockito and supported containerization using Docker for consistent deployment across environments.”
 
 
-Tech Stack
-
-Backend: Java 17, Spring Boot, Spring Data JPA, Spring Web
-
-Database: H2/PostgreSQL (for local datastore)
-
-Build & Dependency: Maven
-
-Containerization: Docker
-
-Version Control: Git
-
-Testing: JUnit, Mockito
-
-Logging: SLF4J, Logback
-
-(Optional) Kafka (if asked about asynchronous events)
-
 APIs Developed
-
 ✅ GET /customers/{customerId}/accounts – Fetch all accounts linked to a customer.
 ✅ GET /accounts/{accountId}/customers – Retrieve all customers linked to a specific account.
-
 Both APIs return JSON responses with clear relationship mapping and handle pagination for large data.
 
  Challenges Faced & Solutions
-
 ✅ Challenge 1: Handling high response time during large data fetch.
 Solution: Implemented pagination and indexed frequently queried columns in the database to optimize queries.
-
 ✅ Challenge 2: Ensuring data consistency while updating customer-account relationships.
 Solution: Used transaction management in Spring and implemented optimistic locking where necessary to avoid conflicts.
-
 ✅ Challenge 3: Maintaining channel independence during downstream failures.
 Solution: Implemented caching mechanisms and fallback strategies to serve data from the local datastore if downstream systems were unavailable, following Photon architecture guidelines.
 
 Sample Scenario to Explain in Interview
-
 > “For example, when a client requests all accounts linked to a customer, the API receives the customerId, validates it, queries the local datastore using Spring Data JPA, and returns a JSON list of accounts with details like accountId, accountType, and status. Similarly, if an account ID is provided, the related customers linked to that account are retrieved and sent back in the response, helping the channel applications avoid directly querying the downstream systems, especially during system outages.”
 
 Why is this important in your project?
-
 ✅ Enables channel applications (mobile app, online banking) to quickly display all accounts for a customer or all customers for an account without directly calling downstream systems each time.
 ✅ Supports KYC, fraud checks, and authorization validation.
 ✅ Helps maintain consistent, high-speed data access during system outages by using your local datastore.
+
+✅ 1. Developed and deployed scalable RESTful APIs handling 100K+ daily requests with high availability.
+Interview explanation:
+In the Customer Chase Relationship project, I developed RESTful APIs using Spring Boot to manage customer-to-account and account-to-customer relationships. These APIs support high-volume traffic (~100K+ daily requests), especially from client-facing channels like online banking apps. I followed best practices like pagination, input validation, and proper HTTP status handling to ensure performance and security. The services are designed to be stateless and horizontally scalable, deployed on a Kubernetes-based environment to ensure high availability and fault tolerance. I also integrated caching where applicable to reduce database hits and improve latency.
+
+✅ 2. Implemented microservices with Spring Boot, leveraging resilience patterns like Circuit Breaker, Retry, and Bulkhead, improving system uptime by 99.9%.
+Interview explanation:
+As this was a Level 4 service, uptime and resilience were crucial. I implemented microservice resilience patterns using Resilience4j with Spring Boot. For example, I used Circuit Breaker to gracefully handle downstream outages (like external service unavailability), Retry for transient errors, and Bulkhead to prevent cascading failures by isolating thread pools. These strategies helped maintain uptime and protect the system during spikes or failures, aligning with Photon architecture's goal to reduce dependency on downstream systems. As a result, we achieved 99.9% availability even during backend downtimes.
+
+✅ 3. Designed an event-driven architecture with Kafka and CockroachDB using the Outbox Pattern, enabling transactional consistency and handling 50K+ events/sec.
+Interview explanation:
+In the project, we adopted an event-driven architecture for handling relationship changes (like new links or removals between customers and accounts). I used the Outbox Pattern to ensure transactional consistency between CockroachDB and Kafka. When a new relationship was saved in the database, a corresponding event was written to an outbox table and later published to Kafka, ensuring eventual consistency and decoupled processing. Kafka topics were used for propagating changes to other microservices (e.g., notification or reporting). We were able to process 50K+ events per second reliably with this approach.
+
+✅ 4. Actively involved in Agile ceremonies, sprint planning, and peer code reviews.
+Interview explanation:
+Throughout the project, I worked in an Agile development team, actively participating in daily stand-ups, sprint planning, backlog grooming, and retrospectives. I regularly contributed to user story estimations and task breakdowns. I also reviewed peers' code on platforms like Bitbucket/GitHub, providing feedback on code quality, performance, and adherence to standards. These practices helped maintain code consistency, reduce bugs, and promote knowledge sharing. We followed a two-week sprint cycle and used Jira for task tracking and Confluence for documentation.
+
+✅ 5. Led end-to-end software lifecycle activities including planning, development, deployment, and production support.
+Interview explanation:
+I was responsible for the complete lifecycle of several features in the Customer Chase Relationship service. From requirement analysis and technical design to implementation, unit testing, and CI/CD deployment using Jenkins pipelines. Post-deployment, I also provided L3 production support, actively monitoring logs via Splunk and Grafana, troubleshooting issues, and applying hotfixes when needed. I also contributed to runbook creation and knowledge transfer to support teams. This hands-on involvement helped me understand business impact and ensure smooth delivery across environments.
