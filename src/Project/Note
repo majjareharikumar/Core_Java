@@ -27,7 +27,8 @@ ensuring high availability and resilience for client-facing channels.
 
 Your Role (What you will tell in the interview)
 > “In this project, I worked as a Java backend developer, responsible for developing and maintaining RESTful APIs using Spring Boot for customer-to-account and 
-account-to-customer relationship services. I implemented service layer logic, integrated with the local datastore using Spring Data JPA, and ensured proper exception handling and logging. I also wrote unit and integration tests using JUnit and Mockito and supported containerization using Docker for consistent deployment across environments.”
+account-to-customer relationship services. I implemented service layer logic, integrated with the local datastore using Spring Data JPA, and ensured proper exception handling and logging. 
+I also wrote unit and integration tests using JUnit and Mockito and supported containerization using Docker for consistent deployment across environments.”
 
 
 APIs Developed
@@ -84,4 +85,7 @@ used Jira for task tracking and Confluence for documentation.
 
 ✅ 5. Led end-to-end software lifecycle activities including planning, development, deployment, and production support.
 Interview explanation:
-I was responsible for the complete lifecycle of several features in the Customer Chase Relationship service. From requirement analysis and technical design to implementation, unit testing, and CI/CD deployment using Jenkins pipelines. Post-deployment, I also provided L3 production support, actively monitoring logs via Splunk and Grafana, troubleshooting issues, and applying hotfixes when needed. I also contributed to runbook creation and knowledge transfer to support teams. This hands-on involvement helped me understand business impact and ensure smooth delivery across environments.
+I was responsible for the complete lifecycle of several features in the Customer Chase Relationship service. From requirement analysis and technical design to implementation, 
+unit testing, and CI/CD deployment using Jenkins pipelines. Post-deployment, I also provided L3 production support, actively monitoring logs via Splunk and Grafana, 
+troubleshooting issues, and applying hotfixes when needed. I also contributed to runbook creation and knowledge transfer to support teams. 
+This hands-on involvement helped me understand business impact and ensure smooth delivery across environments.
