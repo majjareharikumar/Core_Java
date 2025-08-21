@@ -1,0 +1,123 @@
+-->What is a Singleton Class in Java?
+A Singleton class is a design pattern where only one object of the class can exist throughout the application.
+It provides a global access point to that instance. The constructor is made private to restrict direct object creation,
+and a static method (like getInstance()) is used to return the single instance. Example: Runtime class in Java.
+Example: Classes like Runtime, Logger, Spring Beans (default scope) often use Singleton design.
+
+-->Steps to Create a Singleton Class in Java
+1)Make the constructor private → So no one can create objects from outside.
+2)Create a private static variable of the same class type to hold the single instance.
+3)Provide a public static method (getInstance()) to return that instance.
+4)(Optional but Recommended) Use lazy initialization or eager initialization depending on need.
+5)To make it thread-safe, use synchronized or Bill Pugh method (inner static helper class).
+
+
+-->Why do we make the constructor private in Singleton class?
+The constructor is private to restrict object creation from outside the class using the new keyword.
+If it were public, multiple objects could be created, breaking the Singleton principle.
+
+
+-->What are different ways to implement Singleton in Java?
+🔹 1. Eager Initialization Singleton
+Instance is created when the class loads (even if not used).
+Advantage: Simple, thread-safe (because class loading is thread-safe).
+Disadvantage: Instance is created even if it is never used → memory waste.
+
+class EagerSingleton {
+    private static final EagerSingleton instance = new EagerSingleton();
+    private EagerSingleton() {}
+    public static EagerSingleton getInstance() {
+        return instance;
+    }
+}
+
+🔹 2. Lazy Initialization Singleton
+Instance is created only when first requested.
+Advantage: Saves resources if not used.
+Disadvantage: Not thread-safe in multi-threaded environments.
+
+class LazySingleton {
+    private static LazySingleton instance;
+    private LazySingleton() {}
+    public static LazySingleton getInstance() {
+        if (instance == null) {
+            instance = new LazySingleton(); // created when needed
+        }
+        return instance;
+    }
+}
+
+🔹 3. Thread-Safe Singleton (Synchronized Method)
+Adds synchronized to make it safe in multi-threaded cases.
+Advantage: Thread-safe.
+Disadvantage: Synchronization makes it slower.
+
+class ThreadSafeSingleton {
+    private static ThreadSafeSingleton instance;
+    private ThreadSafeSingleton() {}
+    public static synchronized ThreadSafeSingleton getInstance() {
+        if (instance == null) {
+            instance = new ThreadSafeSingleton();
+        }
+        return instance;
+    }
+}
+
+🔹 4. Bill Pugh Singleton (Best Practice)
+
+Uses a static inner class.
+Instance is created only when needed (lazy) and still thread-safe without synchronization overhead.
+Most recommended in real projects.
+
+class BillPughSingleton {
+    private BillPughSingleton() {}
+    private static class Helper {
+        private static final BillPughSingleton INSTANCE = new BillPughSingleton();
+    }
+    public static BillPughSingleton getInstance() {
+        return Helper.INSTANCE;
+    }
+}
+
+🔹 5. Enum Singleton (Simplest & Safest)
+
+Enums in Java are thread-safe, serialization-safe, and protect against reflection.
+This is the best way to implement Singleton in modern Java.
+
+public enum EnumSingleton {
+    INSTANCE;
+    public void showMessage() {
+        System.out.println("Hello from Enum Singleton!");
+    }
+}
+
+-->Is Singleton class thread-safe?
+The basic Singleton implementation is not thread-safe because multiple threads could create multiple instances simultaneously.
+To make it thread-safe, we can use synchronized in getInstance(), use double-checked locking, or go for Bill Pugh’s approach (static inner class).
+
+-->How do you prevent Singleton class from breaking using Reflection?
+Reflection can access private constructors and create multiple objects. To prevent this, throw an exception inside the constructor if an instance already exists. Example:
+
+   private Singleton() {
+       if (instance != null) {
+           throw new RuntimeException("Use getInstance()");
+       }
+   }
+
+
+-->How do you prevent Singleton from breaking during Serialization/Deserialization?
+During serialization, a new object can be created. To prevent this, override readResolve() method in the Singleton class:
+
+   protected Object readResolve() {
+       return getInstance();
+   }
+
+-->What is Enum Singleton in Java?
+Enum provides the easiest way to implement Singleton. Enums are inherently thread-safe, serialization-safe, and prevent reflection attacks.
+Example:
+public enum SingletonEnum {
+    INSTANCE;
+    public void showMessage() {
+        System.out.println("Hello from Enum Singleton!");
+    }
+}
