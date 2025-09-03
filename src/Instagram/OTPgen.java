@@ -19,8 +19,11 @@ public class OTPgen {
                 System.out.println("Thanks for choosing our App, Kaindly visit again");
                 break;
             }
-            int Otp=100000+random.nextInt(999999);
-            System.out.println("OPT:- "+Otp);
+            else {
+
+                int Otp=100000+random.nextInt(900000);
+                System.out.println("OPT:- "+Otp);
+            }
         }
     }
 }
