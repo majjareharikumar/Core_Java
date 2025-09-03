@@ -9,8 +9,6 @@ public class Anagram {
         s1=s1.toLowerCase();
         s2=s2.toLowerCase();
 
-        char Arr1[]=s1.toCharArray();
-        char Arr2[]=s2.toCharArray();
         Arrays.sort(Arr1);
         Arrays.sort(Arr2);
 
@@ -19,7 +17,6 @@ public class Anagram {
 
     public static void main(String[] args) {
         String s1="Silent";
-        String s2="Listen";
 
         System.out.println(isAnagram(s1,s2));
     }
