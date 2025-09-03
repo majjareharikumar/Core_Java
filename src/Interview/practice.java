@@ -1,26 +1,26 @@
 package Interview;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class practice {
-    int j=1;
-    int sum=0;
-   public void  recursion(int n){
-
-        if(j>n){
-            System.out.println(sum);
-            return;
+    public static void uniqu(List <Integer>mainList, List<List<Integer>> innerList){
+        Set<Integer> set=new HashSet<>();
+        for(List<Integer> n:innerList){
+            set.addAll(n);
         }
-       sum+=j;
-        j++;
-        recursion(n);
+        List<Integer> result=new ArrayList<>();
+        for(Integer s: mainList){
+            if(set.contains(s)){
+                result.add(s);
+            }
+        }
+        System.out.println(set);
     }
+
     public static void main(String[] args) {
-       int i=4;
-       practice p=new practice();
-       p.recursion(i);
+        List<Integer> mainList=Arrays.asList(1,2,3,4,5,6,7,8,9);
+        List<List<Integer>> innerList=Arrays.asList(Arrays.asList(2,3,6,4),Arrays.asList(7,3,9));
+        practice.uniqu(mainList,innerList);
     }
 }
