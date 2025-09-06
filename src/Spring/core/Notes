@@ -13,7 +13,10 @@ There are two main types: Constructor Injection and Setter Injection.
 Spring handles the creation and wiring of objects via the IoC container.
 It makes the code easier to test, maintain, and extend.
 DI is configured using XML, annotations, or Java-based configuration.
-•	Setter Dependency Injection (SDI): This is the simpler of the two DI methods. In this, the DI will be injected with the help of setter and/or getter methods. Now to set the DI as SDI in the bean, it is done through the bean-configuration file For this, the property to be set with the SDI is declared under the <property> tag in the bean-config file.
+•	Setter Dependency Injection (SDI): This is the simpler of the two DI methods.
+In this, the DI will be injected with the help of setter and/or getter methods.
+Now to set the DI as SDI in the bean, it is done through the bean-configuration file For this,
+the property to be set with the SDI is declared under the <property> tag in the bean-config file.
 Ex:- <bean class="full class path" name="bean/object name">
    <property name="field name in class ">
                <value> value </value>
@@ -24,7 +27,9 @@ Ex:- <bean class="full class path" name="bean/object name">
     </bean>
 
 
-•	Constructor Dependency Injection (CDI): In this, the DI will be injected with the help of constructors. Now to set the DI as CDI in bean, it is done through the bean-configuration file For this, the property to be set with the CDI is declared under the <constructor-arg> tag in the bean-config file.
+•	Constructor Dependency Injection (CDI): In this, the DI will be injected with the help of constructors.
+Now to set the DI as CDI in bean, it is done through the bean-configuration file For this,
+the property to be set with the CDI is declared under the <constructor-arg> tag in the bean-config file.
 <bean id="object name" class="YourClassName">
   <constructor-arg name="attributes that you have defined
     in your class" value="And its corresponding values"/>
@@ -33,17 +38,29 @@ Ex:- <bean class="full class path" name="bean/object name">
 
 
 Q3. What is Inversion of Control (IoC)?
-Spring IoC (Inversion of Control) Container is the core of Spring Framework. It creates the objects, configures and assembles their dependencies, manages their entire life cycle. The Container uses Dependency Injection(DI) to inject or assign values to the fields or object which are required to assign values in the class . It gets the information about the objects from a configuration file(XML) or Java Code or Java Annotations and Java POJO class. These objects are called Beans.
+Spring IoC (Inversion of Control) Container is the core of Spring Framework.
+It creates the objects, configures and assembles their dependencies, manages their entire life cycle.
+The Container uses Dependency Injection(DI) to inject or assign values to the fields or object which are required to assign values in the class .
+It gets the information about the objects from a configuration file(XML) or Java Code or Java Annotations and Java POJO class.
+These objects are called Beans.
 There are 2 types of IoC containers:
 •	BeanFactory
 •	ApplicationContext
-That means if you want to use an IoC container in spring whether we need to use a BeanFactory or ApplicationContext. The BeanFactory is the most basic version of IoC containers, and the ApplicationContext extends the features of BeanFactory. The followings are some of the main features of Spring IoC,
+That means if you want to use an IoC container in spring whether we need to use a BeanFactory or ApplicationContext.
+The BeanFactory is the most basic version of IoC containers, and the ApplicationContext extends the features of BeanFactory.
+The followings are some of the main features of Spring IoC,
 •	Creating Object for us,
 •	Managing our objects,
 •	Helping our application to be configurable,
 •	Managing dependencies
 
-Example of IOC:- We have bank application . interface called bank and it has 2 abstract methods like deposit account and check balance. We have 2 bank class(SBI & ICICI) which is implementing the bank interface. Now we need to deposit amount in to the bank account. Now we are going to main method and we are creating object to SBI bank class to deposit. In future we want to deposit amount in to ICICI, Again we need to go main class and we need to create ICICI object to deposit. It is ok for now. In future another bank came and we need to deposit amount to that bank. Again we need to go source code and we need to do changes. That’s not a good to go source code and change . We don’t want to touch source code again and again. But we need to use all banks. To avoid this changes , Spring IOC came into the picture. Simply we need to create 1 file called beans.xml and in mail method we can use any one of the IOC container to get the beans or objects.
+Example of IOC:- We have bank application . interface called bank and it has 2 abstract methods like deposit account and check balance.
+We have 2 bank class(SBI & ICICI) which is implementing the bank interface. Now we need to deposit amount in to the bank account.
+Now we are going to main method and we are creating object to SBI bank class to deposit. In future we want to deposit amount in to ICICI,
+Again we need to go main class and we need to create ICICI object to deposit. It is ok for now. In future another bank came and we need
+to deposit amount to that bank. Again we need to go source code and we need to do changes. That’s not a good to go source code and change .
+We don’t want to touch source code again and again. But we need to use all banks. To avoid this changes , Spring IOC came into the picture.
+Simply we need to create 1 file called beans.xml and in mail method we can use any one of the IOC container to get the beans or objects.
 In xml file we can create bean like :- <bean id="sbi" class="SBI"></bean>.
 To get the bean from xml, In main class/method we need to create container like :-  Bank bank = applicationContext.getBean("sbi", SBI.class);
 
@@ -59,7 +76,8 @@ The lifecycle of a bean includes instantiation, dependency injection, initializa
 -->Different Methods to Create a Spring Bean
 ----------------------------------------------------
    Here we are going to discuss how to create a Spring Bean in 3 different ways as follows:
-   Method 1: Creating Bean Inside an XML Configuration File (beans.xml) :- One of the most popular ways to create a spring bean is to define a bean in an XML configuration file something like this.
+   Method 1: Creating Bean Inside an XML Configuration File (beans.xml) :- One of the most popular ways to create a spring bean is to
+   define a bean in an XML configuration file something like this.
    <bean id="AnyUniqueId" class="YourClassName">
    </bean>
 
@@ -68,7 +86,8 @@ The lifecycle of a bean includes instantiation, dependency injection, initializa
     // Class
    public class College {
    }
-    Method 3: Using @Bean Annotation :- One of the most important annotations in spring is the @Bean annotation which is applied on a method to specify that it returns a bean to be managed by Spring context. Spring Bean annotation is usually declared in Configuration classes methods.
+    Method 3: Using @Bean Annotation :- One of the most important annotations in spring is the @Bean annotation which is applied on a
+    method to specify that it returns a bean to be managed by Spring context. Spring Bean annotation is usually declared in Configuration classes methods.
    @Configuration
    public class CollegeConfig {
      // Using Bean annotation to create

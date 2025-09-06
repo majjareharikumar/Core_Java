@@ -1,0 +1,226 @@
+1)What is performance testing?
+
+Performance testing is a type of software testing that checks how well an application works under expected workloads.
+It measures speed, scalability, stability, and responsiveness of the system.
+The goal is to identify performance bottlenecks like slow response time, memory leaks, or server issues before release.
+It ensures the system can handle both normal and peak user loads without crashing.
+Overall, it helps deliver a fast, reliable, and efficient application for end users.
+
+1. JMeter
+JMeter is an open-source performance testing tool developed by Apache.
+It is mainly used to test the performance of web applications, APIs, and databases under different load conditions.
+It simulates multiple users by sending requests to the server and measures response time, Transactions per Second, and error rates.
+JMeter supports Load Testing, Stress Testing, and Functional Testing.
+It is widely used because it is free, easy to use, and integrates well with CI/CD pipelines.
+
+Steps to Use JMeter:-
+----------------------
+-->Install JMeter – Download and install Apache JMeter from its official website.
+-->Create a Test Plan – Open JMeter and create a new Test Plan (acts as a container for your test).
+-->Add Thread Group – Add a Thread Group to simulate multiple users (set number of users, ramp-up time, and loop count).
+-->Add Samplers – Add HTTP Request Samplers (or JDBC, FTP, etc.) to define the actual requests to be tested.
+-->Add Listeners – Add Listeners like “View Results Tree” or “Summary Report” to capture and analyze results.
+-->Run the Test – Start the test, monitor response times, throughput, and error percentage.
+-->Analyze Results – Identify performance bottlenecks and optimize system resources.
+
+2. BlazeMeter
+BlazeMeter is a cloud-based performance testing tool that extends the capabilities of JMeter.
+It allows you to run JMeter test scripts at scale on the cloud, simulating thousands or millions of virtual users worldwide.
+It provides advanced reporting, real-time analytics, and better test management.
+BlazeMeter supports multiple protocols and integrates with DevOps tools for continuous testing.
+It is often chosen for enterprise-level and large-scale performance testing.
+
+Steps to Use BlazeMeter:-
+---------------------------
+-->Sign Up & Login – Create an account on BlazeMeter and log in.
+-->Upload/Record Test – You can either upload your JMeter .jmx script or use BlazeMeter’s Chrome Extension to record user flows.
+-->Configure Test – Set the number of virtual users, geographic locations, ramp-up time, and duration.
+-->Run the Test – Start the test on BlazeMeter’s cloud servers, which simulate traffic from multiple locations.
+-->Monitor in Real-Time – View response time, throughput, error rate, and server performance in live dashboards.
+-->Analyze Reports – Get detailed reports with graphs and suggestions, share results with your team, and integrate with CI/CD tools if needed.
+
+*The main types of performance testing are Load, Stress, Endurance, Spike, and Scalability testing.
+Each type ensures the application is fast, stable, and reliable under different conditions.
+
+1. Load Testing
+--------------------
+Load testing checks how the system performs under expected user load.
+The goal is to verify the application can handle the expected number of users without slowing down.
+Example: Testing an e-commerce site with 5,000 users shopping at the same time. It measures response times, TPS, and server utilization.
+This ensures the system works well during normal usage conditions.
+
+2. Stress Testing
+-------------------
+Stress testing evaluates how the system behaves under extreme or beyond expected load.
+The goal is to find the system’s breaking point and how it recovers from failures.
+Example: Testing a ticket booking system during a flash sale with 50,000 users trying to book at once.
+It helps identify performance bottlenecks and system crash points.
+
+3. Endurance (Soak) Testing
+----------------------------
+Endurance testing checks the system’s performance under sustained load over a long period.
+The goal is to detect issues like memory leaks, database connection failures, or resource exhaustion.
+Example: Running a banking app with 1,000 users for 24 hours continuously. It ensures the system remains stable during long-term heavy usage.
+
+4. Spike Testing
+------------------
+Spike testing examines the system’s reaction to sudden, extreme increases in load.
+The goal is to see if the system crashes or scales quickly.
+Example: A news website getting a huge traffic spike during breaking news.
+It ensures the application can handle sudden traffic surges without downtime.
+
+5. Scalability Testing
+-----------------------
+Scalability testing checks how the system scales up or down when resources (CPU, memory, users) are increased or decreased.
+Example: Testing a cloud application by gradually increasing users from 1,000 to 20,000 and checking if adding more servers improves performance.
+It ensures the system can grow with demand.
+
+
+Problem & Fix:-
+-----------------
+
+Scenario: Slow Fund Transfer in Net Banking App
+
+1. Issue Identified
+Customers reported that fund transfers were taking 10–15 seconds instead of the usual 2–3 seconds.
+Monitoring tools like Dynatrace and Splunk also showed high response times during peak hours.
+
+2. How We Found It
+In performance test, TPS (Transactions per Second) dropped whenever more than 5,000 users performed transfers at once.
+Logs showed delays in database queries during fund transfer API calls.
+
+3. Why It Happened (Root Cause)
+The SQL query used to fetch account details was not optimized and missing an index on the “account_number” column.
+As the number of users increased, the database was scanning millions of rows, causing a slowdown.
+
+4. How We Fixed It
+We added a proper database index on “account_number”.
+Optimized the query to use joins instead of multiple nested subqueries.
+Re-ran performance tests → transfer time dropped back to 2 seconds even under 10,000+ users.
+
+5. Final Outcome
+Customer complaints reduced, application handled high load smoothly.
+We documented the fix and added continuous performance monitoring to catch similar issues early.
+
+✅ Short Interview Answer:
+"In our banking app, we once faced a performance issue where fund transfers became very slow during peak hours.
+We identified it through Splunk logs and performance testing, which showed TPS dropping when users increased.
+Root cause was an unoptimized SQL query without proper indexing. After adding an index and rewriting the query,
+the transfer time improved from 15s to 2s, and the app scaled well under load."
+
+❌ Before Fix (Causing Issue)
+SELECT customer_name, account_number, balance
+FROM accounts
+WHERE account_number = '123456789';
+
+✅ After Fix (Optimized with Index)
+-- Adding proper index
+CREATE INDEX idx_account_number ON accounts(account_number);
+
+-- Optimized query
+SELECT customer_name, account_number, balance
+FROM accounts
+WHERE account_number = '123456789';
+-----------------------------------------------------------------------------------------------------
+Scenario: Slow API response in a banking application
+*******************************************************
+1. Issue:
+Customers complained that the account balance API was taking 10–15 seconds to respond instead of the usual <1 second.
+This was impacting customer experience, especially during peak hours.
+
+2. How we identified it:
+Monitoring tools: Used Dynatrace and Grafana to check API response times.
+Logs: Checked logs via Splunk for errors, slow queries, or timeout exceptions.
+Load testing: Verified that during peak loads, some APIs were timing out.
+We noticed that response time spiked during high concurrent requests, but normal queries were fast.
+
+3. Root cause analysis:
+The API was calling multiple dependent services (like transaction history, loan data) sequentially.
+One of the dependent services was performing a heavy database query without proper indexing.
+Also, synchronous calls were blocking the API thread, increasing latency.
+Key cause: Slow DB query + sequential service calls → high response time under load.
+
+4. How we fixed it:
+Database optimization: Added indexes on frequently queried columns (account_number, transaction_date).
+Code optimization: Changed sequential service calls to parallel calls using CompletableFuture in Java.
+Caching: Cached frequently used data like account info and static reference data.
+Monitoring: Added alert thresholds in Dynatrace to catch slow queries proactively.
+
+Result:
+API response time dropped from 10–15 seconds to 0.8–1 second.
+Customers no longer experienced delays, and the system handled peak loads smoothly.
+
+✅ Interview tip:
+You can summarize in 3 lines:
+
+"We identified slow API responses using Splunk and Dynatrace. The root cause was an unoptimized DB query and sequential dependent service calls.
+We fixed it by adding indexes, parallelizing service calls, and caching frequently used data, reducing response time from 15s to under 1s."
+
+***Original Problem: Sequential Service Calls**
+Suppose your banking API needs to call 3 services:
+Service A → fetch account info
+Service B → fetch transaction history
+Service C → fetch loan info
+
+Sequential code example (simplified):
+Account account = accountService.getAccount(accountId);       // Call 1
+Transactions transactions = transactionService.getTransactions(accountId); // Call 2
+Loan loan = loanService.getLoanDetails(accountId);             // Call 3
+
+Each call waits for the previous one to finish.
+Total time = time of A + time of B + time of C.
+If one service is slow, API is slow.
+
+Optimized Approach: Parallel Calls using CompletableFuture
+Java’s CompletableFuture allows you to run tasks asynchronously, so calls can happen at the same time.
+
+CompletableFuture<Account> accountFuture = CompletableFuture.supplyAsync(() -> accountService.getAccount(accountId));
+CompletableFuture<Transactions> transactionFuture = CompletableFuture.supplyAsync(() -> transactionService.getTransactions(accountId));
+CompletableFuture<Loan> loanFuture = CompletableFuture.supplyAsync(() -> loanService.getLoanDetails(accountId));
+
+// Wait for all futures to complete
+CompletableFuture.allOf(accountFuture, transactionFuture, loanFuture).join();
+Account account = accountFuture.get();
+Transactions transactions = transactionFuture.get();
+Loan loan = loanFuture.get();
+
+
+What changed:
+
+All service calls run in parallel, not one after another.
+Total time ≈ max(time of A, time of B, time of C) instead of sum.
+Reduces API response time significantly, especially if one service is slow.
+******************************************************************************************************
+Scenario: High CPU usage causing slow online banking portal
+-----------------------------------------------------------------
+1. Issue:
+Customers reported that the online banking portal was very slow during peak hours, pages took 10–15 seconds to load,
+and sometimes the portal became unresponsive.
+
+2. How we identified it:
+Monitoring tools: Used Dynatrace and Grafana to monitor CPU and memory usage.
+Thread dumps: Captured Java thread dumps during peak time.
+Logs: Checked Splunk for repeated errors or long-running processes.
+We observed that CPU usage was spiking to 90–95% during peak hours, causing slow response times.
+
+3. Root cause analysis:
+The application was performing complex calculations and data aggregations on the fly for every user request.
+Synchronous processing of multiple heavy tasks in a single thread caused CPU bottlenecks.
+Some inefficient loops and repeated computations were happening for every page load.
+Key cause: CPU-intensive operations + synchronous processing → high load and slow portal.
+
+4. How we fixed it:
+Caching: Stored frequently used aggregated data in Redis cache instead of recalculating every time.
+Async processing: Offloaded heavy calculations to background threads or scheduled batch jobs.
+Code optimization: Optimized loops and removed redundant computations.
+Load balancing: Configured additional application instances to distribute traffic.
+
+Result:
+CPU usage dropped from 90–95% to 40–50% during peak hours.
+Page load time improved from 10–15 seconds to 2–3 seconds.
+Portal became stable even under heavy traffic.
+
+✅ Interview Tip (1-liner):
+
+"We fixed slow online banking pages by identifying CPU-intensive operations using Dynatrace, optimizing code, adding caching,
+and offloading heavy tasks asynchronously, reducing load time from 15s to 3s."

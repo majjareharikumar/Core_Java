@@ -1,3 +1,17 @@
+Self-into:-
+-------------
+Hi, I’m Hari, a Java Developer with 4 years of experience.
+I specialize in building scalable enterprise applications using Core Java and Spring Boot.
+Currently, I’m working at Virtusa for JP Morgan Chase Bank, where I design and develop microservices-based applications.
+I have hands-on experience in integrating distributed systems with Apache Kafka,Rabbit MQ and modernizing legacy applications to align with business needs.
+I work with technologies like Java, Spring Boot, Kafka, JPA, and DB2, and use tools like Splunk, Dynatrace, and Grafana to monitor application metrics and
+postman,soapui to test the API's.
+I also focus on testing and performance — I write unit tests using JUnit & Mockito and use JMeter and BlazeMeter for performance and load testing
+I usually work in an agile environment, collaborating with teams to deliver quality features on time.
+I enjoy solving complex problems, improving system performance, and I’m always eager to learn new technologies and deliver impactful solutions.
+
+............................................................
+
 1)In microservice, If one service is having some failures and causing other service failures. How we can resolve this?
 In microservices architectures, when one service fails and causes failures in other services, this is known as "cascading failure." To address this and improve system resilience, you should implement several key strategies:
 
