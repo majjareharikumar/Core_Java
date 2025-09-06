@@ -1,0 +1,278 @@
+INDEX in SQL:-
+-----------------
+An Index in SQL is like an index in a book – it helps the database find the rows faster without scanning the entire table.
+It was introduced to improve the performance of SELECT queries (especially with large data).
+Indexes store a reference to table rows in a sorted order, making searches, filtering (WHERE), and joins faster.
+However, they take extra storage and can slow down INSERT, UPDATE, and DELETE because the index must also be updated.
+We should use an index on columns that are frequently used in WHERE, JOIN, or ORDER BY clauses.
+Common types are single-column index, composite index, unique index, and clustered index.
+
+Syntax:-
+---------------
+-- Create index
+CREATE INDEX idx_column_name
+ON table_name (column_name);
+
+-- Composite index (multiple columns)
+CREATE INDEX idx_col1_col2
+ON table_name (col1, col2);
+
+Real-World Scenario:
+Imagine a Banking System with a transactions table containing millions of records.
+Customers frequently search by account_number. Without an index, the database scans all rows (slow).
+By creating an index on account_number, queries like:
+
+ex:-
+CREATE INDEX idx_account_date
+ON transactions(account_number, transaction_date);
+
+SELECT account_number, balance
+FROM transactions
+WHERE account_number = '123456789';
+********************************************************************************
+
+Function in SQL
+-----------------------
+A Function is a reusable SQL object that always returns a value (scalar or table).
+It is mainly used for calculations or transformations inside queries.
+Functions cannot perform INSERT/UPDATE/DELETE (read-only).
+They must return exactly one result.
+Often used in SELECT, WHERE, or JOIN clauses.
+Example: calculating age from date of birth.
+
+commonly used built-in SQL functions:-
+1. String Functions
+UPPER() → Converts text to uppercase.
+LOWER() → Converts text to lowercase.
+LEN() / LENGTH() → Finds string length.
+SUBSTRING() → Extracts part of a string.
+TRIM() / LTRIM() / RTRIM() → Removes spaces.
+CONCAT() → Joins strings.
+
+2. Numeric Functions
+ABS() → Absolute value.
+ROUND() → Rounds a number.
+CEILING() / FLOOR() → Rounds up or down.
+POWER(x, y) → x raised to the power y.
+SQRT() → Square root.
+
+3. Date & Time Functions
+
+GETDATE() (SQL Server) / NOW() (MySQL, PostgreSQL) → Current date & time.
+CURDATE() → Current date.
+DATEDIFF() → Difference between two dates.
+DATEADD() → Add interval to a date.
+EXTRACT(YEAR FROM date) → Extract part of a date.
+
+4. Aggregate Functions
+COUNT() → Number of rows.
+SUM() → Total sum of values.
+AVG() → Average of values.
+MIN() → Minimum value.
+MAX() → Maximum value.
+****************************************************************
+
+Stored Procedure in SQL
+-------------------------
+A Stored Procedure is a set of SQL statements stored in the database.
+It can perform multiple tasks like SELECT, INSERT, UPDATE, DELETE.
+Procedures may return data or nothing (flexible).
+They support loops, conditions, and transactions.
+Often used for business logic, reporting, or bulk operations.
+Example: processing payroll or fetching employee details.
+
+⚡ Easy memory trick:
+Stored Procedures are used for CRUD operations (Create, Read, Update, Delete).
+
+******************************************************************************
+
+JOINS in SQL:-
+--------------
+A Join in SQL is used to combine the data from two or more tables using a related column (like customer_id).
+It helps us to get connected information that is stored in different tables.
+Most of the time, this relationship is through a primary key–foreign key link.
+There are different types of joins: INNER, LEFT, RIGHT, FULL, CROSS, and SELF.
+Joins help us avoid duplicate storage by keeping data in separate tables but still allowing us to query them together.
+Real-world example: Join customers and orders to see each customer with their order details.
+
+Lets take below 2 tables for practice all joins.
+customers:-
+customer_id	     name
+1	             Hari
+2	             John
+3	             Ravi
+
+orders:-
+order_id	customer_id	 product
+101         	1	      Laptop
+102          	2	      Phone
+103	            2	      Tablet
+
+1. INNER JOIN
+👉 it will Returns only customers who have orders in order table. (matching rows).
+In order table we have cust_id's 1 & 2 only , That means 3 rd customer is not ordered yet.
+So ,it will return only Hari & John details.
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari & John (because Ravi has no orders).
+
+2. LEFT JOIN
+👉 It will take customers table as primary and Returns all customers + their orders if present in Order table.
+It will return NULL if no orders present.
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari, John with orders, and Ravi with NULL (because no order).
+
+3. RIGHT JOIN
+👉 it will take Orders table as primary and it will Returns all orders + their customers if present .
+it will return NULL if no customer present for the orders .
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+RIGHT JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari & John with their orders. it will not return Ravi, Because no order present for Ravi in order table.
+That' why order table will not know Ravi cust Id.
+
+4. FULL OUTER JOIN
+👉 It will take both tables as primary and Returns all customers and all orders, matching where possible, NULL where not.
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+FULL OUTER JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari & John with orders + Ravi with NULL + any order without a customer.
+
+5. CROSS JOIN
+👉 Returns all possible combinations from both tables.
+
+Query:
+SELECT c.name, o.product
+FROM customers c
+CROSS JOIN orders o;
+
+Result: Every customer with every product (Hari–Laptop, Hari–Phone, Hari–Tablet, John–Laptop … etc.).
+
+**********************************************************************************************************
+
+What is Normalization?
+------------------------
+“Normalization is the process of structuring a database into multiple related tables to reduce redundancy and ensure data integrity.
+It is done using Normal Forms like 1NF (remove repeating groups), 2NF (remove partial dependency), and 3NF (remove transitive dependency).
+For example, Instead of storing customer details in every order row, we keep a Customer table and link it to an Orders table using a foreign key.
+This avoids duplication and keeps data consistent.”
+
+Real-World Scenario
+-----------------------
+Imagine an e-commerce system:
+If we store order details like Customer Name, Address, Product, Quantity in one single table, customer details will repeat for every order.
+If the customer changes address, we must update it in many rows → prone to errors.
+With normalization:
+Customer table stores customer details once.
+Orders table stores order details with a reference to the customer.
+👉 This reduces redundancy and keeps data consistent.
+
+Types of Normal Forms:-
+-----------------------
+Step 1: Unnormalized Data (UNF): If we take customer & Orders table. In this form every data like cust id, cust name, prod id, prod name are in same table.
+
+CREATE TABLE Orders_UNF (
+    order_id INT,
+    customer_name VARCHAR(50),
+    customer_address VARCHAR(100),
+    products VARCHAR(100) -- multiple products in one column
+);
+Sample Data (UNF):
+
+order_id	customer_name	customer_address	products
+101	            Hari	        Bangalore	   Laptop, Phone
+102	            John	          Delhi	         Tablet
+103	            Hari	        Bangalore	    Laptop
+
+👉 Problems:
+In above table we see Duplicate customer info (Hari appears twice).And also
+Products stored in a single column (not atomic).
+
+Step 2: First Normal Form (1NF): Here we Remove repeating groups and store atomic values.
+
+CREATE TABLE Orders_1NF (
+    order_id INT,
+    customer_name VARCHAR(50),
+    customer_address VARCHAR(100),
+    product VARCHAR(50)
+);
+
+Sample Data (1NF):
+order_id	customer_name	customer_address	product
+101	           Hari	            Bangalore	    Laptop
+101	           Hari	            Bangalore	     Phone
+102	           John	             Delhi	         Tablet
+103	           Hari	            Bangalore	     Laptop
+
+👉 Problem reduced: Products are now atomic. But still customer info repeats.
+
+Step 3: Second Normal Form (2NF):Remove partial dependency → we can create Separate tables for Customers and Orders.
+
+CREATE TABLE Customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    address VARCHAR(100)
+);
+
+CREATE TABLE Orders_2NF (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    product VARCHAR(50),
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+Customers Table:
+customer_id 	name	address
+1	            Hari	Bangalore
+2	            John	Delhi
+
+Orders Table:
+order_id	 customer_id	product
+101	            1	        Laptop
+101	            1	        Phone
+102	            2	        Tablet
+103	            1	        Laptop
+
+👉 Customer info is stored only once.
+
+Step 4: Third Normal Form (3NF):
+Remove transitive dependency. Example: if we store City and Pincode in Customers, city depends on Pincode, not Customer directly.
+
+CREATE TABLE Cities (
+    pincode INT PRIMARY KEY,
+    city VARCHAR(50)
+);
+
+ALTER TABLE Customers ADD pincode INT;
+ALTER TABLE Customers ADD FOREIGN KEY (pincode) REFERENCES Cities(pincode);
+
+Cities Table:
+pincode	city
+560001	Bangalore
+110001	Delhi
+
+Customers Table (Final 3NF):
+customer_id	name	pincode
+1	        Hari	560001
+2	        John	110001
+
+
+
+
+
+
