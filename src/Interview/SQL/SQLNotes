@@ -271,6 +271,113 @@ customer_id	name	pincode
 1	        Hari	560001
 2	        John	110001
 
+**What is Denormalization?
+---------------------------
+“Normalization removes redundancy by splitting data into related tables, while denormalization combines tables to speed up queries at the cost of some redundancy.
+For example, in an e-commerce system, normalized tables keep Customers and Orders separate.
+But in a reporting system, we may denormalize and keep customer and order info in one table so queries run faster without joins.”
+
+
+When to Use Normalization
+--------------------------
+->When data consistency and accuracy are most important.
+->If your system does a lot of inserts, updates, and deletes (OLTP systems like banking apps, e-commerce apps).
+->To avoid redundancy (no duplicate customer info stored multiple times).
+->When storage space is limited.
+
+Example: In a banking system, customer details are stored in a separate table → any update (like address change) is reflected everywhere.
+
+🔹 When to Use Denormalization
+------------------------------
+->When performance of SELECT queries is more important than avoiding redundancy.
+->If your system is used for reporting, analytics, dashboards (OLAP systems).
+->To reduce the number of joins in frequently used queries.
+->When you can afford extra storage and some redundancy.
+Example: In a sales reporting system, customer + orders + products might be combined into one big table to get quick reports.
+
+*****************************************************************************************************************************
+🔹 What is Ranking in SQL?
+-----------------------------
+Ranking in SQL means assigning a position (rank/number) to each row based on some ordering criteria (like salary, marks, sales).
+It is done using window functions such as RANK(), DENSE_RANK(), and ROW_NUMBER().
+Ranking is helpful when we want to find top performers, highest salaries, best sellers, leaderboards, etc.
+For example, if we rank employees by salary, the one with the highest salary gets rank 1, the next gets rank 2, and so on.
+If two rows have the same value (tie), the way ranks are assigned depends on which ranking function is used.
+
+Employee Table (sample data)
+emp_id	name	dept	salary
+1	    Hari	IT	    70000
+2	    John	HR	    60000
+3	    Ravi	IT	    60000
+4	    Meena	Finance	 50000
+5	    Sita	IT	    40000
+
+🔹 What is ROW_NUMBER() in SQL?
+ROW_NUMBER() assigns a unique sequential number to each row, based on ordering.
+Unlike RANK() and DENSE_RANK(), it doesn’t care about duplicates—every row gets a different number.
+For example, when ranking employees by salary, even if two employees have the same salary, they get different row numbers.
+It is widely used in pagination, finding duplicate rows, and selecting the top N records.
+
+Query: Assign row numbers based on salary (highest to lowest)
+SELECT name, dept, salary,
+       ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num
+FROM employees;
+
+Result:
+name	dept	salary	row_num
+Hari	IT	    70000	1
+John	HR	    60000	2
+Ravi	IT	    60000	3
+Meena	Finance	50000	4
+Sita	IT	    40000	5
+
+👉 Notice: Even though John & Ravi have the same salary, they still got different row numbers (2 and 3).
+-------------
+🔹 What is RANK() in SQL?
+RANK():- in SQL is a window function that assigns a rank to each row based on an ORDER BY clause.
+If two or more rows have the same value, they get the same rank, but the next rank is skipped (creating gaps).
+The syntax is:
+
+RANK() OVER (PARTITION BY colX ORDER BY colY DESC)
+
+It is commonly used in ranking scenarios like top salaries, student marks, or sales reports.
+For example, if two employees share 2nd place in salary ranking, the next employee will be ranked 4th.
+
+sample query:-
+--------------
+Rank employees by salary (highest to lowest)
+SELECT name, dept, salary,
+       RANK() OVER (ORDER BY salary DESC) AS salary_rank
+FROM employees;
+
+Result:
+name	dept	salary	salary_rank
+Hari	IT	     70000	1
+John	HR	    60000	2
+Ravi	IT	     60000	2
+Meena	Finance	50000	4
+Sita	IT	    40000	5
+
+👉 Notice: John & Ravi have the same salary → both get rank 2, and the next rank becomes 4 (gap created).
+
+🔹 What is DENSE_RANK() in SQL?
+DENSE_RANK() assigns ranks to rows based on ordering but does not skip ranks when there are ties.
+If two employees have the same salary, they both get the same rank, and the next rank continues normally.
+For example, if two employees share 2nd place, the next one gets rank 3 (not 4).
+It is commonly used in salary analysis, student marks, or leaderboard rankings where continuous ranks are preferred.
+
+Query: Rank employees by salary (highest to lowest)
+SELECT name, dept, salary,
+       DENSE_RANK() OVER (ORDER BY salary DESC) AS salary_rank
+FROM employees;
+
+Result:
+name	dept	salary	salary_rank
+Hari	IT	    70000	1
+John	HR	    60000	2
+Ravi	IT	    60000	2
+Meena	Finance	50000	3
+Sita	IT	    40000	4
 
 
 
