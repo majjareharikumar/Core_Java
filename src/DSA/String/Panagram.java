@@ -15,11 +15,7 @@ public class Panagram {
         if(set.size()<26){
             return false;
         }
-        for(char ch='a';ch<='z';ch++){
-            if(!set.contains(ch)){
-                return false;
-            }
-        }
+
 
         return true;
     }

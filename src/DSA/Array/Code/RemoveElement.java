@@ -13,7 +13,8 @@ public class RemoveElement {
                 al.add(nums[i]);
             }
         }
-       return al.size();
+        nums= al.stream().mapToInt(Integer::intValue).toArray();
+       return nums.length;
 
     }
     public static void main(String[] args) {

@@ -1,0 +1,13 @@
+🔹What is a ClassLoader in Java?
+A ClassLoader is a part of JVM that dynamically loads Java classes into memory at runtime.
+It reads .class files and converts them into Class objects. Without it, JVM wouldn’t know how to load external classes.
+It follows the parent delegation model for security and consistency.
+
+🔹What are the different types of ClassLoaders?
+->Bootstrap ClassLoader → loads core Java classes (java.lang.*).
+->Extension/Platform ClassLoader → loads classes from extension directories (jre/lib/ext).
+->System/Application ClassLoader → loads classes from the classpath (user classes, jars).
+->Custom ClassLoader → created by developers for special loading (e.g., from network).
+
+
+

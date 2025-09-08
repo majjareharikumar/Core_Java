@@ -9,24 +9,34 @@ Kubernetes is widely used in Microservices architectures to manage distributed s
 
 1. What is Kubernetes and why is it used?
 Answer:
-Kubernetes is an open-source platform to automate containerized application deployment, scaling, and management. It groups containers into pods, manages their lifecycle, and provides features like load balancing, self-healing, and automated rollouts. It enables easy scaling and management of microservices and works across on-premises or cloud environments.
+Kubernetes is an open-source platform to automate containerized application deployment, scaling, and management.
+It groups containers into pods, manages their lifecycle, and provides features like load balancing, self-healing, and automated rollouts.
+ It enables easy scaling and management of microservices and works across on-premises or cloud environments.
 
 2. What are the main components of Kubernetes architecture?
 Answer:
-Kubernetes architecture includes the Master Node (with API Server, Scheduler, Controller Manager, etcd) and Worker Nodes (which run Pods via the kubelet agent). The API Server handles communication, etcd stores cluster state, the Scheduler assigns workloads, and Controller Manager maintains cluster state. Worker Nodes host the containerized applications.
+Kubernetes architecture includes the Master Node (with API Server, Scheduler, Controller Manager, etcd) and Worker Nodes (which run Pods via the kubelet agent).
+The API Server handles communication, etcd stores cluster state, the Scheduler assigns workloads, and Controller Manager maintains cluster state.
+Worker Nodes host the containerized applications.
 
 3. What is a Pod in Kubernetes?
 Answer:
-A Pod is the smallest deployable unit in Kubernetes. It can contain one or more containers that share storage, network, and specification. Pods provide a way to run containerized applications together and manage them as a single entity. They are ephemeral and get recreated if they fail, managed by higher-level controllers.
+A Pod is the smallest deployable unit in Kubernetes. It can contain one or more containers that share storage, network, and specification.
+ Pods provide a way to run containerized applications together and manage them as a single entity.
+ They are ephemeral and get recreated if they fail, managed by higher-level controllers.
 
 4. What is the difference between a Deployment and a StatefulSet?
 Answer:
-A Deployment manages stateless applications by handling scaling and rolling updates for pods. Pods created by deployments are interchangeable.
-A StatefulSet manages stateful applications requiring stable, unique network IDs and persistent storage. It guarantees the order of deployment, scaling, and termination, suitable for databases and distributed systems.
+A Deployment manages stateless applications by handling scaling and rolling updates for pods.
+Pods created by deployments are interchangeable.
+A StatefulSet manages stateful applications requiring stable, unique network IDs and persistent storage.
+It guarantees the order of deployment, scaling, and termination, suitable for databases and distributed systems.
 
 5. How does Kubernetes perform load balancing?
 Answer:
-Kubernetes uses Services to provide load balancing. A Service defines a logical set of Pods and a policy to access them. The most common is the ClusterIP Service which load balances internal traffic across Pods. For external traffic, LoadBalancer or NodePort Services expose the app. kube-proxy manages routing to Pods.
+Kubernetes uses Services to provide load balancing. A Service defines a logical set of Pods and a policy to access them.
+The most common is the ClusterIP Service which load balances internal traffic across Pods.
+For external traffic, LoadBalancer or NodePort Services expose the app. kube-proxy manages routing to Pods.
 
 6. What is a Namespace in Kubernetes?
 Answer:
