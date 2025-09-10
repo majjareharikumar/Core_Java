@@ -1,0 +1,25 @@
+🔹 Spring Profiles
+
+Spring Profiles in Spring Framework are used to manage environment-specific configurations.
+They allow defining different beans/settings for dev, test, and prod environments.
+We can activate profiles using properties, command-line, or programmatically.
+Beans can be annotated with @Profile, and only beans of the active profile are loaded.
+This ensures clean separation of configurations across environments.
+You can activate a profile using:
+application.properties → spring.profiles.active=dev
+Command line → --spring.profiles.active=prod
+Programmatically using SpringApplication.setAdditionalProfiles().
+
+How it Works
+You can annotate beans with @Profile("dev") or @Profile("prod").
+Spring will only create/load beans for the active profile.
+
+Example:
+@Configuration
+@Profile("dev")
+class DevConfig {
+    @Bean
+    public DataSource dataSource() {
+        return new HikariDataSource(); // Dev DB
+    }
+}

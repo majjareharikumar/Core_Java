@@ -9,5 +9,81 @@ It follows the parent delegation model for security and consistency.
 ->System/Application ClassLoader → loads classes from the classpath (user classes, jars).
 ->Custom ClassLoader → created by developers for special loading (e.g., from network).
 
+🔹Explain about Composition and aggregation
+🔹 Composition
+Composition is a strong has-a relationship in OOP.
+The child object cannot exist without the parent.
+If the parent is destroyed, the child is also destroyed.
+Example: A Car has an Engine – without the car, the engine has no meaning.
+In code, the parent usually creates and controls the child object.
+This represents a strong life-cycle dependency.
 
+class Engine {}
+class Car {
+    private Engine engine = new Engine(); // Strong relationship
+}
+
+🔹 Aggregation
+Aggregation is a weak has-a relationship in OOP.
+The child object can exist independently of the parent.
+If the parent is destroyed, the child still exists.
+Example: A Library has Books – even if the library closes, books still exist.
+In code, child objects are passed into the parent instead of being created inside.
+This represents a looser, independent relationship.
+
+class Book {}
+class Library {
+    private List<Book> books; // Weak relationship
+    Library(List<Book> books) {
+        this.books = books;
+    }
+}
+
+🔹Difference of before java 8 and after java 8
+🔹 Before Java 8
+Code was mostly imperative and verbose (lots of boilerplate).
+Interfaces could only have abstract methods (no default or static methods).
+No built-in functional programming support, relied on anonymous inner classes.
+Collections had to be processed using loops (for/while).
+Working with dates was difficult (used old Date and Calendar).
+
+🔹 After Java 8
+Introduced Lambda Expressions → concise way to write functional code.
+Introduced Functional Interfaces (@FunctionalInterface) → used with Lambdas.
+Added Stream API → easy filtering, mapping, reducing collections.
+Interfaces can now have default and static methods.
+Introduced New Date/Time API (java.time package) → more powerful and easy.
+Added Optional class → to handle null values safely.
+
+🔹 What is the  of @component and @service and difference
+In Spring, @Component is a generic stereotype annotation used to mark a class as a Spring-managed bean.
+When we annotate a class with @Component, Spring automatically detects it during component scanning and registers it in the application context.
+It is the most general-purpose annotation and can be applied to any class that should be managed by Spring, such as utility or helper classes.
+Since it is not tied to a specific layer, it serves as the base annotation for other specializations like @Service, @Repository, and @Controller.
+In short, @Component makes a class eligible for Spring’s dependency injection and lifecycle management.
+
+In Spring, @Service is a specialized form of @Component that is specifically used to mark classes belonging to the Service layer.
+It indicates that the class holds business logic and should be managed as a Spring bean.
+Functionally, it behaves the same as @Component since it is also detected during component scanning and registered in the application context.
+However, using @Service improves readability and clarity, as it clearly communicates the role of the class within the layered architecture.
+In addition, Spring or third-party frameworks may apply extra processing to beans annotated with @Service in future enhancements.
+In short, @Service is used when defining business logic classes, while still acting as a Spring-managed component.
+
+In Spring, both @Component and @Service are stereotype annotations used to mark classes as Spring-managed beans,
+ and functionally they behave the same because @Service is internally meta-annotated with @Component.
+ The difference lies in their intended usage and readability.
+ @Component is a generic annotation that can be applied to any class, such as utility or helper classes,
+ while @Service is a specialized annotation meant for the Service layer, where business logic is implemented.
+ Using @Service makes the code more meaningful and clear within a layered architecture,
+ even though Spring loads both in the same way during component scanning.
+
+ Which annotation will load first component or service
+ In Spring, there is no load order difference between @Component and @Service.
+ Both are discovered during component scanning and registered as beans in the Spring ApplicationContext.
+
+ The key point is:
+
+ @Service is just a specialized form of @Component (internally, it is meta-annotated with @Component).
+ Since both are processed by the same component-scanning mechanism, Spring does not prioritize one over the other.
+ The loading order is determined by component scanning rules and not by whether the class is annotated with @Component or @Service.
 
