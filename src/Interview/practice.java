@@ -2,25 +2,42 @@ package Interview;
 
 
 import java.util.*;
-
+class Node {
+    int val;
+    Node left, right;
+    Node(int val) { this.val = val; }
+}
 public class practice {
-    public static void uniqu(List <Integer>mainList, List<List<Integer>> innerList){
-        Set<Integer> set=new HashSet<>();
-        for(List<Integer> n:innerList){
-            set.addAll(n);
-        }
-        List<Integer> result=new ArrayList<>();
-        for(Integer s: mainList){
-            if(set.contains(s)){
-                result.add(s);
-            }
-        }
-        System.out.println(set);
+    public static boolean isValidBST(Node root) {
+        return validate(root, null, null);
     }
 
-    public static void main(String[] args) {
-        List<Integer> mainList=Arrays.asList(1,2,3,4,5,6,7,8,9);
-        List<List<Integer>> innerList=Arrays.asList(Arrays.asList(2,3,6,4),Arrays.asList(7,3,9));
-        practice.uniqu(mainList,innerList);
+    private static boolean validate(Node node, Integer min, Integer max) {
+        if (node == null) return true;
+        if ((min != null && node.val <= min) || (max != null && node.val >= max))
+            return false;
+
+        return validate(node.left, min, node.val) &&
+                validate(node.right, node.val, max);
     }
+
+    // Example test
+    public static void main(String[] args) {
+        /*
+               5
+              / \
+             3   7
+            / \   \
+           2   4   8
+        */
+        Node root = new Node(5);
+        root.left = new Node(3);
+        root.right = new Node(7);
+        root.left.left = new Node(2);
+        root.left.right = new Node(4);
+        root.right.right = new Node(8);
+
+        System.out.println(isValidBST(root)); // true
+    }
+
 }

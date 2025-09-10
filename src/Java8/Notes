@@ -42,10 +42,11 @@ interface MyFunc { void sayHello(); }
 
 Q4. What is the Stream API?
 Answer:
-The Stream API processes sequences of data using functional-style operations like map(), filter(), reduce(), etc.
-It does not store data, and it is lazy, meaning operations are performed only when needed.
-You can chain operations to create powerful data transformations.
-
+Stream API in Java 8 is used to process collections of data in a functional style.
+It supports operations like filtering, mapping, and reducing data using pipelines.
+Streams don’t store data but operate on it, and they support both sequential and parallel processing.
+Intermediate operations like map() and filter() return another stream, while terminal operations like collect() or forEach() produce the result.
+This makes the code more concise, readable, and efficient compared to traditional loops.
 Example:
 List<String> names = list.stream().filter(n -> n.startsWith("A")).collect(Collectors.toList());
 
@@ -98,11 +99,17 @@ name.ifPresent(n -> System.out.println(n)); // prints if value is present
 This avoids null checks manually and promotes safer, cleaner code.
 
 🔹 Q7. What are default and static methods in interfaces?
-Before Java 8, interfaces could only have abstract methods.
-Java 8 introduced:
-Default methods to provide a common implementation within interfaces.
-Static methods that belong to the interface itself and can be called without an object.
-Default methods allow backward compatibility, so old interfaces can evolve without breaking classes.
+n Java 8, interfaces were enhanced with default and static methods.
+A default method is a method with a body inside an interface, declared with the default keyword.
+It allows us to add new methods to interfaces without breaking existing classes.
+Static methods, on the other hand, belong to the interface itself and must be called using the interface name.
+Default methods can be overridden by implementing classes, but static methods cannot.
+This feature was introduced to support functional programming and backward compatibility.
+
+The purpose of adding static methods in interfaces was to provide utility or helper methods directly within the interface, instead of keeping them in external utility classes.
+This keeps related behavior encapsulated inside the interface and makes the API design cleaner.
+Static methods also ensure backward compatibility because they don’t affect existing implementations and cannot be overridden, ensuring consistent behavior.
+They are useful for operations that don’t depend on instance data but are common to all implementations.
 
 ✅ Example:
 interface MyInt {
@@ -112,12 +119,10 @@ interface MyInt {
 Default methods can be overridden; static methods can’t.
 
 🔹 Q8. What is method reference in Java 8?
-Method references (::) are a shorter way to call methods via lambdas when no logic needs to be added.
-They improve readability and reduce boilerplate code.
-Types:
-Reference to a static method: ClassName::staticMethod
-Reference to an instance method: object::instanceMethod
-Reference to constructor: ClassName::new
+Method reference in Java 8 is a shorthand syntax for calling methods using the :: operator.
+It is an alternative to lambda expressions when the lambda only calls an existing method.
+There are four types: reference to a static method, reference to an instance method, reference to an instance method of an arbitrary object, and reference to a constructor.
+Method references make code cleaner, more readable, and avoid unnecessary boilerplate.
 
 ✅ Example:
 List<String> list = Arrays.asList("A", "B");
@@ -134,10 +139,11 @@ list.stream().findFirst();         // Always returns first
 list.parallelStream().findAny();   // May return any element
 
 🔹 Q10. How does Java 8 improve Date and Time handling?
-Java 8 introduced a new java.time package that solves many problems of the old Date and Calendar classes.
-It provides clear, immutable, and thread-safe classes like LocalDate, LocalTime, LocalDateTime, and ZonedDateTime.
-These APIs support ISO and timezone handling, and formatting/parsing.
-Arithmetic operations like adding days or months are simple and intuitive.
+In Java 8, a new Date and Time API (java.time) was introduced to overcome issues with the old Date and Calendar classes.
+The API is immutable, thread-safe, and more user-friendly.
+Common classes include LocalDate, LocalTime, LocalDateTime, ZonedDateTime, Period, Duration, and Instant.
+ Frequently used methods are now(), of(), plusDays(), minusMonths(), between(), toHours(), and isAfter().
+  This API makes working with dates and times much simpler and less error-prone.
 
 ✅ Example:
 LocalDate today = LocalDate.now();
@@ -291,9 +297,11 @@ Stream.iterate(1, n -> n + 2).limit(5).forEach(System.out::println);  // 1 3 5 7
 Stream.generate(Math::random).limit(3).forEach(System.out::println); // 3 random numbers
 
 🔹 Q25. What is Collectors.groupingBy() in Java 8?
-Collectors.groupingBy() is used to group elements of a stream based on a classifier function.
-It returns a Map<K, List<T>>, where K is the group key and T is the original stream element.
-It’s a powerful tool for grouping and summarizing data.
+The Collectors.groupingBy() method in Java 8 is used to group stream elements based on a classification function, similar to SQL GROUP BY.
+By default, it returns a Map<K, List<T>>, where keys are the grouping criteria and values are lists of elements.
+We can also use downstream collectors to count, sum, or average values within each group.
+For example, grouping employees by department, counting them, or finding average salary per department.
+It is one of the most powerful collectors in the Stream API for data aggregation.
 
 ✅ Example:
 Map<String, List<String>> grouped = names.stream()

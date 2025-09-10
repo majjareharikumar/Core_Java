@@ -1,0 +1,112 @@
+Difference of before java 8 and after java 8
+🔹 Before Java 8
+Code was mostly imperative and verbose (lots of boilerplate).
+Interfaces could only have abstract methods (no default or static methods).
+No built-in functional programming support, relied on anonymous inner classes.
+Collections had to be processed using loops (for/while).
+Working with dates was difficult (used old Date and Calendar).
+
+🔹 After Java 8
+Introduced Lambda Expressions → concise way to write functional code.
+Introduced Functional Interfaces (@FunctionalInterface) → used with Lambdas.
+Added Stream API → easy filtering, mapping, reducing collections.
+Interfaces can now have default and static methods.
+Introduced New Date/Time API (java.time package) → more powerful and easy.
+Added Optional class → to handle null values safely.
+
+🔹 Stream API in Java
+Introduced in Java 8, the Stream API is used to process collections of objects (like List, Set, etc.) in a functional style.
+It allows operations like filtering, mapping, sorting, and reducing data with less code.
+Streams don’t store data; they work on collections and produce a result.
+They support parallel processing, making them faster for large datasets.
+
+-->Stream API in Java 8 is used to process collections in a functional style.
+It provides methods like filter, map, sorted, forEach, reduce, and collect.
+It helps in writing clean, concise, and efficient code, and supports both sequential and parallel processing.
+
+🔹 Important Stream Methods
+filter(Predicate) → Selects elements based on condition.
+list.stream().filter(n -> n % 2 == 0).toList(); // Even numbers
+
+map(Function) → Transforms elements.
+list.stream().map(n -> n * 2).toList(); // Double each number
+
+sorted() → Sorts elements.
+list.stream().sorted().toList();
+
+distinct() → Removes duplicates.
+limit(n) / skip(n) → Limit or skip elements.
+
+forEach(Consumer) → Iterate and perform action.
+
+list.stream().forEach(System.out::println);
+
+collect(Collectors.toList()) → Collects stream into a list.
+
+reduce() → Combines elements into a single result.
+
+int sum = list.stream().reduce(0, Integer::sum);
+
+anyMatch(), allMatch(), noneMatch() → Check conditions.
+
+count() → Counts elements.
+
+🔹 Uses of Stream API
+Reduces boilerplate code (no need for explicit loops).
+Makes code more readable and declarative.
+Useful for filtering, transformation, and aggregation of data.
+Supports parallel streams for performance on large data.
+Used heavily in modern Java applications, Spring, and Microservices for data processing.
+
+🔹@Functional interface annotation and what is functional interface
+🔹 Functional Interface
+A Functional Interface in Java is an interface that has exactly one abstract method.
+It can have multiple default and static methods, but only one abstract method.
+These interfaces are mainly used for Lambda Expressions and Method References.
+Example: Runnable, Callable, Comparator, Consumer.
+Real-time use: Instead of writing anonymous classes, we can use lambdas with functional interfaces.
+
+@FunctionalInterface
+interface MyFunctional {
+    void sayHello();  // Only one abstract method
+}
+
+🔹 @FunctionalInterface Annotation
+It is used to mark an interface as a functional interface.
+If you accidentally add more than one abstract method, the compiler will throw an error.
+It improves readability and ensures correctness.
+
+Example:
+
+@FunctionalInterface
+interface Calculator {
+    int add(int a, int b);
+}
+
+🔹Difference between map and sort
+"The map() function is used for data transformation (changing elements), while sorted() is used for ordering elements in natural or custom order.
+map() changes the content, sorted() changes the order."
+
+🔹 map() in Stream API
+Purpose: Transform elements from one form to another.
+It takes a function and applies it to each element of the stream.
+The number of elements remains the same, but values change.
+
+Example: Convert a list of strings to their lengths.
+List<String> names = Arrays.asList("Hari", "Kumar", "Java");
+List<Integer> lengths = names.stream()
+                             .map(String::length)
+                             .toList();
+System.out.println(lengths); // [4, 5, 4]
+
+🔹 sorted() in Stream API
+Purpose: Arrange elements in natural order or a custom order.
+It does not transform values, only changes their order.
+Works on Comparable or with a Comparator.
+
+Example: Sort numbers in ascending order.
+List<Integer> numbers = Arrays.asList(5, 2, 8, 1);
+List<Integer> sorted = numbers.stream()
+                              .sorted()
+                              .toList();
+System.out.println(sorted); // [1, 2, 5, 8]

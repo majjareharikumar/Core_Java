@@ -379,6 +379,34 @@ Ravi	IT	    60000	2
 Meena	Finance	50000	3
 Sita	IT	    40000	4
 
+🔹Sql scenarios with queries
+🔹 Scenario 1: Find the second highest salary of employees
+select MAX(sal) AS second_highest
+from employees
+Where sal<(select MAX(sal) from employee);
+
+🔹 Scenario 2: Find duplicate employee names
+select name, COUNT(*) as count
+from employees
+group by name
+having count>1;
+
+🔹 Scenario 3: Retrieve top 3 highest salaries
+select distinct salary
+from employees
+order by sal desc
+limit 3;
+
+🔹 Scenario 4: Display employees who don’t have a manager
+select name
+from employees
+where manager_id is null;
+
+🔹 Scenario 5: Get department-wise average salary
+select dept_id, AVG(sal)
+from employee
+group by dept_id;
+
 
 
 

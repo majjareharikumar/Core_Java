@@ -1,0 +1,53 @@
+🔹What is Monolithic and Microservice
+Monolithic architecture is a single, unified application where all modules are tightly coupled and deployed together.
+Microservices architecture breaks the application into small, independent services that can be developed, deployed, and scaled independently.
+Monoliths are simple but become hard to manage as they grow, while microservices are scalable and flexible but more complex to implement.
+
+🔹 Monolithic Architecture
+
+Definition:
+A monolithic application is built as a single, unified unit where all features (UI, business logic, and data access) are part of the same codebase and deployed together.
+
+Characteristics:
+All modules (authentication, billing, product catalog, reporting, etc.) are tightly coupled.
+Single deployment (a WAR/JAR or executable).
+Scaling means duplicating the entire application.
+If one part fails, the whole application may be impacted.
+
+Example:
+Imagine an e-commerce website where user login, product search, order processing, and payments are all written in one big project and deployed as one application.
+
+Advantages:
+Easier to develop initially.
+Simple to test and deploy.
+Good for small applications.
+
+Disadvantages:
+Hard to maintain as the application grows.
+Scaling specific features is not possible.
+A small change requires redeploying the entire app.
+Technology stack is limited (same language/framework everywhere).
+
+🔹 Microservices Architecture
+Definition:
+A microservices application is built as a collection of small, independent services, each responsible for a specific feature or functionality.
+
+Characteristics:
+Each service is loosely coupled and can be deployed independently.
+Services communicate using APIs (usually REST or messaging like Kafka).
+Each microservice can have its own database and technology stack.
+Scaling can be done per service instead of scaling the whole app.
+
+Example:
+In an e-commerce site, login, product catalog, order service, payment service, and notification service would each be separate microservices. If traffic increases for product searches, only the product catalog service can be scaled.
+
+Advantages:
+Independent deployment → faster release cycles.
+Technology flexibility (Java for one service, Python for another).
+Better fault isolation (failure in payment service doesn’t break login).
+Easy to scale individual services.
+
+Disadvantages:
+More complex to design and manage.
+Requires DevOps, monitoring, and service communication strategies.
+Network latency and distributed system challenges.

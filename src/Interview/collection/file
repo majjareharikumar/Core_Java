@@ -1,0 +1,15 @@
+🔹 ConcurrentHashMap in Java
+ConcurrentHashMap is a thread-safe implementation of the Map interface introduced in Java 1.5 (in java.util.concurrent package).
+Unlike HashMap, it allows multiple threads to read and write concurrently without throwing ConcurrentModificationException.
+It achieves this by dividing the map into segments/buckets internally, so multiple threads can operate on different segments at the same time.
+Unlike Hashtable, it does not lock the entire map for every operation; instead, it uses fine-grained locking (on segments or buckets).
+This makes it faster and more scalable in multi-threaded environments.
+It does not allow null keys or null values (to avoid ambiguity in multi-threaded access).
+
+🔹 Fine-Grained Locking in Java
+Locking is used in multithreading to ensure that only one thread modifies shared data at a time.
+In coarse-grained locking, a single lock is applied to the entire object or collection (like in Hashtable).
+This blocks all threads, even if they want to work on different parts of the object → leading to less concurrency.
+In fine-grained locking, instead of locking the whole object, only smaller portions (like individual buckets or segments in ConcurrentHashMap) are locked.
+This allows multiple threads to work on different parts of the data structure simultaneously, improving performance.
+Example: In ConcurrentHashMap, if two threads are writing to different buckets, both can proceed at the same time without waiting.
