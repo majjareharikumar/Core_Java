@@ -1,14 +1,3 @@
-🔹In java what are the default classes
-In Java, the classes inside the java.lang package are known as default classes because they are automatically imported into every program.
-This package contains fundamental classes like Object (root of all classes), String (for text), System (for I/O),
-Math (for calculations), Thread (for multithreading), wrapper classes like Integer and Double, and exception classes like Throwable and Exception.
-Since these classes are used very frequently, Java makes them available by default without needing an explicit import.
-
-🔹 Why are these called Default Classes?
-They are called default classes because they are always available without import.
-Java designers knew developers would use things like String, System.out, and Math in almost every program,
-so they made them automatically available.
-
 🔹What is a ClassLoader in Java?
 A ClassLoader is a part of JVM that dynamically loads Java classes into memory at runtime.
 It reads .class files and converts them into Class objects. Without it, JVM wouldn’t know how to load external classes.
@@ -19,43 +8,6 @@ It follows the parent delegation model for security and consistency.
 ->Extension/Platform ClassLoader → loads classes from extension directories (jre/lib/ext).
 ->System/Application ClassLoader → loads classes from the classpath (user classes, jars).
 ->Custom ClassLoader → created by developers for special loading (e.g., from network).
-
-🔹Explain about Composition and aggregation
-🔹 Composition
-Composition is a strong has-a relationship in OOP.
-The child object cannot exist without the parent.
-If the parent is destroyed, the child is also destroyed.
-Example: A Car has an Engine – without the car, the engine has no meaning.
-In code, the parent usually creates and controls the child object.
-This represents a strong life-cycle dependency.
-
-class Engine {}
-class Car {
-    private Engine engine = new Engine(); // Strong relationship
-}
-
-🔹 Aggregation
-Aggregation is a weak has-a relationship in OOP.
-The child object can exist independently of the parent.
-If the parent is destroyed, the child still exists.
-Example: A Library has Books – even if the library closes, books still exist.
-In code, child objects are passed into the parent instead of being created inside.
-This represents a looser, independent relationship.
-
-class Book {}
-class Library {
-    private List<Book> books; // Weak relationship
-    Library(List<Book> books) {
-        this.books = books;
-    }
-}
-
-🔹What is equality in java
-In Java, equality can be of two types. The == operator checks reference equality, meaning whether two references point to the same object in memory.
-The .equals() method checks value equality, meaning whether two objects have the same content.
-For example, with Strings, == may return false for different objects, but .equals() returns true if their contents are the same.
-In user-defined classes, we override equals() and hashCode() to define custom equality, which is important for collections like HashMap and HashSet."
-
 
 
 

@@ -1,72 +1,3 @@
-🔹 What is @SpringBootApplication?
-@SpringBootApplication is a core annotation in Spring Boot used on the main class of the application.
-It is a combination of @Configuration, @EnableAutoConfiguration, and @ComponentScan.
-This means it allows us to define beans, enables Spring Boot’s auto-configuration based on dependencies,
-and scans the package for components like services, controllers, and repositories.
-By using this single annotation, we can quickly bootstrap and run a Spring Boot application with minimal configuration.
-🔹 How it works
-When you run the Spring Boot application (using SpringApplication.run()), the @SpringBootApplication annotation triggers:
-Auto-configuration → sets up beans automatically.
-Component scanning → detects your beans in the specified package.
-Configuration → allows you to define custom beans if needed.
-
-🔹 Important Spring Boot Annotations
-@SpringBootApplication → Main annotation to bootstrap a Spring Boot app. Combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.
-@RestController → A combination of @Controller and @ResponseBody. Used to create REST APIs where methods directly return JSON/XML instead of views.
-@RequestMapping / @GetMapping / @PostMapping → Used to map HTTP requests to controller methods (GET, POST, etc.).
-@Autowired → Enables dependency injection by letting Spring automatically inject beans into a class.
-@Component, @Service, @Repository, @Controller → Stereotype annotations used to define Spring-managed beans.
-They help organize code by layer (generic, service, DAO, and controller layers).
-@Entity → Marks a class as a JPA entity (table in the database).
-@Table, @Id, @GeneratedValue, @Column → JPA annotations used for database mapping of entities.
-@EnableAutoConfiguration → Enables Spring Boot’s auto-configuration mechanism.
-@Configuration → Indicates a class defines beans using @Bean methods.
-@Value → Injects values from application.properties or environment variables into fields.
-@Profile → Allows beans or configurations to load only for specific environments (like dev, test, prod).
-@SpringBootTest → Used for writing integration tests in Spring Boot.
-
-👉 Interview Short Answer (6–7 lines):
-"Spring Boot provides many annotations to simplify development.
-The main one is @SpringBootApplication to start the app.
- For REST APIs we use @RestController with request mapping annotations like @GetMapping.
- Dependency injection is done using @Autowired. Stereotypes like @Service, @Repository, and @Controller define beans for different layers.
- JPA annotations like @Entity, @Id, and @Column handle database mapping.
- We also use @Value for property injection, @Profile for environment-specific beans, and @SpringBootTest for testing."
-
-🔹 What is the  of @component and @service and difference
-In Spring, @Component is a generic stereotype annotation used to mark a class as a Spring-managed bean.
-When we annotate a class with @Component, Spring automatically detects it during component scanning and registers it in the application context.
-It is the most general-purpose annotation and can be applied to any class that should be managed by Spring, such as utility or helper classes.
-Since it is not tied to a specific layer, it serves as the base annotation for other specializations like @Service, @Repository, and @Controller.
-In short, @Component makes a class eligible for Spring’s dependency injection and lifecycle management.
-
-In Spring, @Service is a specialized form of @Component that is specifically used to mark classes belonging to the Service layer.
-It indicates that the class holds business logic and should be managed as a Spring bean.
-Functionally, it behaves the same as @Component since it is also detected during component scanning and registered in the application context.
-However, using @Service improves readability and clarity, as it clearly communicates the role of the class within the layered architecture.
-In addition, Spring or third-party frameworks may apply extra processing to beans annotated with @Service in future enhancements.
-In short, @Service is used when defining business logic classes, while still acting as a Spring-managed component.
-
-In Spring, both @Component and @Service are stereotype annotations used to mark classes as Spring-managed beans,
- and functionally they behave the same because @Service is internally meta-annotated with @Component.
- The difference lies in their intended usage and readability.
- @Component is a generic annotation that can be applied to any class, such as utility or helper classes,
- while @Service is a specialized annotation meant for the Service layer, where business logic is implemented.
- Using @Service makes the code more meaningful and clear within a layered architecture,
- even though Spring loads both in the same way during component scanning.
-
- Which annotation will load first component or service
- In Spring, there is no load order difference between @Component and @Service.
- Both are discovered during component scanning and registered as beans in the Spring ApplicationContext.
-
- The key point is:
-
- @Service is just a specialized form of @Component (internally, it is meta-annotated with @Component).
- Since both are processed by the same component-scanning mechanism, Spring does not prioritize one over the other.
- The loading order is determined by component scanning rules and not by whether the class is annotated with @Component or @Service.
-
-
-
 🔹 Spring Profiles
 
 Spring Profiles in Spring Framework are used to manage environment-specific configurations.
@@ -92,4 +23,3 @@ class DevConfig {
         return new HikariDataSource(); // Dev DB
     }
 }
-
