@@ -6,7 +6,21 @@ import java.util.List;
 
 public class LessThanK {
     public static int[] lessThan(int[] arr,int k){
-        return Arrays.stream(arr).filter(i->i<k).toArray();
+        ArrayList<Integer> al=new ArrayList<>();
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<k){
+                al.add(arr[i]);
+            }
+        }
+        int[] arr1=new int[al.size()];
+        for(int j=0;j<al.size();j++){
+            arr1[j]=al.get(j);
+        }
+
+        //return al.stream().mapToInt(Integer::intValue).toArray();
+
+        return arr1;
+        //return Arrays.stream(arr).filter(i->i<k).toArray();
     }
 
     public static void main(String[] args) {

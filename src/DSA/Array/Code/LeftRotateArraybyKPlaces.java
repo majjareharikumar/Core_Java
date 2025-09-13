@@ -1,5 +1,7 @@
 package DSA.Array.Code;
 
+import java.util.Arrays;
+
 public class LeftRotateArraybyKPlaces {
     public static int[] leftrotatebyk(int[] arr,int k){
 
@@ -10,6 +12,7 @@ public class LeftRotateArraybyKPlaces {
                 arr1[i]=arr[i+1];
             }
             arr1[i]=j;
+            System.out.println(Arrays.toString(arr1));
             arr=arr1;
             k--;
         }

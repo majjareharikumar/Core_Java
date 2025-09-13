@@ -13,15 +13,20 @@ I enjoy solving complex problems, improving system performance, and I’m always
 ............................................................
 
 1)In microservice, If one service is having some failures and causing other service failures. How we can resolve this?
-In microservices architectures, when one service fails and causes failures in other services, this is known as "cascading failure." To address this and improve system resilience, you should implement several key strategies:
+In microservices architectures, when one service fails and causes failures in other services, this is known as "cascading failure."
+To address this and improve system resilience, you should implement several key strategies:
 
 1. Circuit Breaker Pattern
-Explanation: A circuit breaker protects services from repeatedly trying to perform an operation that's likely to fail. When failures reach a threshold, the circuit breaker trips, and further calls are automatically rejected for a set period.
+Explanation: A circuit breaker protects services from repeatedly trying to perform an operation that's likely to fail.
+ When failures reach a threshold, the circuit breaker trips, and further calls are automatically rejected for a set period.
 Real-Time Example: In Netflix's microservice architecture, if the Recommendation service is down, the API Gateway's circuit breaker prevents further calls to it for a while, instead serving default recommendations or a fallback message to users.
 
 2. Timeout and Retry Policies
-Explanation: Set reasonable timeouts for service calls so a failing service does not tie up resources in other services. Pair this with retry policies, ensuring retries are limited and use exponential backoff.
-Real-Time Example: In a payment system, the Order service sets a timeout for payment confirmation. If the Payment service takes too long, the Order service cancels the transaction and notifies the user, rather than hanging indefinitely.
+Explanation: Set reasonable timeouts for service calls so a failing service does not tie up resources in other services.
+Pair this with retry policies, ensuring retries are limited and use exponential backoff.
+Real-Time Example: In a payment system, the Order service sets a timeout for payment confirmation.
+If the Payment service takes too long, the Order service cancels the transaction and notifies the user,
+rather than hanging indefinitely.
 
 3. Bulkhead Pattern
 Explanation: Bulkheads isolate critical resources so that a failure in one part of the system doesn't bring down the entire application.
@@ -35,7 +40,8 @@ Real-Time Example: If a news website's "Like" service is down, the site continue
 Explanation: Real-time monitoring helps detect failures immediately, reducing mean-time-to-recovery (MTTR).
 Real-Time Example: E-commerce companies like Amazon utilize distributed tracing and monitoring (such as AWS X-Ray) to identify and isolate microservice failures quickly.
 
-2)We have one scenario, our microservice is get huge traffic and due to this our app become slow and performance also low. how we can solve this?
+2)We have one scenario, our microservice is get huge traffic and due to this our app become slow and performance also low.
+how we can solve this?
 When your microservice experiences huge traffic, causing your app to become slow and impacting performance, you can apply several proven strategies to resolve these issues.
 -->Auto-Scaling (Horizontal Scaling)
 What it means: Automatically add more instances (containers, pods, or VMs) of your service when traffic increases, and scale them down when demand drops.
@@ -95,7 +101,8 @@ public class NoSuchCustomerExistsException extends RuntimeException {
 }
 
 One-line Interview Summary
-In Spring Boot, use @ExceptionHandler in controllers for local handling and @ControllerAdvice for centralized global exception logic. Always define custom exceptions and structured error responses to keep your APIs robust and maintainable.
+In Spring Boot, use @ExceptionHandler in controllers for local handling and @ControllerAdvice for centralized global exception logic.
+Always define custom exceptions and structured error responses to keep your APIs robust and maintainable.
 
 Bonus Tip: For REST APIs, use @RestControllerAdvice (which is the same as @ControllerAdvice but returns JSON by default).
 This approach is production-ready and requested in most Spring Boot interviews!
