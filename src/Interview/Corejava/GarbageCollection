@@ -1,0 +1,85 @@
+What is GARBAGE COLLECTION?
+-->GARBAGE COLLECTION is a part of effective memory management .
+And it is the process of deleting the unused or unassigned or Anonymous objects in heap memory.
+It will help us to use memory for new object.
+
+How can an object be unreferenced?
+There are many ways:
+o By nulling the reference
+o By assigning a reference to another
+o By anonymous object etc
+
+1) By nulling a reference:
+class Employee{
+ public static void main(String[] args) {
+  Employee e1=new Employee();
+  e1=null;
+ }
+}
+
+2) By assigning a reference to another:
+
+class Employee{
+ public static void main(String[] args) {
+  Employee e1=new Employee();
+  Employee e2=new Employee();
+  e1=e2;
+ }
+}
+
+3) By anonymous object:
+class Employee{
+ public static void main(String[] args) {
+  new Employee();
+ }
+}
+
+Process:-
+----------
+-->First all objects which are created by using new key words will store into heap memory.
+-->Heap memory is divided into 3 gens
+.Young gen
+.Old gen
+.permanent gen/meta space.
+
+Again Young gen is divided into 3 spaces.
+.Eden Space
+.Survivor Space (S0 and S1)
+
+All newly created object are created in Eden space.
+Once the iteration is completed in one flow and if any unwanted objects are present in Eden space, Then Garbage collection will happen.
+Here garbage collection will happen in 2 types. Minor GC & Major GC.
+
+Minor GC will happen in Young gen and it will happen in 3 steps. 1. Mark , 2. Sweep, 3. compact.
+first it will mark the unused objects and then removed after that it will arrange all object into one line.
+Now all these objects moved into s0.
+Again after one iteration , Same it will mark the unused object , sweep and compact. This time it will check for s0 also.
+And store all object into s1. This Minor GC will happen frequently in young gen almost 15 times. Then all objects will be moved to Old gen.
+
+Major GC will happen in old gen, but it is not frequently. once the object are moved to old gen, it will treat as a IMP objects or frequently used objects.
+
+In permanent Gen it will store class metadata, method info, etc.
+
+All GC will happen automatically in java.
+
+If we want to call manually we can use System.gc() to perform manually. It will internally call Runtime.getRuntime().gc();
+Here gc() will call internally finalize() method to release resources like DB connections etc...
+
+Before every GC() finalize() will call.
+
+Some time Full GC will happen and it will Cleans both Young + Old generations.
+It is Very costly, as it stops the application for some time. It will cause performance issue. So java introduced one more GC called ZGC.
+
+==>What is ZGC? why it is introduced ? when it is introduced? diff b/w GC and ZGC.
+--------------------------------------------------------------------------------------
+Z Garbage Collector(ZGC) is a low-latency , scalable GC It was introduced in java11 for experimental and it is stable from java15.
+It is introduced to solve long GC push time in traditional GC, especially for application with large heap storage.
+GC will divide space in to 3 gens and again 3 spaces, it will take time and cause push GC for some time for large heaps.
+But ZGC will splits into Zpages and it will work concretely with the app threads and ensuring push time below 10ms regardless of heap size.
+
+
+In short, ZGC is designed for real-time, low-latency, and large-scale applications,
+whereas normal GC is suitable for general use but may cause noticeable pause times.
+
+Ex:- Java Program
+------------------
