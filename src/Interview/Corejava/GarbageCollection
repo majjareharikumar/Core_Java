@@ -77,7 +77,13 @@ It is introduced to solve long GC push time in traditional GC, especially for ap
 GC will divide space in to 3 gens and again 3 spaces, it will take time and cause push GC for some time for large heaps.
 But ZGC will splits into Zpages and it will work concretely with the app threads and ensuring push time below 10ms regardless of heap size.
 
-
+----------------------------------------------
+ZGC (Z Garbage Collector) is a low-latency, scalable garbage collector introduced in Java 11 (2018) as experimental and made stable in Java 15.
+It was introduced to solve the problem of long GC pause times in traditional collectors, especially for applications with very large heaps (hundreds of GB to TB).
+Unlike regular GC, ZGC performs almost all its work concurrently with the application threads, ensuring pause times of under 10 ms regardless of heap size.
+Traditional GCs (like Serial, Parallel, or G1) divide heap into Young/Old generations and may stop the application during collection,
+but ZGC splits memory into ZPages and uses advanced techniques (colored pointers, load barriers) to avoid long pauses.
+----------------------------------------------------
 In short, ZGC is designed for real-time, low-latency, and large-scale applications,
 whereas normal GC is suitable for general use but may cause noticeable pause times.
 
