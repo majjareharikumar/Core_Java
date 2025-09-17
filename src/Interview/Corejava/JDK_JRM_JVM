@@ -1,0 +1,46 @@
+JDK (Java Development kit) :-
+---------------------------------
+The JDK (Java Development Kit) is a software package  that is used to develop Java applications.
+It contains all the tools, libraries, and components needed for writing, compiling, and running Java programs.
+The JDK includes the JRE (Java Runtime Environment), which is used to run Java applications, along with the compiler (javac), debuggers, and development tools.
+It also provides core Java libraries, JVM (Java Virtual Machine), and documentation tools.
+Developers use the JDK to write Java code and convert it into bytecode that can be executed on the JVM.
+Without JDK, we can run Java programs (using JRE) but cannot develop them.
+
+👉 In short: JDK = JRE + Compiler + Development Tools, making it essential for Java development.
+
+JRE (Java Runtime Environment):-
+---------------------------------------
+The JRE (Java Runtime Environment) is a software package that provides the environment required to run Java applications.
+ It contains the JVM (Java Virtual Machine), core libraries, and supporting files, but it does not include development tools like compiler or debugger.
+ The JRE ensures that Java bytecode can be executed by converting it into machine code using the JVM.
+ It is mainly for end-users who only want to run Java programs rather than develop them.
+  Developers also need the JRE since it comes bundled inside the JDK.
+  In short, the JRE acts like a bridge between Java applications and the underlying operating system.
+
+👉 JRE = JVM + Core Libraries, used only for running Java programs.
+
+JVM (Java Virtual Machine):-
+---------------------------------
+The JVM (Java Virtual Machine) is a virtual engine that runs Java bytecode and makes Java programs platform-independent (“write once, run anywhere”).
+When we compile Java code using javac, it gets converted into bytecode (.class files).
+This bytecode is not machine-specific — the JVM on each platform translates it into native machine code using an interpreter and JIT (Just-In-Time) compiler, so the same program runs on Windows, Linux, or Mac without changes.
+
+The JVM contains:
+Class Loader → loads class files into memory.
+Runtime Data Areas (Memory areas) → Method Area, Heap, Stack, PC Register, Native Method Stack.
+Execution Engine → interprets bytecode or uses JIT compiler to run it fast.
+Garbage Collector (GC) → automatically manages memory by removing unused objects.
+
+👉 JVM is important because it provides portability, security, memory management, and performance optimization, making Java powerful and widely used.
+
+Execution Engine:-
+--------------------
+The Execution Engine is the part of the JVM that actually runs the bytecode instructions.
+After the class loader loads classes and the bytecode is verified, the execution engine takes over to convert that bytecode into machine code understood by the underlying operating system.
+It mainly works in two ways:
+Interpreter → reads bytecode instructions one by one and executes them by converting it into native machine code  (easy but slower).
+JIT (Just-In-Time) Compiler → compiles frequently used bytecode into native machine code for faster execution.
+if any duplicates or any repeated code in the bytecode , it will check that and give instructions to Interpreter to avoid creating native code for repeated lines.
+
+The execution engine also interacts with the Garbage Collector for memory management and ensures efficient execution of programs. In short, it is the “brain of JVM”, responsible for making Java programs actually run on any machine.

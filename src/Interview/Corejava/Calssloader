@@ -3,11 +3,23 @@ A ClassLoader is a part of JVM that dynamically loads Java classes into memory a
 It reads .class files and converts them into Class objects. Without it, JVM wouldn’t know how to load external classes.
 It follows the parent delegation model for security and consistency.
 
+Class loader contains Loaders, linking & initialization phases
+
 🔹What are the different types of ClassLoaders?
-->Bootstrap ClassLoader → loads core Java classes (java.lang.*).
-->Extension/Platform ClassLoader → loads classes from extension directories (jre/lib/ext).
-->System/Application ClassLoader → loads classes from the classpath (user classes, jars).
+->Bootstrap ClassLoader → It is responsible to loads core Java classes from rt.jar from JRE (java.lang.*).
+->Extension/Platform ClassLoader → it is responsible to loads classes from extension directories from jre (jre/lib/ext).
+->System/Application ClassLoader → loads classes from the app classpath .(user classes, jars).
 ->Custom ClassLoader → created by developers for special loading (e.g., from network).
 
+Linking phase:-
+---------------
+Verify:-It will verify the bytecode whether it is original bytecode or altered one or any other mallware add .
+It will check all by using bytecode verifier. It will make the java as a secure language.
+ If in case it found other then it will throw verifier exceptions.
 
+ prepare:- Here all static variables are assigned with default values , not with values which is assigned by program.
+
+ resolve:-It will convert sysmbolic reference into method references and stored into runtime constant pool.
+
+ Initialization:- Here all static variables are stored to original values which is assigned in our program.
 
