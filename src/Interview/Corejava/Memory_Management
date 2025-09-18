@@ -1,0 +1,56 @@
+What is Memory Management in Java?
+------------------------------------
+Memory management is the process of efficient handling of allocating and deallocating of memory inside the JVM.
+It will allocate memory when we create the new object and it will free up the space when object is deleted by Garbage collector.
+Java divided memory into 3 parts
+1)Heap Memory
+2)Stack Memory
+3)PermGen/Metaspace.
+
+1)Heap Memory
+----------------
+Heap memory is the part of JVM and it stores the all objects, arrays, instance variables, String pool and all class level data at runtime.
+It is divided into 3 parts.
+1)Young gen(Eden space+ Survivor(s0,s1))
+2)Old gen
+3)Perm Gen
+
+If any object is created , that will store into Young gen and after multiple Garbage collection cycle , If any obj is present in YG that obj will move to Old gen.
+
+PermGen (Permanent Generation) was a part of JVM memory (before Java 8) used to store metadata about classes.
+It stored information like class definitions, method details, constructors, field information, static variables, and interned Strings.
+Unlike heap or stack, it didn’t store regular objects or local variables.
+Its size was fixed and could be set using -XX:PermSize and -XX:MaxPermSize.
+If PermGen became full, it caused java.lang.OutOfMemoryError: PermGen space.
+From Java 8 onwards, PermGen was replaced by Metaspace, which grows dynamically based on available system memory.
+
+If Heap Memory is full and Garbage Collector is unable to free space, JVM will throw:
+java.lang.OutOfMemoryError: Java heap space
+
+We will fix it by increasing Heap memory or optimizing the code to reduce unnecessary object creation, closing unused resources,
+and using proper data structures (e.g., using StringBuilder instead of String in loops)
+
+2)Stack Memory
+----------------
+Stack Memory in Java is the part of JVM memory used to store method calls, local variables, and object references.
+When we start the java program , 1 tread will be creating and that will use own stack to complete the task.
+So it is also called thread-private memory.
+When ever method is called , a stack thread is created to hold it's local variables and references.
+once method is completed , thread will be removed and memory will be freed automatically.
+If too many method calls happen (like infinite recursion), it causes java.lang.StackOverflowError.
+By default, the stack size is around 1MB per thread, but it can be changed using the -Xss option.
+Stack is much faster than heap since memory is managed in a last-in, first-out (LIFO) manner.
+
+3)PermGen/Metaspace
+--------------------
+Before java8 permgen is part of Heap memory, used to store class metadata, method definitions, constructors, static variables, and interned Strings.
+Its size was fixed and had to be set manually using -XX:PermSize and -XX:MaxPermSize.
+If the space was full, JVM threw java.lang.OutOfMemoryError: PermGen space.
+Since it was limited and not flexible, it often caused memory issues in large applications.
+
+From Java 8 onwards, PermGen was removed and replaced with Metaspace.
+Metaspace also stores class metadata, method info, and reflection data, but unlike PermGen, it is stored in native memory (outside heap) and grows dynamically as needed.
+Its size is only limited by the system’s physical memory unless restricted by the JVM option -XX:MaxMetaspaceSize.
+If it fills up, JVM throws java.lang.OutOfMemoryError: Metaspace.
+By default, it doesn’t have a strict upper bound for memory fix, it expands until the system’s physical memory is exhausted.
+
