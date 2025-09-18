@@ -21,5 +21,7 @@ It will check all by using bytecode verifier. It will make the java as a secure 
 
  resolve:-It will convert sysmbolic reference into method references and stored into runtime constant pool.
 
- Initialization:- Here all static variables are stored to original values which is assigned in our program.
+Initialization:-
+--------------------
+Here all static variables are stored to original values which is assigned in our program.
 
