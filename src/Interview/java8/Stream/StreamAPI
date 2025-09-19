@@ -1,0 +1,65 @@
+What is Stream API?
+--------------------
+The Stream API in Java 8 is used to process collections of objects in a functional and declarative style.
+Before Java 8, we relied on loops and iterators, which made the code verbose, complex, and difficult to maintain.
+Writing parallel code was also error-prone and required manual thread handling.
+Stream API solves these problems by providing built-in methods like filter(), map(), reduce(), and collect() for easy data manipulation.
+It focuses on what to do rather than how to do it, making the code clean and readable.
+Streams also support parallel execution, allowing better performance on multi-core processors.
+In short, Stream API was introduced to simplify collection processing, reduce boilerplate code, and enable efficient parallel data operations.
+
+How stream API will work?
+------------------------------
+Stream from source-->Intermediate operations(filter(), map(), or sorted())--->Terminal Operations(collect(), forEach(), or reduce() )
+The Stream API in Java 8 works in three main steps.
+1)First, a stream is created from a data source like a collection, array, or I/O channel.
+2)Next, we apply intermediate operations such as filter(), map(), or sorted(), that transform or filter the stream and return another stream as the result.
+3)Finally, a terminal operation like collect(), forEach(), or reduce() triggers the execution of the pipeline and produces the result.
+Once a terminal operation is executed, the stream cannot be reused.
+Streams can also be converted to parallel streams for faster processing using multiple CPU cores.
+In short, Stream API works as a pipeline that transforms and processes data in a clean and efficient way.
+
+A stream can be consumed only once. After a terminal operation, it is closed, and reusing it will throw IllegalStateException.
+To reuse, create a new stream from the data source.
+
+🔹 What are Intermediate Operations in Stream API?
+------------------------------------------------------
+Intermediate operations are the operations in the Stream API that transform or filter the stream and return another stream as the result.
+🔹 Complete List of Intermediate Operations in Java Stream API
+->filter(Predicate) → Filters elements based on condition.
+->map(Function) → Transforms each element.
+->mapToInt(ToIntFunction) / mapToLong / mapToDouble → Specialized mapping to primitive streams.
+->flatMap(Function) → Flattens nested streams.
+->flatMapToInt / flatMapToLong / flatMapToDouble → Flatten into primitive streams.
+->distinct() → Removes duplicates.
+->sorted() / sorted(Comparator) → Sorts stream.
+->peek(Consumer) → Performs action (mainly debugging).
+->limit(long n) → Restricts to first n elements.
+->skip(long n) → Skips first n elements.
+
+🔹 What do Terminal Operations do in Stream API?
+------------------------------------------------------
+Terminal operations are the final step in a stream pipeline.
+They trigger the execution of all the intermediate operations defined earlier.
+Once a terminal operation is applied, the stream is considered consumed and cannot be reused.
+These operations produce a final result such as a value (min, max, count), a collection (collect), or a side effect (forEach).
+Examples include forEach(), collect(), reduce(), count(), min(), max(), findFirst(), anyMatch(), etc.
+Without a terminal operation, the intermediate operations are never executed because they are lazy.
+🔹 Complete List of Terminal Operations
+->forEach(Consumer) – perform action on each element
+->forEachOrdered(Consumer) – ordered version of forEach (important in parallel streams)
+->toArray() / toArray(IntFunction) – collect elements into array
+->reduce(BinaryOperator) / reduce(identity, accumulator) / reduce(identity, accumulator, combiner) – reduce elements to a single result
+->collect(Collector) – collect into List, Set, Map, etc.
+->min(Comparator) – minimum element
+->max(Comparator) – maximum element
+->count() – count elements
+->anyMatch(Predicate) – true if any element matches
+->allMatch(Predicate) – true if all elements match
+->noneMatch(Predicate) – true if no elements match
+->findFirst() – first element (Optional)
+->findAny() – any element (especially in parallel streams)
+
+
+
+

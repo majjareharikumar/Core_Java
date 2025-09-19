@@ -1,0 +1,8 @@
+*filter(Predicate)
+-----------------
+The filter() method in Java 8 Stream API is an intermediate operation used to select elements that satisfy a given condition.
+It takes a Predicate (boolean condition) and returns a new stream containing only the elements that match the condition, without modifying the original collection.
+Since it is lazy, the filtering is executed only when a terminal operation like collect() or forEach() is called.
+For example, numbers.stream().filter(n -> n % 2 == 0) will return only even numbers from the list.
+A common real-time use case is filtering employees with a certain salary, or removing null values using filter(Objects::nonNull).
+
