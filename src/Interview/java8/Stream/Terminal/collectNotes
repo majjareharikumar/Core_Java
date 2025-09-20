@@ -1,0 +1,54 @@
+🔹What is collect(Collector)?
+-----------------------------
+collect() is a terminal operation used to gather stream elements into a container like List, Set, or Map.
+It uses the Collectors utility class (java.util.stream.Collectors) which provides many predefined collectors.
+It is the most common way to convert a Stream back to a Collection.
+Unlike forEach() (which only processes data), collect() actually stores the result.
+
+🔹Common collect() Operations
+--------------------------------
+1. Collect into List
+List<String> list = Stream.of("Hari", "Kumar", "Java")
+                          .collect(Collectors.toList());
+System.out.println(list);  // [Hari, Kumar, Java]
+
+2. Collect into Set (removes duplicates automatically)
+Set<String> set = Stream.of("Hari", "Kumar", "Hari")
+                        .collect(Collectors.toSet());
+System.out.println(set);  // [Hari, Kumar]
+
+3. Collect into Specific Collection (e.g., LinkedList)
+List<String> linkedList = Stream.of("A", "B", "C")
+    .collect(Collectors.toCollection(LinkedList::new));
+System.out.println(linkedList); // [A, B, C]
+
+4. Collect into Map
+Map<Integer, String> map = Stream.of("Hari", "Kumar", "Java")
+    .collect(Collectors.toMap(String::length, s -> s, (a, b) -> a));
+// Key = length, Value = String, merge duplicates by keeping first
+System.out.println(map); // {4=Hari, 5=Kumar}
+
+5. Collect into Joining (Concatenation of Strings)
+String joined = Stream.of("Hari", "Kumar", "Java")
+    .collect(Collectors.joining(", "));
+System.out.println(joined); // Hari, Kumar, Java
+
+6. Collect into Counting
+long count = Stream.of("Hari", "Kumar", "Java")
+    .collect(Collectors.counting());
+System.out.println(count); // 3
+
+7. Collect into Grouping (groupingBy)
+Map<Integer, List<String>> grouped = Stream.of("Hari", "Kumar", "Java", "Spring")
+    .collect(Collectors.groupingBy(String::length));
+System.out.println(grouped);
+// {4=[Hari, Java], 5=[Kumar], 6=[Spring]}
+
+8. Collect into Partitioning (partitioningBy)
+Map<Boolean, List<String>> partitioned = Stream.of("Hari", "Kumar", "Java", "Spring")
+    .collect(Collectors.partitioningBy(s -> s.length() > 4));
+System.out.println(partitioned);
+// {false=[Hari, Java], true=[Kumar, Spring]}
+
+
+

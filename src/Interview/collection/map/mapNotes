@@ -1,0 +1,22 @@
+What is Map?
+----------------
+Map is an interface in java and it is the part of collections framework, But it doesn't extends collection interface because it will store data as key-value pair instead of single elements.
+Each key in map is unique and exactly maps to one values. Values can be null and duplicates based on requirement.
+Common operations are inserting (put), retrieving (get), checking existence (containsKey / containsValue), and removing (remove).
+The main implementations are:
+1)HashMap → Stores entries in hash table, no order guaranteed,Allows one null key and multiple null values.
+2)LinkedHashMap → Maintains insertion order along with hashing.Same as HashMap (one null key, multiple null values).
+3)TreeMap → Stores keys in sorted (natural or custom comparator) order.Does not allow null keys (because it needs to sort keys) but it allows multiple null values.
+4)Hashtable → Legacy synchronized class, doesn’t allow null key or value.
+
+
+Feature	                             HashMap	                                    LinkedHashMap	                           TreeMap	                          Hashtable
+Underlying Data Structure	   Array of buckets + linked list/red-black tree	HashMap + doubly-linked list for order	   Red–Black Tree   	           Array of buckets + linked list
+Order Maintained                     	No	                                            Yes (insertion or access order)    	Sorted by keys              	         No
+Null Key/Value	               1 null key, multiple null values	                   1 null key, multiple null values	     No null keys, allows null values	  No null key or value
+Thread Safety	                 Not synchronized	                                   Not synchronized	                         Not synchronized	          Synchronized (thread-safe)
+Put Operation	          Compute hash → bucket → linked list/tree → insert/update	Same as HashMap + link in order list	Traverse tree → insert → rebalance	Compute hash → bucket → linked list → insert/update
+Get Operation	          Compute hash → bucket → linked list/tree → search	Same as HashMap + optional access-order update	Traverse tree → search	        Compute hash → bucket → linked list → search
+Remove Operation	        Compute hash → bucket → unlink node/tree removal	Same as HashMap + remove from order list	Find node → remove → rebalance	 Compute hash → bucket → unlink node
+Time Complexity                 	O(1) avg, O(n) worst	                         O(1) avg, O(n) worst	                       O(log n)	                               O(1) avg, O(n) worst
+Use Case	                         Fast lookups, unsorted data	             Predictable iteration order	               Sorted data, range queries	            Legacy thread-safe operations

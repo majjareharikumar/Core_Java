@@ -1,0 +1,56 @@
+What is map() in Stream API?
+-------------------------------------
+map() is an intermediate operation.
+It is used to transform each element of a Stream into another form (one-to-one mapping).
+It takes a Function<T, R> as an argument (input type → output type).
+The size of the Stream remains the same, but the content is changed/modified.
+Example: converting a list of Strings to uppercase, or extracting specific fields from objects.
+
+🔹 Possible Operations with map()
+---------------------------------------
+The map() function is mainly about transformation. Some common operations it can do:
+1)Data conversion → Convert String → Integer, Double → String, Object → field.
+Stream.of("1","2","3").map(Integer::parseInt);
+
+2)Change case of Strings → lowercase/uppercase.
+names.stream().map(String::toUpperCase);
+
+3)Mathematical operations → square, cube, percentage.
+numbers.stream().map(n -> n * n);
+
+4)Extract object fields → from a list of objects, get only one property.
+employees.stream().map(emp -> emp.getName());
+
+5)Formatting / Wrapping → add prefix/suffix, wrap into DTO.
+Formatting / Wrapping → add prefix/suffix, wrap into DTO.
+
+🔹 Terminal Operations used with map()
+-------------------------------------------
+Since map() only transforms data, we need a terminal operation to get results. Most common ones are:
+
+1)forEach() → to print or process each transformed element.
+names.stream().map(String::toUpperCase).forEach(System.out::println);
+
+2)collect() → to gather results into List, Set, or Map.
+List<String> upper = names.stream()
+                          .map(String::toUpperCase)
+                          .collect(Collectors.toList());
+
+3)count() → to count transformed elements.
+long len = names.stream().map(String::length).count();
+
+4)reduce() → to aggregate results (sum, product, concatenation).
+int sum = numbers.stream().map(n -> n * n).reduce(0, Integer::sum);
+
+5)findAny() / findFirst() → to fetch a single transformed element.
+Optional<String> first = names.stream().map(String::toUpperCase).findFirst();
+
+
+
+
+
+
+
+
+
+

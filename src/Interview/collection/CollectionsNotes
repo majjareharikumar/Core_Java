@@ -1,0 +1,28 @@
+What is Collections framework?
+The Collection Framework in Java is a set of interfaces and classes that provide ready-made data structures (like List, Set, Map, Queue) and algorithms (like sorting, searching).
+It was introduced in Java 2 (JDK 1.2) to standardize how we store and manipulate groups of objects.
+
+Why it was introduced?
+-----------------------------
+->Before Collection Framework, Java had arrays, Vector, and Hashtable. These had many limitations:
+->Arrays have fixed size and don’t grow dynamically.
+->Different data structures had inconsistent methods (e.g., Vector and Stack worked differently).
+->No unified way to sort, search, or iterate data.
+->Developers had to write boilerplate code for common operations.
+
+What problem it overcomes?
+-------------------------------
+->Provides dynamic and flexible data structures.
+->Brings a unified architecture (all collections follow common interfaces).
+->Reduces coding effort with built-in algorithms (sort, search, shuffle, reverse).
+->Improves code reusability and maintainability.
+->Makes iteration easier with Iterator and for-each loop.
+
+The Iterable interface is the root interface in the Java Collection hierarchy.
+It was introduced in Java 5 and is located in java.lang package.
+The Collection interface extends Iterable,All major collection interfaces like List, Set, and Queue extend from it,
+ except for Map, which is considered part of the framework but does not extend Collection.
+The key interfaces are Collection, List, Set, Queue, Deque, and Map.
+Some important classes that implement these interfaces are ArrayList, LinkedList, Vector, and Stack for List; HashSet, LinkedHashSet, and TreeSet for Set;
+PriorityQueue and ArrayDeque for Queue/Deque; and HashMap, LinkedHashMap, TreeMap, and Hashtable for Map.
+Together, these interfaces and classes provide ready-made data structures and consistent methods to store and process objects in Java.

@@ -1,0 +1,51 @@
+what is HashMap?
+-------------------
+HashMap is a hash table-based implementation of the Map interface in Java that stores key–value pairs.
+It allows one null key and multiple null values and does not maintain any order of keys.
+Internally, it uses an array of buckets, where each bucket stores entries in a linked list or a red–black tree (if collisions are high).
+Keys are stored based on their hash code, which provides constant-time performance for basic operations like get() and put().
+
+Interface implemented: HashMap implements the Map interface and indirectly implements Cloneable and Serializable.
+
+HashMap internal implementation:
+----------------------------------
+-->HashMap uses an array of buckets to store key value pair of data. Bucket will contain hash,key,value,next node reference.
+-->if there is any collisions , Means hash code is same for the 2 objects but key is difference then Array bucket will create  linked list and stores the data here.
+   Array bucket will have this reference.
+--> If all objects have same hash code and all objects are storing in same linked list. Once linked list size is reach 8,
+   Then it converts to a red-black tree(self-balancing binary search tree) to improve performance from O(n) → O(log n).
+
+Put Operation (put(key, value)):-
+------------------------------------
+When we call put(key, value) in a HashMap, it first computes the hash code of the key and determines the bucket index in the internal array using a hash function.
+If the bucket is empty, a new Node containing the key, value, and hash is directly placed there. If the bucket already contains entries (collision), HashMap traverses the linked list to check if the key already exists using equals().
+If the key exists, the value is updated; otherwise, a new node is appended to the end of the list.
+When the linked list in a bucket grows beyond 8 nodes, it is converted into a red-black tree(self-balancing binary search tree) for faster searching.
+The HashMap also checks the load factor (default 0.75), default size of map is 16 and if the number of entries exceeds capacity × load factor(more than 16), the table is resized and all entries are rehashed.
+This mechanism ensures efficient insertion while handling collisions and maintaining optimal performance.
+
+Get Operation (get(key)):-
+---------------------------------
+When we call get(key) in a HashMap, it first computes the hash code of the key and calculates the bucket index using the hash function.
+It then locates the corresponding bucket in the internal array.
+If the bucket contains entries, HashMap traverses the linked list of nodes or the red-black tree if the bucket was converted due to collisions.
+For each node, it checks if node.key.equals(key) to find a match.
+If a matching key is found, the associated value is returned; otherwise, null is returned.
+The use of linked lists ensures handling of collisions efficiently for small bucket sizes,
+while red-black trees provide O(log n) search time when buckets are heavily loaded.
+This mechanism allows HashMap to provide average constant-time performance for retrievals while managing collisions dynamically.
+
+Remove Operation (remove(key)):-
+-----------------------------------
+Removal operation is also follow same Hashcode method to find the array index/linked list/red-black tree position to delete the object.
+If entry found with the match it will delete from the Array or unlinked from list or delete from the tree.
+
+contract between hashCode() and equals():-
+----------------------------------------------
+In HashMap, the hashCode() and equals() methods ensure correct key storage and retrieval.
+If two keys are equal according to equals(), they must return the same hash code;
+otherwise, they may be placed in different buckets, causing errors.
+Unequal keys can have the same hash code, which results in collisions handled via linked lists or red-black trees.
+Proper implementation of these methods ensures key uniqueness and correct lookup, insertion, and deletion in HashMap.
+
+
