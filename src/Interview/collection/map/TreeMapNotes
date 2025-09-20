@@ -1,0 +1,15 @@
+Definition
+------------
+TreeMap is a Java class that implements the NavigableMap and SortedMap interfaces.
+It stores key–value pairs in a Red–Black Tree (a self-balancing binary search tree).
+Keys are always kept in sorted order, either by their natural ordering or by a custom Comparator provided at map creation.
+It does not allow null keys but allows multiple null values.
+
+Internal Working
+-----------------------
+Internally, TreeMap uses a Red–Black Tree, which ensures the tree remains balanced after every insertion or deletion.
+In the put(key, value) operation, TreeMap traverses the tree using key comparison to find the correct position, inserts the node, and rebalances the tree to maintain red-black properties.
+The get(key) operation searches through the tree by comparing the key with nodes until it is found.
+The remove(key) operation deletes the node and again rebalances the tree to keep performance consistent.
+Since it uses a balanced tree, all operations like put, get, and remove work in O(log n) time.
+TreeMap is best when you need sorted data, range queries, or ordered traversal of keys.

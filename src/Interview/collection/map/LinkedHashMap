@@ -1,0 +1,15 @@
+Definition
+---------------
+LinkedHashMap is a subclass of HashMap that maintains a doubly-linked list across all entries to preserve the insertion order (or access order if enabled).
+It allows one null key and multiple null values, just like HashMap.
+Since it extends HashMap, it provides the same average O(1) performance for put, get, and remove, but with predictable iteration order.
+
+Internal Working (7–8 lines)
+
+Internally, LinkedHashMap works the same as HashMap with an array of buckets and collision handling using linked lists or red-black trees (Java 8+).
+The difference is that each entry is also part of a doubly-linked list that maintains order.
+When we call put(key, value), it calculates the hash, finds the bucket, and inserts the node;
+additionally, it links the node at the end of the order-maintaining list.
+The get(key) operation works like HashMap but if access-order mode is enabled, the accessed entry is moved to the end of the list.
+The remove(key) operation removes the entry both from the bucket and the linked list.
+This ensures predictable iteration order while still providing fast lookups and updates.

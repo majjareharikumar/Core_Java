@@ -1,0 +1,15 @@
+Definition
+----------------------
+Hashtable is a legacy class in Java that implements the Map interface and stores data as key–value pairs.
+It is very similar to HashMap, but it is synchronized, making it thread-safe for multi-threaded environments.
+Unlike HashMap, Hashtable does not allow null keys or null values.
+
+Internal Working (7–8 lines)
+-------------------------------
+Hashtable internally uses an array of buckets, where each bucket holds a linked list of entries to handle collisions.
+When we call put(key, value), it computes the hash code of the key, determines the bucket index, and inserts the entry or updates the existing one if the key already exists.
+In case of collisions, new entries are added to the linked list in that bucket.
+The get(key) method uses the hash to find the correct bucket and traverses the list to return the matching value.
+Similarly, remove(key) locates the bucket and unlinks the corresponding node.
+Unlike HashMap, it does not use red-black trees, so lookups under high collisions can degrade to O(n).
+Since all methods are synchronized, it ensures thread safety but reduces performance in single-threaded use cases.
