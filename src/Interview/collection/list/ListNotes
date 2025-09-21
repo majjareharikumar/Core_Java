@@ -1,0 +1,23 @@
+Definition of List
+-----------------------
+The List interface in Java is part of the Collections Framework and represents an ordered collection (also called a sequence) that allows duplicate elements.
+Elements in a List can be accessed by their index, which makes it different from Set or Queue.
+
+Why Introduced / Purpose
+----------------------------
+The List interface was introduced to handle scenarios where order matters and duplicate elements are allowed.
+It provides methods to insert, update, delete, and access elements at a specific position, which is not possible with Set or Queue.
+Lists are widely used in dynamic arrays, stacks, and queues where indexing is needed.
+
+Extending Interfaces
+---------------------
+RandomAccess → Marker interface indicating that a List supports fast (O(1)) random access.
+Iterable / Collection → List inherits these for iteration and general collection operations.
+
+Main Implementation Classes
+-------------------------------
+ArrayList → Resizable array, allows fast random access, slower at insertion/deletion in middle.
+LinkedList → Doubly linked list, allows fast insertion/deletion but slower random access.
+Vector → Legacy class, synchronized version of ArrayList, rarely used now.
+Stack → Legacy class extending Vector, used for LIFO operations (use Deque instead in modern code).
+

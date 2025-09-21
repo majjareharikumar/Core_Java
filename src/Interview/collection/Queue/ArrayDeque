@@ -1,0 +1,21 @@
+Definition
+----------------
+ArrayDeque is a class in Java that implements the Deque interface and represents a resizable array-based double-ended queue.
+It allows insertion and removal of elements from both ends efficiently and can be used as a stack (LIFO) or queue (FIFO).
+
+Key Features
+--------------
+Allows null elements? → No, null elements are not allowed.
+Supports insertion and removal from both ends (addFirst, addLast, removeFirst, removeLast).
+Resizable array grows automatically as needed.
+Faster than LinkedList in most cases due to better locality of reference.
+Not thread-safe (can use Collections.synchronizedDeque() for concurrency).
+
+Internal Implementation (6–7 lines)
+-----------------------------------------
+ArrayDeque is implemented using a resizable circular array.
+When an element is added at the front or rear, the array is adjusted using head and tail pointers, wrapping around the array if necessary.
+If the array becomes full, it is dynamically resized (usually doubled in size).
+Methods like addFirst() and addLast() adjust the pointers and insert the element.
+Removal operations (removeFirst(), removeLast()) simply update the pointers, giving O(1) amortized time.
+Unlike PriorityQueue, ArrayDeque does not maintain sorting, but provides fast stack or queue operations.

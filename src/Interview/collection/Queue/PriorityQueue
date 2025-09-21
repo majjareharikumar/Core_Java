@@ -1,0 +1,21 @@
+Definition
+---------------
+PriorityQueue is a class in Java that implements the Queue interface and stores elements based on their priority order rather than insertion order.
+By default, elements are ordered according to their natural ordering (Comparable), or a custom Comparator can be provided at queue creation.
+
+Key Features
+----------------
+Elements are retrieved based on priority, not FIFO.
+Does not allow null elements.
+Allows duplicate elements.
+Not thread-safe (use PriorityBlockingQueue for concurrent access).
+Provides O(log n) time complexity for insertion and removal of elements.
+Useful in scenarios like task scheduling, Dijkstra’s algorithm, and event-driven simulations.
+
+Internal Implementation
+----------------------------
+PriorityQueue in Java is internally implemented using a binary heap, usually a min-heap by default.
+When an element is added using offer() or add(), it is placed at the end of the heap and then heapified upwards to maintain the heap property.
+The peek() method returns the element at the root of the heap (highest priority) without removing it, while poll() removes the root and heapifies down to maintain the structure.
+Duplicates are allowed because each element is treated individually, and nulls are disallowed because comparisons are needed to maintain order.
+Iteration over a PriorityQueue does not guarantee sorted order; only the root element is guaranteed to have the highest priority.

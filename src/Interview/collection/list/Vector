@@ -1,0 +1,18 @@
+Definition:
+Vector is a legacy class in Java that implements the List interface.
+It is similar to ArrayList but synchronized, making it thread-safe for multi-threaded environments.
+
+Key Features:
+---------------
+Maintains insertion order.
+Allows duplicate and null elements.
+Synchronized, so safe for concurrent access, but slower than ArrayList.
+Resizable array; grows automatically when capacity is exceeded.
+
+Internal Implementation (6–7 lines):
+Vector internally uses a dynamic array to store elements.
+When an element is added using add(), it is placed at the next available index.
+If the array is full, it doubles in size by default (can be customized).
+Elements are accessed via index, giving O(1) time for get() and set().
+Insertion/deletion in the middle requires shifting elements.
+Synchronization ensures thread safety, but adds overhead compared to ArrayList.

@@ -1,0 +1,21 @@
+Definition
+----------------
+LinkedHashSet is a class in Java that implements the Set interface and extends HashSet.
+It stores unique elements and maintains a doubly-linked list across all entries to preserve insertion order (or access order if enabled).
+
+Key Features
+------------
+Stores unique elements only (no duplicates).
+Maintains insertion order (or access order if access-order mode is enabled).
+Allows one null element.
+Provides O(1) average-time complexity for add, remove, and contains operations.
+Not synchronized (use Collections.synchronizedSet() for thread safety).
+
+Internal Implementation (6–7 lines)
+--------------------------------------
+LinkedHashSet is internally implemented using a LinkedHashMap.
+When you add an element, it is stored as a key in the LinkedHashMap with a dummy constant object as the value.
+Each entry is also part of a doubly-linked list to preserve the insertion order.
+Collisions are handled by the underlying hash table (linked list → red-black tree conversion for large buckets in Java 8+).
+Methods like contains() and remove() operate on the underlying map, ensuring O(1) average-time complexity.
+Iteration over the set follows the insertion order.

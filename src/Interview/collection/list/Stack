@@ -1,0 +1,17 @@
+Definition:
+Stack is a legacy class in Java that extends Vector and implements a Last-In-First-Out (LIFO) data structure.
+It is used to push, pop, and peek elements in stack order.
+
+Key Features:
+---------------------
+LIFO structure: last inserted element is removed first.
+Thread-safe (because it extends Vector).
+Allows duplicate and null elements.
+Provides methods like push(), pop(), peek(), empty(), and search().
+
+Internal Implementation (6–7 lines):
+Stack is internally implemented as a Vector, so elements are stored in a resizable array.
+push() adds an element at the end of the array, pop() removes and returns the last element, and peek() returns the last element without removing it.
+Thread-safety is ensured via synchronized methods inherited from Vector.
+Because it uses a dynamic array, resizing occurs when the capacity is exceeded.
+Iteration over Stack can be done like any other Vector, but typical usage is LIFO access.

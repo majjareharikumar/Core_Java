@@ -1,0 +1,68 @@
+Definition
+----------------------
+HashSet is a class in Java that implements the Set interface.
+It is used to store a collection of unique elements without duplicates.
+Internally, it is backed by a HashMap, which manages storage and uniqueness.
+HashSet allows one null element and gives constant-time performance (O(1) average) for add, remove, and contains operations.
+
+Key Features
+-----------------
+No duplicate elements are allowed.
+Order is not guaranteed (insertion order is not preserved).
+Allows one null element.
+Based on hashing for fast lookups.
+Not synchronized (can use Collections.synchronizedSet() for thread safety).
+
+Internal Implementation (6–7 lines)
+--------------------------------------
+When we call add(element), HashSet internally puts the element as a key into a HashMap with a dummy constant object as the value.
+If the key already exists, the new one is ignored, ensuring uniqueness.
+The elements are stored in buckets based on their hash codes, and collisions are handled using linked lists or red-black trees (Java 8+).
+contains(element) checks if the key exists in the internal HashMap, while remove(element) deletes the key from it.
+Since HashMap allows one null key, HashSet allows one null element. Most operations run in O(1) average time.
+
+Ex program
+----------------
+import java.util.HashSet;
+
+public class HashSetExample {
+    public static void main(String[] args) {
+        // Creating a HashSet
+        HashSet<String> fruits = new HashSet<>();
+
+        // Adding elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Mango");
+        fruits.add("Orange");
+        fruits.add("Banana"); // duplicate, will not be added
+        fruits.add(null);     // HashSet allows one null value
+
+        // Printing the HashSet
+        System.out.println("Fruits HashSet: " + fruits);
+
+        // Checking if element exists
+        System.out.println("Contains Mango? " + fruits.contains("Mango"));
+
+        // Removing an element
+        fruits.remove("Apple");
+        System.out.println("After removing Apple: " + fruits);
+
+        // Iterating over HashSet
+        System.out.println("Iterating over HashSet:");
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+    }
+}
+
+output:-
+--------
+Fruits HashSet: [null, Orange, Banana, Mango, Apple]
+Contains Mango? true
+After removing Apple: [null, Orange, Banana, Mango]
+Iterating over HashSet:
+null
+Orange
+Banana
+Mango

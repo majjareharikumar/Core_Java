@@ -1,0 +1,21 @@
+Definition of Queue
+--------------------------
+The Queue interface in Java is part of the Collections Framework and represents a collection designed for holding elements prior to processing, typically in FIFO (First-In-First-Out) order.
+It extends the Collection interface. Queues are used when elements need to be processed in a particular order, like tasks in a printer queue or requests in a web server.
+
+Why Introduced / Purpose
+---------------------------
+Queue was introduced to handle scenarios where elements are added at the rear and removed from the front, following FIFO principle.
+It is widely used in task scheduling, buffering, message passing, and other scenarios requiring ordered processing.
+Unlike List or Set, Queue focuses on insertion and removal at ends, not random access or uniqueness.
+
+Extending Interfaces
+---------------------
+Deque → Extends Queue; allows insertion and removal from both ends (Double-Ended Queue).
+BlockingQueue → Supports thread-safe operations, useful in producer-consumer scenarios.
+
+Main Implementation Classes
+-----------------------------
+PriorityQueue → Stores elements in natural order or using a custom comparator; not thread-safe.
+LinkedList → Implements Queue (FIFO), can also act as Deque.
+ArrayDeque → Resizable array implementation, can be used as stack or queue, faster than LinkedList.

@@ -1,0 +1,21 @@
+Definition
+-----------------
+ArrayList is a resizable array implementation of the List interface in Java.
+It allows duplicate elements, maintains insertion order, and provides indexed access to elements, making it ideal when you need fast random access.
+
+Key Features
+-----------------
+Maintains insertion order.
+Allows duplicate and null elements.
+Provides fast random access (O(1)) via index.
+Insertion/deletion in the middle is slower (O(n)) because elements may need to be shifted.
+Not synchronized (use Collections.synchronizedList() for thread safety).
+
+Internal Implementation
+--------------------------------------
+Internally, ArrayList uses a resizable array to store elements.
+When you add an element using add(), it is placed at the next available index.
+If the internal array is full, it is automatically resized (usually 50% larger than current size).
+Elements are accessed directly using the index, giving O(1) time for get and set operations.
+Insertion or deletion in the middle requires shifting elements to maintain order.
+ArrayList allows null values and can store duplicates, unlike Set implementations.

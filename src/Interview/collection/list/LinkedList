@@ -1,0 +1,22 @@
+Definition
+----------------
+LinkedList is a class in Java that implements the List and Deque interfaces.
+It stores elements as a doubly-linked list, allowing insertion and deletion of elements from any position efficiently.
+It can also be used as a queue or stack.
+
+Key Features
+---------------
+Maintains insertion order.
+Allows duplicate and null elements.
+Efficient insertion and deletion (O(1) if position is known).
+Slower random access (O(n)) because it requires traversal from the head or tail.
+Implements List, Deque, and Queue interfaces, so can function as list, stack, or queue.
+
+Internal Implementation
+----------------------------------
+LinkedList is internally implemented as a doubly-linked list, where each node contains a data element, a reference to the previous node, and a reference to the next node.
+When an element is added, a new node is created and linked appropriately.
+Removal updates the previous and next references to unlink the node.
+Methods like get(index) traverse the list from the head or tail to locate the element.
+It allows null values and duplicates, and because there is no contiguous array, resizing is not needed.
+Using it as a queue or stack leverages the head and tail pointers for O(1) insertion and removal at ends.

@@ -1,0 +1,18 @@
+Definition :-
+-----------------
+The Set interface in Java is part of the Collections Framework and represents a collection of unique elements — it does not allow duplicate values.
+It extends the Collection interface and provides the base for implementations like HashSet, LinkedHashSet, and TreeSet.
+Unlike lists, sets do not maintain elements by index, and ordering depends on the implementation.
+
+Extending Interfaces of Set
+-----------------------------
+SortedSet → Provides a set with elements sorted in natural order or by a custom comparator.
+NavigableSet → Extends SortedSet and provides navigation methods like higher(), lower(), ceiling(), and floor().
+
+Main Implementation Classes of Set
+-----------------------------------
+HashSet → Backed by HashMap, does not maintain order, allows one null element, and ensures unique elements.
+LinkedHashSet → Extends HashSet, maintains insertion order using a doubly-linked list, allows one null.
+TreeSet → Implements NavigableSet, stores elements in a red-black tree, keeps them sorted, does not allow null.
+EnumSet → Special high-performance set for enum types only.
+CopyOnWriteArraySet → Thread-safe variant using CopyOnWriteArrayList, good for concurrent access.

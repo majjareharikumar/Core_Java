@@ -1,0 +1,21 @@
+Definition
+-----------------
+TreeSet is a class in Java that implements the Set interface and is backed by a Red-Black Tree via TreeMap.
+It stores unique elements in sorted order (natural order or via a custom Comparator) and does not allow duplicate entries.
+
+Key Features
+--------------
+Stores unique elements only (no duplicates).
+Maintains sorted order of elements.
+Allows null only once (and only if set is empty; otherwise throws NullPointerException).
+Provides O(log n) time complexity for add, remove, and contains operations.
+Implements NavigableSet and SortedSet, offering methods like ceiling(), floor(), higher(), and lower().
+
+Internal Implementation
+----------------------------------------
+TreeSet is internally implemented using a TreeMap.
+When you add an element, it is stored as a key in the TreeMap with a dummy value.
+The TreeMap is a Red-Black Tree, which is a self-balancing binary search tree, ensuring that all operations remain O(log n).
+The tree automatically keeps elements sorted during insertion.
+Lookup, addition, and removal traverse the tree to maintain order and balance.
+Iteration over a TreeSet returns elements in ascending order by default.
