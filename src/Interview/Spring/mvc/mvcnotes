@@ -1,0 +1,52 @@
+MVC (Model-View-Controller) is a design pattern used in web applications to separate the
+application into three layers: Model for data and business logic, View for the user interface,
+and Controller for handling user requests and coordinating between Model and View.
+It was introduced to overcome the problems of tightly coupled code in traditional approaches like Servlets and JSP, where UI, business logic, and database code were mixed together.
+This mixing made applications hard to maintain, test, and scale.
+By using MVC, each layer is independent, making the code cleaner, reusable, and easier to manage.
+It also enables parallel development where UI and backend can be developed separately without conflict.
+
+Levels/Steps in MVC (How Spring MVC works internally)
+--------------------------------------------------------------
+When a user sends a request in Spring MVC, it goes through the following steps:
+User Request → A client (browser) sends a request (e.g., /employees).
+DispatcherServlet (Front Controller) → This is the entry point. It receives all requests and decides what to do.
+Handler Mapping → DispatcherServlet consults HandlerMapping to find the right Controller method.
+Controller → The Controller processes the request, interacts with the Model (services, database).
+Model → Data is fetched/updated and returned as a Model object.
+View Resolver → DispatcherServlet asks ViewResolver to find the correct View (like employeeList.jsp or employeeList.html).
+View (Response) → The View is rendered with the Model data and sent back to the client (browser).
+
+Spring MVC Request Flow Diagram
+-------------------------------------
+Browser (User)
+     │
+     ▼
+HTTP Request (e.g., /employees)
+     │
+     ▼
+DispatcherServlet (Front Controller)
+     │
+     │ 1️⃣ Consults HandlerMapping to find the correct Controller
+     ▼
+EmployeeController
+     │
+     │ 2️⃣ Calls Service/Model to get data (business logic)
+     ▼
+Model (Data)
+     │
+     ▼
+Controller returns "employee" (View name)
+     │
+     ▼
+ViewResolver
+     │
+     │ 3️⃣ Maps view name "employee" → /WEB-INF/views/employee.jsp
+     ▼
+JSP / View
+     │
+     ▼
+Response (HTML page with data)
+     │
+     ▼
+Browser (User sees rendered page)

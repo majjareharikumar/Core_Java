@@ -1,0 +1,40 @@
+Function in SQL
+-----------------------
+A Function is a reusable SQL object that always returns a value (scalar or table).
+It is mainly used for calculations or transformations inside queries.
+Functions cannot perform INSERT/UPDATE/DELETE (read-only).
+They must return exactly one result.
+Often used in SELECT, WHERE, or JOIN clauses.
+Example: calculating age from date of birth.
+
+commonly used built-in SQL functions:-
+1. String Functions
+UPPER() → Converts text to uppercase.
+LOWER() → Converts text to lowercase.
+LEN() / LENGTH() → Finds string length.
+SUBSTRING() → Extracts part of a string.
+TRIM() / LTRIM() / RTRIM() → Removes spaces.
+CONCAT() → Joins strings.
+
+2. Numeric Functions
+ABS() → Absolute value.
+ROUND() → Rounds a number.
+CEILING() / FLOOR() → Rounds up or down.
+POWER(x, y) → x raised to the power y.
+SQRT() → Square root.
+
+3. Date & Time Functions
+
+GETDATE() (SQL Server) / NOW() (MySQL, PostgreSQL) → Current date & time.
+CURDATE() → Current date.
+DATEDIFF() → Difference between two dates.
+DATEADD() → Add interval to a date.
+EXTRACT(YEAR FROM date) → Extract part of a date.
+
+4. Aggregate Functions
+COUNT() → Number of rows.
+SUM() → Total sum of values.
+AVG() → Average of values.
+MIN() → Minimum value.
+MAX() → Maximum value.
+****************************************************************

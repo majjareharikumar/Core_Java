@@ -1,0 +1,32 @@
+INDEX in SQL:-
+-----------------
+An Index in SQL is like an index in a book – it helps the database find the rows faster without scanning the entire table.
+It was introduced to improve the performance of SELECT queries (especially with large data).
+Indexes store a reference to table rows in a sorted order, making searches, filtering (WHERE), and joins faster.
+However, they take extra storage and can slow down INSERT, UPDATE, and DELETE because the index must also be updated.
+We should use an index on columns that are frequently used in WHERE, JOIN, or ORDER BY clauses.
+Common types are single-column index, composite index, unique index, and clustered index.
+
+Syntax:-
+---------------
+-- Create index
+CREATE INDEX idx_column_name
+ON table_name (column_name);
+
+-- Composite index (multiple columns)
+CREATE INDEX idx_col1_col2
+ON table_name (col1, col2);
+
+Real-World Scenario:
+Imagine a Banking System with a transactions table containing millions of records.
+Customers frequently search by account_number. Without an index, the database scans all rows (slow).
+By creating an index on account_number, queries like:
+
+ex:-
+CREATE INDEX idx_account_date
+ON transactions(account_number, transaction_date);
+
+SELECT account_number, balance
+FROM transactions
+WHERE account_number = '123456789';
+********************************************************************************

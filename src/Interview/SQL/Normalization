@@ -1,0 +1,131 @@
+What is Normalization?
+------------------------
+“Normalization is the process of structuring a database into multiple related tables to reduce redundancy and ensure data integrity.
+It is done using Normal Forms like 1NF (remove repeating groups), 2NF (remove partial dependency), and 3NF (remove transitive dependency).
+For example, Instead of storing customer details in every order row, we keep a Customer table and link it to an Orders table using a foreign key.
+This avoids duplication and keeps data consistent.”
+
+Real-World Scenario
+-----------------------
+Imagine an e-commerce system:
+If we store order details like Customer Name, Address, Product, Quantity in one single table, customer details will repeat for every order.
+If the customer changes address, we must update it in many rows → prone to errors.
+With normalization:
+Customer table stores customer details once.
+Orders table stores order details with a reference to the customer.
+👉 This reduces redundancy and keeps data consistent.
+
+Types of Normal Forms:-
+-----------------------
+Step 1: Unnormalized Data (UNF): If we take customer & Orders table. In this form every data like cust id, cust name, prod id, prod name are in same table.
+
+CREATE TABLE Orders_UNF (
+    order_id INT,
+    customer_name VARCHAR(50),
+    customer_address VARCHAR(100),
+    products VARCHAR(100) -- multiple products in one column
+);
+Sample Data (UNF):
+
+order_id	customer_name	customer_address	products
+101	            Hari	        Bangalore	   Laptop, Phone
+102	            John	          Delhi	         Tablet
+103	            Hari	        Bangalore	    Laptop
+
+👉 Problems:
+In above table we see Duplicate customer info (Hari appears twice).And also
+Products stored in a single column (not atomic).
+
+Step 2: First Normal Form (1NF): Here we Remove repeating groups and store atomic values.
+
+CREATE TABLE Orders_1NF (
+    order_id INT,
+    customer_name VARCHAR(50),
+    customer_address VARCHAR(100),
+    product VARCHAR(50)
+);
+
+Sample Data (1NF):
+order_id	customer_name	customer_address	product
+101	           Hari	            Bangalore	    Laptop
+101	           Hari	            Bangalore	     Phone
+102	           John	             Delhi	         Tablet
+103	           Hari	            Bangalore	     Laptop
+
+👉 Problem reduced: Products are now atomic. But still customer info repeats.
+
+Step 3: Second Normal Form (2NF):Remove partial dependency → we can create Separate tables for Customers and Orders.
+
+CREATE TABLE Customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    address VARCHAR(100)
+);
+
+CREATE TABLE Orders_2NF (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    product VARCHAR(50),
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+Customers Table:
+customer_id 	name	address
+1	            Hari	Bangalore
+2	            John	Delhi
+
+Orders Table:
+order_id	 customer_id	product
+101	            1	        Laptop
+101	            1	        Phone
+102	            2	        Tablet
+103	            1	        Laptop
+
+👉 Customer info is stored only once.
+
+Step 4: Third Normal Form (3NF):
+Remove transitive dependency. Example: if we store City and Pincode in Customers, city depends on Pincode, not Customer directly.
+
+CREATE TABLE Cities (
+    pincode INT PRIMARY KEY,
+    city VARCHAR(50)
+);
+
+ALTER TABLE Customers ADD pincode INT;
+ALTER TABLE Customers ADD FOREIGN KEY (pincode) REFERENCES Cities(pincode);
+
+Cities Table:
+pincode	city
+560001	Bangalore
+110001	Delhi
+
+Customers Table (Final 3NF):
+customer_id	name	pincode
+1	        Hari	560001
+2	        John	110001
+
+**What is Denormalization?
+---------------------------
+“Normalization removes redundancy by splitting data into related tables, while denormalization combines tables to speed up queries at the cost of some redundancy.
+For example, in an e-commerce system, normalized tables keep Customers and Orders separate.
+But in a reporting system, we may denormalize and keep customer and order info in one table so queries run faster without joins.”
+
+
+When to Use Normalization
+--------------------------
+->When data consistency and accuracy are most important.
+->If your system does a lot of inserts, updates, and deletes (OLTP systems like banking apps, e-commerce apps).
+->To avoid redundancy (no duplicate customer info stored multiple times).
+->When storage space is limited.
+
+Example: In a banking system, customer details are stored in a separate table → any update (like address change) is reflected everywhere.
+
+🔹 When to Use Denormalization
+------------------------------
+->When performance of SELECT queries is more important than avoiding redundancy.
+->If your system is used for reporting, analytics, dashboards (OLAP systems).
+->To reduce the number of joins in frequently used queries.
+->When you can afford extra storage and some redundancy.
+Example: In a sales reporting system, customer + orders + products might be combined into one big table to get quick reports.
+
+*****************************************************************************************************************************

@@ -1,0 +1,78 @@
+JOINS in SQL:-
+--------------
+A Join in SQL is used to combine the data from two or more tables using a related column (like customer_id).
+It helps us to get connected information that is stored in different tables.
+Most of the time, this relationship is through a primary key–foreign key link.
+There are different types of joins: INNER, LEFT, RIGHT, FULL, CROSS, and SELF.
+Joins help us avoid duplicate storage by keeping data in separate tables but still allowing us to query them together.
+Real-world example: Join customers and orders to see each customer with their order details.
+
+Lets take below 2 tables for practice all joins.
+customers:-
+customer_id	     name
+1	             Hari
+2	             John
+3	             Ravi
+
+orders:-
+order_id	customer_id	 product
+101         	1	      Laptop
+102          	2	      Phone
+103	            2	      Tablet
+
+1. INNER JOIN
+👉 it will Returns only customers who have orders in order table. (matching rows).
+In order table we have cust_id's 1 & 2 only , That means 3 rd customer is not ordered yet.
+So ,it will return only Hari & John details.
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari & John (because Ravi has no orders).
+
+2. LEFT JOIN
+👉 It will take customers table as primary and Returns all customers + their orders if present in Order table.
+It will return NULL if no orders present.
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari, John with orders, and Ravi with NULL (because no order).
+
+3. RIGHT JOIN
+👉 it will take Orders table as primary and it will Returns all orders + their customers if present .
+it will return NULL if no customer present for the orders .
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+RIGHT JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari & John with their orders. it will not return Ravi, Because no order present for Ravi in order table.
+That' why order table will not know Ravi cust Id.
+
+4. FULL OUTER JOIN
+👉 It will take both tables as primary and Returns all customers and all orders, matching where possible, NULL where not.
+
+Query:
+SELECT c.customer_id, c.name, o.order_id, o.product
+FROM customers c
+FULL OUTER JOIN orders o ON c.customer_id = o.customer_id;
+
+Result: Hari & John with orders + Ravi with NULL + any order without a customer.
+
+5. CROSS JOIN
+👉 Returns all possible combinations from both tables.
+
+Query:
+SELECT c.name, o.product
+FROM customers c
+CROSS JOIN orders o;
+
+Result: Every customer with every product (Hari–Laptop, Hari–Phone, Hari–Tablet, John–Laptop … etc.).
+
+**********************************************************************************************************
