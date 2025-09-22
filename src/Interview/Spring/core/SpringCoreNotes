@@ -1,0 +1,17 @@
+Before the Spring Framework, Java developers mainly relied on Java EE (J2EE) and Enterprise Java Beans (EJB) to build enterprise applications.
+J2EE provided APIs like Servlets, JSP, JDBC, JMS, and JNDI, but working directly with them required writing a lot of boilerplate code.
+EJB was introduced to handle complex needs such as transactions, security, and distributed systems, but it was heavyweight and complicated.
+Developers had to write multiple files like Home Interface, Remote Interface, and Deployment Descriptors just for a single bean, which slowed development.
+On top of that, EJBs could only run on heavy application servers like JBoss, WebLogic, or WebSphere, making testing and debugging difficult.
+Some developers also used frameworks like Struts for MVC and Hibernate for ORM, but integrating them manually was not easy.
+Overall, enterprise development before Spring was complex, tightly coupled, and time-consuming, which created the need for a lightweight, flexible, and testable framework.
+Spring solved this by using simple POJOs, Dependency Injection, and modular design, making development faster and easier.
+
+
+definition:-
+-----------
+Spring Framework is an open-source, lightweight, and modular Java framework that provides comprehensive infrastructure support for building enterprise applications.
+It simplifies application development by promoting Dependency Injection (DI), Aspect-Oriented Programming (AOP), and using Plain Old Java Objects (POJOs) instead of complex enterprise components like EJB.
+Spring helps developers create applications that are loosely coupled, testable, and easily maintainable, while also integrating smoothly with other technologies like Hibernate, JPA, JDBC, Kafka, and JMS.
+
+Its architecture is designed around two core principles: Dependency Injection (DI) and Aspect-Oriented Programming (AOP).

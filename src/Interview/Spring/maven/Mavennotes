@@ -1,0 +1,106 @@
+1. What is Maven?
+Maven is a build automation and project management tool , It mainly used in java applications.
+It will help us to build java application, test the app, dependencies, packages,manage the app in consistent way.
+Maven use file called pom.xml to represent project details, dependencies,configurations and plugins.
+
+Why was Maven introduced?
+Before Maven, developers mostly used Ant (Apache Ant) for builds.
+Ant required writing long build scripts manually, and managing libraries (JAR files) was difficult because developers had to download and configure them manually.
+Maven was introduced to standardize the build process, simplify dependency management, and provide a convention-over-configuration approach.
+
+Maven build lifecycle (clean, compile, test, package, install, deploy)
+------------------------------------------------------------------------
+Maven build lifecycle is a sequence of steps that define how a project is built and managed.
+->It starts with clean, which removes previously generated files (like the target folder).
+->The compile phase compiles the source code from src/main/java into class files.
+->Next, test runs unit tests to verify the code.
+->After that, package creates a distributable format like a JAR or WAR file.
+->The install phase places this package into the local Maven repository (.m2) so other projects can use it.
+->Finally, deploy uploads the package to a remote repository for sharing across teams or environments.
+Each phase runs in order, ensuring a smooth build process.
+
+Maven Repositories.
+---------------------
+1. Local Repository
+It’s a folder on your machine (default: ~/.m2/repository).
+When you run Maven, it first checks the local repo for dependencies.
+If the dependency is found locally, it uses it directly.
+If not, Maven downloads it from the central or remote repo and caches it locally for future use.
+👉 Example: After running mvn install, your project’s JAR will be stored in the local repo.
+
+2. Central Repository
+Maintained by the Apache Maven community.
+It contains thousands of commonly used libraries.
+If a dependency is not found in your local repo, Maven downloads it from the central repo (https://repo.maven.apache.org/maven2/
+).
+👉 Example: If you add spring-boot-starter-web in pom.xml, Maven fetches it from the central repo.
+
+3. Remote Repository (Company/Custom Repo)
+This is created and maintained by organizations/teams.
+Used when companies have private libraries that are not available in the central repository.
+Examples: Nexus Repository, JFrog Artifactory, AWS CodeArtifact.
+Maven checks the remote repo if the dependency is not found in local or central.
+
+
+🔑 Key Points in this Example:
+<groupId> → Company/project identifier (like package name).
+<artifactId> → Project name (becomes JAR/WAR file name).
+<version> → Project version.
+<dependencies> → Lists required libraries (Maven will download automatically).
+<properties> → Defines common configs (like Java version).
+<plugins> → Adds build tools (like compiler, surefire for tests).
+
+👉 With this pom.xml, you can run:
+mvn clean → Cleans old build.
+mvn compile → Compiles Java code.
+mvn test → Runs JUnit tests.
+mvn package → Creates a JAR file in target/.
+
+mvn install → Installs JAR into local repo (.m2).
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Basic project details -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>demo-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <!-- Properties (Java version etc.) -->
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <!-- Dependencies (libraries your project needs) -->
+    <dependencies>
+        <!-- Example: JUnit for testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Build plugins -->
+    <build>
+        <plugins>
+            <!-- Compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+
