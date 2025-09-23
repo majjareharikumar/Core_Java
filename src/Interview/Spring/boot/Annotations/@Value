@@ -1,0 +1,41 @@
+@Value is a Spring annotation used to inject values into fields, methods, or constructor parameters from property files, system properties, or environment variables.
+It allows you to externalize configuration and avoid hardcoding values in your code.
+You can use it to inject strings, numbers, lists, or SpEL (Spring Expression Language) expressions.
+This makes applications flexible and easier to configure across different environments.
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@Component
+class EmployeeComponent {
+
+    @Value("${employee.name}")
+    private String employeeName;
+
+    @Value("${employee.id}")
+    private int employeeId;
+
+    public void showEmployee() {
+        System.out.println("Employee Name: " + employeeName);
+        System.out.println("Employee ID: " + employeeId);
+    }
+}
+
+application.properties
+
+employee.name=John Doe
+employee.id=101
+
+How it works:
+Spring reads values from application.properties.
+@Value("${employee.name}") injects John Doe into employeeName.
+@Value allows externalizing configuration and keeps code flexible and environment-independent.

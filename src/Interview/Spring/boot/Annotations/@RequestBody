@@ -1,0 +1,57 @@
+@RequestBody is a Spring annotation used to bind the HTTP request body to a Java object.
+It is commonly used in POST or PUT requests where the client sends data in JSON, XML, or other formats.
+Spring automatically deserializes the request body into the specified Java object using Jackson (for JSON) or other configured converters.
+This annotation is essential for RESTful APIs that accept structured data from clients.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+// Employee class to map JSON data
+class Employee {
+    private int id;
+    private String name;
+
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+}
+
+@RestController
+class EmployeeController {
+
+    @PostMapping("/employee")
+    public String addEmployee(@RequestBody Employee employee) {
+        return "Employee added: " + employee.getName() + " with ID " + employee.getId();
+    }
+}
+
+
+How it works:
+Client sends a POST request with JSON like:
+{"id":101, "name":"John Doe"}
+@RequestBody maps the JSON into an Employee object.
+You can then use this object in your method to process or save data.
+
+| Annotation        | Source in Request                   | Usage                                                                    | Example URL / Body                                       |
+| ----------------- | ----------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------- |
+| **@RequestParam** | Query parameters (`?key=value`)     | Extracts simple values from query string; optional/required can be set   | `/employee?id=101`                                       |
+| **@PathVariable** | URI path (`/resource/{variable}`)   | Extracts values embedded in the URL path; used for identifying resources | `/employee/101`                                          |
+| **@RequestBody**  | HTTP request body (JSON, XML, etc.) | Maps request body to a Java object; used in POST/PUT for structured data | POST `/employee` with body `{ "id":101, "name":"John" }` |
+
+
+✅ Summary:
+Use @RequestParam for query parameters.
+Use @PathVariable for dynamic path segments.
+Use @RequestBody for JSON/XML payloads in POST/PUT requests.

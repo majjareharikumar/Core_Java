@@ -1,0 +1,54 @@
+@Primary is a Spring annotation used to mark a bean as the default choice when multiple beans of the same type exist in the application context.
+When Spring encounters multiple candidate beans for autowiring, it injects the bean annotated with @Primary by default.
+This helps avoid ambiguity errors without explicitly using @Qualifier.
+It can be used on classes annotated with @Component, @Service, @Repository, or @Bean methods.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+interface EmployeeService {
+    String getEmployee();
+}
+
+@Component
+class EmployeeServiceA implements EmployeeService {
+    public String getEmployee() {
+        return "John Doe from Service A";
+    }
+}
+
+@Component
+@Primary
+class EmployeeServiceB implements EmployeeService {
+    public String getEmployee() {
+        return "Jane Smith from Service B";
+    }
+}
+
+@Component
+class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    public void showEmployee() {
+        System.out.println(employeeService.getEmployee());
+    }
+}
+
+
+How it works:
+Two beans implement EmployeeService: EmployeeServiceA and EmployeeServiceB.
+@Primary marks EmployeeServiceB as the default bean.
+
+employeeService in EmployeeController is injected with EmployeeServiceB automatically.

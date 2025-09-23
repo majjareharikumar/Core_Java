@@ -1,0 +1,77 @@
+@Autowired is a Spring annotation used for dependency injection.
+It tells Spring to automatically inject a required bean into a class, field, constructor, or setter method.
+Spring searches the application context for a bean of the matching type and injects it, reducing the need for manual object creation.
+It can be used on fields, constructors, and setter methods.
+If multiple beans of the same type exist, you can use @Qualifier to specify which one to inject.
+
+@Qualifier is a Spring annotation used alongside @Autowired to specify which bean should be injected when multiple beans of the same type exist in the Spring context.
+By default, Spring tries to inject by type, and if multiple beans match, it throws a NoUniqueBeanDefinitionException.
+@Qualifier allows you to provide the bean name to resolve this ambiguity.
+It can be used on fields, constructors, or setter methods.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+interface EmployeeService {
+    String getEmployee();
+}
+
+@Service("serviceA")
+class EmployeeServiceA implements EmployeeService {
+    public String getEmployee() {
+        return "John Doe from Service A";
+    }
+}
+
+@Service("serviceB")
+class EmployeeServiceB implements EmployeeService {
+    public String getEmployee() {
+        return "Jane Smith from Service B";
+    }
+}
+
+@Component
+class EmployeeController {
+
+    @Autowired
+    @Qualifier("serviceB")
+    private EmployeeService employeeService;
+
+    public void showEmployee() {
+        System.out.println(employeeService.getEmployee());
+    }
+}
+
+How it works:
+Two beans (serviceA and serviceB) of type EmployeeService exist.
+@Autowired alone would cause ambiguity.
+@Qualifier("serviceB") tells Spring to inject EmployeeServiceB specifically.
+
+@Inject is a Java standard (JSR-330) annotation used for dependency injection, similar to Spring’s @Autowired.
+It can be used on fields, constructors, or setter methods to inject a bean from the Spring context.
+Unlike @Autowired, @Inject does not support the required attribute, but you can combine it with @Named (like Spring’s @Qualifier) to resolve ambiguity when multiple beans of the same type exist.
+It is useful if you want your code to be framework-independent and portable.
+
+ @Inject
+    @Named("serviceA")
+    private EmployeeService employeeService;
+
+The required attribute of @Autowired indicates whether a dependency must be injected or not.
+By default, required=true, which means Spring will throw an exception (NoSuchBeanDefinitionException) if no matching bean is found.
+Setting required=false makes the dependency optional, allowing the bean to be null if no matching bean is available.
+This is useful when you want a bean to be injected only if it exists in the context.
+
+ // Optional dependency
+    @Autowired(required = false)
+    private EmployeeService optionalService;

@@ -1,0 +1,40 @@
+@RequestMapping is a Spring annotation used to map HTTP requests to specific handler methods in a controller.
+It can handle all HTTP methods like GET, POST, PUT, DELETE, etc.,
+and can map requests by URL path, HTTP method, parameters, headers, or content type.
+It can be applied at the class level (to define a base URL for all methods) and at the method level (to define specific endpoint paths).
+In modern Spring Boot, shortcuts like @GetMapping, @PostMapping, etc., are preferred for clarity.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@RestController
+class EmployeeController {
+
+    @GetMapping("/employee")
+    public String getEmployee() {
+        return "Employee Name: John Doe";
+    }
+
+    @PostMapping("/employee")
+    public String addEmployee() {
+        return "Employee added successfully!";
+    }
+}
+
+How it works:
+------------------
+@SpringBootApplication starts the app with embedded Tomcat automatically.
+@RestController combines @Controller + @ResponseBody, so returned values go directly as HTTP responses.
+@GetMapping("/employee") maps GET requests.
+@PostMapping("/employee") maps POST requests.
+This approach is cleaner and more readable than using @RequestMapping with method attributes.

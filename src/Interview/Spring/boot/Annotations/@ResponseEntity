@@ -1,0 +1,28 @@
+ResponseEntity is a Spring class used to represent the entire HTTP response, including status code, headers, and body.
+It gives you more control over the HTTP response compared to returning just a string or object.
+With ResponseEntity, you can customize the status code (like 200 OK, 201 Created, 404 Not Found), set custom headers, and return the response body in JSON, XML, or plain text.
+It is commonly used in RESTful web services to provide proper HTTP responses to clients.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@RestController
+class EmployeeController {
+
+    @GetMapping("/employee")
+    public ResponseEntity<String> getEmployee() {
+        String employee = "Employee Name: John Doe";
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+}

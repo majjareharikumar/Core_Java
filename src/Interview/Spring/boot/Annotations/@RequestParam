@@ -1,0 +1,34 @@
+@RequestParam is a Spring annotation used to extract query parameters or form data from HTTP requests.
+It binds a request parameter to a method argument in a controller.
+It is commonly used in GET requests to pass values via URL (e.g., /employee?id=1) and in POST requests for form submissions.
+You can also set default values or mark parameters as required/optional.
+This annotation is mainly used for simple parameter extraction without creating complex objects.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@RestController
+class EmployeeController {
+
+    @GetMapping("/employee")
+    public String getEmployeeById(@RequestParam(name = "id", required = true) int employeeId) {
+        return "Employee ID: " + employeeId;
+    }
+}
+
+How it works:
+-------------------
+When a client calls /employee?id=101, Spring binds 101 to the employeeId parameter.
+name="id" specifies the query parameter name.
+required=true ensures the parameter must be present; otherwise, Spring throws an error.
+You can also set a default value using defaultValue="1" for optional parameters.

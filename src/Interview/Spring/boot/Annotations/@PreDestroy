@@ -1,0 +1,15 @@
+@PreDestroy is a lifecycle annotation in Spring that is used to execute a method just before a bean is destroyed by the Spring container.
+It is commonly used for cleanup tasks, such as closing resources, releasing connections, or stopping background threads.
+The annotated method is called only once per bean and is typically used in classes annotated with @Component, @Service, @Repository, or @Configuration.
+
+@Component
+class EmployeeService {
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println("EmployeeService bean is being destroyed. Cleaning up resources.");
+    }
+
+    public String getEmployee() {
+        return "John Doe";
+    }

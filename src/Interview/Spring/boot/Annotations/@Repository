@@ -1,0 +1,41 @@
+@Repository is a Spring annotation used to mark a class as a data access layer component.
+It is a specialization of @Component, indicating that the class interacts with the database or persistence layer.
+Spring automatically detects classes annotated with @Repository during component scanning and registers them as beans.
+It also provides exception translation, converting database-specific exceptions into Spring’s DataAccessException hierarchy.
+Using @Repository helps separate persistence logic from business logic, promoting a clean layered architecture.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@Repository
+class EmployeeRepository {
+    public String getEmployeeFromDB() {
+        return "John Doe from DB";
+    }
+}
+
+@Service
+class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    public String getEmployee() {
+        return employeeRepository.getEmployeeFromDB();
+    }
+}
+
+How it works:
+Spring scans EmployeeRepository and registers it as a bean.
+EmployeeService injects it using @Autowired.
+@Repository indicates that this class handles database interactions and provides exception translation.

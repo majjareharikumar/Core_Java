@@ -1,0 +1,39 @@
+@Scope is a Spring annotation used to define the lifecycle and visibility of a Spring bean.
+By default, Spring beans are singleton, meaning one instance per Spring context.
+Using @Scope, you can configure other scopes like prototype (new instance per request), request (per HTTP request), session (per HTTP session), and application (per ServletContext).
+It can be applied on classes annotated with @Component, @Service, @Repository, or @Bean methods.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@Component
+@Scope("prototype") // A new instance will be created every time it is requested
+class EmployeeService {
+    public String getEmployee() {
+        return "John Doe";
+    }
+}
+
+@Component
+class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService1;
+
+    @Autowired
+    private EmployeeService employeeService2;
+
+    public void showEmployees() {
+        System.out.println(employeeService1 == employeeService2); // false for prototype scope
+    }
+}

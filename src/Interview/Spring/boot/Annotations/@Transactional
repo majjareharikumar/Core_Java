@@ -1,0 +1,20 @@
+@Transactional is a Spring annotation used to manage transactions declaratively in Spring applications.
+It ensures that a set of database operations are executed as a single unit of work, following ACID principles.
+If any operation in the transaction fails, all changes are rolled back automatically.
+It can be applied on methods or classes. You can also configure propagation, isolation, timeout, and rollback rules.
+It is mainly used in the service layer when interacting with the database.
+
+@Service
+class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Transactional
+    public void addEmployee(Employee emp) {
+        employeeRepository.save(emp);
+        // Simulate an error
+        if(emp.getId() < 0) {
+            throw new RuntimeException("Invalid Employee ID");
+        }
+    }

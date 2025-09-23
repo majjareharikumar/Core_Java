@@ -1,0 +1,38 @@
+@PathVariable is a Spring annotation used to extract values from the URI path itself.
+It binds a URI template variable to a method parameter in a controller.
+This is commonly used in RESTful APIs to pass dynamic values as part of the URL (e.g., /employee/101).
+Unlike @RequestParam, which extracts query parameters, @PathVariable maps path segments.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@RestController
+class EmployeeController {
+
+    @GetMapping("/employee/{id}")
+    public String getEmployeeById(@PathVariable("id") int employeeId) {
+        return "Employee ID: " + employeeId;
+    }
+}
+
+
+How it works:
+When a client calls /employee/101, Spring binds 101 to the employeeId parameter.
+The value comes from the path rather than query parameters.
+You can have multiple path variables like /employee/{id}/department/{deptId}.
+
+Difference Between @RequestParam and @PathVariable
+Feature	              @RequestParam	        @PathVariable
+Source	     Query parameter (?id=101)	URL path (/employee/101)
+Optional	Can set required=false	Always required unless default segment handled
+Use Case	Filters, search criteria	Identifying resources (RESTful API)

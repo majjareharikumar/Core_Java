@@ -1,0 +1,45 @@
+@Query is a Spring Data JPA annotation used to define custom JPQL or SQL queries directly on repository methods.
+It allows you to write complex queries without relying solely on method naming conventions.
+You can also use named parameters or positional parameters for dynamic values.
+It is commonly used in the repository layer and works with JPQL by default, but can execute native SQL by setting nativeQuery=true.
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+// Entity class
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+class Employee {
+    @Id
+    private int id;
+    private String name;
+    private String department;
+
+    // Getters and Setters
+}
+
+// Repository
+@Repository
+interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+    // JPQL query
+    @Query("SELECT e FROM Employee e WHERE e.department = ?1")
+    List<Employee> findByDepartment(String department);
+
+    // Native SQL query
+    @Query(value = "SELECT * FROM Employee WHERE name = :name", nativeQuery = true)
+    Employee findByName(String name);
+}

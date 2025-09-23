@@ -1,0 +1,16 @@
+@PostConstruct is a lifecycle annotation in Spring that is used to execute a method immediately after a bean is initialized by the Spring container.
+It is typically used for initialization tasks, like setting up resources or performing validation after dependency injection.
+The annotated method is called only once per bean.
+It is commonly used in classes annotated with @Component, @Service, @Repository, or @Configuration.
+
+@Component
+class EmployeeService {
+
+    @PostConstruct
+    public void init() {
+        System.out.println("EmployeeService bean has been initialized.");
+    }
+
+    public String getEmployee() {
+        return "John Doe";
+    }
