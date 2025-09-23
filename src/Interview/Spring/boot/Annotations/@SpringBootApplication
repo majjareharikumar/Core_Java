@@ -1,0 +1,67 @@
+📌 What is @SpringBootApplication?
+@SpringBootApplication is a meta-annotation in Spring Boot that marks the main entry point of the application.
+It actually combines three annotations:
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
+
+@Configuration:-
+-------------------
+@Configuration is a Spring annotation used to indicate that a class contains bean definitions for the Spring container.
+Inside such classes, we define methods with @Bean annotation, and Spring will register their return objects as beans in the application context.
+This approach allows us to configure beans using Java code instead of XML.
+It also supports dependency injection by returning other beans from these methods.
+Using @Configuration makes the application easier to maintain, test, and extend.
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+
+    // Define a bean for MyService
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyComponent {
+
+    @Autowired
+    private MyService myService;
+
+    public void run() {
+        myService.serve();
+    }
+}
+
+How it works:
+Spring scans the class annotated with @Configuration.
+It registers the object returned by myService() as a Spring-managed bean.
+Anywhere in the app, you can inject MyService using @Autowired.
+***************************************************************
+
+@EnableAutoConfiguration:-
+------------------------------
+@EnableAutoConfiguration is a Spring Boot annotation that tells Spring Boot to automatically configure beans based on the dependencies present in the classpath.
+It reduces the need for manual configuration.
+For example, if you include spring-boot-starter-web, it will automatically configure a DispatcherServlet, embedded Tomcat server, Jackson for JSON, and other necessary beans.
+We can also exclude certain auto-configurations if you don’t need them.
+This annotation is mainly used internally via @SpringBootApplication,
+but can be used standalone for custom Spring Boot setups.
+
+**********************************************************
+
+@ComponentScan
+---------------
+@ComponentScan is a Spring annotation that tells the framework to scan specified packages for Spring components.
+It automatically detects classes annotated with @Component, @Service, @Repository, and @Controller and registers them as beans in the application context.
+By default, it scans the package of the class where it is declared and all sub-packages.
+This annotation is essential for dependency injection, as it ensures Spring knows which classes to manage.
+It is usually included in @SpringBootApplication, so you don’t need to write it explicitly unless you want to scan specific packages.
+

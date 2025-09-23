@@ -1,0 +1,21 @@
+Spring Boot is a framework built on top of the Spring Framework that makes it easy to create stand-alone, production-ready applications quickly.
+It removes the need for complex XML configurations by providing defaults, auto-configuration, and an embedded server (like Tomcat/Jetty).
+
+It was introduced to simplify the development process in Spring.
+Earlier, with plain Spring, developers had to write lots of boilerplate code and configuration files (XML/JavaConfig) just to get an application running.
+Spring Boot solves this by providing auto-configuration, starter dependencies, and embedded servers, so you can focus on writing business logic instead of setup.
+
+👉 In short: Spring Boot = Spring + Auto Configuration + Embedded Server + Production Ready Features.
+
+key features of Spring Boot :
+--------------------------------
+Auto-Configuration – Spring Boot automatically configures beans and settings based on the dependencies in your classpath (e.g., if you add spring-boot-starter-data-jpa, it configures JPA for you).
+Starter Dependencies – Instead of adding multiple individual dependencies, Spring Boot provides “starters” (like spring-boot-starter-web, spring-boot-starter-security) that bundle common libraries together.
+Embedded Servers – No need to deploy WAR files to external servers. Spring Boot includes embedded servers like Tomcat, Jetty, or Undertow so apps can run directly with java -jar.
+Production-Ready Features – It provides metrics, health checks, and monitoring through Spring Boot Actuator, making apps easier to maintain.
+Minimal Configuration – It reduces boilerplate code and XML configuration. Most apps can be built with only a few annotations like @SpringBootApplication.
+Microservices Friendly – Its lightweight design, REST support, and embedded servers make it ideal for building cloud-native and microservices-based applications.
+
+Annotations:-
+------------------
+

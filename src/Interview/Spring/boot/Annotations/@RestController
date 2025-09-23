@@ -1,0 +1,51 @@
+@RestController is a Spring Boot annotation used to create RESTful web services.
+It is a combination of @Controller and @ResponseBody.
+Classes annotated with @RestController can handle HTTP requests and return responses directly in formats like JSON or XML, instead of returning a view.
+It eliminates the need to annotate each method with @ResponseBody.
+This annotation is commonly used for building APIs in Spring Boot applications, especially when creating microservices or REST endpoints.
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class EmployeeController {
+
+    @GetMapping("/employees")
+    public String getEmployees() {
+        return "List of employees";
+    }
+}
+
+@Controller:-
+----------------
+@Controller is a Spring annotation used to mark a class as a Spring MVC controller.
+It is responsible for handling HTTP requests and returning a view (like JSP, Thymeleaf, or HTML) instead of raw data.
+Methods inside a class annotated with @Controller can process requests using @RequestMapping or its shortcut annotations (@GetMapping, @PostMapping, etc.).
+Unlike @RestController, it does not automatically return JSON/XML; you need to use @ResponseBody if you want to return raw data.
+It’s mainly used for web applications with UI pages.
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class EmployeeController {
+
+    @GetMapping("/employee")
+    @ResponseBody
+    public String getEmployee() {
+        return "Employee Name: John Doe";
+    }
+}
+
+How it works:
+-----------------
+@Controller marks the class as a Spring MVC controller.
+@GetMapping("/employee") maps HTTP GET requests to the getEmployee() method.
+@ResponseBody tells Spring to skip the view resolver and send the return value directly as the HTTP response body.
+When you access /employee, the browser will see "Employee Name: John Doe" as plain text.
+
+@ResponseBody is a Spring annotation used to indicate that the return value of a method should be written directly to the HTTP response body instead of being interpreted as a view name.
+It is commonly used in RESTful web services to send data like JSON, XML, or plain text to the client.
+When applied, Spring skips the view resolver and sends the returned object as the HTTP response.
+
