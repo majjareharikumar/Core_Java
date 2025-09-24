@@ -1,0 +1,36 @@
+@Profile is a Spring annotation used to activate beans only for specific environments or configurations.
+It helps in writing environment-specific logic, like dev, test, prod.
+A bean or configuration class annotated with @Profile("dev") will only be loaded when the application is run with the "dev" profile active.
+You can activate a profile using application.properties, application.yml, or command-line arguments.
+This is useful for separating environment-specific beans (like using H2 in dev and MySQL in prod).
+
+spring.profiles.active=dev
+
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+
+@Component
+@Profile("dev")
+class DevDatabaseConfig {
+    public DevDatabaseConfig() {
+        System.out.println("Dev Database Config Loaded (H2 Database)");
+    }
+}
+
+@Component
+@Profile("prod")
+class ProdDatabaseConfig {
+    public ProdDatabaseConfig() {
+        System.out.println("Prod Database Config Loaded (MySQL Database)");
+    }
+}
