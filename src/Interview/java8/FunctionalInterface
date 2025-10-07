@@ -1,0 +1,20 @@
+A Functional Interface has only one abstract method, but it can have multiple default and static methods.
+It’s marked using the @FunctionalInterface annotation (optional but recommended for clarity).
+Functional interfaces are the foundation for lambda expressions and method references in Java 8.
+Common examples: Runnable, Callable, Comparator, and Consumer.
+If a second abstract method is added, the compiler will throw an error when @FunctionalInterface is used.
+They promote cleaner and more concise code, especially for functional-style programming.
+
+💡 Example:
+@FunctionalInterface
+interface Greeting {
+    void sayHello(String name);  // only one abstract method
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Using Lambda Expression
+        Greeting greet = (name) -> System.out.println("Hello, " + name + "!");
+        greet.sayHello("Hari");
+    }
+}

@@ -1,0 +1,24 @@
+A static method in an interface is defined using the static keyword and contains a method body.
+It belongs to the interface, not to the class that implements it.
+Hence, it can be called only using the interface name, not through the implementing class or its object.
+It helps in placing common reusable code (like validation or calculations) inside interfaces.
+Static methods cannot be overridden by implementing classes.
+They are mainly used for utility, factory, or helper methods inside interfaces.
+
+💡 Example:
+interface Vehicle {
+    static void startEngine() {
+        System.out.println("Engine started!");
+    }
+}
+
+class Car implements Vehicle {
+    // Cannot override startEngine()
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle.startEngine(); // ✅ called using interface name
+        // new Car().startEngine(); ❌ Not allowed
+    }
+}
