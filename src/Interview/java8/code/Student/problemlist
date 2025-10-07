@@ -1,0 +1,52 @@
+Questions
+---------------------------------------------
+→ How many male and female students are there in the training center?
+→ Print the names of all available courses.
+→ What is the average number of courses enrolled per student?
+→ Find the student who paid the highest total course fee.
+→ Find the student who paid the lowest total course fee.
+→ Count how many students enrolled in each course.
+→ Find the course with the highest number of enrollments.
+→ Find the average course fee of each course.
+→ Find the total fee paid by each student.
+→ List all students enrolled in the “Java” course.
+→ Find all students who have enrolled in more than 2 courses.
+→ Separate students who enrolled in “AWS” from those who didn’t.
+→ List all unique courses enrolled by all students.
+→ Count how many unique courses exist overall.
+→ Find which student enrolled in the most number of courses.
+→ Find which student enrolled in the fewest number of courses.
+→ Print all student names in alphabetical order.
+→ Print all course names in alphabetical order.
+→ Partition students based on whether they paid more than ₹10,000 in total fees.
+→ Find all female students who enrolled in both “React” and “AWS”.
+→ Find all male students who enrolled in the “Spring Boot” course.
+→ Find average total fee paid by male and female students separately.
+→ Find the top 3 students who paid the highest total fees.
+→ Find the total revenue (sum of all course fees paid by all students).
+→ Find the most popular course among students.
+→ Get a comma-separated list of all student names.
+→ Group students by gender and list their names.
+→ Group students by the number of courses they have enrolled in.
+→ Find how many students have enrolled in both “Java” and “Spring Boot”.
+→ Find how many students have enrolled only in one course.
+→ List students who have enrolled in both frontend and backend courses (e.g., React + Spring Boot).
+→ Find all students whose email contains “gmail.com”.
+→ Find if any student has enrolled in the “Python” course.
+→ Find all students who did not enroll in “Java”.
+→ Sort students by total fee paid (descending).
+→ Sort students by the number of courses enrolled (descending).
+→ Find the average fee per course per student.
+→ Find total course fee collected for each course.
+→ Find the course with the maximum total revenue.
+→ Get the list of instructors (if later added) for each course.
+→ Find all students whose names start with the letter ‘R’.
+→ Partition students based on whether they enrolled in frontend courses (“React”, “Angular”).
+→ Find all students who enrolled in exactly the same course combination as “Hari”.
+→ Find the total fee difference between highest and lowest paying students.
+→ Find students who have at least one course with fee > ₹7000.
+→ Find all students who enrolled in “Python” but not in “React”.
+→ Print each student’s name along with their course names and total fee.
+→ Find whether all students have enrolled in “Java”.
+→ Get distinct list of all courses enrolled across male students only.
+→ Get distinct list of all courses enrolled across female students only.
