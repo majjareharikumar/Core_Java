@@ -1,0 +1,27 @@
+@ConditionalOnProperty in spring boot is used to load bean or configurations conditionally based on the property
+set in the application.properties or yml file. It will help us to load the bean which is required based on the
+values we set in the configuration class. If a method is annotated with @ConditionalOnProperty(name = "sqlconnection.enabled", havingValue = "true", matchIfMissing = false)
+and in app.property file we set sqlconnection.enabled=true, Then spring will load this bean.
+
+It will ensure unnecessary beans to load.
+
+There is one scenario , In our application we are using mysql connect and nosql connection .
+Some time we need nosql to test our changes and we need mysql to store that changed values.Here if we are not using
+ConditionalOnProperty , Spring will load 2 beans at a time. We don't required 2 beans here. In this case
+If we want to load mysql , then in app.property file we can set mysqlconnection.enabled=true and
+configuration method with @ConditionalOnProperty(name = "sqlconnection.enabled", havingValue = "true", matchIfMissing = false).
+Now spring will load the bean of mysql only. If we set nosql is tru then nosql will load.
+
+✅ Advantages:
+Feature control at runtime – You can enable or disable beans/configurations without changing code.
+Environment flexibility – Works well for different environments (dev, test, prod) by changing property values.
+Lightweight and modular – Beans are only loaded if needed, saving resources.
+Avoids manual checks – Spring handles the conditional loading automatically based on properties.
+Supports optional modules – Useful for feature toggles/flags, making applications flexible and configurable.
+
+❌ Disadvantages:
+Property misconfiguration risk – Wrong property name or value can prevent bean loading, leading to runtime issues.
+Harder to debug – Conditional beans may be missing silently if properties are not set correctly.
+Limited to property-based conditions – Cannot handle complex logic beyond simple property checks.
+Overuse can clutter configs – Using it excessively can make configuration hard to follow.
+

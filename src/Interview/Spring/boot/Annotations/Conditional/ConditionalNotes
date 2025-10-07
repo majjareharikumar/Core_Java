@@ -1,0 +1,43 @@
+@ConditionalOn... annotations are a family of conditional annotations in Spring Boot used to enable or disable beans/configurations based on certain conditions.
+They are mostly used in auto-configuration classes. Unlike @Profile (which checks environment profiles), these annotations check for specific conditions such as class existence,
+bean availability, property values, or application type.
+They allow Spring Boot to be flexible and auto-configure only what is needed.
+
+📌 Common Types
+@ConditionalOnClass → Bean loads only if a particular class is present on the classpath.
+@ConditionalOnMissingClass → Loads bean if a class is not present.
+@ConditionalOnBean → Loads bean only if another bean exists in the context.
+@ConditionalOnMissingBean → Loads bean only if a specific bean is not defined.
+@ConditionalOnProperty → Loads bean if a specific property is set in application.properties or application.yml.
+@ConditionalOnExpression → Loads bean if a given SpEL (Spring Expression Language) evaluates to true.
+@ConditionalOnWebApplication → Loads bean only in a web application context.
+@ConditionalOnNotWebApplication → Loads bean only in a non-web (CLI) application.
+
+application.properties
+app.feature.enabled=true
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "app.feature.enabled", havingValue = "true")
+    public String featureBean() {
+        return "Feature is Enabled!";
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public String defaultBean() {
+        return "Default Bean Loaded!";
+    }
+}
+
+

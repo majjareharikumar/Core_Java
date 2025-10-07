@@ -1,0 +1,51 @@
+@ConditionalOnClass in spring boot is used to load beans or configurations only if the certain class is present in the class path.
+Here class path means, all the dependencies and classes available for your project(Dependency ) in pom.xml.
+If we have JAR library definitely we will get all related class.
+
+for example, If we want to store data in In-memory by using H2 database. We can annotate that H2 configuration class
+with @ConditionalOnClass(name = "org.h2.Driver") , It will load H2 DB related beans automatically. We need to add H2 dependency in POM.XML.
+Other wise Spring boot will skip the configurations.
+
+In simple terms, the classpath includes all your project classes and dependencies,
+and this annotation helps Spring Boot conditionally enable features based on available libraries,
+making the app lightweight and flexible.
+
+🧩 Scenario
+We’ll create a custom configuration that loads only if the H2 database driver (org.h2.Driver)
+is present in the classpath.
+
+✅ Step 1: Create the Main Spring Boot Application
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ConditionalDemoApp {
+    public static void main(String[] args) {
+        SpringApplication.run(ConditionalDemoApp.class, args);
+    }
+}
+
+✅ Step 2: Create a Custom Configuration Class
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ConditionalOnClass(name = "org.h2.Driver")  // Will only load if H2 driver exists
+public class H2DatabaseConfig {
+
+    @Bean
+    public String h2Bean() {
+        System.out.println("✅ H2 Database Driver found — Loading H2 configuration...");
+        return "H2 Bean Loaded";
+    }
+}
+
+✅ Step 3: Add H2 Dependency in pom.xml
+
+If you add this dependency:
+
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+</dependency>

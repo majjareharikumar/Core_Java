@@ -1,0 +1,12 @@
+@ConditionalOnBean is a Spring Boot annotation used to load a bean or configuration only if a specific bean already exists in the Spring context.
+It ensures that dependent beans are created only when their required beans are present, avoiding runtime errors.
+For example, if you have a baseBean and a dependentBean that relies on it, annotating the configuration with @ConditionalOnBean(name = "baseBean") will create dependentBean only if baseBean exists.
+If the required bean is missing, Spring skips the dependent bean automatically. This annotation is commonly used in auto-configuration to make features modular and safe.
+It is the opposite of @ConditionalOnMissingBean, which loads a bean only if another bean is absent.
+Using @ConditionalOnBean helps Spring Boot manage dependencies between beans dynamically and ensures a flexible and conflict-free configuration.
+
+📌 Scenario: Email Service in a Spring Boot Application
+Imagine you are building an application that sends notification emails. You have:
+->A MailSender bean that configures the email server.
+->A NotificationService bean that sends emails using the MailSender.
+You want NotificationService to be created only if MailSender exists, because without MailSender, email functionality cannot work.

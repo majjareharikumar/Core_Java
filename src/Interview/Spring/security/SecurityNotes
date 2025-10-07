@@ -1,0 +1,34 @@
+Spring Security is a framework that provides a complete solution for securing Java applications.
+It mainly focuses on authentication (verifying the user’s identity) and authorization (controlling what resources the user can access).
+Along with this, it also protects applications from common vulnerabilities like CSRF, session fixation, clickjacking, and brute-force attacks.
+It will helps us to integrates easily with Spring Boot, Spring MVC, and microservices.
+It works on the concept of a filter chain, intercepting every request to check whether the user is authenticated and has the right permissions.
+
+✅ Main Authentication Types in Spring Security
+-->Form-Based Authentication
+-->In-Memory Authentication → Users and roles are defined in code.
+-->Database (JDBC/JPA) Authentication → Users fetched from a relational DB.
+-->LDAP Authentication → Used in enterprises with directory servers like Active Directory.
+-->HTTP Basic Authentication → Username/password sent in HTTP headers.
+-->JWT Authentication → Token-based, mostly for REST APIs & microservices.
+-->OAuth2 / OpenID Connect Authentication → For Single Sign-On (Google, GitHub login, etc.).
+
+If you are using Spring Boot Starter Security, just add this in your pom.xml:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+Few common attacks
+-----------------------
+🔹 CSRF (Cross-Site Request Forgery)
+CSRF is a type of security attack where a Harmful website tricks a logged-in user into unknowingly performing unwanted actions on another application where they are authenticated.
+For example, if you are logged into your bank account, an attacker could trick you into clicking a hidden link that transfers money without your consent.
+This happens because the browser automatically sends stored cookies/session IDs with every request, even to Harmful crafted requests.
+In Spring Security, CSRF attacks are prevented by using CSRF tokens — a unique, secret value added to each form or state-changing request.
+When the server receives the request, it checks whether the CSRF token is valid, ensuring the request originated from the trusted application.
+By default, Spring Security enables CSRF protection for web apps with forms,
+but in REST APIs (stateless systems) CSRF is usually disabled and replaced with token-based authentication like JWT.
+This mechanism ensures that attackers cannot forge valid requests on behalf of legitimate users.
+

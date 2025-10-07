@@ -1,0 +1,26 @@
+@ConditionalOnExpression is a Spring Boot annotation used to conditionally load a bean or configuration based on a Spring Expression Language (SpEL) expression.
+It allows more flexibility than @ConditionalOnProperty because you can write complex logical conditions involving multiple properties or dynamic values.
+Spring evaluates the expression at runtime, and if it returns true, the bean is created; otherwise, it is skipped.
+For example, you can create a ReportingService bean only if reporting.enabled=true and reporting.level>1 using @ConditionalOnExpression("${reporting.enabled:true} && ${reporting.level:0} > 1").
+This is useful for feature toggles that depend on multiple conditions, optional modules, or dynamic configuration logic.
+It ensures that beans are loaded only when specific runtime criteria are met, making the application flexible, safe, and resource-efficient.
+
+@Configuration
+class ReportingConfig {
+
+    @Bean
+    @ConditionalOnExpression("${reporting.enabled:true} && ${reporting.level:0} > 1")
+    public ReportingService reportingService() {
+        System.out.println("✅ ReportingService loaded based on expression");
+        return new ReportingService();
+    }
+}
+
+Example in application.properties:
+reporting.enabled=true
+reporting.level=2
+Expression → true && 2 > 1 → evaluates to true → bean is created.
+
+reporting.enabled=true
+reporting.level=0
+Expression → true && 0 > 1 → evaluates to false → bean is skipped.

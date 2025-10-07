@@ -1,0 +1,8 @@
+@ConditionalOnMissingClass in a spring boot is used to load bean or configuration when the class or dependencies
+are not present in the classpath. It is opposite to ConditionalOnClass.
+When ever the mentions driver is not present in classpath, spring boot will load the default beans.
+We could create a default bean directly, But it will load even the real dependency exists.It will cause the conflict or duplicate beans.
+
+@ConditionalOnMissingClass will use the reflection to check whether class is present or not at runtime.If present it will skip.
+OR if not, it will load the bean or configuration.
+

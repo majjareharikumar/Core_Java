@@ -1,0 +1,26 @@
+@ConditionalOnMissingBean is a Spring Boot annotation used to load a bean or configuration only if a specific bean is NOT already present in the Spring context.
+It is commonly used in auto-configuration to provide default or fallback beans, while avoiding conflicts with user-defined beans.
+Opposite of @ConditionalOnBean.
+Ensures that auto-configuration does not override existing beans provided by the developer.
+
+📌 Scenario: Custom Logging Service
+Imagine you are building a Spring Boot application that provides logging functionality.
+You want to allow developers to provide their own custom LoggerService,
+but if they don’t, your library should automatically provide a default logger.
+
+📌 Example Code:
+@Configuration
+class DefaultLoggerConfig {
+
+    @Bean
+    @ConditionalOnMissingBean(LoggerService.class) // Only create if LoggerService is missing
+    public LoggerService defaultLoggerService() {
+        System.out.println("No LoggerService found — Loading default logger");
+        return new DefaultLoggerService();
+    }
+}
+
+📌 How it works:
+Spring checks if a LoggerService bean exists in the context.
+If the developer has already provided a custom LoggerService, this default bean is skipped.
+If no LoggerService exists, Spring creates the default logger, ensuring the app can still log messages safely.
