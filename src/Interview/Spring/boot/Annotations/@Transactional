@@ -1,20 +1,26 @@
-@Transactional is a Spring annotation used to manage transactions declaratively in Spring applications.
-It ensures that a set of database operations are executed as a single unit of work, following ACID principles.
-If any operation in the transaction fails, all changes are rolled back automatically.
-It can be applied on methods or classes. You can also configure propagation, isolation, timeout, and rollback rules.
-It is mainly used in the service layer when interacting with the database.
+🔹 What is @Transactional?
+@Transactional is a Spring annotation used to manage database transactions automatically.
+It ensures that a group of database operations either all succeed or all fail — this is known as the Atomicity property of transactions.
 
-@Service
-class EmployeeService {
+🔹 Why it was introduced
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+Before @Transactional, developers had to manage transactions manually —
+opening a connection, committing, or rolling back using JDBC code.
+This made code long, repetitive, and error-prone.
+Spring introduced @Transactional to handle transactions declaratively, meaning you just mark the method, and Spring takes care of:
+Beginning the transaction
+Committing if successful
+Rolling back if an exception occurs
 
-    @Transactional
-    public void addEmployee(Employee emp) {
-        employeeRepository.save(emp);
-        // Simulate an error
-        if(emp.getId() < 0) {
-            throw new RuntimeException("Invalid Employee ID");
-        }
-    }
+🔹 How it works
+When a method marked with @Transactional is called:
+Spring creates a proxy around that method.
+It starts a transaction before executing it.
+If the method runs successfully → Spring commits the transaction.
+If it throws a runtime exception → Spring rolls back the transaction automatically.
+
+It works on the ACID principle:
+Atomicity – all operations succeed or fail as a unit.
+Consistency – moves database from one valid state to another.
+Isolation – transactions don’t interfere with each other.
+Durability – committed changes are permanent.

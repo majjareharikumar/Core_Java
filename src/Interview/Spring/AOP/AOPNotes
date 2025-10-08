@@ -103,6 +103,7 @@ It will match any method on a particular instance of class
 
 We can use && and || operators to combine two pointcuts.
 
+==> @Pointcut--> Here we can provide full execution path and use this pointcut method where it required instead of give full path again.
 
 Advice:-
 ----------

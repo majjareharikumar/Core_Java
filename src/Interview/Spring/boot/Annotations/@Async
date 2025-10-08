@@ -1,0 +1,64 @@
+Definition:
+@Async is a Spring annotation used to execute methods asynchronously, meaning the method runs in a separate thread and doesn’t block the caller thread.
+This is mainly used to improve performance for tasks that can run in the background, like sending emails, processing files, or calling external APIs.
+
+Why it is introduced:
+In synchronous execution, the caller thread waits until the method completes. This can slow down the application if the task takes time.
+@Async allows the application to continue execution without waiting, improving responsiveness and throughput.
+
+Problems it overcomes:
+-------------------------
+->Blocking of main thread for long-running tasks.
+->Poor responsiveness in web applications.
+->Inefficient resource usage when tasks can run in parallel.
+
+Principle it follows:
+---------------------------
+->Asynchronous Execution – runs in a separate thread.
+->Concurrency – multiple tasks can execute simultaneously.
+
+Key points to remember:
+------------------------------
+->Annotate a method with @Async to make it asynchronous.
+->The method should return void or Future/CompletableFuture if you want to get the result later.
+->@EnableAsync must be added to a configuration class to enable async processing.
+->By default, Spring uses SimpleAsyncTaskExecutor, but you can configure a custom thread pool.
+->It only works on public methods and external calls, not self-invocation.
+
+Example:
+
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Service;
+import java.util.concurrent.CompletableFuture;
+
+@EnableAsync
+@Service
+public class EmailService {
+
+    @Async
+    public void sendEmail(String recipient) {
+        System.out.println("Sending email to " + recipient + " - Thread: " + Thread.currentThread().getName());
+        // simulate delay
+        try { Thread.sleep(3000); } catch (InterruptedException e) { e.printStackTrace(); }
+        System.out.println("Email sent to " + recipient);
+    }
+
+    @Async
+    public CompletableFuture<String> sendEmailWithResult(String recipient) {
+        // simulate delay
+        try { Thread.sleep(3000); } catch (InterruptedException e) { e.printStackTrace(); }
+        return CompletableFuture.completedFuture("Email sent to " + recipient);
+    }
+}
+
+
+Usage:
+
+@Autowired
+private EmailService emailService;
+
+public void process() {
+    emailService.sendEmail("user@example.com"); // returns immediately
+    System.out.println("Main thread continues...");
+}
