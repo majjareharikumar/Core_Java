@@ -1,0 +1,131 @@
+Spring AOP (Aspect-Oriented Programming) is used to separate the cross-cutting concerns like logging, Security
+or transactional management from the main business logic . It helps reduce code duplications by keep common
+functionality at one module called Aspect. AOP works by defining point cuts(Where to apply logic) and advice
+(What action to perform).These are applied at join points, such as method calls.
+The weaving process connects aspects with the main code, usually at runtime.
+This makes the application cleaner, modular, and easier to maintain, since business logic remains focused only on core functionality.
+
+Ex:-
+---------
+@Component
+@Aspect
+public class LoggingAspect{
+@Before("execution(public string com.javaintervipre.interview.spring.Employee.fetchEmployee())")
+public void beforeMethod(){
+  System.out.println("Aspect Method");
+}
+}
+
+in above example "execution(public string com.javaintervipre.interview.spring.Employee.fetchEmployee())" is the pointCut.
+->Here execution is the one of pointcut.
+->Public is access modifier , It is optional.
+->String is the return type of the method. it will change based on the return type of the target method.
+->com.javaintervipre.interview.spring.Employee.fetchEmployee()) is path of the method.
+
+@Before
+public void beforeMethod(){
+  System.out.println("Aspect Method");
+}
+
+above method called advice, what operation need to perform .
+
+🔹 What is a Pointcut?
+A Pointcut in Spring AOP defines where an advice should be applied — i.e., it specifies which methods or join points the aspect should target.
+It uses expressions to match methods based on package, class, method name, parameters, or annotations.
+For example:
+@Component
+@Aspect
+public class LoggingAspect{
+@Before("execution(public string com.javaintervipre.interview.spring.Employee.fetchEmployee())")
+public void beforeMethod(){
+  System.out.println("Aspect Method");
+}
+}
+
+means , apply advice before executing fetchEmployee()).
+
+Types of Pointcut Expressions:-
+----------------------------------------
+1)execution():-
+------------------
+It will help us to apply advice at particular method in a particular class, which we provide the path.
+Here we have 2 wildcards
+1 is * and another is ..
+
+if we use *, means if it match any single item it will apply the advice.
+ex:-
+-----
+1)("execution(* com.javaintervipre.interview.spring.Employee.fetchEmployee())")-->Means it will apply advice for any return type of method.
+2)("execution(* com.javaintervipre.interview.spring.Employee.*(String))")--> Means it will apply advice, if any method in the class will take String parameter.
+3)("execution(public string com.javaintervipre.interview.spring.Employee.fetchEmployee(*))")--> It will apply advice, if fetchEmployee method take any single return type.
+
+If we use ..,It will match 0 or more parameters.
+ex:-
+-----
+1)("execution(String com.javaintervipre.interview.spring.Employee.fetchEmployee(..))")--> It will apply advice on which fetchEmployee ,method takes 0 or more paramters.
+2) ("execution(String com.javaintervipre.interview.spring..fetchEmployee())")--> It will apply advice on which matches fetchEmp() method from package and subpackage classes.
+3)("execution(String com.javaintervipre.interview.spring..*())")--> It will apply advice on matching package & subpackage class.
+
+2)Within:-
+--------
+it will match all methods within the class or package.
+ex:-
+-->("Within(public string com.javaintervipre.interview.spring.Employee)")--> It will apply advice in all methods in Employee class.
+-->("execution(public string com.javaintervipre.interview.spring..*")-->It will apply advice in all methods in package and subpackage class.
+
+
+3)@Within:-
+--------------
+It will match the methods which is available in provide annotation.
+
+Ex:-
+-->"@Within(org.springframework.stereotype.Service)")--> Means @Service, if class is annotated with @Service then advice will apply for all methods in service class.
+
+4)@Annotation:-
+----------------
+It will match the any methods that is annotated with provide annotation.
+Ex:-("@annotation(org.springframework.web.bind.annotation.GetMapping)")--> Means @GetMapping, If any method is annotated with @GetMapping in class it will apply advice.
+
+5)Args:-
+------
+It will apply advice if any method matches with given args.
+
+ex:-@Before("args(String,int)")
+
+6)@Args:-
+---------
+It will match any method with particular parameter and that parameter class is annotated with provided annotation
+
+7)target:-
+-----------
+It will match any method on a particular instance of class
+
+
+We can use && and || operators to combine two pointcuts.
+
+
+Advice:-
+----------
+@Before--> It will apply before the pointcut
+@After-->It will apply after the pointcut
+@Around--> For above two methods, java internally calls the method to execute. But here we need to call manually by joinpoint.proceed().
+
+🔹 What is a Join Point?
+A Join Point is a specific point during the execution of a program where an aspect can be applied.
+In Spring AOP, a join point always refers to the execution of a method
+
+🔹 Steps of Method Invocation in Spring AOP
+-->Bean creation:
+When the Spring container starts, it creates beans and wraps AOP-enabled beans with a proxy object (either JDK dynamic proxy or CGLIB proxy).
+-->Client method call:
+When the client calls a method (like employeeService.saveEmployee()), it doesn’t call the actual target object directly — it calls the proxy.
+-->Proxy interception:
+The proxy intercepts the call and checks if the method matches any pointcut expression defined in your aspects.
+-->Match found:
+If the method matches, Spring executes the corresponding advice (e.g., @Before, @Around, etc.) around that join point.
+-->Proceeding the actual method:
+In case of @Around advice, the actual method is executed using joinPoint.proceed() inside the advice.
+-->Return result:
+After all applicable advices are executed, the proxy returns the result of the target method to the caller.
+-->Final outcome:
+The business logic runs as usual, but the cross-cutting logic (like logging, transactions, or security) is automatically applied without modifying the original code.
