@@ -23,11 +23,16 @@ public class StudentList {
         studentlist.add(new Student(6,"Rani","female","rani123@gmail.com", Arrays.asList(python)));
 
         //How many male and female students are there in the training center?
-        Map<String,Long> Gendercount= studentlist.stream().collect(Collectors.groupingBy(Student::stugender,Collectors.counting()));
-        System.out.println(Gendercount);
+        Map<String,Long>gendercount=studentlist.stream().collect(Collectors.groupingBy(Student::stugender,Collectors.counting()));
+        System.out.println(gendercount);
 
         //Print the names of all available courses
-        List<String> courseNames=studentlist.stream().flatMap(s->s.listofcourse.stream()).map(Course::CourseName).distinct().collect(Collectors.toList());
-        System.out.println(courseNames);
+         List<String>listofcource=studentlist.stream().flatMap(e->e.listofcourse().stream()).map(Course::CourseName).distinct().collect(Collectors.toList());
+        System.out.println(listofcource);
+
+        //What is the average number of courses enrolled per student?
+
+
+
     }
 }
