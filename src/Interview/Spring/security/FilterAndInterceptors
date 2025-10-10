@@ -1,0 +1,23 @@
+Interceptors:-
+-----------------------
+Interceptors in Spring MVC are used to intercept HTTP requests and responses before or after they reach the controller.
+They work like filters but operate at the Spring MVC level, giving you more control over the request-processing flow.
+You can use them to perform common tasks such as logging, authentication checks, auditing, request modification, or measuring performance.
+
+Interceptors implement the HandlerInterceptor interface, which provides three main methods:
+-->preHandle() → Runs before the controller executes (used for authentication or validation).
+-->postHandle() → Runs after the controller executes but before the view is rendered (used for modifying response data).
+-->afterCompletion() → Runs after the view is rendered (used for cleanup or logging).
+
+You register interceptors by extending WebMvcConfigurer and overriding the addInterceptors() method.
+Unlike filters (which work on all requests), interceptors are tied to specific controller mappings,
+making them ideal for cross-cutting concerns in Spring MVC.
+
+Filter:-
+--------------
+A Filter is a component that intercepts every incoming HTTP request before it reaches the DispatcherServlet.
+It is part of the Servlet specification (not specific to Spring) and is mainly used for pre-processing and post-processing requests and responses.
+Filters can be used for tasks like authentication, logging, request modification, compression, or CORS handling.
+For example, you can create a filter that checks if a valid token exists before letting the request continue.
+In Spring Boot, you can define filters using the @Component annotation or register them using FilterRegistrationBean.
+Unlike interceptors (which work at the Spring MVC level), filters operate at a lower level, closer to the web container (Tomcat).

@@ -1,0 +1,16 @@
+Role-Based Authentication is a mechanism where access to resources or actions is controlled based on the user’s roles.
+Each user is assigned one or more roles (like ROLE_USER, ROLE_ADMIN), and each role has specific permissions to access endpoints or perform operations.
+
+In Spring Security, roles are typically managed using GrantedAuthority in the UserDetails object.
+When a user logs in, Spring stores the authenticated user in the SecurityContextHolder, including all roles.
+The FilterSecurityInterceptor then checks the roles against the requested resource and allows or denies access.
+
+Example scenario:
+A user with role ROLE_ADMIN can access /admin/**.
+A user with role ROLE_USER can access /user/** but cannot access admin endpoints.
+
+Roles can be enforced using:
+Annotations: @PreAuthorize("hasRole('ADMIN')"), @Secured("ROLE_USER")
+HTTP Security configuration: .requestMatchers("/admin/**").hasRole("ADMIN")
+
+Role-based authentication ensures that users see only what they are allowed to see, and prevents unauthorized access even if the user is authenticated.

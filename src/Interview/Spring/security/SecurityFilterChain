@@ -1,0 +1,50 @@
+The Security Filter Chain in Spring Security is a series of filters that intercept every HTTP request before it reaches the controller.
+Each filter performs specific security tasks like authentication, authorization, CSRF protection, or header validation.
+Spring Security decides which chain to apply based on the request URL pattern.
+You can customize it by defining a SecurityFilterChain bean and adding your own filters (like JWT filters).
+It ensures that every request passes through proper security checks before accessing any protected resource.
+
+🔹 Important Filters in Spring Security Filter Chain (in order)
+-----------------------------------------------------------------
+=>SecurityContextPersistenceFilter – Restores the SecurityContext (user authentication info) from the session for every request.
+=>HeaderWriterFilter – Adds security-related HTTP headers like X-Frame-Options, X-Content-Type-Options, and Strict-Transport-Security.
+=>CorsFilter – Handles Cross-Origin Resource Sharing (CORS) requests safely between frontend and backend.
+=>CsrfFilter – Protects the app from Cross-Site Request Forgery (CSRF) attacks.
+=>LogoutFilter – Processes logout requests and clears the authentication session.
+=>UsernamePasswordAuthenticationFilter – Handles form-based login authentication (verifies username and password).
+=>BasicAuthenticationFilter – Handles HTTP Basic Authentication (Authorization header with Base64 credentials).
+=>BearerTokenAuthenticationFilter – Handles authentication using Bearer tokens (e.g., JWT).
+
+
+🔹 Spring Security Request Flow (How Security Works)
+---------------------------------------------------------
+=>Request enters the application
+Every HTTP request first passes through the Spring Security Filter Chain (before reaching any controller). This chain is created automatically by Spring Security and is responsible for checking authentication and authorization.
+
+=>SecurityContextPersistenceFilter
+This filter checks if a valid SecurityContext (logged-in user info) exists in the session.
+If yes → It restores the user’s authentication into SecurityContextHolder.
+If no → It creates a new empty security context.
+
+=>Authentication Filters (like UsernamePasswordAuthenticationFilter / JWT Filter)
+These filters handle how users authenticate (form login, basic auth, JWT, OAuth2, etc.).
+For example, UsernamePasswordAuthenticationFilter captures login credentials, creates an Authentication object, and passes it to the AuthenticationManager.
+
+=>AuthenticationManager & AuthenticationProvider
+AuthenticationManager delegates authentication to one or more AuthenticationProviders (e.g., in-memory, DB, LDAP).
+If credentials are valid, it returns a fully authenticated Authentication object (with username, roles, authorities).
+
+=>SecurityContextHolder Update
+Once authentication is successful, the authenticated user info is stored in the SecurityContextHolder, so the app knows who made the request.
+
+=>Authorization Checks (FilterSecurityInterceptor)
+Before accessing a controller or endpoint, this filter checks if the user has the required role or permission (@PreAuthorize, @Secured, or config rules like .hasRole("ADMIN")).
+If the user lacks permission → AccessDeniedException is thrown.
+If authorized → Request proceeds to the controller.
+
+=>Controller Execution and Response
+If all checks pass, the controller executes normally and returns the response to the client.
+
+=>Response Phase (CSRF, Headers, Logout)
+After controller execution, response filters like CsrfFilter, HeaderWriterFilter, and LogoutFilter handle output sanitization, add security headers, or clean up session state.
+

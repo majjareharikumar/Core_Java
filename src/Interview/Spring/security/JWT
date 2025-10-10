@@ -1,0 +1,83 @@
+JWT is a compact, URL-safe token format used for securely transmitting information between two parties — typically a client and a server.
+It’s commonly used for stateless authentication, where the server doesn’t store session data.
+Instead, all the necessary user info (like username, roles, expiry time) is stored inside the token itself.
+When a user logs in successfully, the server generates a JWT and sends it to the client.
+The client then includes this token in every subsequent request’s Authorization header (as Bearer <token>).
+The server validates the token’s signature using a secret key — if it’s valid and not expired, access is granted.
+This eliminates the need for session storage, making JWTs perfect for REST APIs and microservices.
+
+🔹 Structure of a JWT
+---------------------------
+A JWT has three parts separated by dots (.):
+xxxxx.yyyyy.zzzzz
+
+Header → contains token type and algorithm (e.g., { "alg": "HS256", "typ": "JWT" })
+Payload → contains claims (data) like username, roles, and expiration.
+Signature → ensures token integrity, signed with a secret key or private key.
+
+🔹 How JWT Works (Flow)
+--------------------------
+User sends login request → /login
+Server validates credentials → creates a JWT using secret key.
+Token is returned to client.
+Client includes it in every request → Authorization: Bearer <token>
+Server intercepts each request → verifies JWT → grants or denies access.
+
+
+🔹 JWT Interview Cheat Sheet
+1. Definition
+JWT (JSON Web Token) is a compact, URL-safe token used for stateless authentication.
+Stores user info and roles in the token itself, avoiding server-side sessions.
+
+2. Token Structure
+HEADER.PAYLOAD.SIGNATURE
+
+Header: { "alg": "HS256", "typ": "JWT" }
+Payload (claims): user info, roles, expiration (exp), issued at (iat)
+Signature: ensures token integrity, signed with secret (HS256) or private key (RS256)
+
+3. JWT Claims
+Registered claims: iss (issuer), sub (subject), exp (expiry), iat (issued at), aud (audience)
+Public claims: custom claims like role, email
+Private claims: agreed between client & server
+
+4. Authentication Flow in Spring Boot
+User sends login request → /login
+Server authenticates credentials → generates JWT
+Client receives JWT → stores it (header/cookie/local storage)
+Client sends JWT in Authorization header (Bearer <token>) for protected endpoints
+JwtFilter (extends OncePerRequestFilter) validates token on every request
+If valid → stores user in SecurityContextHolder → request proceeds
+If invalid/expired → returns 401 Unauthorized
+
+5. Spring Security Components
+OncePerRequestFilter → custom JWT filter
+SecurityFilterChain → configure which endpoints are protected
+AuthenticationManager → validates user credentials at login
+UserDetailsService → loads user details from DB/in-memory
+SecurityContextHolder → stores authenticated user for the request
+
+6. Signing Algorithms
+HS256 / HS512: symmetric key (same key to sign & verify)
+RS256 / RS512: asymmetric key (private key signs, public key verifies)
+Recommendation: RS256 for distributed microservices
+
+7. Advantages
+Stateless → scalable for microservices
+Works across domains/services
+Reduces server memory usage (no session storage)
+Supports role-based authorization
+
+8. Best Practices
+Always use HTTPS
+Store tokens securely (HttpOnly cookies for web apps)
+Validate signature & expiration on each request
+Avoid storing sensitive info (passwords, secrets) inside JWT
+Implement refresh token for long-lived sessions
+
+9. JWT vs Session
+JWT	                                  Session
+Stateless	                      Server stores sessions
+Scales easily	                  Harder to scale
+Used across microservices      	  Usually single server
+Short-lived + refresh token   	  Session invalidation easier

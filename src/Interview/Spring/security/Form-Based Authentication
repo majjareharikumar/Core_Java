@@ -1,0 +1,73 @@
+Form-Based Authentication is a login mechanism where users authenticate themselves using a custom HTML form (username & password fields).
+When a user submits the form, Spring Security intercepts the request (usually at /login) and processes it using the UsernamePasswordAuthenticationFilter.
+This filter extracts the credentials, creates an Authentication object, and passes it to the AuthenticationManager.
+The manager verifies credentials using a configured UserDetailsService (like in-memory, DB, or LDAP).
+If authentication succeeds → user details are stored in the SecurityContextHolder, and the user is redirected to the originally requested page.
+If authentication fails → Spring redirects the user back to the login page with an error message.
+You can either use Spring’s default login form or build your own custom login page by specifying it in formLogin().loginPage("/my-login").
+
+By default, Time to live for the HTTP Session is 30mins (depends on servlet container). But we can configure it too.
+Yes, we can store the HTTP Session in DB too.
+
+🔹 Example Code (Default Login Form)
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf().disable()
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/public/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .formLogin(); // enables default form-based authentication
+    return http.build();
+}
+
+🔹 Example (Custom Login Page)
+.formLogin(form -> form
+    .loginPage("/login")      // your custom login endpoint
+    .loginProcessingUrl("/doLogin") // form action URL
+    .defaultSuccessUrl("/home", true)
+    .failureUrl("/login?error=true")
+)
+
+🔹 Internal Flow of Form-Based Authentication in Spring Security
+--------------------------------------------------------------------
+=>User Requests a Protected Page
+When a user tries to access a secured resource (like /home), Spring Security checks if the user is already authenticated.
+
+=>Redirect to Login Page
+Since the user is not authenticated, the ExceptionTranslationFilter catches the AuthenticationException and redirects the user to the login page (/login).
+
+=>User Submits Login Form
+The login form sends a POST request (default to /login) with username and password as parameters.
+
+=>UsernamePasswordAuthenticationFilter
+This is the core filter responsible for handling login submissions.
+
+=>It intercepts the /login POST request.
+Extracts the username and password from the request.
+Creates an UsernamePasswordAuthenticationToken object (unauthenticated state).
+
+=>AuthenticationManager & AuthenticationProvider
+The filter passes this token to the AuthenticationManager, which delegates it to an appropriate AuthenticationProvider (like DaoAuthenticationProvider).
+
+=>UserDetailsService is Invoked
+The provider uses UserDetailsService.loadUserByUsername() to load user details (from memory, DB, or LDAP).
+If the user exists, it returns a UserDetails object containing username, password, roles, etc.
+
+=>Password Validation
+The DaoAuthenticationProvider uses a PasswordEncoder (like BCrypt) to verify the entered password against the stored (encoded) password.
+If valid → returns a fully authenticated Authentication object.
+If invalid → throws BadCredentialsException.
+
+=>SecurityContextHolder Update
+On success, Spring Security saves the authenticated user in the SecurityContextHolder, which represents the logged-in user for that session.
+
+=>Session Management
+A new HTTP session is created (if not already) and stores the SecurityContext.
+So subsequent requests will automatically be treated as authenticated.
+
+=>Redirect to Target URL
+Finally, the SavedRequestAwareAuthenticationSuccessHandler redirects the user back to the originally requested page (or / by default).
+
+

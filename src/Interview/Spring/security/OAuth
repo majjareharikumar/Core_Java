@@ -1,0 +1,149 @@
+OAuth is an open standard for access delegation, mainly used to let users allow third-party applications to access their data without sharing their passwords.
+Instead of giving credentials, the user gives permission and receives an access token that represents that permission.
+For example, when you log in to a site using “Login with Google”,
+the site doesn’t see your Google password — it only receives an access token from Google that allows limited access (like your email or profile picture).
+
+OAuth has two main roles —
+->Resource Owner (the user),
+->Client (third-party app),
+->Authorization Server (Google, Facebook, etc.),
+->Resource Server (the actual data).
+
+OAuth mainly uses Bearer Tokens, and Spring Security supports OAuth 2.0 for secure API communication.
+It prevents exposing user credentials and ensures fine-grained, time-limited access control.
+
+🧩 Step-by-Step: OAuth2 Login with Google in Spring Boot
+🔹 1. Add Dependency
+
+Add the below dependency in your pom.xml (Spring Boot Starter for OAuth2 client):
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
+
+🔹 2. Configure OAuth2 in application.yml
+
+Here we tell Spring Security how to connect with Google as an OAuth2 provider:
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: YOUR_GOOGLE_CLIENT_ID
+            client-secret: YOUR_GOOGLE_CLIENT_SECRET
+            scope:
+              - email
+              - profile
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+
+
+🔸 client-id / client-secret → you’ll get these from Google Cloud Console
+🔸 scope → defines what access you’re requesting (email, profile, etc.).
+
+🔹 3. Create Security Configuration
+
+This enables OAuth2 login and defines what happens after successful authentication.
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/login").permitAll()
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .defaultSuccessUrl("/welcome", true)  // Redirect after login success
+            );
+
+        return http.build();
+    }
+}
+
+
+🔹 4. Create a Controller
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+    @GetMapping("/")
+    public String home() {
+        return "<a href='/oauth2/authorization/google'>Login with Google</a>";
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(@AuthenticationPrincipal OAuth2User user) {
+        return "Welcome, " + user.getAttribute("name") + " (" + user.getAttribute("email") + ")";
+    }
+}
+
+🔹 5. Flow of OAuth2 Login
+User clicks “Login with Google”.
+Spring Security redirects the user to Google’s OAuth2 Authorization URL.
+User logs in and grants permission.
+Google sends authorization code back to Spring Security.
+Spring exchanges it for an access token.
+Spring Security fetches user info using the token.
+User is authenticated, and details are stored in SecurityContextHolder.
+User is redirected to /welcome.
+
+🔹 OAuth2 Grant Types (Authorization Grants)
+A grant type defines how a client application obtains an access token from the authorization server (like Google, GitHub, Facebook, etc.).
+There are five main grant types (flows) in OAuth2:
+
+🧩 1. Authorization Code Grant (most common)
+✅ Used by: Web apps and backend servers.
+The user logs in via the provider (Google, GitHub), and the app receives an authorization code.
+The app then exchanges that code for an access token securely (on the server side).
+It’s very secure because the token exchange happens on the backend, not visible to the browser.
+Example: “Login with Google” in a Spring Boot app using .oauth2Login().
+
+🧩 2. Implicit Grant (deprecated)
+✅ Used by: Single Page Applications (SPAs) in the past.
+The app directly gets the access token from the authorization server, without the code exchange.
+Since the token is returned in the browser URL (less secure), it’s now deprecated in OAuth2.1.
+Example: Angular/React apps used this before PKCE (now replaced).
+
+🧩 3. Resource Owner Password Credentials Grant (ROPC)
+✅ Used by: Trusted applications (like internal company apps).
+The user gives their username and password directly to the app, which sends them to the authorization server to get an access token.
+It’s not recommended anymore because it exposes credentials to the client app.
+Example: Legacy internal apps where trust is high and users already entered credentials.
+
+🧩 4. Client Credentials Grant
+✅ Used by: Machine-to-machine (M2M) communication.
+No user involved. The app (client) authenticates itself using client_id and client_secret to get an access token.
+Example: A microservice calling another secured microservice via API.
+
+🧩 5. Refresh Token Grant
+✅ Used by: Long-lived sessions.
+After the access token expires, the client can use a refresh token to request a new access token without user login again.
+Helps keep sessions alive securely.
+
+🧠 In Short:
+User → /oauth2/authorization/google
+  → OAuth2AuthorizationRequestRedirectFilter
+  → Google Login → Redirect Back
+  → OAuth2LoginAuthenticationFilter
+  → OAuth2LoginAuthenticationProvider
+  → OAuth2UserService
+  → SecurityContextHolder
+  → Redirect to /welcome

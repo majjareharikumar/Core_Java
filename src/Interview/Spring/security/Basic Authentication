@@ -1,0 +1,21 @@
+Basic Authentication is the simplest form of authentication where the client sends the username and password with every HTTP request.
+These credentials are encoded using Base64 and sent in the HTTP Authorization header (e.g., Authorization: Basic dXNlcjpwYXNz).
+The server decodes the header, validates the credentials, and grants or denies access.
+In Spring Security, once we enable httpBasic(), Spring automatically creates a filter (BasicAuthenticationFilter) to handle this process.
+It’s easy to implement but not secure over plain HTTP because credentials are exposed in every request — hence it must be used with HTTPS to ensure encryption.
+It’s suitable for machine-to-machine communication or APIs, not for web login forms.
+
+✅ Example code in Spring Security:
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().authenticated())
+            .httpBasic(); // Enables Basic Authentication
+        return http.build();
+    }
+}

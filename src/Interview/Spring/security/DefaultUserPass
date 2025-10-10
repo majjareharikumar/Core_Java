@@ -1,0 +1,87 @@
+🔹 How Default User & Password Work in Spring Boot
+----------------------------------------------------------
+=>Automatic User Creation
+When you include spring-boot-starter-security, Spring Boot auto-configures a default in-memory user using InMemoryUserDetailsManager.
+Username: user
+Roles: ROLE_USER
+
+=>Password Generation
+Spring Boot randomly generates a password at application startup if you don’t define one in application.properties.
+This password is printed in the console/log output in a format like:
+Using generated security password: 9f3c5b6e-8c4d-4a2b-9f3e-1a2b3c4d5e6f
+
+=>Password Encoding
+The generated password is automatically encoded using BCryptPasswordEncoder.
+This ensures the password is securely hashed and not stored in plain text.
+Even the in-memory user uses the encoded password internally for authentication.
+Override Default Password (Optional)
+
+You can define your own password in application.properties to avoid the random one:
+
+spring.security.user.name=hari
+spring.security.user.password=secure123
+spring.security.user.roles=USER
+
+
+=>Why This Exists
+It allows Spring Boot apps to be secure by default without writing any configuration.
+The app won’t run with unsecured endpoints, avoiding accidental exposure.
+
+=>Custom Users
+If you want multiple users or DB-backed authentication, you can override the default UserDetailsService and define your own users.
+Once overridden, the randomly generated user is ignored.
+
+
+how to create custom users in Spring Boot Security
+------------------------------------------------------
+🔹 1. Using In-Memory Authentication (Simple & Common for Practice)
+This is the easiest way to define your own users manually (no database required).
+
+@Configuration
+public class SecurityConfig {
+
+    // 1️⃣ Define custom users
+    @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+        UserDetails admin = User.withUsername("admin")
+                .password(encoder.encode("admin123"))
+                .roles("ADMIN")
+                .build();
+
+        UserDetails user = User.withUsername("hari")
+                .password(encoder.encode("user123"))
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, user);
+    }
+
+    // 2️⃣ Password encoder
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // 3️⃣ Configure security rules
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/public/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(); // default login form
+
+        return http.build();
+    }
+}
+
+✅ Explanation:
+----------------------
+->You define custom users inside UserDetailsService using User.withUsername().
+->PasswordEncoder encrypts your password (Spring requires it).
+->SecurityFilterChain defines who can access which endpoints.
+->When you hit http://localhost:8080/, Spring shows its default login page — use admin/admin123 or hari/user123.

