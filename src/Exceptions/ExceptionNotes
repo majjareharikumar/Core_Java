@@ -1,5 +1,7 @@
 Q1. What is Exception Handling in Java?
-Exception Handling in Java is a powerful mechanism to handle runtime errors and maintain normal application flow. It allows the program to catch and deal with unexpected events like invalid input, file not found, etc. Java uses try, catch, finally, throw, and throws keywords. Proper exception handling improves program stability and makes debugging easier.
+Exception Handling in Java is a powerful mechanism to handle runtime errors and maintain normal application flow.
+It allows the program to catch and deal with unexpected events like invalid input, file not found, etc. Java uses try, catch, finally, throw, and throws keywords.
+Proper exception handling improves program stability and makes debugging easier.
 
 Q2. Difference between Checked and Unchecked Exceptions?
 Checked exceptions are checked at compile time (e.g., IOException, SQLException) and must be either caught or declared using throws. Unchecked exceptions are not checked at compile time (e.g., NullPointerException, ArithmeticException). They usually indicate programming errors and occur at runtime. Both extend from Throwable but checked exceptions extend Exception, not RuntimeException.

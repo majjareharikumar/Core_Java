@@ -24,7 +24,8 @@ JVM (Java Virtual Machine):-
 ---------------------------------
 The JVM (Java Virtual Machine) is a virtual engine that runs Java bytecode and makes Java programs platform-independent (“write once, run anywhere”).
 When we compile Java code using javac, it gets converted into bytecode (.class files).
-This bytecode is not machine-specific — the JVM on each platform translates it into native machine code using an interpreter and JIT (Just-In-Time) compiler, so the same program runs on Windows, Linux, or Mac without changes.
+This bytecode is not machine-specific — the JVM on each platform translates it into native machine code using an interpreter and JIT (Just-In-Time) compiler,
+so the same program runs on Windows, Linux, or Mac without changes.
 
 The JVM contains:
 Class Loader → loads class files into memory.
@@ -43,4 +44,5 @@ Interpreter → reads bytecode instructions one by one and executes them by conv
 JIT (Just-In-Time) Compiler → compiles frequently used bytecode into native machine code for faster execution.
 if any duplicates or any repeated code in the bytecode , it will check that and give instructions to Interpreter to avoid creating native code for repeated lines.
 
-The execution engine also interacts with the Garbage Collector for memory management and ensures efficient execution of programs. In short, it is the “brain of JVM”, responsible for making Java programs actually run on any machine.
+The execution engine also interacts with the Garbage Collector for memory management and ensures efficient execution of programs.
+In short, it is the “brain of JVM”, responsible for making Java programs actually run on any machine.

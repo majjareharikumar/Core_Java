@@ -1,0 +1,58 @@
+🧩 Saga Pattern
+--------------------
+The Saga Pattern is used in microservices to maintain data consistency when multiple services are involved in a single business transaction.
+In monolithic systems, we use ACID transactions, but they don’t work across different microservices.
+So, Saga breaks a large transaction into a series of smaller local transactions, each handled by an individual service.
+After completing its local transaction, a service publishes an event for the next service to continue.
+If any step fails, Saga uses compensating transactions to undo the previous actions, ensuring the system remains consistent.
+It helps achieve eventual consistency in a distributed environment without using a central transaction manager.
+
+🧠 Central Transaction Manager – Definition:
+--------------------------------------------
+A central transaction manager is a single component or service that coordinates all operations of a transaction to ensure ACID properties (Atomicity, Consistency, Isolation, Durability).
+It decides when to commit or rollback the entire transaction across multiple resources (databases or services).
+
+🧠 Types of Saga Pattern:
+--------------------------------
+🔁 Choreography-Based Saga
+In the Choreography Saga, there is no central controller.
+Each microservice performs its local transaction and then publishes an event to notify the next service.
+Other services listen to these events and perform their own transactions in response.
+If any step fails, a compensating event is published to roll back previous actions.
+It works in a fully asynchronous and event-driven manner using message brokers like Kafka or RabbitMQ.
+This makes it loosely coupled and highly scalable, but harder to trace and manage when many services are involved.
+It’s best suited for simple, event-driven workflows involving a few microservices.
+
+🧠 Orchestration-Based Saga
+In the Orchestration Saga, a central coordinator (Orchestrator) manages the entire workflow.
+The orchestrator decides which service to call next and sends commands directly to each microservice.
+If any service fails, it triggers compensating transactions through the orchestrator to maintain consistency.
+This approach provides centralized control, better error handling, and easier monitoring.
+However, it introduces a single point of control, making the system slightly more dependent on the orchestrator.
+It is mostly synchronous and works well for complex business workflows.
+Common tools used are Netflix Conductor, Camunda, or Temporal.io.
+
+🧩 Tools that act as Central Coordinators:
+Camunda
+Netflix Conductor
+Temporal.io
+Spring State Machine
+
+⚙️ How it works (Flow Example):
+Let’s take an Order Processing example 👇
+->Order Service creates a new order → publishes an event OrderCreated.
+->Payment Service listens to OrderCreated, processes payment → publishes PaymentCompleted.
+->Inventory Service listens to PaymentCompleted, reduces stock → publishes InventoryUpdated.
+->Shipping Service listens to InventoryUpdated, ships the order → publishes OrderShipped.
+If any step fails (say payment fails):
+->The Payment Service publishes PaymentFailed,
+->Which other services listen to and perform compensating actions (e.g., cancel the order).
+
+💬 Interview Answer:
+
+Both Choreography and Orchestration Saga patterns are useful — the choice depends on the workflow complexity.
+I’ll prefer Choreography when the workflow is simple and involves few microservices, where services can communicate asynchronously through events (like Kafka).
+It keeps the system loosely coupled and scalable.
+
+But for complex business processes involving multiple steps, dependencies, or rollback logic, I’ll use Orchestration,
+ as it provides a central coordinator to control and monitor the entire transaction flow.
