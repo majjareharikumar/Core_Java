@@ -1,0 +1,131 @@
+1)What is comparable and comparator. And differences ?
+-----------------------------------------------------------------
+comparable is an interface and it is present in java.long package.
+It is used to define natural order of objects.It has compareTo(Object o) method to compare current object with specific object.
+Sorting logic is written in class it self so we have only one way to sort.
+It is providing single sorting sequence and it will affects the original class.
+It is sorting the list by default Id.
+ex:- // Sorting using Comparable (by ID)
+        Collections.sort(list);
+        System.out.println("Sorted by ID (Comparable): " + list);
+
+comparator is an interface and it is present in java.util package.
+It is used to define custom sorting logic for different ways of sorting.
+It has compare(Object o1, Object o2) method to compare 2 objects.
+Sorting logic is written out side the class so we have multiple comparators for flexibility.
+It is providing multiple sorting sequence and it will not affect the original class.
+It is sorting the list by custom queries like by name, by salary...
+ex:-// Sorting using Comparator (by Name)
+       Collections.sort(list, Comparator.comparing(s -> s.name));
+       System.out.println("Sorted by Name (Comparator): " + list);
+
+2)How to make class Immutable?
+------------------------------------
+Declare the class as final so it cannot be extended.
+Make all fields private and final so we can prevent direct access and reassignment.
+Don't provide setter method so fields cannot be changed after object creation.
+Initialize all fields via constructor so we can ensure all values to set only once
+For mutable objects like data , return copies in getters  so it will prevent external modifications.
+
+ex:-
+final class Student {
+    private final int id;
+    private final String name;
+
+    public Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    public int getId() { return id; }
+    public String getName() { return name; }
+}
+
+3) How to connect DB from java application?
+-----------------------------------------------
+->Add JDBC Driver: Include the database driver (like MySQL, Oracle) in your project classpath.
+->Load the Driver (Optional in Java 6+):
+  Class.forName("com.mysql.cj.jdbc.Driver");
+->Create a Connection: Use DriverManager.getConnection() with DB URL, username, and password.
+->Create Statement / PreparedStatement: To execute SQL queries.
+->Execute Query: Use executeQuery() for SELECT, executeUpdate() for INSERT/UPDATE/DELETE.
+->Process Results: Read data from ResultSet (for SELECT queries).
+->Close Resources: Close ResultSet, Statement, and Connection to avoid memory leaks.
+
+Steps to connect DB in Spring Boot:
+->Add database dependency (like MySQL) in pom.xml.
+->Configure application.properties with URL, username, password, and driver.
+->Create Entity class with @Entity and @Id.
+->Create Repository interface by extending JpaRepository.
+->Autowire repository in Service/Controller → Spring Boot handles DB connection automatically.
+
+4)Why Spring Boot?
+->Simplifies setup: Auto configures spring applications with minimal boilerplate and xml
+->Standalone Applications:Can run as a self contained jar for embedded tomcat, no need for external server.
+->Faster Development: Reduces manual configurations; easy integration with Spring modules (JPA, Security, MVC).
+->Production Ready: Built-in features like metrics, health checks, logging, and monitoring.
+->Microservices Friendly: Ideal for building microservices with REST, messaging, and cloud integration.
+->Opinionated Defaults: Provides default settings and conventions, so developers focus on business logic.
+->Community & Ecosystem: Large community, lots of starters, libraries, and support for modern development.
+
+5)How to cover private methods in Java (JUnit testing)?
+Private methods are not directly accessible from test classes. The best approach is to test private indirectly through
+public methods which is calling private methods. This ensures behavior of the method testing , not the internal implementation.
+
+If we want to test private methods directly them we can use reflection API to access private methods.
+
+Public Method:-
+---------------
+🧩 Example: Testing Private Method Indirectly
+class Calculator {
+
+    // Private method - not directly accessible
+    private int add(int a, int b) {
+        return a + b;
+    }
+
+    // Public method - calls the private method
+    public int calculateSum(int x, int y) {
+        return add(x, y);  // private method is tested here indirectly
+    }
+}
+
+✅ JUnit Test
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+class CalculatorTest {
+
+    @Test
+    void testCalculateSum() {
+        Calculator calc = new Calculator();
+        int result = calc.calculateSum(5, 7);
+        assertEquals(12, result); // indirectly tests 'add' method
+    }
+}
+
+Reflection APi:-
+---------------
+public class ReflectionExample {
+    public static void main(String[] args) throws Exception {
+        Calculator calc = new Calculator();
+
+        // Get private method reference
+        Method method = Calculator.class.getDeclaredMethod("multiply", int.class, int.class);
+
+        // Make it accessible
+        method.setAccessible(true);
+
+        // Invoke the method
+        int result = (int) method.invoke(calc, 5, 6);
+
+        System.out.println("Result: " + result); // Output: 30
+    }
+
+🧩 Why testing private methods directly is discouraged:
+->Private methods are internal implementation details, not part of the class’s public behavior.
+->When you test private methods directly, your tests become tightly coupled to internal logic — even small code changes can break tests.
+->It violates encapsulation, one of the main principles of OOP.
+->Unit tests should focus on “what” the class does (output), not “how” it does it (internal steps).
+->Testing through public methods ensures you’re verifying real behavior, not private mechanics.
+->Frameworks like Spring, JUnit, and Mockito also follow this design — they never test private code directly.
+
