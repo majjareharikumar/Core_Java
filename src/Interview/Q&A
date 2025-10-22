@@ -129,3 +129,69 @@ public class ReflectionExample {
 ->Testing through public methods ensures you’re verifying real behavior, not private mechanics.
 ->Frameworks like Spring, JUnit, and Mockito also follow this design — they never test private code directly.
 
+6)What communication do you use in Microservices?
+->Microservices communicate with each other using Inter-Service Communication.
+->It can be Synchronous (real-time) or Asynchronous (event-based).
+->For Synchronous communication, we use REST APIs over HTTP using tools like Feign Client, RestTemplate, or WebClient.
+->For Asynchronous communication, we use Message Brokers like Kafka, RabbitMQ, or ActiveMQ.
+->REST is preferred when services need an immediate response.
+->Messaging (Kafka, RabbitMQ) is used when we want loose coupling, scalability, and reliability.
+->In real projects, a mix of both is used — REST for direct calls, Kafka for event-driven communication.
+
+7)What is Mock and Spy in Mockito?
+->Mock and Spy are both used to create test doubles (fake objects) in unit testing.
+->A Mock is a complete fake object — all methods are stubbed by default (return null, 0, or false unless specified).
+->We use when(...).thenReturn(...) to define its behavior.
+->A Spy, on the other hand, wraps a real object — it calls real methods unless you explicitly stub them.
+->Mock is used when you want full control and don’t care about real logic.
+->Spy is used when you want to test a partially real object (some real methods + some mocked).
+  Example:
+  MyService mockService = Mockito.mock(MyService.class); // all fake
+  MyService spyService = Mockito.spy(new MyService());   // real + fake mix
+
+8)What are External Configurations and Profiles in Spring Boot?
+->External Configuration means keeping application settings outside the code (e.g., database URL, username, passwords).
+->These values are defined in application.properties or application.yml, or even in environment variables, command-line args, or config servers.
+->It helps to avoid hardcoding values and makes applications easier to move across environments (dev, test, prod).
+->Profiles are used to define environment-specific configurations.
+->For example: application-dev.properties, application-test.properties, application-prod.properties.
+  You can activate a profile using:
+  spring.profiles.active=dev
+->Based on the active profile, Spring Boot loads the corresponding configuration file automatically.
+
+9)How to Remove Tomcat Server from a Spring Boot Application
+->Spring Boot includes Tomcat as its default embedded web server (via spring-boot-starter-web).
+->To remove Tomcat, you must exclude it from the starter dependency.
+Example in pom.xml:
+
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+          <exclusion>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-tomcat</artifactId>
+          </exclusion>
+      </exclusions>
+  </dependency>
+->Then, you can add another server (like Jetty or Undertow) if needed.
+  For Jetty, just add:
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jetty</artifactId>
+  </dependency>
+->If you want no embedded server at all (non-web app), use:
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+  </dependency>
+ ->Finally, make sure your application class does not start a web context.
+
+ 10)Is it mandatory to have an Entity class to fetch data?
+->If you are using JPA or Hibernate, then yes, it’s mandatory to have an Entity class.
+->JPA works on the concept of Object-Relational Mapping (ORM) — it maps Java objects (entities) to database tables.
+->Without an entity, JPA won’t know which table or columns to map the data to.
+->However, if you are using JDBC Template or native SQL queries, you can fetch data without an entity — results come as List<Map<String, Object>> or custom DTOs.
+->So, Entity is mandatory for ORM-based access, but not required for plain SQL-based access.
+->Example: JdbcTemplate.queryForList("SELECT * FROM employee") doesn’t need an entity.
+->But with JpaRepository<Employee, Long>, you must have @Entity class Employee.
