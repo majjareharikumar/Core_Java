@@ -9,7 +9,7 @@ public class FindPattern {
 
     public static void main(String[] args) {
         String s="hello";
-        String p="ops";
+        String p="ll";
         System.out.print(findPattern(s,p));
     }
 }

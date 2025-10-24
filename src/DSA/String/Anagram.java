@@ -17,8 +17,8 @@ public class Anagram {
         Arrays.sort(arr2);
         s1=new String(arr1);
         s2=new String(arr2);
-        return s1.equals(s2);
-        //return Arrays.equals(arr1,arr2);
+        //return s1.equals(s2);
+        return Arrays.equals(arr1,arr2);
     }
 
     public static void main(String[] args) {

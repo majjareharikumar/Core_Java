@@ -195,3 +195,108 @@ Example in pom.xml:
 ->So, Entity is mandatory for ORM-based access, but not required for plain SQL-based access.
 ->Example: JdbcTemplate.queryForList("SELECT * FROM employee") doesn’t need an entity.
 ->But with JpaRepository<Employee, Long>, you must have @Entity class Employee.
+
+11)Which version of Spring Boot are you using and why?
+->I’m currently using Spring Boot 3.x, which is the latest stable version.
+->It’s built on Spring Framework 6 and fully supports Jakarta EE 9+ (package names moved from javax.* to jakarta.*).
+->Spring Boot 3 improves performance, security, and compatibility with Java 17+ (LTS version).
+->It also supports AOT (Ahead-of-Time) compilation and GraalVM native image for faster startup and low memory usage.
+->Dependency management is simplified with better observability (Micrometer, Prometheus, Grafana) support.
+->I prefer using it because it’s modern, lightweight, and production-ready.
+->However, in older projects, we sometimes use Spring Boot 2.7.x for backward compatibility with Java 8 or legacy systems.
+
+I use Spring Boot 3.x because it’s the latest, faster, and optimized for Java 17+, offering better performance and observability.
+
+12)Why Stream API in Java 8?
+->The Stream API was introduced in Java 8 to process collections of data efficiently.
+->Before Java 8, we used loops to iterate and filter data, which made code long, complex, and error-prone.
+->Stream API allows declarative programming — you focus on what to do, not how to do it.
+->It provides powerful methods like filter(), map(), sorted(), collect(), and reduce() for data transformation.
+->It supports parallel processing using parallelStream(), improving performance on multi-core systems.
+->Streams make code cleaner, readable, and maintainable with less boilerplate.
+    Example:
+   list.stream().filter(x -> x > 10).collect(Collectors.toList());
+   — replaces several lines of loop code.
+
+13)what is anonymous inner class and functional interface . differences ?
+🧩Anonymous Inner Class
+An anonymous inner class is a class without a name that is declared and instantiated at the same time.
+It’s mainly used to override a method or provide implementation for an interface/class instantly.
+Example (before Java 8):
+Runnable r = new Runnable() {
+    public void run() {
+        System.out.println("Running...");
+    }
+};
+It’s verbose — requires boilerplate code even for one-line logic.
+
+🧩 Functional Interface
+A Functional Interface has exactly one abstract method, marked with @FunctionalInterface.
+It allows Lambda Expressions (introduced in Java 8) to provide implementation in a clean and concise way.
+Example:
+Runnable r = () -> System.out.println("Running...");
+It’s lightweight, easier to read, and supports functional programming style.
+
+14)can we call it a functional interface with 1 abstract method , default and static method?
+✅ Yes, a Functional Interface can have one abstract method and any number of default or static methods.
+->What defines it as functional is that it has exactly one abstract method — that’s what Lambda expressions implement.
+->Default and static methods are not abstract, so they don’t break the functional interface rule.
+Example:
+@FunctionalInterface
+interface MyInterface {
+    void show();                    // abstract
+    default void display() {}       // allowed
+    static void print() {}          // allowed
+}
+
+->This interface is still functional because it has only one abstract method (show).
+->You can still use it with a Lambda expression like:
+MyInterface obj = () -> System.out.println("Hello!");
+->Adding more than one abstract method will cause a compile-time error if it’s annotated with @FunctionalInterface
+
+🧩 If we add more than one abstract method to a Functional Interface?
+Adding more than one abstract method breaks the Functional Interface rule — it causes a compile-time error
+if @FunctionalInterface is used and prevents Lambda usage.
+Example:
+@FunctionalInterface
+interface MyInterface {
+    void show();
+    void display(); // ❌ Error – Multiple abstract methods
+}
+->Error: “Invalid '@FunctionalInterface' annotation; MyInterface is not a functional interface.”
+->Without the annotation, the code compiles, but it cannot be used with a Lambda Expression.
+->So the @FunctionalInterface annotation acts as a safety check to enforce the rule.
+
+15)What is Deep Copy in Java?
+->A Deep Copy means creating a completely independent copy of an object — including all the objects it references.
+->In deep copy, the original and copied objects don’t share the same reference for nested objects.
+->So, changes made in one object don’t affect the other.
+   Example:
+   class Address implements Cloneable {
+       String city;
+       public Address(String city) { this.city = city; }
+       public Object clone() throws CloneNotSupportedException { return super.clone(); }
+   }
+
+   class Employee implements Cloneable {
+       String name;
+       Address address;
+       public Employee(String name, Address address) {
+           this.name = name; this.address = address;
+       }
+       public Object clone() throws CloneNotSupportedException {
+           Employee e = (Employee) super.clone();
+           e.address = (Address) address.clone(); // deep copy
+           return e;
+       }
+   }
+
+   Employee e1 = new Employee("Hari", new Address("Bangalore"));
+   Employee e2 = (Employee) e1.clone();
+   e2.address.city = "Chennai";
+   System.out.println(e1.address.city); // Output: Bangalore ✅ (not affected)
+->In deep copy, both e1 and e2 have separate Address objects.
+
+->In contrast, a shallow copy copies only the top-level object — both share the same nested reference.
+->The original and copy share the same reference for inner objects.
+->Change in one object affects the other.
