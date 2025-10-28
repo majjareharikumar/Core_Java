@@ -300,3 +300,231 @@ interface MyInterface {
 ->In contrast, a shallow copy copies only the top-level object — both share the same nested reference.
 ->The original and copy share the same reference for inner objects.
 ->Change in one object affects the other.
+
+16)JVM Architecture (Java Virtual Machine)
+JVM (Java Virtual Machine) is the part of JRE responsible for executing Java bytecode.
+It provides platform independence — “Write Once, Run Anywhere”.
+The JVM architecture mainly consists of three components:
+->Class Loader Subsystem
+->Runtime Data Areas (Memory)
+->Execution Engine
+
+JVM loads bytecode using the Class Loader, stores data in Runtime Memory Areas,
+and executes it using the Execution Engine with the help of the JIT Compiler and Garbage Collector.
+
+17)Static keyword?
+
+18)Can we use HashMap in Multi-threaded Environments?
+No, a normal HashMap is not thread-safe and should not be used directly in a multi-threaded environment.
+When multiple threads modify a HashMap at the same time (e.g., put() or resize()), it can lead to data inconsistency or even infinite loops.
+To use maps safely across threads, Java provides thread-safe alternatives.
+The main ones are:
+ConcurrentHashMap → Preferred in multithreading (high performance + safe).
+Collections.synchronizedMap(new HashMap<>()) → Synchronized but slower.
+
+ConcurrentHashMap uses segment-level locking (or bucket-level in Java 8), allowing multiple threads to read/write concurrently.
+
+Example:
+Map<String, Integer> map = new ConcurrentHashMap<>();
+map.put("Hari", 100);
+
+Hence, HashMap is unsafe, but ConcurrentHashMap is the recommended choice for multi-threaded programs.
+
+🧩 What is ConcurrentHashMap in Java?
+ConcurrentHashMap is a thread-safe version of HashMap introduced in Java 1.5 (in java.util.concurrent package).
+It allows multiple threads to read and write concurrently without corrupting the data.
+Unlike Hashtable or Collections.synchronizedMap(), it doesn’t lock the entire map — it locks only a portion (bucket/segment).
+This improves performance and reduces contention between threads.
+In Java 8, it uses a fine-grained locking mechanism (using internal synchronized blocks and CAS — Compare-And-Swap).
+null keys and values are not allowed to avoid confusion during concurrent updates.
+Example:
+Map<String, Integer> map = new ConcurrentHashMap<>();
+map.put("Hari", 100);
+map.put("Kumar", 200);
+
+It’s ideal for multi-threaded caching, counters, or real-time data sharing.
+
+19)Difference Between HashMap and Hashtable
+Synchronization:
+   HashMap is not synchronized → not thread-safe.
+   Hashtable is synchronized → thread-safe, but slower in single-threaded use.
+Null Values:
+   HashMap allows one null key and multiple null values.
+   Hashtable doesn’t allow any null key or value (throws NullPointerException).
+Performance:
+   HashMap is faster because it’s non-synchronized.
+   Hashtable is slower due to synchronization on every method.
+Introduced In:
+   HashMap → Introduced in Java 1.2 (part of Collections Framework).
+   Hashtable → Introduced in Java 1.0 (legacy class, before Collections Framework).
+Iterator Type:
+   HashMap uses fail-fast iterators (throws ConcurrentModificationException).
+   Hashtable uses enumeration, which is not fail-fast.
+Usage Recommendation:
+   Prefer HashMap for single-threaded or controlled concurrency.
+   Use ConcurrentHashMap instead of Hashtable for multithreading.
+
+20) Internal working of HashMap?
+
+21)Spring Boot Internal Annotations
+The main class of a Spring Boot app is annotated with @SpringBootApplication, which is a meta-annotation that combines three important annotations:
+   @SpringBootApplication =
+       @Configuration + @EnableAutoConfiguration + @ComponentScan
+@Configuration → Tells Spring that this class contains bean definitions using @Bean methods.
+@EnableAutoConfiguration → Enables Spring Boot’s auto-configuration feature, which automatically configures beans based on dependencies in the classpath (e.g., DataSource, DispatcherServlet, etc.).
+@ComponentScan → Scans the current package and sub-packages to find Spring components like @Component, @Service, @Repository, and @Controller.
+Together, these annotations make Spring Boot apps ready-to-run with minimal configuration — you just write the logic and Boot wires everything automatically.
+Additional internal annotations used are:
+   @RestController → Combines @Controller + @ResponseBody.
+   @SpringBootConfiguration → Specialized form of @Configuration.
+
+22)@CrossOrigin in Spring Boot
+@CrossOrigin is used to enable Cross-Origin Resource Sharing (CORS) in Spring Boot applications.
+CORS is a browser security mechanism that restricts web pages from making requests to a different domain or port (for example, React app on localhost:3000 calling Spring Boot API on localhost:8080).
+By default, browsers block such cross-origin requests for security reasons.
+Using @CrossOrigin, we tell Spring Boot to allow requests from specific origins.
+   @CrossOrigin(origins = "http://localhost:3000")
+   @RestController
+   public class EmployeeController { ... }
+You can apply it at class level (for all APIs in the controller) or method level (for specific endpoints).
+It supports extra attributes like methods, allowedHeaders, and maxAge to fine-tune CORS behavior.
+If not configured, your frontend may get a CORS error like “Access to fetch at ... has been blocked by CORS policy.”
+
+23)Difference between @Controller and @RestController
+@Controller is used in Spring MVC to handle web requests and return views (like JSP, Thymeleaf pages).
+@RestController is introduced in Spring Boot (Spring 4) to simplify building RESTful web services that return JSON or XML data.
+@RestController is basically a shortcut for @Controller + @ResponseBody.
+When you use @Controller, you need to manually add @ResponseBody on methods if you want to return data (not view).
+When you use @RestController, every method by default returns the response body directly (e.g., JSON) — no view rendering.
+  Example:
+    @Controller
+   public class MyController {
+       @GetMapping("/home")
+       public String home() { return "index"; } // returns view name
+   }
+
+   @RestController
+   public class MyRestController {
+       @GetMapping("/user")
+       public User getUser() { return new User("Hari", 30); } // returns JSON
+   }
+So, use @Controller for web apps (UI) and @RestController for APIs (data exchange).
+
+24)Stereotype Annotations in Spring
+Stereotype annotations are specialized annotations in Spring used to define the roles of classes in the application context.
+They tell Spring which classes should be automatically detected during component scanning and registered as Spring Beans.
+The main stereotype annotations are:
+   @Component → Generic annotation for any Spring-managed bean.
+   @Service → Marks a class that holds business logic.
+   @Repository → Marks a DAO layer or data access class; adds extra exception translation.
+   @Controller → Used in web MVC layer to handle web requests.
+All these annotations are specializations of @Component, meaning they behave like components but are used for better readability and layered architecture.
+They help Spring perform component scanning automatically when @ComponentScan is used.
+
+25)Segregation of Stereotype vs Non-Stereotype Annotations
+Stereotype annotations are those that define the role of a class in the Spring application and allow automatic bean detection through component scanning.
+Examples: @Component, @Service, @Repository, @Controller, and @RestController.
+These annotations are applied at the class level and tell Spring to create and manage the object in its ApplicationContext.
+Non-stereotype annotations do not create beans by themselves — instead, they add behavior, configuration, or metadata to existing beans.
+Examples: @Autowired, @Value, @Qualifier, @Bean, @Configuration, @Primary, @Transactional.
+   Stereotype → "What kind of bean this class is."
+   Non-stereotype → "How this bean behaves or interacts."
+In short:
+   Stereotype = Bean definition (class-level)
+   Non-stereotype = Bean behavior/configuration (method or field-level)
+
+26)How to Configure a Database in Spring Boot
+Spring Boot provides auto-configuration for databases — you just add the JDBC or JPA dependency and define connection details in application.
+properties or application.yml.
+   Example (application.properties):
+   spring.datasource.url=jdbc:mysql://localhost:3306/employee_db
+   spring.datasource.username=root
+   spring.datasource.password=root123
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.show-sql=true
+
+When the app starts, Spring Boot automatically creates a DataSource, connects to the DB, and configures JPA/Hibernate if dependencies are present.
+You can also use @Entity classes and JpaRepository interfaces to perform CRUD operations without writing SQL.
+Optionally, you can define profiles (like dev, test, prod) with different DB configs using application-dev.properties.
+If you want to manually configure, you can use a @Configuration class and define a DataSource bean using @Bean.
+
+27)Default Spring Boot Dependencies
+When you create a Spring Boot project (using Spring Initializr), it automatically adds default dependencies through the spring-boot-starter modules.
+The most common default dependency is:
+   spring-boot-starter → includes core Spring, logging (Logback + SLF4J), and auto-configuration support.
+
+Other frequently included starters (based on project type):
+   spring-boot-starter-web → for REST APIs (includes Spring MVC, Jackson, Tomcat).
+   spring-boot-starter-data-jpa → for database access (includes Hibernate + JPA).
+   spring-boot-starter-test → for unit and integration testing (JUnit, Mockito).
+
+These starters bundle multiple libraries, reducing the need to manage versions manually.
+Spring Boot manages all compatible versions through Spring Boot Parent (spring-boot-dependencies) in the POM.
+This ensures version consistency, faster setup, and no dependency conflicts.
+
+28)Internal Methods of Stream API
+The Stream API internally works using two types of operations:
+   Intermediate Operations
+   Terminal Operations
+Intermediate methods → return a new Stream and are lazy, meaning they don’t execute until a terminal operation is called.
+   Examples: filter(), map(), sorted(), distinct(), limit(), skip().
+Terminal methods → trigger the processing of the stream and produce a result or side effect.
+   Examples: collect(), forEach(), reduce(), count(), findFirst(), anyMatch().
+Internally, the Stream API uses Spliterator and Pipeline concepts — data flows in a chain through these methods.
+Each intermediate method adds a stage to the pipeline, and terminal operations trigger the execution of all stages together.
+Stream API internally uses functional interfaces (like Predicate, Function, Consumer) to define its logic.
+
+29)about DSA?
+
+30)Difficulties Faced in My Project
+One major challenge I faced was handling data consistency across multiple microservices while processing real-time transactions.
+Since each service had its own database, maintaining atomicity and rollback in case of partial failures was tricky.
+We solved it using Kafka for event-driven communication and Saga Pattern for managing distributed transactions.
+Another challenge was debugging production issues — we used tools like Splunk, Grafana, and Dynatrace to trace logs and monitor performance.
+I also faced connection timeout and slow query issues in DB2, which we fixed by optimizing queries and configuring connection pools.
+During deployments, version mismatches between services caused failures — we overcame this using Git branching strategy and CI/CD validation.
+These challenges taught me how to design fault-tolerant, scalable, and maintainable microservices.
+
+31)How to Generate a Primary Key in Spring Boot (JPA)
+In Spring Data JPA, we use the annotation @Id to mark a field as the primary key in the entity class.
+To make it auto-generated, we add @GeneratedValue along with a generation strategy.
+   Example:
+   @Entity
+   public class Employee {
+       @Id
+       @GeneratedValue(strategy = GenerationType.IDENTITY)
+       private Long id;
+       private String name;
+   }
+The strategy attribute defines how the primary key is generated:
+   IDENTITY → Auto-increment (DB handles it).
+   SEQUENCE → Uses a database sequence (common in Oracle, PostgreSQL).
+   TABLE → Uses a separate table to store sequence values.
+   AUTO → Lets JPA decide the best strategy based on the database.
+You can also define a custom sequence using @SequenceGenerator if your DB supports it.
+For non-relational DBs or manual control, you can assign IDs programmatically before saving.
+
+32)What is JWT (JSON Web Token)?
+JWT stands for JSON Web Token, which is a secure, compact way to transmit user information between two parties — usually client and server.
+It is mainly used for authentication and authorization in modern applications (especially in REST APIs).
+A JWT is a digitally signed token that confirms the user’s identity and allows access to protected resources without storing session data on the server.
+A JWT consists of three parts:
+   Header → contains the algorithm & token type.
+   Payload → contains user details and claims (like username, roles).
+   Signature → ensures data integrity (using a secret key or RSA key).
+Flow: After successful login, the server generates a JWT → sends it to the client → client includes it in every request’s Authorization header.
+Server validates the signature before allowing access — no need to query the DB each time.
+JWT helps achieve stateless authentication in Spring Boot microservices.
+
+33)Authentication vs Authorization
+Authentication is the process of verifying the user’s identity — confirming who the user is (like username and password validation).
+Authorization is the process of checking what actions or resources that user is allowed to access (like admin vs normal user).
+   In simple terms:
+   Authentication → “Who are you?”
+   Authorization → “What can you do?”
+Example: When you log into a banking app → login step = Authentication, viewing only your account and not others’ = Authorization.
+In Spring Security, authentication is handled by AuthenticationManager and UserDetailsService.
+Authorization is managed through roles and authorities, usually with annotations like @PreAuthorize("hasRole('ADMIN')") or @Secured.
+Both processes often work together — you must be authenticated first before authorization can be applied.
+
+
