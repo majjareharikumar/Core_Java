@@ -313,6 +313,15 @@ JVM loads bytecode using the Class Loader, stores data in Runtime Memory Areas,
 and executes it using the Execution Engine with the help of the JIT Compiler and Garbage Collector.
 
 17)Static keyword?
+The static keyword in Java is used to define members (variables, methods, blocks, or nested classes) that belong to the class rather than to any specific object.
+This means they can be accessed without creating an object of the class.
+Static Variable: Shared among all objects of the class. Any change made by one object reflects in all others.
+  static int count = 0;
+Static Method: Can be called without creating an object. It cannot access non-static members directly.
+  static void show() { System.out.println("Static Method"); }
+Static Block: Executes once when the class is loaded — often used for initializing static variables.
+   static { System.out.println("Static Block Executed"); }
+Static Class (Nested): A static nested class can be accessed without an instance of the outer class.
 
 18)Can we use HashMap in Multi-threaded Environments?
 No, a normal HashMap is not thread-safe and should not be used directly in a multi-threaded environment.
@@ -527,4 +536,102 @@ In Spring Security, authentication is handled by AuthenticationManager and UserD
 Authorization is managed through roles and authorities, usually with annotations like @PreAuthorize("hasRole('ADMIN')") or @Secured.
 Both processes often work together — you must be authenticated first before authorization can be applied.
 
+34)what are custom exceptions? can we create at run time?
+Custom Exceptions are user-defined exceptions that extend either the Exception class (for checked exceptions) or the RuntimeException class (for unchecked exceptions).
+They are created when the built-in Java exceptions (like NullPointerException, IOException, etc.) don’t clearly describe a specific error condition in your application.
+✅ Can we create them at runtime?
+Yes — exceptions (including custom ones) are always thrown at runtime using the throw keyword.
+You define the class once, but the actual creation (new InvalidAgeException(...)) happens dynamically during program execution when a specific condition fails.
+
+35)what is @Autowired?
+The @Autowired annotation in Spring is used for automatic dependency injection.
+It tells Spring to automatically provide (inject) the required bean into a class without needing to create it manually using new.
+
+36)How to set server port?
+By default, the Spring Boot application runs on port 8080.
+1. Using application.properties
+Add this line in your src/main/resources/application.properties file:
+server.port=8081
+➡️ This sets the application to run on port 8081 instead of the default 8080.
+
+2. Using application.yml
+If you use YAML configuration:
+server:
+  port: 8081
+
+37)How to make war files from spring boot?
+To create a WAR (Web Application Archive) file from a Spring Boot application (instead of the default JAR),
+1. Change Packaging Type
+In your pom.xml, change:
+<packaging>jar</packaging>
+to:
+<packaging>war</packaging>
+
+2.Extend SpringBootServletInitializer
+In your main class, extend SpringBootServletInitializer and override configure():
+  @SpringBootApplication
+  public class MyApp extends SpringBootServletInitializer {
+
+      @Override
+      protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+          return builder.sources(MyApp.class);
+      }
+
+      public static void main(String[] args) {
+          SpringApplication.run(MyApp.class, args);
+      }
+  }
+
+38)Basic dependencies for spring boot?
+In a Spring Boot project, some basic dependencies are required to get your application up and running smoothly.
+These dependencies are added in your pom.xml (for Maven).
+spring-boot-starter
+spring-boot-starter-web
+spring-boot-starter-data-jpa
+Database driver (like MySQL)
+spring-boot-starter-test
+
+39)Dereference b/w spring and spring boot?
+🌱 Spring Framework
+It is a comprehensive framework for building Java enterprise applications.
+Requires manual configuration (XML or Java-based) for beans, dependencies, and web.xml setup.
+You need to set up servers manually (like Tomcat) to deploy your app.
+Provides many modules (Spring MVC, AOP, JDBC, Security, etc.), but you must configure them yourself.
+More boilerplate code and setup effort.
+Focuses on flexibility but needs developer effort to integrate dependencies.
+
+⚡ Spring Boot
+It is a simplified extension of Spring that makes application development faster and easier.
+Uses auto-configuration — Spring Boot automatically configures beans and settings based on dependencies.
+Comes with an embedded server (like Tomcat or Jetty), so no need for external deployment.
+Supports starters (spring-boot-starter-web, etc.) to easily include common dependencies.
+Provides Spring Boot CLI and Actuator for monitoring and management.
+Focuses on convention over configuration, reducing boilerplate and setup time.
+
+40)modules in spring framework?
+Spring Framework modules are grouped into:
+->Core Container
+->AOP
+->Data Access / Integration
+->Web
+->Security
+->Test
+
+1. Core Container Module
+Includes: spring-core, spring-beans, spring-context, spring-expression (SpEL)
+
+2. Spring AOP (Aspect-Oriented Programming) Module
+Purpose: Enables separating cross-cutting concerns like logging, transactions, or security using aspects.
+Works with annotations like @Aspect and @Before.
+
+3. Spring Data Access / Integration
+Includes:
+spring-jdbc – Simplifies database access.
+spring-tx – Manages transactions.
+spring-orm – Integrates with ORM frameworks like Hibernate, JPA.
+spring-oxm – Supports Object/XML mapping.
+spring-jms – Messaging support with JMS.
+
+4. Spring Web Module
+Includes: spring-web, spring-webmvc
 
