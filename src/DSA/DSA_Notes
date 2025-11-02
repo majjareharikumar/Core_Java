@@ -1,0 +1,60 @@
+⚙️ What is DSA (Data Structures and Algorithms)?
+->DSA stands for Data Structures and Algorithms — it’s the foundation of writing efficient and optimized code.
+->A Data Structure is a way of organizing and storing data so it can be accessed and modified efficiently.
+    Examples: Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, HashMaps.
+->Data Structures help manage data efficiently, while Algorithms help process that data effectively.
+->For example, choosing between a HashMap (O(1)) and a List (O(n)) for searching can make a huge difference in speed.
+
+🧩 Types of Data Structures
+Data Structures are mainly divided into two types — Linear and Non-Linear.
+=>Linear Data Structures:
+Data elements are arranged sequentially (one after another).
+Traversal happens in a single level (one direction).
+Examples:
+ Array – fixed-size structure storing elements in contiguous memory.
+ Linked List – nodes connected using pointers.
+ Stack – follows LIFO (Last In, First Out).
+ Queue – follows FIFO (First In, First Out).
+
+=>Non-Linear Data Structures:
+Data elements are arranged in a hierarchical or connected way.
+Traversal can happen in multiple directions.
+Examples:
+ Tree – hierarchical structure (used in databases, XML parsing).
+ Graph – set of nodes and edges (used in networks, shortest path).
+Linear = one-to-one relationship; Non-linear = one-to-many or many-to-many.
+
+⚙️ When to Use Linear vs Non-Linear Data Structures
+->Linear Data Structures are used when data needs to be processed sequentially, one element after
+->Non-Linear Data Structures are used when data has hierarchical or network-like relationships.
+
+🌍 Real-Time Scenarios of Linear and Non-Linear Data Structures
+=>Linear Data Structures – Real-Time Example:
+Imagine a food delivery app (like Swiggy or Zomato) showing your order history — the orders are listed one after another in order (latest to oldest).
+This uses a List or Queue, where data is processed sequentially — first order, second order, and so on.
+Another example: Undo/Redo feature in editors uses a Stack (LIFO) structure.
+
+==>Non-Linear Data Structures – Real-Time Example:
+A file system on your computer (folders inside folders) is a perfect example of a Tree structure — root → subfolders → files.
+A social network (like LinkedIn or Facebook) uses a Graph to show connections — each user is a node, and relationships are edges.
+
+⏱ What is Time Complexity?
+Time Complexity is the measure of how much time an algorithm takes to run as the size of input increases.
+It helps us analyze the performance of an algorithm without actually running it.
+It is usually expressed in Big O notation (e.g., O(1), O(n), O(log n), O(n²)).
+It doesn’t measure real “clock time” — it measures the number of basic operations the algorithm performs.
+Example:
+A for loop running n times → O(n).
+A nested loop → O(n²).
+A binary search → O(log n).
+
+💾 What is Space Complexity?
+Space Complexity is the amount of memory an algorithm uses while executing.
+It includes memory for variables, data structures, input values, recursion stack, and temporary storage.
+It helps analyze how efficiently an algorithm uses memory as input size (n) increases.
+Example:
+int sum = 0;      // uses constant space → O(1)
+int[] arr = new int[n]; // uses extra memory for n elements → O(n)
+
+The space complexity of this code is O(n) because the array grows with input size, while variables use constant memory.
+
