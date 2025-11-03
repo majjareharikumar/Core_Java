@@ -635,3 +635,156 @@ spring-jms – Messaging support with JMS.
 4. Spring Web Module
 Includes: spring-web, spring-webmvc
 
+41)Common Annotations Used in Junit Testing?
+| Annotation   | Purpose                    |
+| ------------ | -------------------------- |
+| @Test        | Marks a test case          |
+| @BeforeEach  | Runs before every test     |
+| @AfterEach   | Runs after every test      |
+| @BeforeAll   | Runs once before all tests |
+| @AfterAll    | Runs once after all tests  |
+| @DisplayName | Gives custom test name     |
+| @Disabled    | Skips the test temporarily |
+
+🧩 Difference between @BeforeEach and @BeforeAll
+@BeforeEach runs before every test method, while @BeforeAll runs only once before all tests in the class.
+@BeforeEach is used for test-level setup, like creating fresh objects for each test to ensure independence.
+@BeforeAll is used for global setup, like loading configuration, initializing a database, or setting up a connection.
+Methods annotated with @BeforeEach are non-static, but @BeforeAll methods must be static (in JUnit 5).
+@BeforeEach ensures isolation of tests, while @BeforeAll improves performance by doing one-time initialization.
+
+✅ Example:
+@BeforeAll
+static void setupAll() { System.out.println("Run once before all tests"); }
+
+@BeforeEach
+void setupEach() { System.out.println("Run before each test"); }
+
+🧩 Mockito Annotations (Used for Unit Testing)
+1. @Mock
+The @Mock annotation is used to create a fake (mock) object of a class or interface.
+It doesn’t call real methods — instead, it mimics the behavior you define using when(...).thenReturn(...).
+It helps isolate the class you’re testing by avoiding real dependencies (like DB or API calls).
+Example: mocking a repository so your service logic can be tested independently.
+It’s initialized automatically when you use @ExtendWith(MockitoExtension.class).
+✅ In short: Used to simulate objects and their behavior without real implementation.
+
+2. @InjectMocks
+The @InjectMocks annotation creates an instance of the class under test.
+It then injects all the mocks (created with @Mock) into that class automatically.
+It allows you to test the actual logic of your service or controller class.
+Helps you avoid manual dependency injection inside test cases.
+If a constructor, setter, or field matches a mock, it will be injected automatically.
+✅ In short: Creates the real object under test and injects mocked dependencies.
+
+3. @Spy
+The @Spy annotation creates a partial mock — a mix of real and fake behavior.
+Unlike @Mock, it calls real methods unless you explicitly stub them.
+Useful when you want to test some real logic but skip or control certain method calls.
+Example: spying on a real list to test behavior while stubbing size() method.
+It provides flexibility between real and mock objects.
+✅ In short: Calls real methods but allows selective mocking.
+
+4. @Captor
+The @Captor annotation is used to capture arguments that were passed to a mock method.
+It helps verify what values were actually sent during a method call.
+You use it along with verify() to assert parameters.
+Example: verifying if a specific Employee object was passed to save(employee).
+It improves test readability compared to using ArgumentCaptor.forClass().
+✅ In short: Used to capture and verify arguments passed to mocked methods.
+
+5. @MockBean
+@MockBean is a Spring Boot-specific annotation (not pure JUnit).
+It adds a mock version of a bean to the Spring ApplicationContext.
+This mock replaces the real bean — perfect for integration testing controllers or services.
+Commonly used in tests annotated with @SpringBootTest or @WebMvcTest.
+It allows Spring to autowire the mock instead of a real implementation.
+✅ In short: Mocks a Spring bean inside the application context.
+
+6. @ExtendWith(MockitoExtension.class)
+Enables Mockito support in JUnit 5 test classes.
+It automatically initializes annotations like @Mock, @Spy, and @InjectMocks.
+Without this annotation, mocks would remain null.
+It’s the replacement for MockitoAnnotations.openMocks(this) used in older JUnit versions.
+It must be added at the class level.
+✅ In short: Integrates Mockito with JUnit 5 test execution.
+
+42)Common Bugs Found in SonarQube
+In my project, SonarQube commonly flagged issues like null pointer dereference, unclosed resources, empty catch blocks, hardcoded credentials, and high-complexity methods.
+I resolved them by adding proper null checks, using try-with-resources, moving configs to external files, and refactoring long methods.
+This helped improve our code maintainability and reduced technical debt.
+
+=>Null Pointer Dereference –
+When a variable might be null and is used without a null check.
+🧠 Example:
+String name = null;
+System.out.println(name.length()); // Possible NullPointerException
+
+=>Resource Leak –
+When resources like files, streams, or connections are opened but not closed properly.
+🧠 Example:
+FileInputStream fis = new FileInputStream("file.txt");
+// Missing fis.close();
+
+=>Unreachable Code –
+Code that will never be executed (like statements after a return or throw).
+
+=>Infinite Recursion or Loop –
+Recursive methods or loops with no proper exit condition.
+
+=>Wrong String Comparison –
+Using == instead of .equals() to compare strings in Java.
+
+=>Unused Variables or Imports –
+Declaring variables or imports that are never used in the code.
+
+=>Empty Catch Blocks –
+Catching exceptions without handling or logging them (swallowing exceptions).
+
+43)What is a Partition?
+A partition means dividing a larger dataset or memory or storage into smaller, manageable parts (partitions)
+— each part can be handled, processed, or stored separately.
+
+44)can we create object for abstract class?
+No, we cannot create an object (instance) of an abstract class directly.
+Because an abstract class is incomplete — it may have abstract methods (methods without a body), so the JVM cannot instantiate it.
+Example:
+abstract class Animal {
+    abstract void sound();
+}
+Animal a = new Animal(); // ❌ Not allowed — compile-time error
+
+But we can create an object of a subclass
+If a concrete subclass extends the abstract class and provides implementations for all abstract methods,
+then we can create an object of that subclass.
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+Animal a = new Dog(); // ✅ Allowed
+a.sound(); // Output: Bark
+
+45)what are wrapper classes, uses, why?
+What are Wrapper Classes?
+Wrapper classes in Java are object representations of primitive data types.
+They “wrap” primitive values (like int, char, boolean) into objects so they can be used in collections, generics, and OOP operations.
+
+Example:
+int a = 10;
+Integer num = Integer.valueOf(a); // Wrapping int into Integer object
+
+=>Why are Wrapper Classes Used?
+For Collections – Collections (like ArrayList, HashMap) only store objects, not primitives.
+For Generics – Generics require object types (List<Integer> not List<int>).
+For Utility Methods – Wrapper classes have useful methods like parseInt(), toString(), etc.
+For Autoboxing & Unboxing – Java automatically converts primitives ↔ objects when needed.
+
+Example:
+Integer num = 5; // Autoboxing (int → Integer)
+int x = num;     // Unboxing (Integer → int)
+
+
+
+
+
