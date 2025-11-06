@@ -1,0 +1,46 @@
+->The Java 8 Date and Time API (in java.time package) provides an immutable, thread-safe, and more readable way to handle dates and times.
+->It introduces main classes like LocalDate, LocalTime, LocalDateTime, and ZonedDateTime to represent date, time, and time zones.
+->LocalDate handles only the date (year, month, day) without time.
+->LocalTime handles only the time (hour, minute, second).
+->LocalDateTime combines both date and time without timezone information.
+->ZonedDateTime is used when you need date and time with a specific timezone.
+->Period and Duration are used to measure time differences (in days or seconds).
+->The DateTimeFormatter class formats and parses date-time objects in custom patterns.
+
+Example:
+import java.time.*;
+public class DateTimeExample {
+    public static void main(String[] args) {
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        System.out.println("Date: " + date);
+        System.out.println("Time: " + time);
+        System.out.println("DateTime: " + dateTime);
+    }
+}
+
+🕒 Difference between Old and New Date-Time API (Java 8)
+
+Package:
+  Old API classes are in java.util and java.text.
+  New API is in java.time package (JSR-310).
+Mutability:
+  Old classes like Date and Calendar are mutable (values can be changed).
+  New API classes are immutable and thread-safe, making them suitable for multithreaded environments.
+Design:
+  Old API design is poor and confusing (e.g., months start from 0, year offset from 1900).
+  New API is well-designed and more readable, using clear class names and methods.
+Time Zone Handling:
+  Old API requires separate TimeZone class handling.
+  New API includes classes like ZonedDateTime and ZoneId for easy timezone support.
+Date/Time Representation:
+  Old API mixes both date and time in a single Date object.
+  New API separates concerns using LocalDate, LocalTime, and LocalDateTime.
+Formatting and Parsing:
+  Old API uses SimpleDateFormat, which is not thread-safe.
+  New API uses DateTimeFormatter, which is immutable and thread-safe.
+Ease of Use:
+  Old API needs many adjustments for calculations and comparisons.
+  New API provides easy methods like plusDays(), minusWeeks(), isBefore(), and isAfter().
