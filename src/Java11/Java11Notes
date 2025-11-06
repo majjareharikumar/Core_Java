@@ -1,0 +1,94 @@
+🌟 Main Features Introduced in Java 11
+1️⃣ var for Lambda Parameters
+Java 11 allows using var in lambda expressions for local variable type inference.
+This helps when you want to add annotations or modifiers to lambda parameters.
+Before Java 11, you had to specify the type or leave it inferred without annotations.
+
+Example:
+List<String> list = List.of("A", "B", "C");
+list.forEach((var s) -> System.out.println(s.toLowerCase()));
+
+2️⃣ New String Methods
+Java 11 introduced several new methods in String:
+isBlank() → checks if string is empty or whitespace
+lines() → splits string into lines
+strip(), stripLeading(), stripTrailing() → improved trimming
+repeat(n) → repeats string n times
+
+Example:
+String str = "  Hello  ";
+System.out.println(str.isBlank());       // false
+System.out.println(str.strip());         // "Hello"
+System.out.println("Hi ".repeat(3));     // "Hi Hi Hi "
+
+3️⃣ Files API Enhancements
+Files class got new utility methods like readString() and writeString().
+These make reading and writing text files simpler without using streams or readers.
+
+Example:
+Path path = Path.of("test.txt");
+Files.writeString(path, "Java 11 Features!");
+String content = Files.readString(path);
+System.out.println(content);
+
+4️⃣ HTTP Client (Standardized)
+The new java.net.http.HttpClient API (introduced in Java 9, finalized in 11)
+supports HTTP/1.1, HTTP/2, and asynchronous calls using CompletableFuture.
+A modern HttpClient API supports HTTP/2 and asynchronous calls.
+Replaces old HttpURLConnection with an easier and faster alternative.
+
+Example:
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder(URI.create("https://example.com")).build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());
+
+5️⃣ Running Java Files without Compilation
+You can run single-file source code directly using java command,
+without explicitly compiling using javac.
+
+Example (command line):
+java Hello.java
+
+// Hello.java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello Java 11");
+    }
+}
+
+6️⃣ Collection.toArray(IntFunction)
+A new toArray(IntFunction<T[]>) method was added to easily convert collections to arrays.
+
+Example:
+List<String> list = List.of("Java", "Spring", "Microservices");
+String[] arr = list.toArray(String[]::new);
+System.out.println(Arrays.toString(arr));
+
+7️⃣ Optional.isEmpty()
+Optional got a new isEmpty() method — opposite of isPresent().
+It improves readability when checking absence of a value.
+
+Example:
+Optional<String> opt = Optional.empty();
+if (opt.isEmpty()) {
+    System.out.println("Value is missing!");
+}
+8️⃣ Z Garbage Collector (ZGC)
+ZGC is a low-latency garbage collector introduced as an experimental feature in Java 11.
+It aims to keep GC pause times below 10ms, even for large heaps (multi-GB).
+ZGC works concurrently with application threads, minimizing pause times.
+
+Example (run with flag):
+java -XX:+UnlockExperimentalVMOptions -XX:+UseZGC MyApp
+
+9️⃣ Removed Java EE & CORBA Modules
+
+Outdated enterprise modules like JAXB, JAX-WS, and CORBA were removed.
+Now they are available as external dependencies if needed.
+
+
+Difference between Java 8 and Java 11
+---------------------------------------
+Java 8 focused on functional programming and Stream API, Lambda expression, Optional classes, Date & Time API.
+while Java 11 focused on modern APIs, performance, and developer productivity — with new features like the HTTP Client, ZGC, Flight Recorder, Var in Lambda, and enhanced String & File APIs.
