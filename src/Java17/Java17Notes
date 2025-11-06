@@ -1,0 +1,64 @@
+🌟 Main Features Introduced in Java 17 (LTS Version)
+1️⃣ Sealed Classes
+Sealed classes restrict which other classes can extend or implement them.
+This helps maintain better control and design of inheritance hierarchies.
+It improves code readability and security by preventing unwanted subclassing.
+
+Example:
+public sealed class Shape permits Circle, Rectangle {}
+final class Circle extends Shape {}
+final class Rectangle extends Shape {}
+
+2️⃣ Pattern Matching for instanceof
+Java 17 simplified type casting after using instanceof.
+You can directly declare a variable in the condition instead of using explicit casting.
+
+Example:
+Object obj = "Hello";
+if (obj instanceof String s) {
+    System.out.println(s.toUpperCase()); // No need for manual cast
+}
+
+3️⃣ Switch Expressions (Standard Feature)
+Switch expressions, previewed in Java 12–13, became standard in Java 17.
+They allow returning values directly from switch and support arrow (->) syntax.
+
+Example:
+String day = "MON";
+int result = switch (day) {
+    case "MON", "TUE" -> 1;
+    case "WED" -> 2;
+    default -> 0;
+};
+
+4️⃣ Text Blocks (Standard Feature)
+Text blocks (introduced in Java 15) became stable in Java 17.
+They make writing multi-line strings easier and cleaner, especially for JSON or SQL.
+
+Example:
+String json = """
+    {
+        "name": "Hari",
+        "age": 25
+    }
+    """;
+System.out.println(json);
+
+5️⃣ Records (Standard Feature)
+Records are a new way to create immutable data classes with less boilerplate code.
+They automatically generate constructors, getters, equals(), hashCode(), and toString().
+
+Example:
+public record Employee(String name, int age) {}
+Employee emp = new Employee("Hari", 28);
+System.out.println(emp.name()); // Accessor method
+
+Java 17, an LTS release (after Java 11), introduced Sealed Classes, Records, Pattern Matching, Switch Expressions, Text Blocks, and new Random Generators.
+It focused on simplifying code, strong encapsulation, and modernizing JVM performance with ZGC, and improved security.
+
+Difference
+--------------
+Java 8 introduced functional programming features like Lambdas, Streams, and the Date-Time API.
+Java 11 focused on modern APIs like the new HTTP Client, String/File enhancements, and ZGC.
+Java 17, the latest LTS, brought Sealed Classes, Records, Pattern Matching, Text Blocks, and improved GC.
+Each version improved readability, performance, and modularity, making Java 17 the most powerful and developer-friendly LTS so far.
