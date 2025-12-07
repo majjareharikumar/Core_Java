@@ -109,7 +109,8 @@ This approach is production-ready and requested in most Spring Boot interviews!
 
 4)Can you explain about unit testing and Unit testing scenarios
 What is Unit Testing?
-Unit testing is a software testing method where individual parts of the code—usually functions, methods, or classes—are tested in isolation to ensure they work as expected. The main goal is to verify that each piece of code produces the correct result for a given input
+Unit testing is a software testing method where individual parts of the code—usually functions, methods, or classes—are tested in isolation to ensure they work as expected.
+The main goal is to verify that each piece of code produces the correct result for a given input
 How Do Unit Tests Work (Java Example)
 Suppose you have a Calculator class:
 
