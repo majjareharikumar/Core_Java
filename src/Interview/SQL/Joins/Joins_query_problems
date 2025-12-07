@@ -1,0 +1,21 @@
+1️⃣ Fetch employees who do not belong to any department.
+   SELECT e.ename
+   FROM emp e
+   LEFT JOIN dept d
+       ON e.deptno = d.deptno
+   WHERE d.deptno IS NULL;
+
+2️⃣ Find departments that have no employees.
+   SELECT d.dname
+   FROM dept d
+   LEFT JOIN emp e
+       ON d.deptno = e.deptnoJoins
+   WHERE e.deptno IS NULL;
+
+3️⃣ Get employee name, department name, and location name.
+   SELECT e.ename, d.dname, c.cname
+   FROM emp e
+   INNER JOIN dept d
+       ON e.deptno = d.deptno
+   INNER JOIN country c
+       ON e.empno = c.empno;

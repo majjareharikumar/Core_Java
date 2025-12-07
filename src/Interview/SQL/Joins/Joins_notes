@@ -1,0 +1,102 @@
+JOINS in SQL:-
+--------------
+A Join in SQL is used to combine the data from two or more tables using a related column (like customer_id).
+It helps us to get connected information that is stored in different tables.
+Most of the time, this relationship is through a primary key–foreign key link.
+There are different types of joins: INNER, LEFT, RIGHT, FULL, CROSS, and SELF.
+Joins help us avoid duplicate storage by keeping data in separate tables but still allowing us to query them together.
+Real-world example: Join customers and orders to see each customer with their order details.
+
+✅ Types of SQL JOINs
+| JOIN Type      | What It Returns           |
+| -------------- | ------------------------- |
+| **INNER JOIN** | Only matching rows        |
+| **LEFT JOIN**  | All left + matching right |
+| **RIGHT JOIN** | All right + matching left |
+| **FULL JOIN**  | All rows from both sides  |
+| **CROSS JOIN** | Cartesian product         |
+| **SELF JOIN**  | Join table with itself    |
+
+1️⃣ INNER JOIN
+INNER JOIN returns only the rows where there is a matching value in both tables.
+If a row in either table does not have a matching key in the other table, that row is excluded in both tables.
+INNER JOIN is also known as the default join if you just write JOIN without a prefix.
+
+Real-world use case:
+Find all employees who belong to a department.
+
+ex:-
+SELECT s.name, c.course
+FROM student s
+INNER JOIN course c ON s.id = c.student_id;
+
+2️⃣ LEFT JOIN
+LEFT JOIN returns all rows from the left table, even if no matching row exists in the right table.
+For unmatched right-side rows, SQL fills values with NULL.
+It is useful when you want to see all records from a main table along with available related data.
+It is commonly used to find non-matching rows (e.g., employees without department).
+LEFT JOIN ensures zero data loss from the left table. If both sides match, you get combined data.
+
+Real-world use case:
+Find all employees and their project names — including employees who are not assigned to any project.
+
+ex:-
+SELECT e.name, d.dept_name
+FROM employee e
+LEFT JOIN department d ON e.dept_id = d.id;
+
+3️⃣ RIGHT JOIN
+RIGHT JOIN returns all rows from the right table, even if no match exists in the left table.
+Unmatched left-table columns will appear as NULL.
+It is the opposite of LEFT JOIN and used in cases where the right table is the primary/master table.
+
+Real-world use case:
+Show all departments, even if some departments have no employees.
+
+ex:-
+SELECT e.name, d.dept_name
+FROM employee e
+RIGHT JOIN department d ON e.dept_id = d.id;
+
+4️⃣ FULL JOIN
+FULL JOIN returns all rows from both tables, whether they match or not.
+Matched rows appear once, while unmatched rows from either side show NULL for missing columns.
+It behaves like combining the result of LEFT JOIN + RIGHT JOIN.
+FULL JOIN is useful for merging datasets and comparing tables.
+
+Real-world use case:
+Compare Products in old system vs new system to find mismatches.
+
+ex:-
+SELECT *
+FROM tableA
+FULL OUTER JOIN tableB ON tableA.id = tableB.id;
+
+5️⃣ CROSS JOIN
+CROSS JOIN returns the Cartesian product of the two tables, meaning every row of table1 is paired with every row of table2.
+It does NOT require any join condition.
+If table1 has 5 rows and table2 has 4 rows, the result will have 20 rows.
+It is used for generating combinations, creating test data, or supporting matrix-like operations.
+
+Scenario:
+Every employee must attend every mandatory training module (Safety, Security, Compliance).
+You need all employee-to-training combinations.
+
+ex:-
+SELECT *
+FROM colors
+CROSS JOIN sizes;
+
+6️⃣ SELF JOIN
+SELF JOIN occurs when a table is joined with itself. It is used to compare rows within the same table.
+You usually give aliases (like a and b) to treat one table as two logical tables.
+It is used for hierarchical data (e.g., employees and managers).
+SELF JOIN helps in finding related rows in the same dataset.
+
+Real-world use case:
+Find each employee and their manager (stored in same table).
+
+ex:-
+SELECT e.name, m.name AS manager
+FROM employee e
+LEFT JOIN employee m ON e.manager_id = m.id;
