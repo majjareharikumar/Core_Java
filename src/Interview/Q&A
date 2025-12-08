@@ -18,6 +18,16 @@ It is sorting the list by custom queries like by name, by salary...
 ex:-// Sorting using Comparator (by Name)
        Collections.sort(list, Comparator.comparing(s -> s.name));
        System.out.println("Sorted by Name (Comparator): " + list);
+✅ Multiple Ways to Create a Comparator in Java
+1.Separate Comparator class
+class AgeComparator implements Comparator<Employee> { ... }
+2.Anonymous inner class
+new Comparator<Employee>() { ... }
+3.Lambda expression
+(e1, e2) -> e1.getAge() - e2.getAge()
+4.Comparator.comparing()
+Comparator.comparing(Employee::getName)
+
 
 2)How to make class Immutable?
 ------------------------------------
@@ -66,6 +76,16 @@ Steps to connect DB in Spring Boot:
 ->Microservices Friendly: Ideal for building microservices with REST, messaging, and cloud integration.
 ->Opinionated Defaults: Provides default settings and conventions, so developers focus on business logic.
 ->Community & Ecosystem: Large community, lots of starters, libraries, and support for modern development.
+
+✅ Difference between Spring Framework and Spring Boot
+->Spring Framework is the core framework that provides features like Dependency Injection, AOP, MVC, JDBC, and transaction management, but it requires a lot of manual configuration.
+->It needs developers to set up XML/Java config, server setup (Tomcat), and dependency management manually.
+->Spring Boot is built on top of Spring Framework and aims to make application development faster and easier using auto-configuration.
+->Spring Boot removes boilerplate by providing defaults, embedded servers (Tomcat/Jetty), and starter dependencies.
+->Spring Framework gives more control and flexibility, but setup is slower; Spring Boot gives convenience and rapid development with less code.
+->Spring Boot creates production-ready apps with features like Actuator, health checks, and metrics out of the box.
+
+In short: Spring = heavy configuration, more control. Spring Boot = minimal configuration, faster development, ready-to-run applications.
 
 5)How to cover private methods in Java (JUnit testing)?
 Private methods are not directly accessible from test classes. The best approach is to test private indirectly through
@@ -136,7 +156,19 @@ public class ReflectionExample {
 ->For Asynchronous communication, we use Message Brokers like Kafka, RabbitMQ, or ActiveMQ.
 ->REST is preferred when services need an immediate response.
 ->Messaging (Kafka, RabbitMQ) is used when we want loose coupling, scalability, and reliability.
-->In real projects, a mix of both is used — REST for direct calls, Kafka for event-driven communication.
+
+Feign Client is used in Spring Cloud microservices for easy, declarative service-to-service communication.
+RestTemplate is used only in legacy applications for simple, blocking (synchronous) HTTP calls.
+WebClient is used in modern Spring apps for both synchronous and reactive high-performance communication.
+
+RabbitMQ is used where messages must be delivered quickly and reliably, one by one.
+Perfect for chat apps, notifications, task queues, order processing, email services, etc.
+
+Kafka is used where data is produced at very high volume and speed, and needs to be processed/streamed in real time.
+Real-world places where Kafka is heavily used:
+Netflix → user activity tracking, recommendations
+LinkedIn → activity streams, analytics, feed updates
+Uber → real-time trip events, location tracking
 
 7)What is Mock and Spy in Mockito?
 ->Mock and Spy are both used to create test doubles (fake objects) in unit testing.
@@ -145,6 +177,9 @@ public class ReflectionExample {
 ->A Spy, on the other hand, wraps a real object — it calls real methods unless you explicitly stub them.
 ->Mock is used when you want full control and don’t care about real logic.
 ->Spy is used when you want to test a partially real object (some real methods + some mocked).
+Useful when object has complex logic and you want to test only part of it.
+Useful when you want to call real methods but bypass one or two methods that are slow or dependent.
+Good for testing service methods that internally call private/helper methods.
   Example:
   MyService mockService = Mockito.mock(MyService.class); // all fake
   MyService spyService = Mockito.spy(new MyService());   // real + fake mix
@@ -267,10 +302,15 @@ interface MyInterface {
 ->Without the annotation, the code compiles, but it cannot be used with a Lambda Expression.
 ->So the @FunctionalInterface annotation acts as a safety check to enforce the rule.
 
+Why We Use Functional Interface
+A functional interface represents a single behavior or action in one place.
+It allows us to use lambda expressions, making the code shorter and cleaner.
+We use it to write more readable and expressive code, especially in Streams and functional programming.
+
 15)What is Deep Copy in Java?
-->A Deep Copy means creating a completely independent copy of an object — including all the objects it references.
-->In deep copy, the original and copied objects don’t share the same reference for nested objects.
-->So, changes made in one object don’t affect the other.
+A deep copy creates a completely new object along with new copies of all nested objects.
+Original and copied objects do not share any internal references.
+Changes made in the copied nested objects do NOT affect the original object.
    Example:
    class Address implements Cloneable {
        String city;
@@ -297,9 +337,22 @@ interface MyInterface {
    System.out.println(e1.address.city); // Output: Bangalore ✅ (not affected)
 ->In deep copy, both e1 and e2 have separate Address objects.
 
-->In contrast, a shallow copy copies only the top-level object — both share the same nested reference.
-->The original and copy share the same reference for inner objects.
-->Change in one object affects the other.
+What is Shallow Copy? (Easy Explanation)
+A shallow copy creates a new object, but it does not create copies of the inner objects.
+It only copies the references, so both original and copied objects share the same internal objects.
+If you change a nested object in the copy, the original will also change because both point to the same memory.
+
+✅ When to Use Deep Copy
+Use deep copy when:
+Your object has mutable nested objects (Lists, Maps, custom classes).
+You don’t want changes in the copied object to affect the original.
+You need full isolation between two objects.
+
+✅ When to Use Shallow Copy
+Use shallow copy when:
+Your object contains immutable fields (String, Integer, LocalDate, etc.).
+Internal objects will not be modified after copying.
+You want faster and lightweight copying.
 
 16)JVM Architecture (Java Virtual Machine)
 JVM (Java Virtual Machine) is the part of JRE responsible for executing Java bytecode.
@@ -354,6 +407,11 @@ map.put("Kumar", 200);
 It’s ideal for multi-threaded caching, counters, or real-time data sharing.
 
 19)Difference Between HashMap and Hashtable
+✅ Simple Explanation:
+HashMap implements Map → It is non-synchronized, faster, and allows null keys & values.
+Hashtable implements Map → It is synchronized (thread-safe), slower, and does not allow null keys or values.
+Both are different implementations of the same Map interface, but with different behaviors.
+
 Synchronization:
    HashMap is not synchronized → not thread-safe.
    Hashtable is synchronized → thread-safe, but slower in single-threaded use.

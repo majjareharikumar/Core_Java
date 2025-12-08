@@ -45,7 +45,8 @@ contract between hashCode() and equals():-
 In HashMap, the hashCode() and equals() methods ensure correct key storage and retrieval.
 If two keys are equal according to equals(), they must return the same hash code;
 otherwise, they may be placed in different buckets, causing errors.
-Unequal keys can have the same hash code, which results in collisions handled via linked lists or red-black trees.
+If tow objects have the same hashCode, they may or may not be equal, which results in collisions handled via linked lists or red-black trees.
 Proper implementation of these methods ensures key uniqueness and correct lookup, insertion, and deletion in HashMap.
+
 
 
