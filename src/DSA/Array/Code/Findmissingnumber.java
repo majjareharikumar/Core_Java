@@ -3,9 +3,9 @@ package DSA.Array.Code;
 public class Findmissingnumber {
     public static int missingNumber(int[] arr){
         int a=arr[1]-arr[0];
-        for(int i=1;i<arr.length;i++){
-            if(arr[i]-arr[i-1]!=a){
-                return arr[i-1]+a;
+        for(int i=0;i<arr.length-1;i++){
+            if(arr[i+1]-arr[i]!=a){
+                return arr[i]+a;
             }
         }
         return arr[arr.length-1]+a;

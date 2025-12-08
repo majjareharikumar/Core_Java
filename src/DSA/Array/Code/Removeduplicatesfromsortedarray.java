@@ -5,19 +5,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Removeduplicatesfromsortedarray {
-    public static int unique(int[] arr){
-//        Set<Integer> set=new HashSet<>();
-//        for(int a:arr){
-//            set.add(a);
-//        }
-//        for(int i:set){
-//            System.out.print(i+" ");
-//        }
-//        System.out.println();
-//        return set.size();
+    public static Set<Integer> unique(int[] arr){
+        Set<Integer> set=new HashSet<>();
+        for(int a:arr){
+            set.add(a);
+        }
 
-         arr=Arrays.stream(arr).distinct().toArray();
-         return arr.length;
+
+         //arr=Arrays.stream(arr).distinct().toArray();
+         return set;
     }
 
     public static void main(String[] args) {

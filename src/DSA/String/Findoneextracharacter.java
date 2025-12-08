@@ -15,20 +15,20 @@ public class Findoneextracharacter {
 //            }
 //        }
 //        return arr2[i];
-//        int sum1=0,sum2=0;
-//        for(char a: arr1){
-//            sum1+=a;
-//        }
-//        for (char a:arr2){
-//            sum2+=a;
-//        }
-//        return (char)(sum2-sum1);
+        int sum1=0,sum2=0;
+        for(char a: arr1){
+            sum1+=a;
+        }
+        for (char a:arr2){
+            sum2+=a;
+        }
+        return (char)(sum2-sum1);
 
-        return (char) (s2.chars().sum()-s1.chars().sum());
+        //return (char) (s2.chars().sum()-s1.chars().sum());
     }
 
     public static void main(String[] args) {
-        String s1="bancez";
+        String s1="bancezz";
         String s2="abcenzf";
         System.out.println(findextrachar(s1,s2));
     }

@@ -4,23 +4,26 @@ import java.util.*;
 
 public class SecondLargest {
     public static int secondLarge(int[] arr){
-//        Set<Integer> set=new HashSet<>();
-//        int n=set.size();
-//        for(int a:arr){
-//            set.add(a);
-//        }
-//        List<Integer> list=new ArrayList<>(set);
-//
-//        if(list.size()<2) return -1;
-//
-//        else return list.get(list.size()-2);
+        int largest=Integer.MIN_VALUE;
+        int second=Integer.MIN_VALUE;
+        int third=Integer.MIN_VALUE;
 
-        return Arrays.stream(arr)
-                .distinct()
-                .boxed()
-                .sorted((a,b)->b-a)
-                .skip(1)
-                .findFirst().get();
+        for(int n: arr){
+            if(n>largest){
+                third=second;
+                second=largest;
+                largest=n;
+            }
+            else if(n>second && n!=largest){
+                third=second;
+                second=n;
+            } else if (n>third && n!=second && n!=largest) {
+                third=n;
+
+            }
+        }
+
+        return third;
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,16 @@
+✅ 1. Declaration + Initialization (Most common)
+int[] arr = {10, 20, 30, 40};
+
+✅ 2. Using new keyword with values
+int[] arr = new int[] {10, 20, 30, 40};
+
+✅ 3. Create an empty array and assign values later
+int[] arr = new int[4];
+arr[0] = 10;
+arr[1] = 20;
+
+✅ 4. Dynamic initialization using loop
+int[] arr = new int[5];
+for (int i = 0; i < arr.length; i++) {
+    arr[i] = i * 2;
+}
