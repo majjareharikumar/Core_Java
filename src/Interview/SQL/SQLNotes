@@ -14,37 +14,110 @@ Stored Procedures are used for CRUD operations (Create, Read, Update, Delete).
 ******************************************************************************
 
 
+DQL(Data Query language)
+-----------------------------
+1) Select queries
+syntax:-
+ select * from tableName;
+ select columnName1, columnName2... from tableName;
+ select * from tableName where <condition>;
+
+DML(Data Manipulation language)
+-------------------------------
+1)Insert
+Syntax:-
+Insert into tableName values();
+Insert into tableName(ename,sal,empno) values('Hari',700000,101);
+
+2)Update
+syntax:-
+update tableName
+set columnName=value
+where <condition>;
+
+3)Delete
+syntax:-
+delete from tableName
+where <condition>
+
+DDL(Data Definition language)
+-------------------------------
+1)create
+syntax:-
+create tableName(
+columnName1 datatype(size) constraint,
+columnName2 datatype(size) constraint,
+columnName3 datatype(size) constraint,
+.
+.
+.
+);
+
+2)Alter
+->Add new column
+ Alter tableName
+ add columnName datatype(size) constraint;
+
+->Modify column
+ Alter tableName
+ modify columnName new datatype(size) new constraint;
+
+->Rename columnName
+  alter tableName
+  rename column oldColumnName to newColumnName;
+
+3)Drop
+syntax:-
+drop table tableName;
+
+4)Truncate
+syntax:-
+truncate table tableName;
+
+5)Rename
+syntax:-
+rename oldTableName to newTableName
+
+TCL(Transaction control language)
+-----------------------------------
+1)commit
+
+2)rollback
+
+3)savePoint
 
 
-🔹Sql scenarios with queries
-🔹 Scenario 1: Find the second highest salary of employees
-select MAX(sal) AS second_highest
-from employees
-Where sal<(select MAX(sal) from employee);
+✅ Difference between CHAR and VARCHAR
+CHAR is a fixed-length data type that always stores data in the full defined size (pads with spaces).
+VARCHAR is a variable-length data type that stores only the actual characters entered.
+CHAR is faster for fixed-size fields because its size never changes.
+VARCHAR is more flexible and memory-efficient for variable-length text.
+Use CHAR for items like codes/IDs, and VARCHAR for names, addresses, and descriptions.
 
-🔹 Scenario 2: Find duplicate employee names
-select name, COUNT(*) as count
-from employees
-group by name
-having count>1;
+✅ difference b/w delete, drop, truncate
+->DELETE
+It is a DML command.
+Removes specific rows from a table using a WHERE clause.
+Rollback possible (can undo).
+Table structure remains.
 
-🔹 Scenario 3: Retrieve top 3 highest salaries
-select distinct salary
-from employees
-order by sal desc
-limit 3;
+->TRUNCATE
+It is a DDL command.
+Removes all rows from a table (no WHERE).
+Cannot rollback in most DBs.
+Table structure remains.
 
-🔹 Scenario 4: Display employees who don’t have a manager
-select name
-from employees
-where manager_id is null;
+->DROP
+It is a DDL command.
+Completely deletes the table from the database.
+Fast and removes data + structure.
+Can rollback from recycle bin
+Table becomes unavailable permanently.
 
-🔹 Scenario 5: Get department-wise average salary
-select dept_id, AVG(sal)
-from employee
-group by dept_id;
-
-
-
-
-
+✅ Primary Key and Foreign Key
+A Primary Key uniquely identifies each row in a table and cannot be NULL or duplicate.
+Each table can have only one Primary Key, and it ensures row-level uniqueness.
+A Foreign Key is a column that links one table to another table's Primary Key.
+It can have duplicate or NULL values (unless restricted by rules).
+Foreign Keys ensure referential integrity between tables.
+Together, they maintain proper relationships and prevent invalid data.
