@@ -81,10 +81,22 @@ rename oldTableName to newTableName
 TCL(Transaction control language)
 -----------------------------------
 1)commit
-
+commit;
 2)rollback
-
+rollback to savePoint;
 3)savePoint
+savepoint savepointName;
+DCL(Data control language)
+---------------------------
+1)Grant
+syntax:-
+grant privilegeType on tableName to userName;
+
+2)revoke
+syntax:-
+revoke privilegeType on tableName to userName;
+
+
 
 
 ✅ Difference between CHAR and VARCHAR
