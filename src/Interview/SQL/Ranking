@@ -16,7 +16,7 @@ emp_id	name	dept	salary
 
 🔹 What is ROW_NUMBER() in SQL?
 ROW_NUMBER() assigns a unique sequential number to each row, based on ordering.
-Unlike RANK() and DENSE_RANK(), it doesn’t care about duplicates—every row gets a different number.
+Unlike RANK() and DENSE_RANK(), it doesn’t care about duplicates every row gets a different number.
 For example, when ranking employees by salary, even if two employees have the same salary, they get different row numbers.
 It is widely used in pagination, finding duplicate rows, and selecting the top N records.
 

@@ -133,3 +133,11 @@ A Foreign Key is a column that links one table to another table's Primary Key.
 It can have duplicate or NULL values (unless restricted by rules).
 Foreign Keys ensure referential integrity between tables.
 Together, they maintain proper relationships and prevent invalid data.
+
+✅ difference between WHERE and HAVING:
+WHERE is used to filter rows before grouping happens in a query.
+HAVING is used to filter groups after the GROUP BY operation.
+WHERE cannot use aggregate functions (SUM, COUNT), but HAVING can.
+WHERE works on individual rows, whereas HAVING works on aggregated results.
+WHERE improves performance by reducing rows early; HAVING filters the final grouped output.
+Typically, you use WHERE for row-level filtering and HAVING for group-level filtering.
