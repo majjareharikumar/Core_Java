@@ -434,6 +434,13 @@ Usage Recommendation:
    Prefer HashMap for single-threaded or controlled concurrency.
    Use ConcurrentHashMap instead of Hashtable for multithreading.
 
+✅ What is Concurrency?
+Concurrency means multiple tasks making progress at the same time, but not necessarily running simultaneously.
+It allows a program to handle many operations by switching between them efficiently.
+In Java, concurrency is achieved using threads, thread pools, executors, and async programming.
+It improves performance, especially when tasks involve waiting (IO, API calls, DB queries).
+Concurrency helps applications stay responsive and handle high loads.
+
 20) Internal working of HashMap?
 
 21)Spring Boot Internal Annotations
