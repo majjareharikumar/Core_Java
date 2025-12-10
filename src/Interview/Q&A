@@ -306,8 +306,11 @@ Why We Use Functional Interface
 A functional interface represents a single behavior or action in one place.
 It allows us to use lambda expressions, making the code shorter and cleaner.
 We use it to write more readable and expressive code, especially in Streams and functional programming.
+1. Runnable
+2. Callable
+3. Comparator
 
-15)What is Deep Copy in Java?
+15)What is Deep Copy & Shallow Copy in Java?
 A deep copy creates a completely new object along with new copies of all nested objects.
 Original and copied objects do not share any internal references.
 Changes made in the copied nested objects do NOT affect the original object.
@@ -337,7 +340,7 @@ Changes made in the copied nested objects do NOT affect the original object.
    System.out.println(e1.address.city); // Output: Bangalore ✅ (not affected)
 ->In deep copy, both e1 and e2 have separate Address objects.
 
-What is Shallow Copy? (Easy Explanation)
+What is Shallow Copy?
 A shallow copy creates a new object, but it does not create copies of the inner objects.
 It only copies the references, so both original and copied objects share the same internal objects.
 If you change a nested object in the copy, the original will also change because both point to the same memory.
@@ -469,6 +472,9 @@ When you use @RestController, every method by default returns the response body 
        @GetMapping("/home")
        public String home() { return "index"; } // returns view name
    }
+
+   we can use produces = MediaType.APPLICATION_XML_VALUE in getmapping to return xml or json type values based on requirements.
+    @GetMapping(value = "/employee", produces = MediaType.APPLICATION_XML_VALUE)
 
    @RestController
    public class MyRestController {
@@ -728,12 +734,11 @@ It’s initialized automatically when you use @ExtendWith(MockitoExtension.class
 ✅ In short: Used to simulate objects and their behavior without real implementation.
 
 2. @InjectMocks
-The @InjectMocks annotation creates an instance of the class under test.
-It then injects all the mocks (created with @Mock) into that class automatically.
-It allows you to test the actual logic of your service or controller class.
-Helps you avoid manual dependency injection inside test cases.
-If a constructor, setter, or field matches a mock, it will be injected automatically.
-✅ In short: Creates the real object under test and injects mocked dependencies.
+@InjectMocks is used in Mockito to create an object of the class being tested.
+It automatically injects all dependencies into that object using @Mock or @Spy.
+It performs constructor injection, then setter injection, and finally field injection.
+This annotation helps you test a class without manually creating dependencies.
+It ensures your test focuses only on the business logic, not object creation.
 
 3. @Spy
 The @Spy annotation creates a partial mock — a mix of real and fake behavior.
@@ -842,7 +847,71 @@ Example:
 Integer num = 5; // Autoboxing (int → Integer)
 int x = num;     // Unboxing (Integer → int)
 
+45)@Transactional
+@Transactional is used in Spring to manage database transactions automatically.
+It ensures that all the operations inside a method run in one single transaction.
+If any exception occurs, Spring will roll back all the changes to maintain data consistency.
+If the method completes successfully, it will commit the transaction.
+It helps avoid partial updates and maintains ACID properties.
+We usually apply it on service layer methods that involve multiple DB operations.
 
+46)What is Circular Dependency?
+Circular dependency happens when Bean A depends on Bean B, and Bean B also depends on Bean A.
+Spring tries to create Bean A, but it needs Bean B; then it tries Bean B, but it again needs Bean A — causing a loop.
+This results in a BeanCurrentlyInCreationException or startup failure.
 
+✅ Real-Time Example: Circular Dependency
+1. Service calling each other
+OrderService calls PaymentService to process a payment.
+PaymentService again calls OrderService to update order status.
+Both services depend on each other → circular dependency.
 
+✅ How to Manage Circular Dependencies
+=>Use Setter Injection instead of Constructor Injection
+  Constructor injection makes circular dependency impossible (both require each other immediately).
+  Setter injection lets Spring create beans first and inject later, breaking the loop.
+
+=>Use @Lazy on one of the dependencies
+  @Lazy loads the bean only when needed, so the second bean gets created without immediately needing the first.
+
+=>Introduce Events / Messaging
+  For real-time apps, instead of calling each other directly:
+  OrderService publishes an event (OrderPlaced)
+  PaymentService listens and processes it
+  No direct dependency → no circular issue.
+
+47)Difference between @Inject and @Autowired (6 lines)
+   @Autowired is a Spring-specific annotation used for dependency injection.
+   @Inject is a Java standard (JSR-330) annotation and not tied to Spring.
+   @Autowired supports features like required = false and can inject lists, maps, etc.
+   @Inject does not support Spring-specific options but works the same for basic DI.
+   Both can inject through constructor, setter, and field injection.
+   In Spring Boot projects, both behave almost the same, but @Autowired is more commonly used.
+
+48)What is @Transient in JPA? (6–7 lines)
+   @Transient is a JPA annotation used to mark a field in an entity class that should not be persisted in the database.
+   When a field is annotated with @Transient, JPA ignores it during insert, update, and select operations.
+   It is mainly used for fields that are required only for business logic, temporary calculations, or values derived at runtime.
+   These fields are still part of the Java object but are not mapped to any column in the table.
+   This helps in keeping the entity clean without changing the actual database schema.
+   It is different from the transient keyword in Java, which is used for serialization, while @Transient is specifically for JPA persistence.
+
+49)ORM (Object Relational Mapping)
+ORM is a technique that allows Java objects to be mapped to database tables automatically.
+It removes the need to write manual SQL queries for basic CRUD operations.
+ORM frameworks (like Hibernate, JPA) convert Java classes into DB tables and class fields into table columns.
+It helps developers work with databases using objects instead of SQL, improving productivity.
+ORM also manages relationships, transactions, caching, and lazy loading automatically.
+This makes the application cleaner, reduces boilerplate code, and avoids SQL-related errors.
+
+50)How We Implement Caching?
+   Caching means storing frequently accessed data in memory so the application doesn’t hit the database every time.
+   In Spring Boot, we implement caching by enabling @EnableCaching in the main class and using @Cacheable on methods.
+   When a method with @Cacheable is called, the result is stored in a cache (like ConcurrentMapCache, Redis, Ehcache).
+   Next time the same method is called with the same input, Spring returns the value from cache instead of executing method logic.
+   We use @CachePut to update the cache and @CacheEvict to remove old/stale data.
+   For distributed systems or microservices, Redis is commonly used as an external cache store.
+   Caching improves performance, reduces DB load, and speeds up API responses.
+
+51)
 
