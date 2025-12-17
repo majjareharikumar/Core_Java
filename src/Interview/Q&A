@@ -920,5 +920,16 @@ This makes the application cleaner, reduces boilerplate code, and avoids SQL-rel
    For distributed systems or microservices, Redis is commonly used as an external cache store.
    Caching improves performance, reduces DB load, and speeds up API responses.
 
-51)
+51)What is a Lock in Multithreading?
+   A lock is a mechanism used to control access to shared resources when multiple threads run at the same time.
+   It ensures that only one thread can access a critical section of code at a time.
+   This prevents data inconsistency and race conditions.
+   When one thread acquires a lock, other threads must wait until the lock is released.
+   Locks are essential for thread safety in concurrent programs.
+
+52)How We Handle Millions of Records in Microservices
+We use pagination and streaming to avoid loading large data into memory.
+Heavy processing is done asynchronously using Kafka/RabbitMQ.
+Performance is improved using caching, DB indexing, and horizontal scaling.
+
 

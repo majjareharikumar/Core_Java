@@ -1,0 +1,91 @@
+📌 1. List Initialization
+1.1 Arrays.asList()
+List<String> list = Arrays.asList("A", "B", "C");
+
+1.2 List.of() — Java 9+
+List<String> list = List.of("A", "B", "C");
+
+1.3 Using ArrayList + add()
+List<String> list = new ArrayList<>();
+list.add("A");
+list.add("B");
+list.add("C");
+
+1.4 Using new ArrayList<>(Arrays.asList())
+List<String> list = new ArrayList<>(Arrays.asList("A", "B", "C"));
+
+1.5 Using Stream
+List<String> list = Stream.of("A", "B", "C").toList();
+
+📌 2. Set Initialization
+2.1 Using Set.of() — Java 9+
+Set<String> set = Set.of("A", "B", "C");
+
+2.2 Using HashSet + add()
+Set<String> set = new HashSet<>();
+set.add("A");
+set.add("B");
+set.add("C");
+
+2.3 Using new HashSet<>(Arrays.asList())
+Set<String> set = new HashSet<>(Arrays.asList("A", "B", "C"));
+
+2.4 Using Stream
+Set<String> set = Stream.of("A", "B", "C").collect(Collectors.toSet());
+
+📌 3. Map Initialization
+3.1 Map.of() — Java 9+
+Map<Integer, String> map = Map.of(1, "A", 2, "B", 3, "C");
+
+3.2 Map.ofEntries()
+Map<Integer, String> map = Map.ofEntries(
+    Map.entry(1, "A"),
+    Map.entry(2, "B"),
+    Map.entry(3, "C")
+);
+
+3.3 Using HashMap + put()
+Map<Integer, String> map = new HashMap<>();
+map.put(1, "A");
+map.put(2, "B");
+map.put(3, "C");
+
+3.4 Using double-brace initialization
+Map<Integer, String> map = new HashMap<>() {{
+    put(1, "A");
+    put(2, "B");
+}};
+
+3.5 Using Stream
+Map<Integer, String> map = Stream.of(
+    new Object[][] { {1, "A"}, {2, "B"}, {3, "C"} }
+).collect(Collectors.toMap(e -> (Integer)e[0], e -> (String)e[1]));
+
+✅ 🔥 Queue Initialization
+1. Using LinkedList
+Queue<String> queue = new LinkedList<>();
+queue.add("A");
+queue.add("B");
+queue.add("C");
+
+📌 2. Using PriorityQueue
+Queue<Integer> queue = new PriorityQueue<>();
+queue.add(30);
+queue.add(10);
+queue.add(20);
+
+📌 3. Using ArrayDeque
+Queue<String> queue = new ArrayDeque<>();
+queue.add("A");
+queue.add("B");
+
+📌 4. Queue with Arrays.asList()
+Queue<String> queue = new LinkedList<>(Arrays.asList("A", "B", "C"));
+
+📌 5. Queue with Stream API
+Queue<String> queue =
+    new ArrayDeque<>(Stream.of("A", "B", "C").toList());
+
+📌 6. PriorityQueue with Comparator
+Queue<Integer> queue = new PriorityQueue<>(Comparator.reverseOrder());
+queue.addAll(List.of(10, 20, 30));
