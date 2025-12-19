@@ -1,10 +1,14 @@
 1. What is multithreading in Java?
 Answer:
-Multithreading is a process of executing multiple threads simultaneously. Each thread is a lightweight sub-process that shares the same memory space. It helps to perform tasks in parallel, improving CPU utilization and performance. For example, you can download a file while typing in a text editor. Java provides multithreading support via the Thread class and Runnable interface. It’s commonly used in gaming, servers, and real-time applications.
+Multithreading is a process of executing multiple threads simultaneously.
+Each thread is a lightweight sub-process that shares the same memory space.
+It helps to perform tasks in parallel, improving CPU utilization and performance.
+For example, you can download a file while typing in a text editor.
+Java provides multithreading support via the Thread class and Runnable interface.
+It’s commonly used in gaming, servers, and real-time applications.
 
 2. What is the difference between a process and a thread?
 Answer:
-
 A process is an independent unit of execution with its own memory space.
 
 A thread is a smaller unit of execution inside a process and shares memory with other threads.
@@ -169,19 +173,23 @@ You need to create a new Thread object to start the task again.
 
 21. What is the ExecutorService in Java?
 Answer:
-ExecutorService is an advanced thread pool framework introduced in java.util.concurrent.
-It manages and executes threads efficiently using methods like submit(), invokeAll(), and shutdown().
-It separates task submission from thread management.
+ExecutorService is part of Java Concurrency API.
+It manages thread creation and reuse internally.
+Uses thread pools for better performance.
+Supports asynchronous task execution.
+Works with Runnable and Callable.
 Example:
 
 ExecutorService service = Executors.newFixedThreadPool(5);
 service.submit(task);
 22. What is Future in Java?
 Answer:
-Future represents the result of an asynchronous computation.
-When you submit a Callable task to ExecutorService, it returns a Future object.
-You can use future.get() to block and retrieve the result when it's ready.
-It also allows canceling tasks and checking status.
+Feature is an object that represents the result of an asynchronous task.
+You submit the task, And feature will give the result only when the task is completed .
+
+Completable Feature:-
+Completable feature is an advanced feature that can run tasks asynchronously and also lets you attach callbacks , chain tasks and run tasks parallel without blocking.
+
 
 23. What is ReentrantLock in Java? How is it different from synchronized?
 Answer:
