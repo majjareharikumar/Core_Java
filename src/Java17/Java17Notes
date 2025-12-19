@@ -9,12 +9,28 @@ public sealed class Shape permits Circle, Rectangle {}
 final class Circle extends Shape {}
 final class Rectangle extends Shape {}
 
+✅ Real-World Example: Payment System
+🎯 Business scenario
+In a banking or e-commerce system, payment can be only a few known types:
+Credit Card
+Debit Card
+UPI
+No other payment type should be allowed.
+
 2️⃣ Pattern Matching for instanceof
-Java 17 simplified type casting after using instanceof.
-You can directly declare a variable in the condition instead of using explicit casting.
+Pattern matching for instanceof allows you to check the type and cast the object in one step.
+It removes the need for explicit casting and makes code cleaner and safer.
 
 Example:
 Object obj = "Hello";
+
+Old Way (Before Java 16)
+if (obj instanceof String) {
+    String s = (String) obj;
+    System.out.println(s.length());
+}
+
+New Way
 if (obj instanceof String s) {
     System.out.println(s.toUpperCase()); // No need for manual cast
 }
@@ -32,17 +48,23 @@ int result = switch (day) {
 };
 
 4️⃣ Text Blocks (Standard Feature)
-Text blocks (introduced in Java 15) became stable in Java 17.
-They make writing multi-line strings easier and cleaner, especially for JSON or SQL.
+Text Blocks are a Java feature that allows you to write multi-line strings easily using """.
+They remove the need for \n, \t, and string concatenation.
+This makes large text content more readable and maintainable.
 
-Example:
+Before Text Blocks (Old Way)
+String json = "{\n" +
+              "  \"id\": 1,\n" +
+              "  \"name\": \"Hari\"\n" +
+              "}";
+
+With Text Blocks (Java 17)
 String json = """
-    {
-        "name": "Hari",
-        "age": 25
-    }
-    """;
-System.out.println(json);
+        {
+          "id": 1,
+          "name": "Hari"
+        }
+        """;
 
 5️⃣ Records (Standard Feature)
 Records are a new way to create immutable data classes with less boilerplate code.
