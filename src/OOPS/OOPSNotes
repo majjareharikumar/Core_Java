@@ -20,7 +20,7 @@ class Car {
 Car myCar = new Car();  // object created
 Here, Car is the class and myCar is the object.
 
-What is Encapsulation?
+3)What is Encapsulation?
 Answer:
 Encapsulation is the concept of wrapping data and methods that operate on the data into a single unit (class).
 It helps protect internal state of the object from outside interference.
@@ -270,7 +270,7 @@ Example:
 // Composition
 class Heart {}
 class Human {
-    private Heart heart = new Heart(); // Heart dies with Human
+    private Heart heart = new Heart(); // Human dies without Heart
 }
 
 // Aggregation
@@ -380,7 +380,7 @@ class Student implements Cloneable {
     }
 }
 
-hallow Copy vs Deep Copy
+Shallow Copy vs Deep Copy
 -->Shallow Copy copies only the outer object, not the inner (nested) objects.
 -->Deep Copy copies both the outer object and all inner objects.
 -->In shallow copy, nested objects are shared between original and copy.
@@ -440,11 +440,14 @@ If it also handles file reading, printing, and logging, it becomes low cohesion.
 
 🔹 Q31. What is Coupling in OOP?
 Answer:
-Coupling refers to the degree of dependency between different classes or modules.
-Low (loose) coupling is good—it means classes are independent.
-High coupling means classes are tightly dependent on each other, which makes maintenance hard.
-Loose coupling is achieved using interfaces, abstraction, or dependency injection.
-
+Coupling defines the dependency level between classes.
+It tells how closely one class is connected to another class.
+High coupling means strong dependency between components.
+Low coupling means minimal dependency.
+Tight coupling reduces flexibility and testability.
+Loose coupling improves maintainability and scalability.
+Achieved using interfaces, abstraction, and dependency injection.
+A key design goal in object-oriented design.
 Example:
 
 class Engine {}
