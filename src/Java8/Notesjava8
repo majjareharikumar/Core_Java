@@ -119,7 +119,7 @@ interface MyInt {
 Default methods can be overridden; static methods can’t.
 
 🔹 Q8. What is method reference in Java 8?
-Method reference in Java 8 is a shorthand syntax for calling methods using the :: operator.
+Method reference in Java 8 is a shorthand syntax for calling methods using the :: (double colon) operator.
 It is an alternative to lambda expressions when the lambda only calls an existing method.
 There are four types: reference to a static method, reference to an instance method, reference to an instance method of an arbitrary object, and reference to a constructor.
 Method references make code cleaner, more readable, and avoid unnecessary boilerplate.
@@ -183,9 +183,13 @@ Consumer<String> printer = s -> System.out.println(s);
 printer.accept("Hello");
 
 🔹 Q14. What is the reduce() method in Stream API?
-reduce() is a terminal operation that combines elements of a stream into a single result.
-It takes a BinaryOperator or initial identity value and applies it repeatedly to elements.
-It’s useful for sum, product, concatenation, etc.
+reduce() is a terminal operation in Stream API.
+It combines stream elements into a single value.
+Uses a binary operation like sum, max, or concatenation.
+Can return Optional if identity is not provided.
+Commonly used for aggregation logic.
+Works efficiently with parallel streams.
+Promotes functional programming style.
 ✅ Example:
 int sum = Arrays.asList(1, 2, 3).stream().reduce(0, (a, b) -> a + b); // sum = 6
 If no identity is given, it returns an Optional.
@@ -199,16 +203,29 @@ It also supports easy parallel processing using .parallelStream().
 List<String> result = names.stream().filter(n -> n.startsWith("A")).collect(Collectors.toList());
 
 Q16. What is the use of peek() in Stream API?
-peek() is an intermediate operation used mainly for debugging or performing side-effects.
-It lets you look at each element in the stream as it flows through, without modifying the stream.
-Since it doesn't terminate the stream, it must be followed by a terminal operation like collect() or forEach().
-It’s often used for logging or inspecting data during processing.
+peek() is an intermediate operation in Stream API.
+It is mainly used for debugging purposes.
+It allows observing elements as they flow through the stream.
+It does not change the stream elements.
+It executes only when a terminal operation is called.
+Not recommended for business logic.
+Works lazily like other stream operations.
 
-✅ Example:
-list.stream()
-    .peek(e -> System.out.println("Processing: " + e))
-    .filter(e -> e.startsWith("A"))
-    .collect(Collectors.toList());
+Example:-
+List<Integer> numbers = List.of(1, 2, 3, 4);
+numbers.stream()
+       .peek(n -> System.out.println("Before filter: " + n))
+       .filter(n -> n % 2 == 0)
+       .peek(n -> System.out.println("After filter: " + n))
+       .forEach(System.out::println);
+OutPut:-
+Before filter: 1
+Before filter: 2
+After filter: 2
+Before filter: 3
+Before filter: 4
+After filter: 4
+
 
 🔹 Q17. What is the difference between map() and flatMap() in Java 8?
 map() transforms each element into another object (one-to-one mapping).
