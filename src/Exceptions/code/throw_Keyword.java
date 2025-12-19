@@ -8,7 +8,7 @@ public class throw_Keyword {
         System.out.println("Enter Age");
         int age=sc.nextInt();
         if(age<18){
-            throw new ArrayIndexOutOfBoundsException("Age must be 18 or above");
+            throw new IllegalArgumentException("Age must be 18 or above");
         }
         else {
             System.out.println("Valid age for vote");
