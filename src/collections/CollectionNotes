@@ -87,22 +87,41 @@ Because it is not synchronized, EnumSet should be externally synchronized if use
 In summary, EnumSet offers a clear, efficient, and type-safe way to work with sets of enums in Java.
 
 ✅ Q13. what is  fail-fast and fail-safe iterator? What is the difference between fail-fast and fail-safe iterator?
--->A fail-fast iterator immediately throws a ConcurrentModificationException if the collection is structurally modified after the iterator is created, except through the iterator's own methods (like remove()).
-Structural modifications include adding, removing, or changing elements in the collection.
-Fail-fast iterators do not allow concurrent modification during iteration.
-Examples: Iterators returned by ArrayList, HashSet, HashMap are fail-fast.
+✅ What is Fail-Fast Iterator?
+A Fail-Fast iterator immediately throws a ConcurrentModificationException if the collection is structurally modified while iterating (except through the iterator’s own remove() method).
+It works directly on the original collection, so it detects changes quickly to avoid inconsistent behavior.
+Fail-fast iterators are not thread-safe.
+They help identify bugs early during iteration.
+Most Java Collections Framework iterators are fail-fast.
 
-USe:- Fail-Fast Iterator should be used when your application works in a single-threaded environment or when concurrent modifications are not expected during iteration. It helps in detecting programming errors early by throwing a ConcurrentModificationException if the collection is structurally modified while iterating. This behavior is useful to maintain data integrity and quickly identify unintended modifications.
-Fail-fast iterators are faster and use less memory since they operate directly on the original collection without creating copies.
+Examples: ArrayList, HashMap, HashSet
 
--->A fail-safe iterator allows concurrent modification of the collection while iterating without throwing exceptions.
-It works on a clone or a copy of the collection's data.
-Therefore, it is not affected by modifications to the original collection during iteration.
-However, changes made during iteration may not be reflected in the iterator.
-Examples: Iterators of CopyOnWriteArrayList, ConcurrentHashMap are fail-safe.
+✅ What is Fail-Safe Iterator?
+A Fail-Safe iterator does not throw any exception when the collection is modified during iteration.
+It works on a copy (snapshot) of the collection instead of the original one.
+So modifications do not affect the iteration.
+Fail-safe iterators are thread-safe.
+The drawback is extra memory usage due to copying.
 
-Use:-Fail-Safe Iterator is suitable in multi-threaded or concurrent environments where multiple threads may modify the collection while another thread is iterating over it. Fail-safe iterators operate on a separate copy or snapshot of the collection’s data, allowing iteration without throwing exceptions. This ensures thread safety and prevents runtime errors caused by concurrent modifications.
-However, fail-safe iterators may not reflect the latest changes made to the collection after the iterator was created, so they provide eventual consistency rather than real-time consistency. They typically consume more memory and have a performance overhead due to copying the collection.
+Examples: CopyOnWriteArrayList, ConcurrentHashMap
+
+✅ Fail-Fast Iterator – Real-World Scenario
+🏦 Bank Transaction Processing System
+A service is iterating over a list of pending transactions.
+While processing, no other thread is allowed to modify the list.
+If someone adds/removes a transaction during iteration, it indicates a serious bug.
+Fail-fast iterator immediately throws ConcurrentModificationException.
+This helps developers detect the issue early.
+Data consistency is more important than availability.
+
+✅ Fail-Safe Iterator – Real-World Scenario
+🌐 Online User Session Management (Microservices)
+A microservice is iterating over active user sessions.
+New users may log in or log out simultaneously.
+The iteration must not fail, even if the collection changes.
+Fail-safe iterator works on a copy of the data.
+The system continues running smoothly without exceptions.
+Availability is more important than strict consistency.
 
 ✅ Q14. What are concurrent collection classes?
 Concurrent Collection Classes are a special set of collection implementations in Java designed to support safe and efficient access by multiple threads simultaneously. They belong to the java.util.concurrent package.
