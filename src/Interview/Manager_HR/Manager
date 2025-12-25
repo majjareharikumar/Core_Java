@@ -1,0 +1,175 @@
+1️)Tell Me About Yourself (Manager Version)
+I have around 4 years of experience working as a Java Developer at JP Morgan Chase.
+I work mainly on Java, Spring Boot, Spring Data JPA, and Microservices.
+I have strong experience in production support, handling incidents and performing root cause analysis.
+I’ve worked with Kafka for asynchronous communication and DB2 for database operations.
+I regularly use Splunk, Grafana, and Dynatrace for monitoring.
+I also write JUnit tests and participate in code reviews and Agile ceremonies.
+Currently, I’m looking for a role with more ownership and development exposure.
+
+2)What are your roles and responsibilities?” – Sample Answer
+In my current role, I work as a Java Developer and handle both development and production support activities.
+I am responsible for designing and developing REST APIs using Java, Spring Boot, and Spring Data JPA.
+I work on microservices, integrate with Kafka for event-based communication, and ensure proper data handling with DB2.
+I handle production issues, perform root cause analysis, and fix bugs with minimal impact.
+I also monitor applications using Splunk, Grafana, and Dynatrace to ensure system stability.
+Additionally, I write unit tests using JUnit, manage code through Git, and actively participate in code reviews and Agile ceremonies.
+
+3)Tell Me About a Production Issue You Handled
+  In one incident, an API was slow during peak hours.
+  My responsibility was to identify the root cause quickly.
+  I analyzed logs in Splunk and traced the issue using Dynatrace.
+  I found an inefficient database query causing the delay.
+  I optimized the query and tested the fix thoroughly.
+  After deployment, performance improved significantly.
+  The issue was resolved within SLA with no business impact.
+
+4)How Do You Handle Pressure or Tight Deadlines?
+  I stay calm and first understand the priority and impact.
+  I break tasks into smaller pieces and focus on critical items first.
+  I communicate clearly with stakeholders about timelines.
+  I avoid shortcuts that affect code quality.
+  If needed, I ask for help early instead of delaying.
+  I regularly update progress to the team.
+  This approach helps me deliver on time with quality.
+
+5)What Do You Do If You Don’t Know Something?
+  If I don’t know something, I first analyze the problem.
+  I refer to documentation and existing code.
+  I try small experiments in lower environments.
+  If needed, I discuss with seniors or teammates.
+  I make sure to understand the solution clearly.
+  I document the learning for future reference.
+  This helps me grow and avoid repeating mistakes.
+
+6)How Do You Handle Production & Development Together?
+  I clearly understand priorities and SLAs.
+  Production issues always take higher priority.
+  I manage time by planning development tasks properly.
+  I communicate status clearly with the team.
+  Once production is stable, I continue development work.
+  This balance ensures stability and delivery.
+  It has helped me handle both responsibilities effectively.
+
+7)Describe a Challenge You Faced and How You Solved It
+We faced a production issue where the Kafka consumer lag was increasing and messages were processing slowly.
+On analysis, we noticed frequent consumer rebalancing during peak traffic.
+The root cause was a large batch size and low poll interval, causing processing to exceed the poll timeout.
+Kafka assumed the consumer was unhealthy and kept rebalancing.
+To fix this, we reduced the batch size using max.poll.records from 500 to 100.
+We also increased max.poll.interval.ms from 60000(1 min) to 300000(5 min)to match the actual processing time.
+Additionally, we disabled auto-commit to commit offsets only after successful processing.
+We tested the changes in lower environments and monitored lag metrics.
+After deployment, consumer lag reduced and message processing became stable.
+
+8)Why Are You Looking for a Change?
+I have gained strong experience in Java, Spring Boot, and microservices while working at JP Morgan Chase.
+I’ve also handled production support, which helped me build strong problem-solving skills.
+Now, I’m looking to move into a role with more development ownership and design exposure.
+I want to work on challenging features end-to-end, not just support activities.
+I’m interested in learning more about scalable systems and architecture.
+Your organization offers opportunities that align well with my technical background.
+This change will help me grow professionally and add more value.
+
+-->What Is Your Notice Period?
+   My current notice period is [mention your notice period, e.g., 30/60 days].
+   I am flexible and can coordinate with my current employer to join at the earliest possible date.
+   If needed, I can work on transition plans to ensure a smooth handover.
+
+9)What Are Your Strengths?
+  One of my key strengths is problem-solving, especially in production environments.
+  I stay calm under pressure and focus on identifying the root cause quickly.
+  I have strong hands-on experience in Java, Spring Boot, and microservices.
+  I take ownership of tasks and ensure they are completed end to end.
+  I communicate clearly with team members and stakeholders.
+  I continuously upskill myself to stay updated with new technologies.
+  These strengths help me deliver stable and reliable solutions.
+
+10)What Is Your Weakness?
+   Earlier, I used to spend too much time perfecting my solutions, especially in critical systems.
+   While this ensured quality, it sometimes affected delivery speed.
+   I realized this through feedback from my team and managers.
+   I worked on improving prioritization and time management.
+   Now, I focus on business impact first and deliver incrementally.
+   I still maintain quality through reviews and testing.
+   This has helped me become more efficient and balanced.
+
+11)How Do You Manage Conflicts Within Your Team?
+   I first try to understand both sides objectively without taking it personally.
+   I listen carefully and clarify the root cause of the disagreement.
+   I focus the discussion on project goals and business impact, not individuals.
+   I encourage open communication and suggest data-driven solutions.
+   If needed, I involve a senior or lead to get a neutral perspective.
+   I ensure the final decision is clearly communicated and agreed upon.
+   This approach helps resolve conflicts while maintaining team trust.
+
+12)Can you describe a time when you took the lead on a project?
+During one release, our team faced a critical production issue in a microservice.
+I took the initiative to coordinate the investigation and fix.
+I analyzed logs, identified the root cause, and divided tasks among team members.
+I communicated status updates to stakeholders and ensured timelines were clear.
+I implemented the fix and validated it with proper testing.
+After deployment, the system stabilized without further issues.
+This helped meet SLAs and improved team confidence.
+
+13)How Do You Ensure Effective Communication with Stakeholders?
+I first understand the stakeholder’s expectations and priorities clearly.
+I communicate updates in simple, non-technical language when required.
+I provide regular status updates on progress, risks, and timelines.
+For critical issues, I share impact, root cause, and resolution plan clearly.
+I ensure transparency and avoid last-minute surprises.
+I actively listen to feedback and clarify doubts early.
+This approach builds trust and alignment with stakeholders.
+
+14)How Do You Handle Failure or Setbacks?
+   When a setback occurs, I first stay calm and assess the impact on the project.
+   I identify the root cause instead of focusing on failures.
+   I communicate the issue and revised plan clearly to stakeholders.
+   I take corrective actions and adjust timelines if required.
+   I ensure the fix is properly tested to avoid repeat issues.
+   I document the learnings and preventive measures.
+   This approach helps turn failures into improvements and stability.
+
+15)How Do You Keep Your Team Motivated?
+   I keep the team motivated by first setting clear goals and expectations for the project.
+   I recognize and appreciate individual contributions regularly.
+   I encourage open communication and ensure everyone’s ideas are heard.
+   For long projects, I break tasks into smaller milestones to give a sense of progress.
+   I provide support when challenges arise and help solve blockers.
+   I also share the bigger business impact of our work to keep morale high.
+   This approach helps the team stay focused, engaged, and productive throughout the project.
+
+16)What Is Your Management Style?
+   My management style is collaborative and supportive.
+   I focus on clear communication and setting expectations upfront.
+   I like to empower team members by giving them ownership of tasks.
+   I encourage open discussion, feedback, and idea-sharing to solve problems.
+   I balance guidance with autonomy, allowing the team to make decisions.
+   I monitor progress and provide help proactively to remove blockers.
+   This style ensures accountability, engagement, and timely delivery.
+
+17)Why Should We Hire You?
+   I bring 4 years of hands-on experience in Java, Spring Boot, Microservices, and Kafka, along with production support experience in a banking environment.
+   I have strong problem-solving skills and can handle critical incidents calmly and effectively.
+   I take ownership of tasks and ensure end-to-end delivery with quality.
+   I am proactive in identifying improvements and optimizing processes.
+   I communicate effectively with team members and stakeholders.
+   I continuously upskill myself to stay updated with latest technologies.
+   Overall, I can contribute immediately and help deliver stable, scalable, and high-quality solutions.
+18)What Motivates You?
+   I am motivated by solving challenging problems and delivering solutions that make a real impact.
+   Working on critical banking microservices and ensuring smooth production operations gives me a sense of accomplishment.
+   I enjoy learning new technologies and applying them to improve processes and system performance.
+   Seeing my work help customers and business users motivates me to perform better.
+   I am also driven by taking ownership of tasks and leading them to successful completion.
+   Collaboration and sharing knowledge with teammates further motivate me to grow.
+   Overall, making meaningful contributions while continuously learning keeps me motivated.
+
+19)How Do You Perform Under Pressure?
+   I stay calm and analyze the situation carefully before taking action.
+   I prioritize tasks based on business impact and urgency.
+   I break complex problems into smaller, manageable steps to tackle efficiently.
+   I communicate clearly with stakeholders and team members to set expectations.
+   I rely on my experience with critical banking microservices and production incidents to make informed decisions.
+   I focus on finding solutions rather than worrying about the problem.
+   This approach helps me deliver results effectively even under high-pressure situations.
