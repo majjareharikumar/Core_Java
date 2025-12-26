@@ -12,7 +12,17 @@ public class Palindrome {
     }
 
     public static void main(String[] args) {
-        String s="MadAm";
-        System.out.print(isPalindrome(s));
+        String s="madam";
+        System.out.println(isPalindrome(s));
+
+        //Java8
+        System.out.println("using java8");
+        String result=s.chars()
+                .mapToObj(c->(char)c)
+                .map(String::valueOf)
+                .map(String::toLowerCase)
+                .reduce("",(a,b)->b+a);
+        System.out.println(result);
+        System.out.println(s.equals(result));
     }
 }

@@ -28,5 +28,11 @@ public class EmployeeList {
                 .collect(Collectors.groupingBy(Employee::deptName,Collectors.summingDouble(Employee::salary)));
         System.out.println(sal);
 
+        Map<String, DoubleSummaryStatistics>deptSalary=employeeList.stream()
+                .collect(Collectors.groupingBy(Employee::deptName,Collectors.summarizingDouble(Employee::salary)));
+        deptSalary.forEach((e,k)->{
+            System.out.println(e+"-->"+k.getSum());
+        });
+
     }
 }
