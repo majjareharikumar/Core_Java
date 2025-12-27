@@ -1,0 +1,64 @@
+1.Self intro
+2.Which version of java using and features
+3.Type of stream API and when we will use those
+4 Even number filter program
+5.ArrayList creation
+6.Difference between request param and path param, write syntax
+7.Flow of spring boot application
+8.Microservices architecture
+9.Internal working of hash map
+10.Inner join sql query
+11.Concurrence in threading
+12.Exception handling in spring boot
+13. How u will deploy application in k8s and commands
+14. Git commands, pull, push.
+15. How u will deploy u r changes in to another branch
+16. What is kafka and where we will use kafka and why.
+17. Rest api signature, get, put, post, delete
+18. Lambda expression syntax
+19. Difference between hash map and concurrence hash map
+20. How we can make hash map as concurrent
+----------------------------------------------------------------------------
+1) what is singleton class and how we can make it as thread safe and write program
+2) Occurrence of each letter in string program
+3) what are the design patterns u used in project
+4) About actuator end points
+5)@Spring annotations
+6)What security used in project
+7) what is kafka and why it is using, explain scenarios
+8) microservices communication
+9) what are security annotations
+10) exception handling, types and differences
+11) why we use custom exceptions
+12) How we can make a class/ method thread safe.
+13) How we will achieve multithredding
+14) what if we hit run method instead of start
+15) about feign client or rest tamplate for service communication
+16) Explain Microservices architecture
+17) about Functional interface
+18) Explain about OOPS concepts
+19) What is spring boot and why we use
+20) git commands, if any conflict how u resolve
+21) about CI CD
+22) what is mockito and why
+23)how we can change port number
+24) About spring profiles and how we save in resources folder
+25) circuit breaker settings in property file
+-------------------------------------------------------------------------
+1) About project
+2) What is your role and responsibilities
+3) why looking for job change
+4) about notice period, when you will join if you select
+5)About openAPI/Swagger
+6)About Kafka, what is partition in kafka
+----------------------------------------------------------------------
+1. About spring boot
+2. Difference between spring framework and spring boot
+3. Palindrome program
+4. Get results like country name and total amount by java 8 stream. Is any other way?
+5. What Deep copy and shallow copy. Where we use it.
+6. What is session management. How we can use it in spring boot. How we know that it is same user or different user.
+7. About jmeter
+8. About project
+9)What is functional interface, why we need functional interface, if it have multiple abstract methods what it will be?
+

@@ -1,0 +1,80 @@
+1)What is Apache Kafka?
+Apache Kafka is a distributed, event-streaming platform used to build real-time data pipelines and streaming applications.
+It follows a publish–subscribe model, where producers publish messages and consumers consume them.
+Kafka is designed for high throughput, low latency, and fault tolerance.
+It stores messages in topics, which are divided into partitions.
+Kafka is widely used for event-driven microservices, logging, monitoring, and real-time analytics.
+It can handle millions of messages per second reliably.
+
+2)What are the main components of Kafka?
+  Kafka consists of Producer, Broker, Topic, Partition, Consumer, Consumer Group, and Zookeeper/KRaft.
+  Producers send messages to Kafka topics.
+  Brokers store and manage messages.
+  Topics are logical message categories, split into partitions for scalability.
+  Consumers read messages from topics.
+  Consumer groups allow parallel processing.
+  Zookeeper (or KRaft) manages cluster metadata and leader election.
+
+3)What is a Kafka Topic?
+  A topic is a logical channel to which producers send messages and consumers read messages.
+  Topics are append-only logs, meaning data is written sequentially.
+  Each topic is divided into partitions for parallelism and scalability.
+  Messages in a topic are immutable.
+  Kafka does not delete messages immediately after consumption.
+  Retention is based on time or size configuration.
+
+4)What is a Partition and why is it important?
+A partition is a subdivision of a Kafka topic that stores messages in a fixed, ordered sequence.
+It allows parallel processing and horizontal scaling of data.
+Each partition is an ordered, immutable sequence of messages.
+Kafka guarantees ordering only within a partition, not across partitions.
+Partitions enable parallel consumption by multiple consumers.
+Each partition has one leader and optional followers.
+More partitions mean better throughput but higher management overhead.
+
+5)What is an Offset?
+  An offset is a unique identifier for each message within a partition.
+  It represents the consumer’s current position.
+  Offsets help Kafka track which messages are processed.
+  Consumers store offsets in Kafka (__consumer_offsets topic).
+  Offsets can be committed automatically or manually.
+  Manual commit is preferred for better reliability.
+
+6)What is Replication in Kafka?
+  Replication means copying partitions across multiple brokers.
+  Each partition has one leader and multiple followers.
+  Followers replicate data from the leader.
+  If the leader fails, a follower becomes the new leader.
+  Replication improves fault tolerance and availability.
+  Replication factor defines how many copies exist.
+
+1️⃣ Kafka Producer Configuration Properties
+| Property             | Description & Use                                                                                                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `bootstrap.servers`  | Comma-separated list of broker addresses (`host:port`). Used to **connect the producer to Kafka cluster**.                                                                           |
+| `key.serializer`     | Serializer class for key. E.g., `StringSerializer`. Converts key to bytes.                                                                                                           |
+| `value.serializer`   | Serializer class for value. E.g., `StringSerializer`, `ByteArraySerializer`.                                                                                                         |
+| `acks`               | Number of acknowledgments producer requires: <br>• `0`: No ack, fastest, risk of data loss <br>• `1`: Leader ack, balanced <br>• `all` or `-1`: All ISR ack, ensures **durability**. |
+| `retries`            | Number of retry attempts if sending fails. Helps **fault tolerance**.                                                                                                                |
+| `linger.ms`          | Time to wait before sending a batch. Helps **batching** for higher throughput.                                                                                                       |
+| `batch.size`         | Max size (bytes) of a batch. Larger batches = better throughput.                                                                                                                     |
+| `buffer.memory`      | Total memory producer can use to buffer messages. Avoids OutOfMemory errors.                                                                                                         |
+| `compression.type`   | Message compression: `none`, `gzip`, `snappy`, `lz4`, `zstd`. Reduces **network load**.                                                                                              |
+| `enable.idempotence` | Ensures **no duplicate messages**. Needed for **exactly-once semantics**.                                                                                                            |
+| `transactional.id`   | Enables **transactions** for atomic writes to multiple topics/partitions. Used with **exactly-once semantics**.                                                                      |
+
+2️⃣ Kafka Consumer Configuration Properties
+| Property                  | Description & Use                                                                                                                                   |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bootstrap.servers`       | Broker addresses to connect consumer. Same as producer.                                                                                             |
+| `group.id`                | Unique consumer group ID. Used for **load balancing** and **offset tracking**.                                                                      |
+| `key.deserializer`        | Deserializer class for key. E.g., `StringDeserializer`.                                                                                             |
+| `value.deserializer`      | Deserializer class for value. E.g., `StringDeserializer`.                                                                                           |
+| `auto.offset.reset`       | What to do when there’s no committed offset: <br>• `earliest`: start from beginning <br>• `latest`: start from newest <br>• `none`: throw exception |
+| `enable.auto.commit`      | Whether to commit offsets automatically. `true` = auto-commit, `false` = manual commit (safer).                                                     |
+| `auto.commit.interval.ms` | Interval for **auto-commit**. Effective only if auto commit is enabled.                                                                             |
+| `max.poll.records`        | Max records returned in a single poll. Controls **batch size** for processing.                                                                      |
+| `session.timeout.ms`      | Time before Kafka considers a consumer dead if no heartbeat is received. Used for **rebalance**.                                                    |
+| `heartbeat.interval.ms`   | Interval for sending heartbeats to broker. Must be **less than session timeout**.                                                                   |
+| `fetch.min.bytes`         | Minimum bytes broker returns per fetch. Helps **batching** for throughput.                                                                          |
+| `fetch.max.wait.ms`       | Max time broker waits to fulfill `fetch.min.bytes`. Balances **latency vs throughput**.                                                             |

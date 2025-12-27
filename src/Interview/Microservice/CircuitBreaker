@@ -1,0 +1,25 @@
+✅ What is Circuit Breaker?
+A Circuit Breaker is a design pattern used in microservices to prevent repeated calls to a failing service.
+When a dependent service is slow or down, the circuit breaker opens and stops further calls temporarily.
+Instead of waiting and failing repeatedly, it returns a fallback response.
+This protects the system from cascading failures.
+Once the service recovers, the circuit breaker closes and traffic resumes normally.
+
+✅ Circuit Breaker States
+Closed – Normal state, requests go through
+Open – Service is failing, requests are blocked
+Half-Open – Few test requests are allowed to check recovery
+
+✅ Spring Boot Circuit Breaker (Resilience4j) – Properties File
+# Enable circuit breaker
+resilience4j.circuitbreaker.enabled=true
+
+# Default configuration
+resilience4j.circuitbreaker.instances.myService.register-health-indicator=true
+resilience4j.circuitbreaker.instances.myService.sliding-window-type=COUNT_BASED
+resilience4j.circuitbreaker.instances.myService.sliding-window-size=10
+resilience4j.circuitbreaker.instances.myService.minimum-number-of-calls=5
+resilience4j.circuitbreaker.instances.myService.failure-rate-threshold=50
+resilience4j.circuitbreaker.instances.myService.wait-duration-in-open-state=10s
+resilience4j.circuitbreaker.instances.myService.permitted-number-of-calls-in-half-open-state=3
+resilience4j.circuitbreaker.instances.myService.automatic-transition-from-open-to-half-open-enabled=true

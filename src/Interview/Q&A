@@ -157,9 +157,62 @@ public class ReflectionExample {
 ->REST is preferred when services need an immediate response.
 ->Messaging (Kafka, RabbitMQ) is used when we want loose coupling, scalability, and reliability.
 
-Feign Client is used in Spring Cloud microservices for easy, declarative service-to-service communication.
-RestTemplate is used only in legacy applications for simple, blocking (synchronous) HTTP calls.
-WebClient is used in modern Spring apps for both synchronous and reactive high-performance communication.
+=>Feign Client is used in Spring Cloud microservices for easy, declarative service-to-service communication.
+1️⃣ Feign Client (Spring Cloud)
+🔹 Enable Feign
+@SpringBootApplication
+@EnableFeignClients
+public class OrderServiceApplication {
+}
+🔹 Feign Client Interface
+@FeignClient(name = "payment-service")
+public interface PaymentClient {
+
+    @GetMapping("/payments/{id}")
+    PaymentResponse getPayment(@PathVariable Long id);
+}
+
+=>RestTemplate is used only in legacy applications for simple, blocking (synchronous) HTTP calls.
+2️⃣ RestTemplate (Legacy / Blocking)
+🔹 Bean Configuration
+@Configuration
+public class RestTemplateConfig {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+🔹 Usage in Service
+@Autowired
+private RestTemplate restTemplate;
+
+PaymentResponse response =
+    restTemplate.getForObject(
+        "http://payment-service/payments/1",
+        PaymentResponse.class
+    );
+=>WebClient is used in modern Spring apps for both synchronous and reactive high-performance communication.
+3️⃣ WebClient (Modern / Reactive)
+🔹 Bean Configuration
+@Configuration
+public class WebClientConfig {
+
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder().build();
+    }
+}
+🔹 Usage in Service
+@Autowired
+private WebClient webClient;
+
+PaymentResponse response =
+    webClient.get()
+             .uri("http://payment-service/payments/1")
+             .retrieve()
+             .bodyToMono(PaymentResponse.class)
+             .block();
 
 RabbitMQ is used where messages must be delivered quickly and reliably, one by one.
 Perfect for chat apps, notifications, task queues, order processing, email services, etc.
@@ -931,5 +984,14 @@ This makes the application cleaner, reduces boilerplate code, and avoids SQL-rel
 We use pagination and streaming to avoid loading large data into memory.
 Heavy processing is done asynchronously using Kafka/RabbitMQ.
 Performance is improved using caching, DB indexing, and horizontal scaling.
+
+53)What is OpenAPI?
+   OpenAPI is a standard specification used to describe REST APIs in a clear, machine-readable format.
+   It defines endpoints, request/response formats, headers, parameters, and error codes.
+   OpenAPI helps developers understand and consume APIs without reading code.
+   It allows automatic generation of API documentation, client code, and server stubs.
+   Swagger is a popular tool that implements the OpenAPI specification.
+   In Spring Boot, OpenAPI is commonly used to generate interactive API docs (Swagger UI).
+   This improves collaboration between frontend, backend, and QA teams.
 
 
