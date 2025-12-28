@@ -1,19 +1,34 @@
 package DSA.Array.Code;
 
+import java.util.stream.IntStream;
+
 public class Findmissingnumber {
-    public static int missingNumber(int[] arr){
-        int a=arr[1]-arr[0];
-        for(int i=0;i<arr.length-1;i++){
-            if(arr[i+1]-arr[i]!=a){
-                return arr[i]+a;
-            }
-        }
-        return arr[arr.length-1]+a;
-    }
 
     public static void main(String[] args) {
-        int[] arr={0,1,2,3,4,5};
+        int[] arr={1,2,4,5,6};
+        int n=arr.length+1;
+        int expectedSum=n*(n+1)/2;
+        int actualSum=0;
 
-        System.out.println(missingNumber(arr));
+        for(int num:arr){
+            actualSum+=num;
+        }
+        int missng=expectedSum-actualSum;
+        System.out.println("Missing Number:- "+missng);
+
+        //java8
+        int expected = IntStream.rangeClosed(1,n).sum();
+        int actual=IntStream.of(arr).sum();
+        System.out.println(expected-actual);
+
+        //OR
+
+        int s=arr[0];
+        int e=arr[arr.length-1];
+
+        int expect=IntStream.rangeClosed(s,e).sum();
+        int actual1=IntStream.of(arr).sum();
+        System.out.println(expect-actual1);
+
     }
 }
