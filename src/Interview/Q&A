@@ -994,4 +994,81 @@ Performance is improved using caching, DB indexing, and horizontal scaling.
    In Spring Boot, OpenAPI is commonly used to generate interactive API docs (Swagger UI).
    This improves collaboration between frontend, backend, and QA teams.
 
+54)What is responseEntity in spring boot and why we are using it?
+ResponseEntity represents the complete HTTP response in Spring Boot.
+It allows us to control the response body, HTTP status code, and headers.
+We use it to return proper REST responses like 200 OK, 201 Created, 404 Not Found.
+It helps in handling success and error scenarios clearly.
+Custom headers can be added to the response when needed.
+ResponseEntity makes APIs more flexible and REST-compliant.
 
+55)Explanation of Entity, DTO, and DAO classes and why we use them
+✅ Entity Class
+An Entity class represents a database table in a Spring/JPA application.
+Each field in the entity maps to a column in the table.
+It is annotated with @Entity and related JPA annotations.
+Entity objects are managed by the JPA/Hibernate framework.
+Used for persistence operations like save, update, delete.
+It should not contain business or presentation logic.
+
+✅ DTO (Data Transfer Object) Class
+A DTO class is used to transfer data between layers (API ↔ Service).
+It contains only the data required by the client.
+DTOs help hide internal entity structure from external users.
+They improve security by exposing only needed fields.
+DTOs reduce data over-fetching.
+Commonly used in REST API requests and responses.
+
+✅ DAO (Data Access Object) Class
+A DAO class handles database operations like CRUD.
+It acts as a bridge between service layer and database.
+DAO contains queries and persistence logic.
+In Spring, DAO is usually implemented using Repository interfaces.
+It separates business logic from database logic.
+Improves maintainability and testability.
+
+56)HTTP API response codes
+✅ 1xx – Informational
+100 Continue – Request received, client can continue sending data.
+
+✅ 2xx – Success
+200 OK – Request processed successfully.
+201 Created – Resource successfully created.
+202 Accepted – Request accepted but processing is not completed.
+204 No Content – Request successful but no response body.
+
+✅ 3xx – Redirection
+301 Moved Permanently – Resource permanently moved to a new URL.
+302 Found – Resource temporarily available at another URL.
+304 Not Modified – Resource not changed since last request (cache used).
+
+✅ 4xx – Client Error
+400 Bad Request – Invalid request or wrong input data.
+401 Unauthorized – Authentication required or failed.
+403 Forbidden – Access denied despite valid authentication.
+404 Not Found – Requested resource not found.
+405 Method Not Allowed – HTTP method not supported for this endpoint.
+409 Conflict – Request conflicts with current resource state.
+422 Unprocessable Entity – Valid request but business validation failed.
+
+✅ 5xx – Server Error
+500 Internal Server Error – Unexpected server failure.
+502 Bad Gateway – Invalid response from upstream service.
+503 Service Unavailable – Server temporarily unavailable.
+504 Gateway Timeout – Upstream service took too long to respond.
+
+🔴 500 – Internal Server Error
+Occurs when the server fails due to a bug or exception.
+Indicates an unexpected error in application code.
+Server is running but something broke internally.
+Example: NullPointerException, DB query failure.
+Usually needs code fix or debugging.
+Client should not retry immediately.
+
+🟠 503 – Service Unavailable
+Occurs when the server is temporarily unavailable.
+Server may be down, overloaded, or under maintenance.
+Application code is not faulty.
+Example: DB down, service overloaded, circuit breaker open.
+Usually temporary, client can retry later.
+Common in microservices & load-balanced systems.
