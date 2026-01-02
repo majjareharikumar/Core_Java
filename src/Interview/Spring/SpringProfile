@@ -10,6 +10,12 @@ application.properties → spring.profiles.active=dev
 Command line → --spring.profiles.active=prod
 Programmatically using SpringApplication.setAdditionalProfiles().
 
+Spring Boot profile files must be named like this:
+application-<profile>.properties
+OR
+application-<profile>.yml
+
+
 How it Works
 You can annotate beans with @Profile("dev") or @Profile("prod").
 Spring will only create/load beans for the active profile.

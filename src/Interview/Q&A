@@ -940,7 +940,7 @@ Both services depend on each other → circular dependency.
   PaymentService listens and processes it
   No direct dependency → no circular issue.
 
-47)Difference between @Inject and @Autowired (6 lines)
+47)Difference between @Inject and @Autowired
    @Autowired is a Spring-specific annotation used for dependency injection.
    @Inject is a Java standard (JSR-330) annotation and not tied to Spring.
    @Autowired supports features like required = false and can inject lists, maps, etc.
@@ -948,7 +948,7 @@ Both services depend on each other → circular dependency.
    Both can inject through constructor, setter, and field injection.
    In Spring Boot projects, both behave almost the same, but @Autowired is more commonly used.
 
-48)What is @Transient in JPA? (6–7 lines)
+48)What is @Transient in JPA?
    @Transient is a JPA annotation used to mark a field in an entity class that should not be persisted in the database.
    When a field is annotated with @Transient, JPA ignores it during insert, update, and select operations.
    It is mainly used for fields that are required only for business logic, temporary calculations, or values derived at runtime.
