@@ -1072,3 +1072,84 @@ Application code is not faulty.
 Example: DB down, service overloaded, circuit breaker open.
 Usually temporary, client can retry later.
 Common in microservices & load-balanced systems.
+
+57)What are the 5 SOLID Principles of OOP?
+S – Single Responsibility Principle (SRP)
+   A class should have only one reason to change.
+   It should do one job, and do it well.
+O – Open/Closed Principle (OCP)
+   Classes should be open for extension but closed for modification.
+   We add new features without changing existing code.
+L – Liskov Substitution Principle (LSP)
+   A child class should replace its parent class without breaking behavior.
+   Subclasses must follow the parent’s rules.
+I – Interface Segregation Principle (ISP)
+   Don’t force a class to implement methods it doesn’t need.
+   Use small, specific interfaces.
+D – Dependency Inversion Principle (DIP)
+   Depend on interfaces, not concrete classes.
+   This makes code loosely coupled and easy to test.
+
+🛒 Real-Time Example: Order Processing in an E-commerce Application
+1️⃣ Single Responsibility Principle (SRP)
+OrderService only handles order creation.
+PaymentService handles payment processing.
+InvoiceService handles invoice generation.
+👉 Each class has one responsibility.
+
+2️⃣ Open/Closed Principle (OCP)
+We add new payment methods like UPI, Credit Card, Wallet by creating new classes.
+Existing payment code is not modified.
+👉 System is extended without breaking old code.
+
+3️⃣ Liskov Substitution Principle (LSP)
+CreditCardPayment and UpiPayment can replace Payment without issues.
+Order flow works the same for all payment types.
+👉 Child classes behave correctly like parent.
+
+4️⃣ Interface Segregation Principle (ISP)
+Payment interface has only pay() method.
+Refund logic is in a separate Refundable interface.
+👉 Classes implement only what they need.
+
+5️⃣ Dependency Inversion Principle (DIP)
+OrderService depends on Payment interface, not concrete classes.
+We can switch payment providers without changing OrderService.
+👉 Code becomes loosely coupled and testable.
+
+58)what is  fail-fast and fail-safe iterator? What is the difference between fail-fast and fail-safe iterator?
+   ✅ What is Fail-Fast Iterator?
+   A Fail-Fast iterator immediately throws a ConcurrentModificationException if the collection is structurally modified while iterating (except through the iterator’s own remove() method).
+   It works directly on the original collection, so it detects changes quickly to avoid inconsistent behavior.
+   Fail-fast iterators are not thread-safe.
+   They help identify bugs early during iteration.
+   Most Java Collections Framework iterators are fail-fast.
+
+   Examples: ArrayList, HashMap, HashSet
+
+   ✅ What is Fail-Safe Iterator?
+   A Fail-Safe iterator does not throw any exception when the collection is modified during iteration.
+   It works on a copy (snapshot) of the collection instead of the original one.
+   So modifications do not affect the iteration.
+   Fail-safe iterators are thread-safe.
+   The drawback is extra memory usage due to copying.
+
+   Examples: CopyOnWriteArrayList, ConcurrentHashMap
+
+   ✅ Fail-Fast Iterator – Real-World Scenario
+   🏦 Bank Transaction Processing System
+   A service is iterating over a list of pending transactions.
+   While processing, no other thread is allowed to modify the list.
+   If someone adds/removes a transaction during iteration, it indicates a serious bug.
+   Fail-fast iterator immediately throws ConcurrentModificationException.
+   This helps developers detect the issue early.
+   Data consistency is more important than availability.
+
+   ✅ Fail-Safe Iterator – Real-World Scenario
+   🌐 Online User Session Management (Microservices)
+   A microservice is iterating over active user sessions.
+   New users may log in or log out simultaneously.
+   The iteration must not fail, even if the collection changes.
+   Fail-safe iterator works on a copy of the data.
+   The system continues running smoothly without exceptions.
+   Availability is more important than strict consistency.

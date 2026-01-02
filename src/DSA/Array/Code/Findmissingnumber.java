@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 public class Findmissingnumber {
 
     public static void main(String[] args) {
-        int[] arr={1,2,4,5,6};
+        int[] arr={1,2,3,5,6,7};
         int n=arr.length+1;
         int expectedSum=n*(n+1)/2;
         int actualSum=0;
@@ -23,6 +23,7 @@ public class Findmissingnumber {
 
         //OR
 
+        //if the numbers are not starting from 1
         int s=arr[0];
         int e=arr[arr.length-1];
 

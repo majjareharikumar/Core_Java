@@ -42,6 +42,9 @@ If entry found with the match it will delete from the Array or unlinked from lis
 
 contract between hashCode() and equals():-
 ----------------------------------------------
+Both hashCode() and equals() are used by hash-based collections like HashMap, HashSet, and Hashtable.
+hashCode() determines the bucket(index) where the element will be stored.
+equals() is used to check for equality when keys collide (i.e., same hash code).
 In HashMap, the hashCode() and equals() methods ensure correct key storage and retrieval.
 If two keys are equal according to equals(), they must return the same hash code;
 otherwise, they may be placed in different buckets, causing errors.
