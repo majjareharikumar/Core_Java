@@ -43,6 +43,11 @@ Synchronization is used to control access to shared resources by multiple thread
 It prevents race conditions where two or more threads try to change shared data at the same time.
 You can use the synchronized keyword in methods or blocks.
 It ensures that only one thread at a time can execute the critical section.
+15. What is a race condition?
+Answer:
+A race condition occurs when multiple threads access shared data and try to change it at the same time.
+Because the thread execution order is unpredictable, it can lead to inconsistent results.
+It’s typically fixed using synchronization or atomic variables.
 
 7. What is a deadlock in multithreading?
 Answer:
@@ -131,11 +136,7 @@ Examples include Garbage Collector and monitoring threads.
 Set a thread as daemon using thread.setDaemon(true) before calling start().
 JVM exits when only daemon threads are left.
 
-15. What is a race condition?
-Answer:
-A race condition occurs when multiple threads access shared data and try to change it at the same time.
-Because the thread execution order is unpredictable, it can lead to inconsistent results.
-It’s typically fixed using synchronization or atomic variables.
+
 
 16. How does join() work in threads?
 Answer:

@@ -23,7 +23,7 @@ public class Duplicate_characters {
         System.out.println("Using java8");
         Map<Character,Long> map1=word.chars()
                 .mapToObj(c->(char)c)
-                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+                .collect(Collectors.groupingBy(c->c,Collectors.counting()));
        map1.entrySet().stream()
                .filter(e->e.getValue()>1)
                .forEach(e-> System.out.print(e.getKey()+","));

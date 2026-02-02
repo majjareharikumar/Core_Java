@@ -1,10 +1,15 @@
 Q1. What is Exception Handling in Java?
 Exception Handling in Java is a powerful mechanism to handle runtime errors and maintain normal application flow.
-It allows the program to catch and deal with unexpected events like invalid input, file not found, etc. Java uses try, catch, finally, throw, and throws keywords.
+It allows the program to catch and deal with unexpected events like invalid input, file not found, etc.
+Java uses try, catch, finally, throw, and throws keywords.
 Proper exception handling improves program stability and makes debugging easier.
 
 Q2. Difference between Checked and Unchecked Exceptions?
-Checked exceptions are checked at compile time (e.g., IOException, SQLException) and must be either caught or declared using throws. Unchecked exceptions are not checked at compile time (e.g., NullPointerException, ArithmeticException). They usually indicate programming errors and occur at runtime. Both extend from Throwable but checked exceptions extend Exception, not RuntimeException.
+Both extend from Throwable but checked exceptions extend Exception and Unchecked Exceptions extends RuntimeException.
+Checked exceptions are checked at compile time (e.g., IOException, SQLException) and must be either caught or declared using throws.
+Unchecked exceptions are not checked at compile time (e.g., NullPointerException, ArithmeticException).
+They usually indicate programming errors and occur at runtime.
+
 
 Q3. What is the difference between throw and throws in Java?
 throw is used to explicitly throw an exception object in the code.
@@ -16,7 +21,9 @@ throw new IOException("File not found");
 throw is used inside methods; throws is used in method signatures.
 
 Q4. What is the use of finally block?
-The finally block is used to execute important code like resource cleanup (closing files, releasing DB connections) regardless of whether an exception is thrown or caught. It always runs after the try and catch blocks. Even if a return is called or an exception occurs, finally will still execute (except for System.exit()).
+The finally block is used to execute important code like resource cleanup (closing files, releasing DB connections) regardless of whether an exception is thrown or caught.
+It always runs after the try and catch blocks.
+Even if a return is called or an exception occurs, finally will still execute (except for System.exit()).
 
 Q5. What is the difference between final, finally, and finalize?
 final: Keyword to define constants or prevent inheritance/overriding.
@@ -27,10 +34,13 @@ finalize(): A method called by Garbage Collector before destroying an object, us
 They sound similar but serve very different purposes in Java.
 
 Q6. Can a try block exist without a catch block?
-Yes, a try block can exist without a catch block, only if it has a finally block. Either catch or finally must follow the try block. This is often used when you want to perform some cleanup in finally, regardless of whether an exception is caught.
+Yes, a try block can exist without a catch block, only if it has a finally block.
+Either catch or finally must follow the try block.
+This is often used when you want to perform some cleanup in finally, regardless of whether an exception is caught.
 
 Q7. What is custom exception in Java?
-A custom exception is a user-defined exception class that extends Exception or RuntimeException. It's used when Java’s built-in exceptions don't describe your specific error scenario. Example:
+A custom exception is a user-defined exception class that extends Exception or RuntimeException.
+It's used when Java’s built-in exceptions don't describe your specific error scenario. Example:
 
 class AgeNotValidException extends Exception {
   AgeNotValidException(String msg) { super(msg); }
@@ -38,10 +48,13 @@ class AgeNotValidException extends Exception {
 Custom exceptions make error handling clearer and domain-specific.
 
 Q8. What happens if an exception is not handled?
-If an exception is not handled, the program will terminate abnormally and print a stack trace. This can lead to poor user experience and potential data loss. Unhandled exceptions bubble up the call stack until caught or until the JVM handles them by printing the error and exiting the program.
+If an exception is not handled, the program will terminate abnormally and print a stack trace.
+This can lead to poor user experience and potential data loss.
+Unhandled exceptions bubble up the call stack until caught or until the JVM handles them by printing the error and exiting the program.
 
 Q9. Can we have multiple catch blocks for a single try block?
-Yes, Java allows multiple catch blocks to handle different types of exceptions that may occur in a single try block. They are evaluated in order, from top to bottom. Always place subclass exceptions before superclass ones to avoid unreachable code.
+Yes, Java allows multiple catch blocks to handle different types of exceptions that may occur in a single try block.
+They are evaluated in order, from top to bottom. Always place subclass exceptions before superclass ones to avoid unreachable code.
 
 Q10. What is the use of multi-catch block in Java 7+?
 Java 7 introduced the multi-catch block, allowing you to catch multiple exceptions in a single catch using the | (pipe) symbol:
@@ -65,7 +78,9 @@ Error represents serious problems that are usually not recoverable (e.g., OutOfM
 We handle exceptions in code, but errors are often handled by the JVM.
 
 Q13. Can we catch an Error in Java?
-Yes, technically we can catch an Error using a catch (Error e) block, but it is not recommended. Errors indicate serious problems (like memory issues) that shouldn't be handled in code. Catching them may prevent the JVM from shutting down properly or cause unpredictable behavior.
+Yes, technically we can catch an Error using a catch (Error e) block, but it is not recommended.
+Errors indicate serious problems (like memory issues) that shouldn't be handled in code.
+Catching them may prevent the JVM from shutting down properly or cause unpredictable behavior.
 
 Q14. Scenario: A file operation throws an IOException. How would you handle it?
 You can use try-catch-finally like this:
@@ -103,7 +118,8 @@ try {
 Output will be 20. This behavior can be confusing and should be avoided.
 
 Q18. What is the purpose of try-with-resources in Java 7+?
-try-with-resources is used for automatic resource management. It ensures that resources like streams, files, DB connections are closed automatically when the block finishes.
+try-with-resources is used for automatic resource management.
+It ensures that resources like streams, files, DB connections are closed automatically when the block finishes.
 Example:
 
 try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {

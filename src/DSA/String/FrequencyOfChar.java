@@ -21,10 +21,9 @@ public class FrequencyOfChar {
         System.out.println("using java8");
         Map<Character,Long> map1=str.chars()
                 .mapToObj(c->(char)c)
-                .collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new,Collectors.counting()));
-        for(Map.Entry<Character,Long> e:map1.entrySet()){
-            System.out.println(e.getKey()+"-->"+e.getValue());
-        }
+                .collect(Collectors.groupingBy(c->c,LinkedHashMap::new,Collectors.counting()));
+        map1.entrySet().stream()
+                .forEach(e-> System.out.println(e.getKey()+"-->"+e.getValue()));
 
     }
 }

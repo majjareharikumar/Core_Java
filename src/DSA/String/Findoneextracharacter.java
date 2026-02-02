@@ -29,7 +29,7 @@ public class Findoneextracharacter {
 
     public static void main(String[] args) {
         String s1="bancezz";
-        String s2="abcenzf";
+        String s2="abcenzzf";
         System.out.println(findextrachar(s1,s2));
     }
 }

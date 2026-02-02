@@ -1,0 +1,10 @@
+Title:-Data Exporter Tool for Domain-Specific S3 Data Transfer
+
+I am working on a Data Exporter tool that moves data from producer Mercury S3 to consumer Mercury S3 based on domain and sub-domain classification.
+The service reads metadata to identify the domain and sub-domain of each dataset and applies validation rules before initiating the transfer.
+We use secure IAM roles and bucket policies to ensure only authorized S3 locations can access the data.
+The transfer process is implemented as a fault-tolerant workflow with retry mechanisms and failure handling to avoid partial or corrupted exports.
+To handle large volumes of data efficiently, the system supports parallel file transfers and streaming.
+Logging and monitoring are implemented to track export status and failures.
+This design ensures scalable, secure, and controlled data movement across domains.
+

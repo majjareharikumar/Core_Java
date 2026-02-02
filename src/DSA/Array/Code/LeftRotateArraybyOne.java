@@ -15,7 +15,7 @@ public class LeftRotateArraybyOne {
         int[] arr={-1, 0, 3, 6,2,3,4,2,6};
         int[] result=leftroatate(arr);
         for(int a: result){
-            System.out.print(a+" ");
+            System.out.print(a+" ");// Out put:-0 3 6 2 3 4 2 6 -1
         }
     }
 }

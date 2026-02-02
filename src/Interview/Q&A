@@ -1075,47 +1075,18 @@ Common in microservices & load-balanced systems.
 
 57)What are the 5 SOLID Principles of OOP?
 S – Single Responsibility Principle (SRP)
-   A class should have only one reason to change.
-   It should do one job, and do it well.
 O – Open/Closed Principle (OCP)
-   Classes should be open for extension but closed for modification.
-   We add new features without changing existing code.
 L – Liskov Substitution Principle (LSP)
-   A child class should replace its parent class without breaking behavior.
-   Subclasses must follow the parent’s rules.
 I – Interface Segregation Principle (ISP)
-   Don’t force a class to implement methods it doesn’t need.
-   Use small, specific interfaces.
 D – Dependency Inversion Principle (DIP)
-   Depend on interfaces, not concrete classes.
-   This makes code loosely coupled and easy to test.
 
 🛒 Real-Time Example: Order Processing in an E-commerce Application
-1️⃣ Single Responsibility Principle (SRP)
-OrderService only handles order creation.
-PaymentService handles payment processing.
-InvoiceService handles invoice generation.
-👉 Each class has one responsibility.
-
-2️⃣ Open/Closed Principle (OCP)
-We add new payment methods like UPI, Credit Card, Wallet by creating new classes.
-Existing payment code is not modified.
-👉 System is extended without breaking old code.
-
-3️⃣ Liskov Substitution Principle (LSP)
-CreditCardPayment and UpiPayment can replace Payment without issues.
-Order flow works the same for all payment types.
-👉 Child classes behave correctly like parent.
-
-4️⃣ Interface Segregation Principle (ISP)
-Payment interface has only pay() method.
-Refund logic is in a separate Refundable interface.
-👉 Classes implement only what they need.
-
-5️⃣ Dependency Inversion Principle (DIP)
-OrderService depends on Payment interface, not concrete classes.
-We can switch payment providers without changing OrderService.
-👉 Code becomes loosely coupled and testable.
+In an e-commerce system, SRP is followed by separating OrderService, PaymentService, and InvoiceService so each class handles only one responsibility.
+OCP is applied by adding new payment methods like UPI or Wallet through new classes without changing existing payment logic.
+LSP ensures that UpiPayment or CreditCardPayment can replace the Payment type without breaking order flow.
+ISP is followed by keeping the Payment interface small with only pay() and moving refund logic to a separate Refundable interface.
+DIP makes OrderService depend on the Payment interface instead of concrete classes like UpiPayment.
+This design keeps the system loosely coupled, flexible, and easy to extend.
 
 58)what is  fail-fast and fail-safe iterator? What is the difference between fail-fast and fail-safe iterator?
    ✅ What is Fail-Fast Iterator?
@@ -1153,3 +1124,15 @@ We can switch payment providers without changing OrderService.
    Fail-safe iterator works on a copy of the data.
    The system continues running smoothly without exceptions.
    Availability is more important than strict consistency.
+
+59)Access Modifiers in Java
+-> Access modifiers are keywords in Java that are used to set accessibility.
+-> An access modifier restricts the access of a class, constructor, data member and method
+   in another class.
+   Java language has four access modifiers to control access level for classes and its members.
+   • Default: Default has scope only inside the same package
+   • Public: Public has scope that is visible everywhere
+   • Protected: Protected has scope within the package and all sub classes
+   • Private: Private has scope only within the classes
+   Java also supports many non-access modifiers, such as static, abstract, synchronized, native,
+   volatile, transient etc.
