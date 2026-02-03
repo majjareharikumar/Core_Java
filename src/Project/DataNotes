@@ -8,3 +8,89 @@ To handle large volumes of data efficiently, the system supports parallel file t
 Logging and monitoring are implemented to track export status and failures.
 This design ensures scalable, secure, and controlled data movement across domains.
 
+Features Used :-
+--------------------
+************************************Spring Boot**************
+==>@PreAuthorize?
+ ->@PreAuthorize is a method-level security annotation in Spring Security used to control access before a method is executed.
+   It allows you to define authorization rules using SpEL (Spring Expression Language) based on roles, permissions, or method parameters.
+ ex:-
+ @PreAuthorize("hasAnyAuthority(getRole())")
+
+==>@PathVariable is an annotation used in Spring MVC to extract values from the URI path and bind them to method parameters in a controller.
+  It is commonly used in REST APIs when the resource identifier is part of the URL.
+  @GetMapping("/accounts/{customerId}/{accountId}")
+  public Account getAccount(@PathVariable Long customerId,
+                            @PathVariable Long accountId) {
+  }
+@PathVariable → part of URL path (/accounts/10/499878)
+
+==>@RequestParam is used to extract query parameters from the request URL and bind them to method parameters in a controller.
+   It is commonly used when data is passed as key-value pairs in the request.
+
+@GetMapping("/customers")
+public List<Customer> getCustomers(@RequestParam String city) {
+    return customerService.getCustomersByCity(city);
+}
+/customers?city=Bangalore → city is mapped to the method parameter.
+
+
+==>What is produces in @GetMapping?
+produces is used to specify the media type (response format) that a controller method can return.
+It tells Spring and the client what Content-Type the API will produce, such as JSON or XML.
+
+@GetMapping(value = "/accounts/{id}",
+            produces = { MediaType.APPLICATION_JSON_VALUE })
+public Account getAccount(@PathVariable Long id) {
+    return accountService.getAccount(id);
+}
+
+@GetMapping(value = "/customers/{id}",
+            produces = MediaType.APPLICATION_XML_VALUE)
+public Customer getCustomer(@PathVariable Long id) {
+    return customerService.getCustomer(id);
+}
+
+
+*********************Multi Threading********************************
+1. ExecutorService
+Scenario from your project:
+In the Data Exporter tool, we use ExecutorService to handle multiple file transfers in parallel from producer Mercury S3 to consumer Mercury S3.
+Instead of creating a new thread for each file, we use a thread pool to manage worker threads efficiently.
+Each task is responsible for validating domain and sub-domain rules and then copying the data to the target S3 bucket.
+This improves performance when exporting large volumes of data and avoids thread creation overhead.
+It also allows controlled concurrency and better resource utilization.
+
+2.CompletableFuture
+Scenario from your project:
+In the Data Exporter tool, we use CompletableFuture for non-blocking and chained processing.
+First, we asynchronously fetch metadata and validate domain and sub-domain rules.
+Once validation is successful, we trigger the S3 data transfer asynchronously.
+After the transfer completes, we update the export status in the database and send a notification.
+These steps are chained using thenApply(), thenCompose(), and thenAccept().
+Exception handling is done using exceptionally() so that failures are logged and retried without blocking the main thread.
+
+3.Future Scenario from your project:
+When exporting data from producer S3 to consumer S3, each export operation is submitted as a task to the ExecutorService and returns a Future.
+We use the Future object to track whether the file transfer is completed successfully or failed.
+If needed, we can call get() to wait for the export result before proceeding to the next step.
+We also use isDone() to check the status of long-running export tasks and cancel() if the job is no longer required.
+
+**************************************Java8******************************
+Case 1:- Using Stream API to get unique roles Collection and storing them to a list(CurrentRole).
+List<String> currentRole=roles.stream().distinct().toList();
+
+After that we are verifying this list whether providing role is present in list(CurrentRole) or not.
+boolean allowAccess=currentRole.stream().anyMatch(allowedRolesFromDB::contains);
+
+case 2:- Using LocalDateTime to get present time stamp after competing the request or file transfer.
+
+case 3:-Used Stream api to count number of file sent in one request to check whether file count and provided files count are matched or not.
+
+case 4:- Used Stream API to get the list of success and failure files form the DB.
+
+********************************* Collections **************************
+Case 1:- Used List inter face to store list of files , roles, errorCodes and all
+
+Case 2:- Used CollectionUtils.isNotEmpty() to check whether the list is empty or not.
+
