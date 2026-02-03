@@ -1136,3 +1136,34 @@ This design keeps the system loosely coupled, flexible, and easy to extend.
    • Private: Private has scope only within the classes
    Java also supports many non-access modifiers, such as static, abstract, synchronized, native,
    volatile, transient etc.
+
+60)ExecutorService
+   ExecutorService is part of the java.util.concurrent package and is used to manage and execute threads in Java.
+   It provides a thread pool to run multiple tasks asynchronously instead of creating threads manually.
+   It improves performance by reusing threads and reduces the overhead of thread creation.
+   The submit() and execute() methods are used to submit tasks for execution.
+   It also provides lifecycle control using shutdown() and shutdownNow().
+   Overall, it helps in building scalable and well-managed multithreaded applications.
+
+61)CompletableFuture
+CompletableFuture is part of the java.util.concurrent package and is used for asynchronous, non-blocking programming in Java.
+It allows tasks to run in a separate thread without blocking the main thread.
+It provides callback-style methods like thenApply(), thenAccept(), and thenCompose() to process results once the computation is complete.
+It supports chaining of multiple asynchronous operations in a fluent way.
+It also provides methods for exception handling such as exceptionally() and handle().
+Overall, CompletableFuture helps in writing efficient and responsive concurrent applications.
+
+Methods
+--------
+Creation
+supplyAsync() – runs a task that returns a result
+runAsync() – runs a task with no return value
+completedFuture() – creates an already completed future
+
+62)Future
+Future is part of the java.util.concurrent package and represents the result of an asynchronous computation.
+It is returned when a task is submitted to an ExecutorService using submit().
+The get() method is used to retrieve the result, but it blocks until the task is completed.
+It provides methods like isDone() and isCancelled() to check task status.
+A task can be cancelled using cancel() if it is no longer needed.
+However, Future does not support chaining or non-blocking callbacks like CompletableFuture.
