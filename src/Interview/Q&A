@@ -1167,3 +1167,17 @@ The get() method is used to retrieve the result, but it blocks until the task is
 It provides methods like isDone() and isCancelled() to check task status.
 A task can be cancelled using cancel() if it is no longer needed.
 However, Future does not support chaining or non-blocking callbacks like CompletableFuture.
+
+63)What is Builder Pattern?
+ The Builder Pattern is a creational design pattern used to create complex objects step by step.
+   It is useful when an object has many optional fields or configurations.
+   Instead of using multiple constructors, it provides a fluent and readable way to build objects.
+   It improves code readability and avoids constructor parameter confusion.
+   The object is created using a separate Builder class.
+   It helps in creating immutable objects safely.
+Ex:-
+ User user = User.builder()
+                 .id(1)
+                 .name("Hari")
+                 .email("hari@gmail.com")
+                 .build();
