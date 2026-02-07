@@ -1178,6 +1178,6 @@ However, Future does not support chaining or non-blocking callbacks like Complet
 Ex:-
  User user = User.builder()
                  .id(1)
-                 .name("Hari")
+                 .name("Hari") 
                  .email("hari@gmail.com")
                  .build();

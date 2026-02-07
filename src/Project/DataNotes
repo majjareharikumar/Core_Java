@@ -51,6 +51,8 @@ public Customer getCustomer(@PathVariable Long id) {
     return customerService.getCustomer(id);
 }
 
+application/json
+application/xml
 
 *********************Multi Threading********************************
 1. ExecutorService
