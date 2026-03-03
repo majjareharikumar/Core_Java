@@ -1,0 +1,22 @@
+🔁 Circular Linked List (CLL)
+A Circular Linked List is a linked list where the last node points back to the first node instead of pointing to null.
+So traversal can loop forever unless you stop it manually.
+
+📌 Types
+1.Circular Singly Linked List
+last.next → head
+
+2.Circular Doubly Linked List
+last.next → head and head.prev → last
+
+✨ Key Characteristics
+->No null at the end.
+->Can start traversal from any node.
+->Useful when data needs to be accessed in a loop (round-robin style).
+->Efficient for operations at both ends if tail is maintained.
+
+🧠 Real-Time Use Cases
+->CPU scheduling (Round Robin)
+->Multiplayer games (turn rotation)
+->Music playlist (repeat mode)
+->Queue implementations

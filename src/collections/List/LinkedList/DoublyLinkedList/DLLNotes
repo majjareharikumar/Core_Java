@@ -1,0 +1,5 @@
+A Doubly Linked List is a linear data structure where each node contains three parts: data, previous pointer, and next pointer.
+It allows traversal in both forward and backward directions.
+Insertion and deletion are more efficient compared to singly linked lists because previous nodes are directly accessible.
+However, it consumes more memory due to an extra pointer.
+It is commonly used in navigation systems like browser back and forward operations.
