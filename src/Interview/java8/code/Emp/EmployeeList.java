@@ -21,7 +21,7 @@ public class EmployeeList {
         employeeList.add(new Employee(6, "Vani", 30, "female", 100000, "manager", 2005));
         employeeList.add(new Employee(7, "Ram", 24, "male", 40000, "qa", 2020));
         employeeList.add(new Employee(8, "Anil", 29, "male", 65000, "developer", 2013));
-        employeeList.add(new Employee(9, "Sudha", 26, "female", 40000, "hr", 2019));
+        employeeList.add(new Employee(9, "Sudha", 26, "female", 90000, "hr", 2019));
         employeeList.add(new Employee(10, "Anusha", 24, "female", 70000, "developer", 2018));
 
         Map<String,Double>sal=employeeList.stream().filter(e->e.age>25)
@@ -33,6 +33,21 @@ public class EmployeeList {
         deptSalary.forEach((e,k)->{
             System.out.println(e+"-->"+k.getSum());
         });
+
+        //Second highest sal
+        Double seconfhigh=employeeList.stream()
+                .map(Employee::salary)
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .skip(1)
+                .findFirst()
+                .orElse(null);
+
+        List<Employee> emps=employeeList.stream()
+                .filter(e->e.salary()==seconfhigh)
+                .toList();
+
+        System.out.println(emps);
 
     }
 }
