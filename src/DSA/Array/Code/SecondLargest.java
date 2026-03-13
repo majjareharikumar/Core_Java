@@ -28,5 +28,14 @@ public class SecondLargest {
                 .findFirst()
                 .orElseThrow();
         System.out.println(secondLarge);
+
+        int s=Arrays.stream(arr)
+                .boxed()
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .skip(1)
+                .findFirst()
+                .orElseThrow();
+        System.out.println(s);
     }
 }

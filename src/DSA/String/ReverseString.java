@@ -14,5 +14,9 @@ public class ReverseString {
                 .map(String::valueOf)
                 .reduce("",(a,b)->b+a);
         System.out.println(re);
+
+        //SB
+        String s= String.valueOf(new StringBuilder(str).reverse());
+        System.out.println(s);
     }
 }

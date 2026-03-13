@@ -6,9 +6,9 @@ import java.util.stream.IntStream;
 public class Checkifarrayissorted {
     public static boolean IsSorted(int[] a){
         int j=Integer.MIN_VALUE;
-        for(int i=0;i<a.length;i++){
-            if(a[i]>j){
-                j=a[i];
+        for(int n:a){
+            if(n>j){
+                j=n;
             }
             else {
                 return false;
@@ -18,8 +18,8 @@ public class Checkifarrayissorted {
     }
 
     public static void main(String[] args) {
-        int[] arr={10,13,12,30,40,50,60};
-        System.out.print(IsSorted(arr)); //Out put:- false
+        int[] arr={10,12,13,30,40,50,60};
+        System.out.println(IsSorted(arr)); //Out put:- false
 
         //java8
         boolean sorted= IntStream.range(0,arr.length-1)
