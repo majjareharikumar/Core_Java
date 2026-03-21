@@ -1,0 +1,18 @@
+1. Find 2nd Highest Salary
+   I)select MAX(sal) from emp where sal<(select MAX(sal) from emp);
+   II)select * from (select e.* ,dense_rank() over (order by sal desc) as r from emp e) where r=2;
+
+2. Find Nth Highest Salary
+SELECT salary
+FROM employee e1
+WHERE N-1 = (
+    SELECT COUNT(DISTINCT salary)
+    FROM employee e2
+    WHERE e2.salary > e1.salary
+);
+
+3. Employees with Highest Salary in Each Department
+     select e.* from emp e
+     JOIN(select deptno,MAX(sal) s from emp group by deptno
+     ) m
+     ON e.deptno=m.deptno AND e.sal=m.s;
