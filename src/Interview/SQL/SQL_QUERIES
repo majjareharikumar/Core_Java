@@ -16,3 +16,51 @@ WHERE N-1 = (
      JOIN(select deptno,MAX(sal) s from emp group by deptno
      ) m
      ON e.deptno=m.deptno AND e.sal=m.s;
+
+4. Employees Who Earn More Than Their Manager
+   select e.* from emp e
+   JOIN emp m ON e.mgr=m.empno
+   where e.sal>m.sal;
+
+5. Count Employees in Each Department
+    select deptno, count(*) as total from emp group by deptno;
+
+6. Departments with No Employees
+   select d.deptno from dept d
+   LEFT JOIN emp e on d.deptno=e.deptno
+   where e.empno is null;
+
+7.Find Duplicate Records
+  select sal,count(*)
+  from emp
+  group by sal
+  having count(*)>1;
+
+  OR
+
+  select ename
+  from emp
+  group by ename
+  having count(*)>1;
+
+8.Find Employees Joined in Last 30 Days
+  select * from emp
+  where hiredate>=sysdate -30;
+
+9.Top 3 Salaries in Each Department
+  select * from (
+  select e.*,dense_rank() over (partition by deptno order by sal desc) r
+  from emp e)
+  where r<=3;
+
+10.Find Employees with Same Salary
+  select e1.ename, e2.ename,e1.sal
+  from emp e1
+  JOIN emp e2
+  ON e1.sal=e2.sal
+  AND e1.empno<>e2.empno;
+
+11.Employees those joined on even days
+    SELECT *
+    FROM emp
+    WHERE MOD(EXTRACT(DAY FROM hiredate), 2) = 0;
