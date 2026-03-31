@@ -1,0 +1,48 @@
+1. What is Sliding Window?
+Sliding Window is an algorithmic technique used to efficiently process problems involving contiguous elements, such as subarrays in arrays or substrings in strings.
+Instead of recalculating values repeatedly for every possible range, we maintain a “window” of elements and move it across the data.
+This helps in optimizing performance by reusing previous computations.
+In simple terms, we expand and shrink a window over the input to find the required result.
+
+🔍 2. Why do we use Sliding Window?
+Sliding Window is mainly used to optimize time complexity. Without this technique, many problems require nested loops, leading to O(n²) complexity.
+By using a sliding window, we reduce it to O(n) because each element is processed only once or twice.
+This makes the solution much faster and efficient, especially for large inputs, which is very important in interviews and real-world applications.
+
+🧩 3. When to Use Sliding Window?
+You should think about using Sliding Window whenever the problem involves contiguous data.
+Common keywords that indicate this are subarray, substring, contiguous elements, longest, shortest, maximum, minimum, or count.
+When you see such patterns, especially with continuous segments, Sliding Window is usually the best approach.
+It helps avoid unnecessary recomputation and simplifies the logic.
+
+🔄 4. Types of Sliding Window
+There are two main types of Sliding Window techniques:
+1)Fixed Size Window
+2)Variable Size Window.
+In a fixed-size window, the window size is given (like k elements), and you simply move the window forward by adding the next element and removing the previous one.
+In a variable-size window, the size is not fixed and depends on a condition. You expand the window until a condition breaks, then shrink it until it becomes valid again.
+Most real interview problems fall under the variable window category.
+
+🔁 5. General Flow (Very Important)
+The general flow of Sliding Window involves two pointers, usually called left and right.
+The right pointer is used to expand the window by including new elements, while the left pointer is used to shrink the window when a condition is violated.
+At each step, you update your result (like maximum length or minimum size). This process continues until the entire array or string is traversed.
+This expand-and-shrink mechanism is the core of the Sliding Window technique.
+
+🎯 6. Core Idea (Golden Rule)
+The core idea of Sliding Window can be summarized as: Expand → Check → Shrink → Update. First, you expand the window by moving the right pointer.
+Then, you check if the current window satisfies the problem condition. If it does not, you shrink the window by moving the left pointer.
+Finally, you update your result based on the valid window. This cycle repeats until you reach the end of the input.
+
+🔍 7. How to Solve Any Sliding Window Problem?
+To solve any Sliding Window problem, first identify whether it is a fixed-size or variable-size window problem.
+Next, choose the appropriate data structure, such as a HashSet for checking duplicates, a HashMap for tracking frequencies, or a Deque for maximum/minimum problems.
+Then apply the sliding window logic by expanding with the right pointer and shrinking with the left pointer when needed.
+Continuously update the result during traversal. Practicing this pattern makes solving problems much easier.
+
+📌 8. Example Understanding
+Consider the problem of finding the longest substring without repeating characters.
+Here, we expand the window by moving the right pointer and adding characters.
+If a duplicate character is found, we shrink the window from the left until the duplicate is removed.
+At each step, we track the maximum length of the valid window.
+This clearly demonstrates how the sliding window dynamically adjusts based on conditions.

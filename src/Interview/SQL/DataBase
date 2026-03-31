@@ -1,0 +1,29 @@
+🔹 1. Trigger
+A trigger is a block of SQL code that automatically executes when a specific event happens on a table.
+Events can be INSERT, UPDATE, DELETE.
+It is used for audit logging, validation, or enforcing rules.
+We don’t call triggers manually; the database fires them automatically.
+Example: When a new employee is inserted, store details in an audit table.
+
+👉 Easy way to remember:
+“Trigger = Automatic action when something happens”
+
+🔹 2. Stored Procedure
+A stored procedure is a precompiled set of SQL statements stored in the database.
+It is executed manually using a call (CALL/EXEC).
+Can perform complex business logic like multiple inserts, updates, validations.
+Can return output parameters but not directly a value like functions.
+Improves performance and reusability.
+
+👉 Easy way to remember:
+“Procedure = Perform a task when we call it”
+
+🔹 3. Function
+A function is similar to a procedure but always returns a value.
+It can be used inside SQL queries (like SELECT).
+Mainly used for calculations or data transformations.
+Cannot modify database state (in most cases, depends on DB).
+Example: Calculate total salary with bonus.
+
+👉 Easy way to remember:
+“Function = Returns a value”

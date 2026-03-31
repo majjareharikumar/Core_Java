@@ -1,0 +1,70 @@
+Microservices design patterns are solutions to common challenges in distributed systems.
+They help manage communication, failures, data consistency, and deployment.
+Key categories include architectural patterns (API Gateway, Service Discovery), resilience patterns (Circuit Breaker, Retry), and data patterns (Saga, CQRS).
+They ensure scalability, fault tolerance, and loose coupling between services.
+Event-driven communication using Kafka is commonly used in microservices.
+These patterns are widely implemented using Spring Boot and Spring Cloud.
+They are essential for building reliable enterprise applications.
+
+1. Architectural Patterns
+   Architectural patterns define the overall structure of a microservices system.
+   They decide how services are organized and how clients interact with them.
+   These patterns help achieve scalability, flexibility, and loose coupling.
+   They also simplify communication and service management.
+   Common examples include API Gateway, Service Discovery, and Database per Service.
+ ->  API Gateway – Single entry point for all client requests
+ ->  Service Registry & Discovery – Services find each other dynamically (like Eureka)
+ ->  Database per Service – Each service has its own DB
+
+2. Resilience Patterns
+   Resilience patterns are used to handle failures in microservices systems.
+   They ensure the system remains available and stable even when some services fail.
+   These patterns prevent cascading failures across services.
+   They improve fault tolerance and reliability of applications.
+   Common examples include Circuit Breaker, Retry, Timeout, and Bulkhead.
+  -> Circuit Breaker – Stops calls to failing service
+  -> Retry Pattern – Retry failed requests
+  -> Timeout Pattern – Stop waiting after certain time
+ ->  Bulkhead – Isolate failures (like ship compartments)
+
+3. Data Management Patterns
+   Data Management Patterns handle data consistency across multiple microservices.
+   Since each service has its own database, transactions become distributed.
+   These patterns ensure data integrity without using a single centralized transaction.
+   They help manage eventual consistency and data synchronization.
+   Common patterns include Saga, CQRS, and Event Sourcing.
+  -> Saga Pattern – Manage distributed transactions
+  -> CQRS – Separate read and write operations
+  -> Event Sourcing – Store events instead of state
+
+4. Communication Patterns
+   Communication patterns define how microservices interact with each other.
+   They can be synchronous (real-time) or asynchronous (event-based).
+   These patterns help achieve loose coupling and scalability.
+   They also impact performance and reliability of the system.
+   Common approaches include REST APIs and message queues like Kafka or RabbitMQ.
+  -> Synchronous (REST) – Direct API calls
+  -> Asynchronous (Kafka/RabbitMQ) – Event-based communication
+
+5. Deployment Patterns
+   Deployment patterns define how microservices are released and updated in production.
+   They help achieve zero downtime and smooth user experience.
+   These patterns reduce the risk of failures during deployment.
+   They allow easy rollback if something goes wrong.
+   Common patterns include Blue-Green Deployment and Canary Deployment.
+   They are widely used in CI/CD pipelines for safe releases.
+  -> Blue-Green Deployment
+  -> Canary Deployment
+
+  🔥 What is Canary Deployment?
+
+  Canary Deployment is a release strategy where a new version of an application is deployed to a small subset of users first,
+  while the rest continue using the old version.
+  It helps detect issues early before affecting all users.
+
+  🔥 Step-by-Step Flow (Very Important)
+  Deploy new version (v2) alongside old version (v1)
+  Route small % of traffic to v2 (e.g., 10%)
+  Monitor logs, errors, performance (using tools like Grafana, Splunk)
+  If stable → gradually increase traffic (30% → 50% → 100%)
+  If failure → rollback to v1 immediately

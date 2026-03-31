@@ -56,3 +56,15 @@ It keeps the system loosely coupled and scalable.
 
 But for complex business processes involving multiple steps, dependencies, or rollback logic, I’ll use Orchestration,
  as it provides a central coordinator to control and monitor the entire transaction flow.
+
+ ✅ Interview Question
+ 👉 In a microservices architecture, a request flows through multiple services (A → B → C → D), and each service updates its own database.
+ If the request succeeds till service D but fails while returning (C → B), how will you handle data inconsistency and rollback?
+ ✅ Answer (Easy 6–8 lines)
+ 👉 In microservices, we cannot use a single DB transaction because each service has its own database.
+ 👉 To handle this, we use the Saga Pattern.
+ 👉 In Saga, each service performs a local transaction and, if a failure occurs, it triggers compensating transactions to undo previous changes.
+ 👉 In this case, if failure happens at C → B, then services D and C will rollback their changes.
+ 👉 This ensures eventual consistency instead of strong consistency.
+ 👉 Saga can be implemented using event-based communication with Apache Kafka or orchestration tools like Camunda.
+ 👉 Additionally, we use retry, circuit breaker, and idempotent APIs to make the system more reliable.
