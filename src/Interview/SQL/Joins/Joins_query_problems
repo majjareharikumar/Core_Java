@@ -19,3 +19,56 @@
        ON e.deptno = d.deptno
    INNER JOIN country c
        ON e.empno = c.empno;
+
+4.Find Departments Without Employees
+  select d.dname
+  from dept d
+  Left Join emp e
+  ON d.deptno=e.deptno
+  where e.empno is null;
+
+5.Employees and Their Managers
+  select e.ename AS employee, m.ename AS manager
+  from emp e
+  join emp m
+  ON e.mgr=m.empno;
+
+6.Employees Earning More Than Their Manager
+  select e.ename employee, m.ename manager, e.sal emp_sal, m.sal mgr_sal
+  from emp e
+  join emp m
+  on e.mgr=m.empno
+  where e.sal>m.sal;
+
+7.Get Employee Count per Department
+  select d.dname, count(e.empno) total
+  from dept d
+  left join emp e
+  ON d.deptno=e.deptno
+  group by d.dname;
+
+8.Get Departments with More Than 5 Employees
+  select d.dname
+  from dept d
+  join emp e
+  on d.deptno=e.deptno
+  group by d.dname
+  Having count(e.empno)>5;
+
+9.Get Highest Salary Employee in Each Department
+  select e.ename, e.sal
+  from emp e
+  Join(
+        select deptno, max(sal) max_sal
+  	  from emp
+  	  group by deptno
+  )m
+  ON e.deptno=m.deptno AND e.sal=m.max_sal;
+
+10.Get Employees Who Work in Same Department
+   select e1.ename,e2.ename,e1.deptno
+   from emp e1
+   join emp e2
+   on e1.deptno=e2.deptno AND e1.empno<>e2.empno;
+
+

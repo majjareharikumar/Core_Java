@@ -28,7 +28,7 @@ public class InsertionSort {
             a[j+1]=key;
         }
         for(int n:a){System.out.print(n+",");}
-    }
+    } 
     public static void main(String[] args) {
 
         int a[]={8,6,9,4,5,3,1,7,2};
