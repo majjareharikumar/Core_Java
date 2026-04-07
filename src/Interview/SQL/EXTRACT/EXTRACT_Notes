@@ -1,0 +1,17 @@
+1. What is EXTRACT in SQL?
+   EXTRACT is used to get specific parts of a date/time value
+   Like extracting year, month, day, hour, etc.
+   Helps in filtering and grouping data based on date
+   Mostly used in reporting and analytics queries
+
+Syntax
+EXTRACT(field FROM date_column)
+
+2. Common Fields Used
+YEAR
+MONTH
+DAY
+HOUR
+MINUTE
+SECOND
+

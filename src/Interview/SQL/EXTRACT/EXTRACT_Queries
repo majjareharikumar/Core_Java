@@ -1,0 +1,24 @@
+1. Get Employees Joined in 1981
+   select ename from emp
+   where Extract(Year from Hiredate)=1981;
+
+2. Get Employees Joined in January
+   select * from emp
+   where extract(month from hiredate)=1;
+
+3. Count Employees Joined Each Year
+   select extract(year from hiredate) year, count(*) total
+   from emp
+   group by extract(year from hiredate);
+
+4.Get employees who joined on even days
+     SQL:- select ename, hiredate
+           from emp
+           where mod(extract(day from hiredate),2)=0;
+
+     MySql:- select ename,hiredate
+             from emp
+             where extract(day from hiredate)%2=0;
+
+5.Find Employees Joined in Specific Quarter
+
