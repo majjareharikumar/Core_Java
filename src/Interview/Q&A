@@ -285,7 +285,7 @@ Example in pom.xml:
 ->But with JpaRepository<Employee, Long>, you must have @Entity class Employee.
 
 11)Which version of Spring Boot are you using and why?
-->I’m currently using Spring Boot 3.x, which is the latest stable version.
+->I’m currently using Spring Boot 3.5.14, which is the latest stable version.
 ->It’s built on Spring Framework 6 and fully supports Jakarta EE 9+ (package names moved from javax.* to jakarta.*).
 ->Spring Boot 3 improves performance, security, and compatibility with Java 17+ (LTS version).
 ->It also supports AOT (Ahead-of-Time) compilation and GraalVM native image for faster startup and low memory usage.

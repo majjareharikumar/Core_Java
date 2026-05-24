@@ -1,4 +1,4 @@
-package SingleTon;
+package Ton_SingleTon;
 
 public class BillPushSingleTon {
     private BillPushSingleTon(){

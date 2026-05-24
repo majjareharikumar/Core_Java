@@ -1,0 +1,22 @@
+Multiton Pattern
+Definition
+Multiton is a design pattern where:
+A fixed number of objects are allowed to be created and reused in the application.
+It is an extension of:
+
+Singleton → 1 object
+Doubleton → 2 objects
+Tripleton → 3 objects
+Multiton → N objects
+
+Here N can be:
+5 objects
+10 objects
+100 objects
+any fixed limit
+
+How Multiton Works
+Constructor is made private
+Create fixed number of objects
+Store them in array/list/map
+Return existing objects instead of creating new ones

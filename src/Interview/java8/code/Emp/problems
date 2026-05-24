@@ -295,3 +295,21 @@ Questions
                   .toList();
 
           System.out.println(emps);
+
+
+->Second higest sal per dept
+    Map<String,List<Employee>> map=employeeList.stream()
+          .collect(Collectors.groupingBy(Employee::getDept));
+
+          map.forEach((dept,list)->{
+              Double sal=list.stream()
+              .map(Employee::getSal)
+              .sorted(Comparator.reverseOrder())
+              .skip(1)
+              .findFirst()
+              .orElseThrow();
+
+              list.stream()
+              .filter(e->e.getSal().equals(sal))
+              .forEach(e->System.out.println(e.getName()+"->"+e.getDept()+"->"+e.getSal()));
+          });

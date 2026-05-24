@@ -1,0 +1,26 @@
+A Doubleton Class is a design pattern where only two objects of a class can be created in the entire application.
+
+It is similar to the Singleton pattern:
+Singleton → only 1 object
+Doubleton → only 2 objects
+
+Real-Time Example
+Imagine a system where only two database connections are allowed.
+
+Example:
+Connection-1
+Connection-2
+
+If a third request comes, the class should return one of the existing two objects instead of creating a new one.
+
+==>How Doubleton Works
+Constructor is made private
+Create two static objects inside the class
+Provide a static method to return one of the two objects
+Prevent new object creation using new
+
+Interview Answer
+In a banking application, Doubleton pattern can be used to manage only two server connections: one Primary Server and one Backup Server.
+Customer requests are routed between these two servers for load balancing and failover handling.
+The application reuses the same two server objects instead of creating new connections every time.
+This improves performance, controls resource usage, and provides high availability in banking transactions.

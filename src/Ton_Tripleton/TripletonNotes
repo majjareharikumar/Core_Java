@@ -1,0 +1,14 @@
+Definition
+Tripleton is a design pattern where:
+Only three objects of a class are allowed to be created in the entire application.
+It is an extension of the Singleton and Doubleton patterns.
+Singleton → 1 object
+Doubleton → 2 objects
+Tripleton → 3 objects
+
+How Tripleton Works
+Constructor is made private
+Create 3 static objects
+Provide static method to return those objects
+Prevent external object creation
+

@@ -1,7 +1,6 @@
 package Interview.java8.code.Emp;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class EmployeeList {
@@ -24,30 +23,52 @@ public class EmployeeList {
         employeeList.add(new Employee(9, "Sudha", 26, "female", 90000, "hr", 2019));
         employeeList.add(new Employee(10, "Anusha", 24, "female", 70000, "developer", 2018));
 
-        Map<String,Double>sal=employeeList.stream().filter(e->e.age>25)
-                .collect(Collectors.groupingBy(Employee::deptName,Collectors.summingDouble(Employee::salary)));
-        System.out.println(sal);
+//        Map<String,Double>sal=employeeList.stream().filter(e->e.age>25)
+//                .collect(Collectors.groupingBy(Employee::deptName,Collectors.summingDouble(Employee::salary)));
+//        System.out.println(sal);
+//
+//        Map<String, DoubleSummaryStatistics>deptSalary=employeeList.stream()
+//                .collect(Collectors.groupingBy(Employee::deptName,Collectors.summarizingDouble(Employee::salary)));
+//        deptSalary.forEach((e,k)->{
+//            System.out.println(e+"-->"+k.getSum());
+//        });
+//
+//        //Second highest sal
+//        Double seconfhigh=employeeList.stream()
+//                .map(Employee::salary)
+//                .distinct()
+//                .sorted(Comparator.reverseOrder())
+//                .skip(1)
+//                .findFirst()
+//                .orElse(null);
+//
+//        List<Employee> emps=employeeList.stream()
+//                .filter(e->e.salary()==seconfhigh)
+//                .toList();
+//
+//        System.out.println(emps);
 
-        Map<String, DoubleSummaryStatistics>deptSalary=employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::deptName,Collectors.summarizingDouble(Employee::salary)));
-        deptSalary.forEach((e,k)->{
-            System.out.println(e+"-->"+k.getSum());
-        });
-
-        //Second highest sal
-        Double seconfhigh=employeeList.stream()
-                .map(Employee::salary)
-                .distinct()
-                .sorted(Comparator.reverseOrder())
-                .skip(1)
-                .findFirst()
-                .orElse(null);
+//        Map<String, List<Employee>> deptEmp = employeeList.stream()
+//                .collect(Collectors.groupingBy(Employee::deptName));
+//
+//        deptEmp.forEach((dept, empList) -> {
+//
+//            empList.stream()
+//                    .sorted(Comparator.comparingDouble(Employee::salary).reversed())
+//                    .skip(1)
+//                    .findFirst()
+//                    .ifPresent(e -> System.out.println(
+//                            dept + " -> " + e.name() + " -> " + e.salary()
+//                    ));
+//        });
 
         List<Employee> emps=employeeList.stream()
-                .filter(e->e.salary()==seconfhigh)
+                .filter(e->e.salary()>50000)
                 .toList();
 
-        System.out.println(emps);
+        for(Employee e: emps){
+            System.out.println(e);
+        }
 
     }
 }

@@ -1,0 +1,195 @@
+import java.util.*;
+import java.util.stream.*;
+class Employee{
+    int id;
+    String name;
+    int age;
+    String dept;
+    Double sal;
+    String gender;
+    int doj;
+
+    public Employee(int id,String name,int age,String dept,Double sal,String gender,int doj){
+        this.id=id;
+        this.name=name;
+        this.age=age;
+        this.dept=dept;
+        this.sal=sal;
+        this.gender=gender;
+        this.doj=doj;
+    }
+    public int getId(){return id;}
+    public String getName(){return name;}
+    public int getAge(){return age;}
+    public String getDept(){return dept;}
+    public Double getSal(){return sal;}
+    public String getGender(){return gender;}
+    public int getDoj(){return doj;}
+}
+
+class Main {
+    public static void prt(){
+        System.out.println("===============================");
+    }
+    public static void main(String[] args) {
+        List<Employee> employeeList=new ArrayList<Employee>();
+        employeeList.add(new Employee(1,"Hari",26,"Developer",60000.00,"male",2021));
+        employeeList.add(new Employee(2,"Mani",26,"Manager",100000.00,"Female",2000));
+         employeeList.add(new Employee(3,"Kumar",29,"HR",80000.00,"male",2003));
+          employeeList.add(new Employee(4,"Rani",30,"QA",50000.00,"Female",2020));
+           employeeList.add(new Employee(5,"Nani",26,"Developer",80000.00,"male",2001));
+            employeeList.add(new Employee(6,"Raju",46,"Manager",150000.00,"male",1999));
+             employeeList.add(new Employee(7,"Ram",26,"HR",100000.00,"male",2000));
+              employeeList.add(new Employee(8,"Sakahi",23,"QA",40000.00,"Female",2022));
+
+       //Print all Emp names
+       employeeList.stream()
+       .map(Employee::getName)
+       .forEach(System.out::println);
+       prt();
+       //Print all emp names,dept along with salary
+       employeeList.stream()
+       .forEach(e->System.out.println(e.getName()+"->"+e.getDept()+"->"+e.getSal()));
+       prt();
+
+       //Find all employees whose salary is greater than 80000
+       employeeList.stream()
+       .filter(e->e.getSal()>80000)
+       .forEach(e->System.out.println(e.getName()+"->"+e.getSal()));
+
+       prt();
+
+       //Find all employees belonging to Developer department
+       employeeList.stream()
+       .filter(e->e.getDept().equals("Developer"))
+       .forEach(e->System.out.println(e.getName()));
+
+       prt();
+
+       //Count male and female employees
+      Map<String,Long> genderCount=employeeList.stream()
+      .collect(Collectors.groupingBy(Employee::getGender,Collectors.counting()));
+      System.out.println(genderCount);
+
+      prt();
+
+      //Find Second higest salary
+
+      Double secondHighSal=employeeList.stream()
+      .map(Employee::getSal)
+      .distinct()
+      .sorted(Comparator.reverseOrder())
+      .skip(1)
+      .findFirst()
+      .orElseThrow();
+      System.out.println("Second High Sal:- "+secondHighSal);
+
+     employeeList.stream()
+      .filter(e->e.getSal().equals(secondHighSal))
+      .forEach(e->System.out.println(e.getName()+"->"+e.getDept()+"->"+e.getSal()));
+
+      prt();
+
+      //Find second Higest salary per dept
+      Map<String,List<Employee>> map=employeeList.stream()
+      .collect(Collectors.groupingBy(Employee::getDept));
+
+      map.forEach((dept,list)->{
+          Double sal=list.stream()
+          .map(Employee::getSal)
+          .sorted(Comparator.reverseOrder())
+          .skip(1)
+          .findFirst()
+          .orElseThrow();
+
+          list.stream()
+          .filter(e->e.getSal().equals(sal))
+          .forEach(e->System.out.println(e.getName()+"->"+e.getDept()+"->"+e.getSal()));
+      });
+
+      prt();
+
+      //Find highest salary employee
+      Employee highSal=employeeList.stream()
+      .max(Comparator.comparing(Employee::getSal))
+      .get();
+
+      System.out.println(highSal.getName()+"->"+highSal.getDept()+"->"+highSal.getSal());
+
+      prt();
+
+      //Emps in HR dept
+      employeeList.stream()
+      .filter(e->e.getDept().equals("HR"))
+      .forEach(e->System.out.println(e.getName()));
+
+        prt();
+
+        //List all employees who earn more than 50,000.
+        employeeList.stream()
+        .filter(e->e.getSal()>50000)
+        .forEach(e->System.out.println(e.getName()+"->"+e.getDept()+"->"+e.getSal()));
+        prt();
+    //Total salary of all employees
+    Double totalSal=employeeList.stream()
+    .mapToDouble(Employee::getSal).sum();
+    System.out.println(totalSal);
+
+     prt();
+    //Average salary of all employees
+    Double avgSal=employeeList.stream()
+    .collect(Collectors.averagingDouble(Employee::getSal));
+    System.out.println(avgSal);
+
+    prt();
+    //Total salary per dept
+    Map<String,Double> Slaperdept=employeeList.stream()
+    .collect(Collectors.groupingBy(Employee::getDept,Collectors.summingDouble(Employee::getSal)));
+    System.out.println(Slaperdept);
+
+    prt();
+    //Average salary per Dept
+
+    Map<String,Double> avgSalDept=employeeList.stream()
+    .collect(Collectors.groupingBy(Employee::getDept,Collectors.averagingDouble(Employee::getSal)));
+    System.out.println(avgSalDept);
+    avgSalDept.forEach((k,v)->{System.out.println(k+"->"+v);});
+
+    prt();
+    //count total number of emps
+    Long count=employeeList.stream().count();
+    System.out.println(count);
+
+    prt();
+    //count emps in each dept
+    Map<String,Long> empsInDept=employeeList.stream()
+    .collect(Collectors.groupingBy(Employee::getDept,Collectors.counting()));
+    System.out.println(empsInDept);
+
+    prt();
+    //count male & femail emps
+    Map<String,Long> maleFemaleemps=employeeList.stream()
+    .collect(Collectors.groupingBy(Employee::getGender,Collectors.counting()));
+    System.out.println(maleFemaleemps);
+
+    prt();
+    //count male & female emps in each dept
+    Map<String,Map<String,Long>> maleFemaleDept=employeeList.stream().collect(Collectors.groupingBy(Employee::getDept,Collectors.groupingBy(Employee::getGender,Collectors.counting())));
+     System.out.println(maleFemaleDept);
+
+     prt();
+     //Group employees by gender
+     Map<String,List<String>> empsByGender=employeeList.stream()
+     .collect(Collectors.groupingBy(Employee::getGender,Collectors.mapping(Employee::getName,Collectors.toList())));
+
+     System.out.println(empsByGender);
+    prt();
+    //Partition employees earning more than 50k and those earning less.
+
+
+
+
+    }
+
+
+}

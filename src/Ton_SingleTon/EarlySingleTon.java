@@ -1,4 +1,4 @@
-package SingleTon;
+package Ton_SingleTon;
 //Early Initialization Singleton
 public class EarlySingleTon {
     private EarlySingleTon(){

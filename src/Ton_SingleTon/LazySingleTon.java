@@ -1,4 +1,4 @@
-package SingleTon;
+package Ton_SingleTon;
 //Lazy Initialization Singleton
 public class LazySingleTon {
 
