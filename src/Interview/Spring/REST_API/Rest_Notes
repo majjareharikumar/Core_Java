@@ -1,0 +1,95 @@
+REST API stands for Representational State Transfer Application Programming Interface.
+It is used for communication between client and server applications through the internet using the HTTP protocol.
+In REST API, data or objects are treated as resources, and each resource is identified using a URL.
+
+The client sends a request to the server using HTTP methods like:
+GET → Read data
+POST → Create data
+PUT → Update data
+DELETE → Remove data
+
+REST APIs are stateless, meaning every request is independent and the server does not store client information between requests.
+REST APIs usually send and receive data in JSON format because it is lightweight and easy to understand.
+
+They are widely used in:
+Web applications
+Mobile applications
+Microservices
+Cloud applications
+
+Example:
+GET /employees/101
+This request fetches employee details whose id is 101.
+
+============================================================
+
+HTTP and HTTPS are protocols used to transfer data between a client (browser/app) and a server.
+**********HTTP************
+HTTP (HyperText Transfer Protocol)
+Data is transferred in plain text.
+Not secure because hackers can read or modify the data.
+Used for normal, non-sensitive communication.
+Default port number is 80.
+URL starts with:
+http://
+
+Example:
+http://example.com
+
+*******HTTPS******************
+HTTPS (HyperText Transfer Protocol Secure)
+HTTPS is the secure version of HTTP.
+Data is encrypted using SSL/TLS certificates.
+Prevents hacking, data theft, and tampering.
+Used for banking, login pages, payment systems, etc.
+Default port number is 443.
+URL starts with:
+https://
+
+Example:
+https://example.com
+
+
+================
+How we can secure REST APIs
+We can secure REST APIs using the following methods:
+
+1. HTTPS
+Use HTTPS instead of HTTP to encrypt data during communication between client and server.
+
+2. Authentication
+Verify the identity of the user before allowing access.
+Common authentication methods:
+JWT Token Authentication
+OAuth 2.0
+Basic Authentication
+
+3. Authorization
+Check whether the user has permission to access a particular resource or API.
+
+Example:
+Admin can delete users
+Normal user cannot delete users
+
+4. JWT Token
+After successful login, the server generates a token.
+The client sends this token in every request.
+
+Example:
+Authorization: Bearer eyJhbGciOi...
+
+5. Input Validation
+Validate request data to prevent:
+
+SQL Injection
+Invalid input
+Malicious data
+
+6. Rate Limiting
+Limit the number of API requests from a user to prevent server overload and attacks.
+
+7. API Keys
+Provide unique API keys to authorized clients for accessing APIs.
+
+8. CORS Configuration
+Configure Cross-Origin Resource Sharing properly to allow only trusted domains.

@@ -27,7 +27,7 @@ class Employee{
     public int getDoj(){return doj;}
 }
 
-class Main {
+class EmpClass {
     public static void prt(){
         System.out.println("===============================");
     }
@@ -184,7 +184,35 @@ class Main {
 
      System.out.println(empsByGender);
     prt();
-    //Partition employees earning more than 50k and those earning less.
+    //Top 2 highest salary emp details
+            List<Double> emps=employeeList.stream()
+                    .map(Employee::salary)
+                    .distinct()
+                    .sorted(Comparator.reverseOrder())
+                    .limit(2)
+                    .toList();
+
+            employeeList.stream()
+                    .filter(e->emps.contains(e.salary))
+                    .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
+            System.out.println("========================================================");
+
+            //Top 2 highest salary emp details per dept
+            Map<String,List<Employee>> map=employeeList.stream()
+                    .collect(Collectors.groupingBy(Employee::deptName));
+
+            map.forEach((dept,list)->{
+               List<Double> top2= list.stream()
+                        .map(Employee::salary)
+                        .distinct()
+                        .sorted(Comparator.reverseOrder())
+                        .limit(2)
+                       .toList();
+
+               list.stream()
+                       .filter(e->top2.contains(e.salary))
+                       .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
+            });
 
 
 

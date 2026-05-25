@@ -23,6 +23,37 @@ public class EmployeeList {
         employeeList.add(new Employee(9, "Sudha", 26, "female", 90000, "hr", 2019));
         employeeList.add(new Employee(10, "Anusha", 24, "female", 70000, "developer", 2018));
 
+        //Top 2 highest salary emp details
+        List<Double> emps=employeeList.stream()
+                .map(Employee::salary)
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .limit(2)
+                .toList();
+
+        employeeList.stream()
+                .filter(e->emps.contains(e.salary))
+                .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
+        System.out.println("========================================================");
+
+        //Top 2 highest salary emp details per dept
+        Map<String,List<Employee>> map=employeeList.stream()
+                .collect(Collectors.groupingBy(Employee::deptName));
+
+        map.forEach((dept,list)->{
+           List<Double> top2= list.stream()
+                    .map(Employee::salary)
+                    .distinct()
+                    .sorted(Comparator.reverseOrder())
+                    .limit(2)
+                   .toList();
+
+           list.stream()
+                   .filter(e->top2.contains(e.salary))
+                   .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
+        });
+
+
 //        Map<String,Double>sal=employeeList.stream().filter(e->e.age>25)
 //                .collect(Collectors.groupingBy(Employee::deptName,Collectors.summingDouble(Employee::salary)));
 //        System.out.println(sal);
@@ -62,13 +93,15 @@ public class EmployeeList {
 //                    ));
 //        });
 
-        List<Employee> emps=employeeList.stream()
-                .filter(e->e.salary()>50000)
-                .toList();
+//        List<Employee> emps1=employeeList.stream()
+//                .filter(e->e.salary()>50000)
+//                .toList();
+//
+//        for(Employee e: emps1){
+//            System.out.println(e);
+//        }
 
-        for(Employee e: emps){
-            System.out.println(e);
-        }
+
 
     }
 }
