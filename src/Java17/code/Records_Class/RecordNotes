@@ -1,0 +1,24 @@
+Interview Definition
+Record is a special immutable class introduced in Java to reduce boilerplate code for storing data objects.
+It automatically generates constructor, getters, equals, hashCode, and toString methods.
+
+
+Record Class Example
+record Employee(int id, String name) {
+
+}
+That’s it ✅
+
+Java automatically creates:
+Constructor
+Getter methods
+toString()
+equals()
+hashCode()
+
+| Class                 | Record                  |
+| --------------------- | ----------------------- |
+| More boilerplate code | Very less code          |
+| Mutable               | Immutable               |
+| Need manual methods   | Auto-generated methods  |
+| Flexible              | Mainly for data holding |

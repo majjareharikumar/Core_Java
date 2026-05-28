@@ -1,0 +1,129 @@
+1)what is interceptor and filters?
+Filter
+A Filter is used to intercept HTTP requests and responses before they reach the servlet or controller.
+It is part of the Servlet API and works at the web container level.
+Filters are mainly used for:
+logging
+authentication
+request validation
+response modification
+compression
+
+Interceptor
+An Interceptor is a Spring-specific feature used to intercept requests before and after controller execution.
+It works at the Spring MVC level.
+Interceptors are mainly used for:
+authentication
+authorization
+logging
+performance monitoring
+pre/post processing
+
+2)How we can create Asynchronous REST APIs
+Asynchronous REST APIs are used when a request takes more time to process, and we do not want the client thread to wait until completion.
+In Spring Boot, we can create async APIs using @Async and CompletableFuture.
+First, enable async support using @EnableAsync in the main class.
+Then create a service method with @Async, which runs in a separate thread.
+The controller returns CompletableFuture instead of direct response.
+This improves performance and scalability because the server can handle multiple requests concurrently.
+Async APIs are commonly used for email sending, file processing, report generation, and external API calls.
+
+ex:-
+@SpringBootApplication
+@EnableAsync
+public class App {
+}
+
+@Service
+public class UserService {
+
+    @Async
+    public CompletableFuture<String> getData() {
+
+        return CompletableFuture.completedFuture("Success");
+    }
+}
+
+@RestController
+public class UserController {
+
+    @Autowired
+    UserService service;
+
+    @GetMapping("/test")
+    public CompletableFuture<String> test() {
+
+        return service.getData();
+    }
+}
+
+3) How we can execute rest API's without token?
+In Spring Boot, we can allow specific REST APIs to execute without a token by configuring Spring Security to make those endpoints public.
+Using permitAll(), we can bypass authentication for selected APIs like login, signup, or health-check endpoints.
+All other APIs can still remain secured with JWT or other authentication mechanisms.
+This configuration is usually done inside the Spring Security configuration class.
+Public APIs are commonly used for authentication, registration, Swagger docs, and monitoring endpoints.
+
+We can allow APIs without token using permitAll(), WebSecurityCustomizer, or custom JWT filter logic.
+permitAll() allows access but still passes through security filters.
+web.ignoring() completely skips Spring Security processing.
+We can also manually bypass token validation inside custom JWT filters.
+In microservices, API Gateway can control which APIs require authentication
+
+4)how we can manage transactions in spring boot?
+In Spring Boot, transactions are mainly managed using the @Transactional annotation.
+It ensures that all database operations inside a method execute as a single unit of work.
+If all operations are successful, the transaction is committed; if any exception occurs, the transaction is rolled back automatically.
+Spring internally uses AOP and Transaction Manager to handle transaction management.
+We usually place @Transactional at the service layer because business logic is handled there.
+Spring Boot supports both declarative transaction management (@Transactional) and programmatic transaction management.
+Transactions help maintain data consistency and integrity in applications.
+
+==>Declarative Transaction Management
+Declarative transaction management means Spring automatically manages transactions using the @Transactional annotation.
+Developer only declares transaction rules, and Spring handles:
+transaction begin
+commit
+rollback
+
+Example:
+@Transactional
+public void transferMoney() {
+
+    debit();
+    credit();
+}
+How it Works
+Spring creates a proxy object using AOP
+Before method execution → transaction starts
+If method executes successfully → commit happens
+If exception occurs → rollback happens automatically
+
+This is the most commonly used approach because it reduces boilerplate code.
+
+==>Programmatic Transaction Management
+In programmatic transaction management, developer manually controls transactions using TransactionManager or TransactionTemplate.
+
+Example:
+@Autowired
+PlatformTransactionManager manager;
+public void test() {
+
+    TransactionStatus status =
+            manager.getTransaction(new DefaultTransactionDefinition());
+
+    try {
+
+        // DB operations
+
+        manager.commit(status);
+
+    } catch (Exception e) {
+
+        manager.rollback(status);
+    }
+}
+How it Works
+Developer manually starts transaction
+Explicitly commits or rolls back transaction
+Gives more control over transaction flow

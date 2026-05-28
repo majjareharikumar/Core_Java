@@ -1181,3 +1181,12 @@ Ex:-
                  .name("Hari") 
                  .email("hari@gmail.com")
                  .build();
+
+64)Frameworks used
+As a Java Backend Developer, we mainly use the Spring ecosystem frameworks.
+Spring Boot is used to develop REST APIs and microservices quickly.
+Spring MVC handles web and API request processing, while Spring Data JPA and Hibernate are used for database interaction.
+Spring Security is used for authentication and authorization.
+For microservices architecture, we use Spring Cloud components like Eureka and API Gateway.
+Kafka or RabbitMQ are used for asynchronous messaging, and JUnit/Mockito are used for testing.
+Docker and Kubernetes are commonly used for deployment and container management.

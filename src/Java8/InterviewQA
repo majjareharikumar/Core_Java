@@ -1,0 +1,40 @@
+1) How we can create custom functional interface?
+A Custom Functional Interface is an interface that contains only one abstract method.
+It is mainly used to support Lambda Expressions and Method References introduced in Java 8.
+We can create it using the @FunctionalInterface annotation, which provides compile-time validation.
+A functional interface can also contain multiple default and static methods.
+If an interface contains more than one abstract method, it is not considered a functional interface.
+Custom functional interfaces are commonly used to implement custom business logic like validation, payment processing, and notifications.
+They help reduce boilerplate code and make the code more readable and maintainable.
+Examples of built-in functional interfaces are Runnable, Callable, Predicate, Function, and Consumer.
+
+The word “Functional” in Functional Interface means the interface represents a single function or single behavior.
+It contains only one abstract method, so it performs one specific task.
+
+We need Functional Interfaces to:
+write code using Lambda Expressions
+reduce boilerplate code
+pass behavior/functionality as input
+make code cleaner and more flexible
+
+Example:
+Instead of creating a separate class for one small task, we can directly write:
+Runnable r = () -> System.out.println("Task Running");
+Here, Runnable is a functional interface representing one function: run().
+
+2) What are the functional interface methods
+Most used Functional Interfaces and their abstract methods:
+->Predicate<T> → boolean test(T t)
+Used for condition checking.
+->Consumer<T> → void accept(T t)
+Used to consume/process data.
+->Supplier<T> → T get()
+Used to supply/return data.
+->Function<T,R> → R apply(T t)
+Used to transform one object into another.
+->Runnable → void run()
+Used in multithreading to define a task.
+->Callable<V> → V call()
+Similar to Runnable, but returns value and can throw exception.
+->Comparator<T> → int compare(T o1, T o2)
+Used for custom sorting.

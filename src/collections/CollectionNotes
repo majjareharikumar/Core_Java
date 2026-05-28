@@ -230,6 +230,29 @@ Default load factor: 0.75
 Resize policy: Same as HashMap (but thread-safe and more granular).
 Internals: Buckets are split into segments (Java 7) or nodes/trees (Java 8+).
 
+==>
+| Collection      | Initial Capacity | Growth       | Max Capacity          |
+| --------------- | ---------------- | ------------ | --------------------- |
+| ArrayList       | 10               | 50% increase | Integer.MAX_VALUE - 8 | -8 is for JVM internal operations and safety checks.
+| HashMap         | 16               | Double       | 2^30=1073741824       |
+| HashSet         | 16               | Double       | 2^30=1073741824       |
+| Vector          | 10               | Double       | Integer.MAX_VALUE - 8 |
+| PriorityQueue   | 11               | Dynamic      | Integer.MAX_VALUE - 8 |
+| LinkedList      | No limit         | Node based   | Heap memory           |
+| TreeMap/TreeSet | No limit         | Tree based   | Heap memory           |
+
+ArrayList stores elements in a dynamic array, while HashMap stores data as key-value pairs using buckets and hashing, and HashSet internally uses HashMap to store unique elements.
+Collections that internally use arrays depend on Java int indexing for storing elements.
+Java int uses 32 bits, where 1 bit is reserved for sign and remaining 31 bits store the value.
+Since computers use binary format (0 and 1), the maximum positive value becomes:
+2^31
+−1=2147483647
+So collections like ArrayList can store approximately Integer.MAX_VALUE elements.
+HashMap and HashSet are slightly different because their internal bucket capacity is limited to:
+2^30
+=1073741824
+
+
 ✅18 What is the difference between HashMap and ConcurrentHashMap?
 HashMap is not thread-safe, and if multiple threads access it concurrently with at least one modifying the map, it may lead to data inconsistency.
 ConcurrentHashMap is thread-safe and allows concurrent reads and controlled writes without locking the entire map.
@@ -371,6 +394,13 @@ keySet() returns a Set view of all keys in the map.
 values() returns a Collection view of all values in the map.
 containsKey() is used to test presence; keySet() and values() are used to iterate keys and values.
 These methods help access and manipulate the contents of a HashMap.
+
+37)Thread-safe or Synchronized collections
+ArrayList, HashMap, and HashSet are not thread-safe because multiple threads can modify them simultaneously.
+We can make them thread-safe using Collections.synchronizedList(), Collections.synchronizedMap(), and Collections.synchronizedSet().
+Java also provides concurrent collections like CopyOnWriteArrayList and ConcurrentHashMap for better performance.
+For thread-safe sets, we can use ConcurrentHashMap.newKeySet().
+These concurrent collections are preferred in multithreaded applications because they provide better scalability and performance.
 
 
 

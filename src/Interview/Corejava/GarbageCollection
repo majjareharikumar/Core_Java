@@ -107,3 +107,13 @@ public class GarbageCollection {
 
     }
 }
+
+==>How ZGC Works Internally
+ZGC internally uses:
+colored pointers
+load barriers
+concurrent phases
+
+Internally, ZGC uses colored pointers, concurrent marking, relocation, and load barriers.
+Colored pointers store metadata information inside object references.
+Load barriers help update object references when objects are moved during garbage collection.
