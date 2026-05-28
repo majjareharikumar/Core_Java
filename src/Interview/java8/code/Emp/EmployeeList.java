@@ -24,34 +24,38 @@ public class EmployeeList {
         employeeList.add(new Employee(10, "Anusha", 24, "female", 70000, "developer", 2018));
 
         //Top 2 highest salary emp details
-        List<Double> emps=employeeList.stream()
-                .map(Employee::salary)
-                .distinct()
-                .sorted(Comparator.reverseOrder())
-                .limit(2)
-                .toList();
-
+//        List<Double> emps=employeeList.stream()
+//                .map(Employee::salary)
+//                .distinct()
+//                .sorted(Comparator.reverseOrder())
+//                .limit(2)
+//                .toList();
+//
+//        employeeList.stream()
+//                .filter(e->emps.contains(e.salary))
+//                .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
+//        System.out.println("========================================================");
+//
+//        //Top 2 highest salary emp details per dept
+//        Map<String,List<Employee>> map=employeeList.stream()
+//                .collect(Collectors.groupingBy(Employee::deptName));
+//
+//        map.forEach((dept,list)->{
+//           List<Double> top2= list.stream()
+//                    .map(Employee::salary)
+//                    .distinct()
+//                    .sorted(Comparator.reverseOrder())
+//                    .limit(2)
+//                   .toList();
+//
+//           list.stream()
+//                   .filter(e->top2.contains(e.salary))
+//                   .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
+//        });
+        prt();
         employeeList.stream()
-                .filter(e->emps.contains(e.salary))
-                .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
-        System.out.println("========================================================");
-
-        //Top 2 highest salary emp details per dept
-        Map<String,List<Employee>> map=employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::deptName));
-
-        map.forEach((dept,list)->{
-           List<Double> top2= list.stream()
-                    .map(Employee::salary)
-                    .distinct()
-                    .sorted(Comparator.reverseOrder())
-                    .limit(2)
-                   .toList();
-
-           list.stream()
-                   .filter(e->top2.contains(e.salary))
-                   .forEach(e-> System.out.println(e.name+"->"+e.deptName+"->"+e.salary));
-        });
+                .filter(e->e.salary()>60000 && e.deptName.equalsIgnoreCase("hr"))
+                .forEach(e->System.out.println(e.name+"->"+e.salary+"->"+e.deptName));
 
 
 //        Map<String,Double>sal=employeeList.stream().filter(e->e.age>25)

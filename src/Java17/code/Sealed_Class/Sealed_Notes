@@ -1,0 +1,27 @@
+1. Sealed Classes (Standard Feature)
+Sealed classes restrict which classes can extend or implement them.
+
+public sealed class Shape permits Circle, Rectangle {}
+
+final class Circle extends Shape {}
+final class Rectangle extends Shape {}
+
+Why it matters:
+Better control over class hierarchies
+Improves maintainability and security
+Works well with pattern matching
+
+🔥 Important Rules for Sealed Classes
+When a class extends a sealed class, it must be one of these:
+
+1. final
+Cannot be extended further.
+final class Car extends Vehicle {}
+
+2. sealed
+Can again restrict subclasses.
+sealed class Car extends Vehicle permits SportsCar {}
+
+3. non-sealed
+Removes restriction and allows anyone to extend.
+non-sealed class Bike extends Vehicle {}
