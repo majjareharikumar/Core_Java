@@ -1,0 +1,58 @@
+Java Collections Class Methods
+| Method                   | Purpose / Definition                          | How to Use                                                | When to Use                     |
+| ------------------------ | --------------------------------------------- | --------------------------------------------------------- | ------------------------------- |
+| `sort()`                 | Sorts elements in ascending order             | `Collections.sort(list);`                                 | When you want ordered data      |
+| `sort(list, comparator)` | Sorts using custom logic                      | `Collections.sort(list, Comparator.reverseOrder());`      | Custom sorting like salary, age |
+| `reverse()`              | Reverses list elements                        | `Collections.reverse(list);`                              | Reverse display/order           |
+| `shuffle()`              | Randomly rearranges elements                  | `Collections.shuffle(list);`                              | Games, random selection         |
+| `swap()`                 | Swaps two elements                            | `Collections.swap(list,0,1);`                             | Exchange positions              |
+| `rotate()`               | Rotates elements by given distance            | `Collections.rotate(list,2);`                             | Circular shifting               |
+| `max()`                  | Finds maximum element                         | `Collections.max(list);`                                  | Highest salary/marks            |
+| `min()`                  | Finds minimum element                         | `Collections.min(list);`                                  | Lowest value finding            |
+| `binarySearch()`         | Searches element in sorted list               | `Collections.binarySearch(list,5);`                       | Fast searching                  |
+| `frequency()`            | Counts occurrences of element                 | `Collections.frequency(list,2);`                          | Duplicate counting              |
+| `disjoint()`             | Checks common elements exist or not           | `Collections.disjoint(l1,l2);`                            | Compare two collections         |
+| `copy()`                 | Copies source list to destination             | `Collections.copy(dest,src);`                             | Duplicate data                  |
+| `fill()`                 | Replaces all elements with one value          | `Collections.fill(list,10);`                              | Reset values                    |
+| `replaceAll()`           | Replaces old value with new value             | `Collections.replaceAll(list,1,100);`                     | Bulk replacement                |
+| `addAll()`               | Adds multiple elements                        | `Collections.addAll(list,1,2,3);`                         | Quick insertion                 |
+| `indexOfSubList()`       | Finds first occurrence of sublist             | `Collections.indexOfSubList(l1,l2);`                      | Pattern matching                |
+| `lastIndexOfSubList()`   | Finds last occurrence of sublist              | `Collections.lastIndexOfSubList(l1,l2);`                  | Last matching pattern           |
+| `singleton()`            | Creates immutable set with one element        | `Collections.singleton("Java");`                          | Single fixed object             |
+| `singletonList()`        | Creates immutable list with one element       | `Collections.singletonList(10);`                          | Read-only single value          |
+| `singletonMap()`         | Creates immutable map with one pair           | `Collections.singletonMap(1,"A");`                        | Fixed key-value                 |
+| `emptyList()`            | Returns immutable empty list                  | `Collections.emptyList();`                                | Avoid null return               |
+| `emptySet()`             | Returns immutable empty set                   | `Collections.emptySet();`                                 | Safe empty object               |
+| `emptyMap()`             | Returns immutable empty map                   | `Collections.emptyMap();`                                 | Empty response                  |
+| `unmodifiableList()`     | Creates read-only list                        | `Collections.unmodifiableList(list);`                     | Prevent modification            |
+| `unmodifiableSet()`      | Creates read-only set                         | `Collections.unmodifiableSet(set);`                       | Secure collection               |
+| `unmodifiableMap()`      | Creates read-only map                         | `Collections.unmodifiableMap(map);`                       | Protect data                    |
+| `synchronizedList()`     | Creates thread-safe list                      | `Collections.synchronizedList(list);`                     | Multi-threading                 |
+| `synchronizedSet()`      | Creates thread-safe set                       | `Collections.synchronizedSet(set);`                       | Concurrent access               |
+| `synchronizedMap()`      | Creates thread-safe map                       | `Collections.synchronizedMap(map);`                       | Shared map usage                |
+| `checkedList()`          | Provides runtime type safety                  | `Collections.checkedList(list,String.class);`             | Avoid wrong datatype            |
+| `checkedSet()`           | Type-safe set                                 | `Collections.checkedSet(set,String.class);`               | Runtime validation              |
+| `checkedMap()`           | Type-safe map                                 | `Collections.checkedMap(map,Integer.class,String.class);` | Prevent invalid entries         |
+| `nCopies()`              | Creates immutable list with repeated elements | `Collections.nCopies(5,"Java");`                          | Default values                  |
+| `enumeration()`          | Converts collection to enumeration            | `Collections.enumeration(list);`                          | Legacy API support              |
+| `list()`                 | Converts enumeration to list                  | `Collections.list(enumeration);`                          | Old API conversion              |
+| `reverseOrder()`         | Returns reverse comparator                    | `Collections.reverseOrder();`                             | Descending sorting              |
+
+
+Most Frequently Asked in Interviews
+These are the most important methods:
+sort()
+max()
+min()
+copy()
+fill()
+frequency()
+replaceAll()
+`addAll()
+reverse()
+shuffle()
+synchronizedList()
+unmodifiableList()
+Collections.sort(list, comparator)
+swap(list,0,1)
+binarySearch()
