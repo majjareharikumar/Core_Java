@@ -25,3 +25,5 @@ sealed class Car extends Vehicle permits SportsCar {}
 3. non-sealed
 Removes restriction and allows anyone to extend.
 non-sealed class Bike extends Vehicle {}
+
+if class is not above 3 then compiler will throw error:- java: sealed, non-sealed or final modifiers expected
