@@ -17,6 +17,7 @@ public class Record_Class {
         System.out.println(emp.id());
         System.out.println(emp.Name());
         System.out.println(emp);
+        System.out.println(emp1);
 
         empList.add(new Employee(101,"Hari"));
         empList.add(new Employee(102,"Kumar"));
