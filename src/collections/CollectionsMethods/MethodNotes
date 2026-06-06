@@ -1,4 +1,4 @@
-Java Collections Class Methods
+   Java Collections Class Methods
 | Method                   | Purpose / Definition                          | How to Use                                                | When to Use                     |
 | ------------------------ | --------------------------------------------- | --------------------------------------------------------- | ------------------------------- |
 | `sort()`                 | Sorts elements in ascending order             | `Collections.sort(list);`                                 | When you want ordered data      |
