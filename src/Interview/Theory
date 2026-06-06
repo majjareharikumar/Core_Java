@@ -12,6 +12,22 @@ I enjoy solving complex problems, improving system performance, and I’m always
 
 ............................................................
 
+=>why you are leaving current company?
+Answer 1 (Recommended)
+"I have been with Virtusa for around 4.5 years and have gained valuable experience in Java, Spring Boot, Microservices, Kafka, and production support.
+Over the years, I have learned a lot and contributed to multiple projects.
+Now I am looking for an opportunity that offers more challenging technical work, greater ownership, and career growth.
+The role I'm interviewing for aligns well with my experience and long-term career goals."
+
+Answer 2 (If asked specifically why now)
+"I have had a stable and rewarding journey in my current organization.
+However, I feel this is the right time to explore new opportunities where I can work on larger-scale systems, learn new technologies, and expand my responsibilities.
+I am looking for a role that will help me grow both technically and professionally."
+
+Answer 3 (For Product-Based Companies)
+"My current role has given me strong experience in backend development and microservices.
+Now I would like to work in an environment where I can contribute to the complete product lifecycle, solve large-scale engineering problems, and continue enhancing my technical skills."
+
 1)In microservice, If one service is having some failures and causing other service failures. How we can resolve this?
 In microservices architectures, when one service fails and causes failures in other services, this is known as "cascading failure."
 To address this and improve system resilience, you should implement several key strategies:

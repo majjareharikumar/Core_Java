@@ -1,0 +1,171 @@
+1)How can we implement Role-Based Authentication/Authorization in Spring Boot?
+"Role-based authentication is implemented using Spring Security and JWT.
+User credentials and roles are stored in the database.
+During login, Spring Security authenticates the user and generates a JWT token containing role information.
+For every request, the token is validated and roles are extracted.
+Authorization is then performed using hasRole() or @PreAuthorize annotations.
+For example, ADMIN users can access admin APIs, while USERs can access only user-specific APIs.
+This approach provides secure and centralized access control."
+
+Real-Time Example
+
+In a banking application:
+
+CUSTOMER → View account details.
+EMPLOYEE → Process transactions.
+ADMIN → Manage users and system settings.
+
+Using annotations:
+@PreAuthorize("hasRole('ADMIN')")
+@GetMapping("/admin")
+public String adminApi() {
+    return "Admin Access";
+}
+
+Or in Security Configuration:
+.authorizeHttpRequests(auth -> auth
+    .requestMatchers("/admin/**").hasRole("ADMIN")
+    .requestMatchers("/user/**").hasAnyRole("USER","ADMIN")
+    .anyRequest().authenticated()
+)
+
+2)we have 2 tables 1 is app and 2nd table is app_access.
+  app is having app_id & app_name. app_access table have app_Id & access like Authorize and unauthorize .
+  Write a sql query to fetch only those app having Authorize
+
+Table:-App
+| app_id | app_name |
+| ------ | -------- |
+| 1      | Banking  |
+| 2      | Trading  |
+| 3      | Payments |
+
+Table:- App_Name
+| app_id | access      |
+| ------ | ----------- |
+| 1      | Authorize   |
+| 1      | Unauthorize |
+| 2      | Unauthorize |
+| 3      | Authorize   |
+
+Query:-
+SELECT DISTINCT a.app_id,
+                a.app_name
+FROM app a
+INNER JOIN app_access aa
+    ON a.app_id = aa.app_id
+WHERE aa.access = 'Authorize';
+
+Explanation:-
+"We can use an INNER JOIN between the app and app_access tables on app_id and filter records using WHERE access = 'Authorize'.
+If duplicate authorize records exist, DISTINCT can be used to return unique applications."
+
+3)when user click send pay button multiple times by accidentally from UI and money sent for every request .
+How we can prevent this problem?
+
+"To prevent duplicate payments caused by multiple button clicks, I would first disable the payment button on the UI after the first click.
+At the backend, I would implement idempotency using a unique request ID or transaction ID.
+Before processing a payment, the system checks whether the request ID has already been processed.
+If it exists, the previous response is returned without creating a new transaction.
+Additionally, I would enforce a unique constraint at the database level and use distributed locking in a microservices environment.
+This ensures that a payment is processed only once even if multiple requests arrive simultaneously."
+
+What is Idempotency?
+"Idempotency is a technique used to ensure that the same request can be executed multiple times without causing duplicate effects.
+It is commonly used in payment and banking systems to prevent duplicate transactions.
+A unique idempotency key is generated for each request and stored after successful processing.
+If the same key is received again, the server identifies it as a duplicate request and returns the existing response instead of executing the operation again.
+This guarantees that the transaction is processed only once, even if the client retries the request multiple times."
+
+4)What is Bulkhead?
+"Bulkhead is a resilience pattern used to isolate resources and prevent failures from spreading across the system.
+It works by allocating separate thread pools or request limits for different services.
+If one service becomes slow or unavailable, it cannot consume all system resources and impact other services.
+In Spring Boot Microservices, Bulkhead is commonly implemented using Resilience4j.
+It improves system stability, fault isolation, and availability.
+The two main types are Semaphore Bulkhead and Thread Pool Bulkhead."
+
+Types of Bulkhead
+1. Semaphore Bulkhead
+Limits the number of concurrent requests.
+Extra requests are rejected.
+
+2. Thread Pool Bulkhead
+Creates separate thread pools for different services.
+One service cannot consume all threads.
+
+5)How does a Notification System work after a Payment?
+In modern Microservices, notifications are usually sent using an event-driven architecture with a message broker like Kafka.
+
+Flow
+User
+  ↓
+Payment Service
+  ↓
+Payment Success
+  ↓
+Publish Event to Kafka
+  ↓
+Notification Service Consumes Event
+  ↓
+Send SMS / Email / Push Notification
+  ↓
+User Receives Notification
+Step-by-Step Example
+1. User makes a payment
+
+User pays ₹1000 through the Payment API.
+
+POST /payments
+2. Payment Service processes the payment
+Deduct amount.
+Save transaction in DB.
+Mark transaction as SUCCESS.
+3. Publish Event to Kafka
+PaymentEvent event =
+    new PaymentEvent(txnId, amount, "SUCCESS");
+
+kafkaTemplate.send("payment-topic", event);
+
+The Payment Service does not directly send notifications. It only publishes an event.
+
+4. Notification Service consumes the event
+@KafkaListener(topics = "payment-topic")
+public void consume(PaymentEvent event) {
+    sendSMS(event);
+}
+5. Notification is sent
+₹1000 debited successfully.
+Txn ID: TXN12345
+
+User receives:
+
+SMS
+Email
+Mobile Push Notification
+Why use Kafka instead of calling Notification Service directly?
+
+Without Kafka:
+
+Payment Service
+      ↓
+Notification Service
+
+If Notification Service is down:
+
+Payment may fail.
+User experience is affected.
+
+With Kafka:
+
+Payment Service
+      ↓
+    Kafka
+      ↓
+Notification Service
+Payment completes successfully.
+Event is stored in Kafka.
+Notification can be sent later when the service recovers.
+Services remain loosely coupled.
+
+6)
