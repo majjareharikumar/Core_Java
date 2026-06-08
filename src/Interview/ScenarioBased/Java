@@ -1,0 +1,115 @@
+1)A user clicks the "Pay Now" button multiple times and multiple payments are processed. How would you prevent this?
+  This is a common issue in payment systems. I would implement idempotency by generating a unique idempotency key for each payment request.
+  The backend stores the key along with the transaction result.
+  If the same request comes again with the same key, the system returns the existing response instead of processing the payment again.
+  Additionally, I would disable the payment button on the UI after the first click to reduce duplicate requests.
+
+2)Payment Service depends on Notification Service, but Notification Service is unavailable. What would you do?
+  I would use the Circuit Breaker pattern to prevent repeated calls to the failed service.
+  Once the failure threshold is reached, the circuit opens and stops sending requests temporarily.
+  The payment transaction should still complete successfully because notification is not a critical operation.
+  I would publish the notification event to Kafka so it can be processed later when the service becomes available.
+  This improves system resilience and user experience.
+
+3)Your application suddenly receives 1 million requests. How would you handle it?
+  First, I would scale the application horizontally by adding more service instances behind a load balancer.
+  Frequently accessed data can be cached using Redis to reduce database load.
+  For heavy background processing, I would use Kafka to handle requests asynchronously.
+  Monitoring tools like Grafana and Dynatrace would help identify bottlenecks.
+  This approach improves performance and system stability during traffic spikes.
+
+4)An API that normally responds in 200ms is now taking 10 seconds. How would you investigate?
+  I would start by checking logs and monitoring dashboards using tools like Splunk, Grafana, or Dynatrace.
+  Then I would identify whether the issue is in the application, database, or external services.
+  Slow SQL queries, missing indexes, and connection pool exhaustion are common causes.
+  Thread dumps and JVM metrics can also help identify performance bottlenecks. Based on the findings, I would optimize the affected component.
+
+5)A Kafka consumer crashes while processing messages. How do you avoid data loss?
+  Kafka stores messages in the topic for a configured retention period, so messages are not lost immediately.
+  I would use manual offset commits and commit the offset only after successful processing.
+  If the consumer crashes before committing, Kafka will resend the message when the consumer restarts.
+  This ensures reliable processing and prevents data loss. Proper retry and dead-letter queue mechanisms can also be implemented.
+
+6)Users need to upload files larger than 5GB. How would you design the system?
+  Uploading such large files through the application server can impact performance.
+  I would use cloud storage like S3 or GCP Storage and generate pre-signed URLs for direct uploads.
+  Chunked upload can be implemented so files are uploaded in smaller parts.
+  This reduces memory consumption and network overhead on the application server.
+  It also improves reliability for large file transfers.
+
+7)All database connections are busy and requests are failing. What would you do?
+  I would first check whether connections are being properly closed after usage.
+  Then I would investigate slow queries and long-running transactions that may be holding connections.
+  Monitoring HikariCP metrics can help identify pool utilization. Optimizing queries and increasing pool size, if required, can improve throughput.
+  Proper connection management is essential to prevent such issues.
+
+8)Order Service created an order successfully, but Payment Service failed. How would you handle consistency?
+  In a microservices architecture, I would use the Saga Pattern.
+  If payment fails after order creation, a compensating transaction would automatically cancel the order.
+  This ensures consistency across services without using distributed transactions. Events can be exchanged through Kafka to coordinate the workflow.
+  This approach is widely used in e-commerce and banking applications.
+
+9)Notification processing takes 10 seconds and users are waiting. How would you solve it?
+  I would make notification processing asynchronous using Kafka.
+  After a successful payment, the Payment Service publishes an event to Kafka and immediately responds to the user.
+  Notification Service consumes the event separately and sends the notification. This reduces API response time and improves user experience.
+  It also increases system scalability and fault tolerance.
+
+10)Thousands of users are calling the same API repeatedly. How would you improve performance?
+  I would introduce caching using Redis. Frequently accessed data can be stored in the cache, reducing database calls significantly.
+  The application checks Redis first and only queries the database when data is not available in the cache.
+  Cache expiration policies can ensure data remains fresh. This improves response time and reduces backend load.
+
+11)One service is consuming all threads and affecting the entire application. How would you handle it?
+  I would implement the Bulkhead Pattern to isolate resources. Separate thread pools can be allocated for different services or functionalities.
+  If one service becomes overloaded, it only impacts its own resources and not the entire application.
+  This improves fault isolation and system stability. Bulkhead is commonly used with Circuit Breaker in microservice architectures.
+
+12)Suppose 100 users try to book the last movie ticket at the same time. How would you prevent multiple bookings for the same seat?
+  This is a concurrency problem. I would synchronize access to the booking logic so that only one thread can book the seat at a time.
+  In a distributed system, I might use a database lock or distributed lock (Redis).
+  Before confirming the booking, the system checks seat availability and updates it atomically.
+  This prevents race conditions where multiple users book the same seat simultaneously.
+
+  Live Example:
+  BookMyShow, airline ticket booking, railway reservation systems.
+
+13)Different APIs return different error formats when exceptions occur. How would you standardize error responses?
+  I would implement a global exception handler using @ControllerAdvice and @ExceptionHandler.
+  This allows handling exceptions from all controllers in one place.
+  A common error response structure containing timestamp, error code, message, and path can be returned.
+  This improves API consistency and makes debugging easier for frontend and client applications.
+
+  Live Example:
+  Instead of returning random error messages, all APIs return:
+
+  {
+    "timestamp":"2026-06-08T10:00:00",
+    "status":400,
+    "message":"Invalid Account Number"
+  }
+
+14)Your API is taking 8–10 seconds to return customer and order data.
+Investigation shows many SQL queries are executed. What could be the issue?
+  This is often caused by the N+1 Query Problem in JPA.
+  When fetching customers, JPA may execute additional queries for each customer's orders.
+  I would analyze the generated SQL logs and use JOIN FETCH, Entity Graphs,
+  or optimized DTO queries to reduce the number of database calls.
+  This significantly improves performance and reduces database load.
+
+  Live Example:
+  100 customers are loaded.
+
+  1 query for customers
+  100 additional queries for orders
+  Total = 101 queries
+  Using JOIN FETCH, the same data can be retrieved in a single query.
+
+15)Different APIs return different error formats when exceptions occur. How would you standardize error responses?
+  I would implement a global exception handler using @ControllerAdvice and @ExceptionHandler.
+  This allows handling exceptions from all controllers in one place.
+  A common error response structure containing timestamp, error code, message, and path can be returned.
+  This improves API consistency and makes debugging easier for frontend and client applications.
+
+
+
