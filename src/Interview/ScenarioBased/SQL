@@ -1,0 +1,85 @@
+1. Customers Who Never Placed Any Order
+Tables
+customer
+| customer_id | customer_name |
+| ----------- | ------------- |
+| 1           | Hari          |
+| 2           | Ravi          |
+| 3           | John          |
+
+orders
+| order_id | customer_id |
+| -------- | ----------- |
+| 101      | 1           |
+| 102      | 2           |
+
+Q)Find customers who never placed an order.
+select c.customer_name
+from customer c
+Left join orders o
+ON c.customer_id=o.customer_id
+where o.order_id IS NULL;
+
+2. Find Customer Who Placed Highest Number of Orders
+orders
+| order_id | customer_id |
+| -------- | ----------- |
+| 101      | 1           |
+| 102      | 1           |
+| 103      | 2           |
+| 104      | 1           |
+
+Query:-
+Select customer_id,count(*) total
+from orders
+group by customer_id
+order by customer_id desc
+limit 1;
+
+3.Employees Earning More Than Their Manager
+  employee
+  | emp_id | emp_name | salary | manager_id |
+  | ------ | -------- | ------ | ---------- |
+  | 1      | Ram      | 100000 | NULL       |
+  | 2      | Hari     | 120000 | 1          |
+  | 3      | Ravi     | 80000  | 1          |
+Query:-
+select e.emp_name
+from employee e
+Join employee m
+on e.emp_id=m.manager_id
+where e.salary>m.salary;
+
+4. Department Having Highest Average Salary
+employee
+| emp_id | dept_id | salary |
+| ------ | ------- | ------ |
+| 1      | 10      | 50000  |
+| 2      | 10      | 60000  |
+| 3      | 20      | 100000 |
+
+select *
+from(
+ select dept_id,avg(sal) s
+ from employee
+ group by dept_id
+ order by s
+)
+where rownum=1;
+
+5.Second Highest Salary Employee
+employee
+| emp_id | salary |
+| ------ | ------ |
+| 1      | 10000  |
+| 2      | 50000  |
+| 3      | 40000  |
+
+Query:-
+select max(salary)
+from employee
+where salary<(
+ select max(salary)
+ from employee
+
+);
