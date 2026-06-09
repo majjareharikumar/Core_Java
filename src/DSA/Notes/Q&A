@@ -4,6 +4,8 @@
     Examples: Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, HashMaps.
 ->Data Structures help manage data efficiently, while Algorithms help process that data effectively.
 ->For example, choosing between a HashMap (O(1)) and a List (O(n)) for searching can make a huge difference in speed.
+->An algorithm is a step-by-step set of instructions used to solve a problem or perform a specific task.
+  While data structures store and organize data, algorithms define how to process that data efficiently.
 
 🧩 Types of Data Structures
 Data Structures are mainly divided into two types — Linear and Non-Linear.
@@ -37,6 +39,110 @@ Another example: Undo/Redo feature in editors uses a Stack (LIFO) structure.
 ==>Non-Linear Data Structures – Real-Time Example:
 A file system on your computer (folders inside folders) is a perfect example of a Tree structure — root → subfolders → files.
 A social network (like LinkedIn or Facebook) uses a Graph to show connections — each user is a node, and relationships are edges.
+
+🧩Types of Algorithms
+There are many algorithms, but for interviews these are the most important categories:
+1. Searching Algorithms
+Used to find data.
+Examples:
+Linear Search
+Binary Search
+Find 50 in:
+[10,20,30,40,50]
+
+2. Sorting Algorithms
+Used to arrange data.
+Examples:
+Bubble Sort
+Selection Sort
+Insertion Sort
+Merge Sort
+Quick Sort
+Heap Sort
+Before: [5,3,1,4]
+After : [1,3,4,5]
+
+3. Recursion Algorithms
+A function calls itself.
+Example:
+factorial(n) = n * factorial(n-1)
+Used in:
+Tree Traversal
+DFS
+Backtracking
+
+4. Divide and Conquer
+Break a problem into smaller parts.
+Examples:
+Merge Sort
+Quick Sort
+Binary Search
+Problem
+   ↓
+Divide
+   ↓
+Solve
+   ↓
+Combine
+
+5. Greedy Algorithms
+Choose the best option at the current step.
+Examples:
+Activity Selection
+Huffman Coding
+Kruskal's Algorithm
+Take best now
+Hope it leads to best result
+
+6. Dynamic Programming (DP)
+Solve smaller subproblems and store results.
+Examples:
+Fibonacci
+Knapsack Problem
+Longest Common Subsequence
+Don't solve same problem twice
+
+7. Backtracking
+Try all possibilities and backtrack if a choice fails.
+Examples:
+N-Queens
+Sudoku Solver
+Maze Problems
+Choose
+Explore
+Undo
+Try another path
+
+8. Graph Algorithms
+Used on graphs.
+Examples:
+BFS
+DFS
+Dijkstra
+Kruskal
+Prim
+
+Applications:
+Maps
+Social Networks
+Routing
+
+9. Tree Algorithms
+Used on trees.
+Examples:
+Inorder Traversal
+Preorder Traversal
+Postorder Traversal
+Level Order Traversal
+
+10. Hashing Algorithms
+Use hash functions for fast lookup.
+Examples:
+HashMap
+HashSet
+Average operations:
+Search = O(1)
+Insert = O(1)
 
 ⏱ What is Time Complexity?
 Time Complexity is the measure of how much time an algorithm takes to run as the size of input increases.
@@ -372,6 +478,70 @@ Example:
      / \     / \
    40 50   60 70
 
-18)
+18)What is a Spanning Tree?
+  A Spanning Tree is a subgraph of a connected graph that includes all vertices and connects them without forming any cycles.
+  It contains exactly V−1 edges, where V is the number of vertices in the graph.
+  A graph can have multiple spanning trees. The main purpose of a spanning tree is to connect all nodes using the minimum number of edges while avoiding loops.
+  Spanning trees are commonly used in network design, routing, and communication systems.
+  If the graph is weighted, the spanning tree with the minimum total weight is called a Minimum Spanning Tree (MST).
 
+19)can a graph have multiple spanning trees?
+     Yes, a graph can have multiple spanning trees.
+     Example
+     Consider the graph:
+
+         A
+        / \
+       B---C
+
+     Edges: AB, BC, AC
+
+     Possible spanning trees:
+     Tree 1
+
+     A
+     |
+     B
+     |
+     C
+     Edges: AB, BC
+
+     Tree 2
+
+     A
+     |
+     C
+     |
+     B
+
+     Edges: AC, BC
+
+     Tree 3
+
+     B
+     |
+     A
+     |
+     C
+
+     Edges: AB, AC
+
+     So this graph has 3 different spanning trees.
+
+     Interview Answer (6–7 Lines)
+     Yes, a connected graph can have multiple spanning trees. A spanning tree is a connected subgraph that includes all vertices and contains no cycles.
+     To create a spanning tree, we remove enough edges to eliminate cycles while keeping all vertices connected.
+     Different combinations of edge removals can produce different spanning trees. A graph with cycles usually has multiple spanning trees,
+     whereas a graph that is already a tree has exactly one spanning tree.
+
+     =>How many spanning trees does a tree graph have?
+       Exactly one. Since a tree already has no cycles and contains V - 1 edges, removing any edge would disconnect the graph.
+
+20)What is the Difference Between Tree and Graph?
+  ->A Tree is a special type of Graph that is hierarchical, connected, and contains no cycles.
+  A Tree always has one root node and exactly one path between any two nodes.
+  For n nodes, a Tree always contains n−1 edges.
+  ->A Graph is a collection of vertices and edges that may contain cycles and multiple paths between nodes.
+  Graphs do not require a root node and can represent complex relationships such as social networks and road maps.
+  Every Tree is a Graph, but every Graph is not a Tree.
 
