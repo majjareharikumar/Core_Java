@@ -1,0 +1,34 @@
+Red-Black Tree:-
+A Red-Black Tree is a self-balancing Binary Search Tree (BST) in which every node is assigned a color (Red or Black).
+It maintains a set of balancing rules so that the tree height remains approximately balanced after insertions and deletions.
+Because of this, search, insert, and delete operations are performed in O(log n) time.
+
+=>How It Works (Theory)
+->A Red-Black Tree follows all Binary Search Tree rules:
+   Left child < Parent
+   Right child > Parent
+->Each node is assigned either Red or Black color.
+->When a new element is inserted, it is initially added as a Red node.
+->After insertion, the tree checks whether any Red-Black rules are violated:
+  Root must be Black.
+  Two consecutive Red nodes are not allowed.
+  Every path from root to leaf must contain the same number of Black nodes.
+->If a rule is violated, the tree performs:
+  Recoloring (changing node colors), or
+  Rotations (left/right rotations)
+->These adjustments keep the tree balanced and prevent it from becoming skewed like a linked list.
+
+ex:-
+Let's insert the elements in sorted order:
+10, 20, 30, 40, 50, 60, 70, 80, 90
+
+Tree:-
+                 40(B)
+               /       \
+           20(B)       60(B)
+          /    \      /     \
+      10(B)  30(B) 50(B)   80(R)
+                             /   \
+                         70(B)  90(B)
+
+

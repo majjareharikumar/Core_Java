@@ -27,3 +27,5 @@ They are widely used in frameworks like Spring and Hibernate.
    They improve the flow of control and object collaboration.
    Examples include Observer, Strategy, Command, and Chain of Responsibility,State,Template Method,Iterator,Mediator,Memento
    Interpreter,Visitor
+
+1. Creational Design Patterns

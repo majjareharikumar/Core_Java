@@ -1,0 +1,118 @@
+1. Singleton Pattern
+Singleton Pattern ensures that only one object of a class is created throughout the application.
+It provides a global access point to that object.
+It is useful when multiple objects can cause inconsistency.
+This pattern saves memory and controls resource usage.
+Commonly used for configuration, logging, and cache management.
+
+Simple Java Code
+public class SingleTon {
+    private SingleTon(){}
+
+    private static SingleTon instance;
+
+    public static SingleTon getInstance(){
+        if(instance==null){
+            instance=new SingleTon();
+        }
+        return instance;
+    }
+
+    public static void main(String[] args) {
+        SingleTon obj1=SingleTon.getInstance();
+        SingleTon obj2=SingleTon.getInstance();
+
+        System.out.println(obj1.equals(obj2));
+
+        System.out.println(obj1==obj2);
+    }
+}
+
+2. Factory Method Pattern
+Factory Method Pattern creates objects through a factory class instead of creating them directly using new.
+The client only requests an object, and the factory decides which object to create.
+This reduces dependency between classes and makes the code easy to maintain.
+New object types can be added without changing the client code.
+
+Without Factory Pattern
+Suppose you have a payment application.
+
+Payment payment = new UpiPayment();
+payment.pay();
+
+Tomorrow the user wants to pay using a Card:
+Payment payment = new CardPayment();
+payment.pay();
+
+Now the client code needs to know:
+Which class to create?
+When to create UpiPayment?
+When to create CardPayment?
+
+This creates dependency on concrete classes.
+
+With Factory Pattern
+Client simply says:
+Payment payment = PaymentFactory.getPayment("UPI");
+payment.pay();
+
+The factory decides:
+if(type.equals("UPI"))
+    return new UpiPayment();
+else
+    return new CardPayment();
+Now the client doesn't care which object is created.
+
+Simple java code
+  interface payment{
+      void pay();
+  }
+
+  class UPIPayment implements payment{
+
+      @Override
+      public void pay() {
+          System.out.println("paid using UPI");
+      }
+  }
+
+  class CreditCard implements payment{
+      @Override
+      public void pay(){
+          System.out.println("Paid using CreditCard");
+      }
+  }
+
+  class NetBanking implements payment{
+      @Override
+      public void pay(){
+          System.out.println("Paid using NetBanking");
+      }
+  }
+
+  class FactoryClass{
+      public static payment getPayment(String mode) {
+          if(mode.equalsIgnoreCase("upi")){
+              return new UPIPayment();
+          } else if (mode.equalsIgnoreCase("cred")) {
+              return new CreditCard();
+          }else if(mode.equalsIgnoreCase("netbanking")){
+              return new NetBanking();
+          }
+          throw new IllegalArgumentException("Invalid payment mode");
+      }
+  }
+  public class FactoryPattern {
+
+      public static void main(String[] args) {
+          Scanner sc=new Scanner(System.in);
+          System.out.println("Please enter payment mode");
+          String str=sc.nextLine();
+          payment pay=FactoryClass.getPayment(str);
+          pay.pay();
+      }
+  }
+
+
+3. Abstract Factory Pattern
+  

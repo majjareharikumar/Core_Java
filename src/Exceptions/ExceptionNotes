@@ -10,6 +10,51 @@ Checked exceptions are checked at compile time (e.g., IOException, SQLException)
 Unchecked exceptions are not checked at compile time (e.g., NullPointerException, ArithmeticException).
 They usually indicate programming errors and occur at runtime.
 
+Checked Exception
+
+A Checked Exception is an exception that is checked by the compiler at compile time. The programmer must either handle it using a try-catch block or declare it using the throws keyword. These exceptions usually occur due to external factors such as file handling, database connections, or network operations.
+
+Examples:
+
+IOException
+SQLException
+ClassNotFoundException
+import java.io.*;
+
+public class Test {
+    public static void main(String[] args) {
+        try {
+            FileReader fr = new FileReader("test.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+Unchecked Exception
+
+An Unchecked Exception is not checked by the compiler at compile time. These exceptions occur due to programming mistakes or logical errors. Handling them is optional.
+
+Examples:
+
+NullPointerException
+ArrayIndexOutOfBoundsException
+ArithmeticException
+public class Test {
+    public static void main(String[] args) {
+        String str = null;
+        System.out.println(str.length()); // NullPointerException
+    }
+}
+Interview Answer (6–8 lines)
+
+Checked Exceptions are verified by the compiler at compile time and must be either handled using try-catch or declared using throws. They generally occur due to external resources such as files, databases, or networks. Unchecked Exceptions are not checked by the compiler and occur because of programming mistakes such as accessing a null object or an invalid array index. Checked Exceptions are subclasses of Exception (excluding RuntimeException), whereas Unchecked Exceptions are subclasses of RuntimeException. Examples of checked exceptions are IOException and SQLException, while NullPointerException and ArithmeticException are unchecked exceptions.
+
+Easy Way to Remember
+Checked Exception → Compiler checks → Must handle.
+Unchecked Exception → Compiler doesn't check → Optional to handle.
+Checked = External problems
+Unchecked = Coding mistakes
+
 
 Q3. What is the difference between throw and throws in Java?
 throw is used to explicitly throw an exception object in the code.

@@ -1,0 +1,377 @@
+️ What is DSA (Data Structures and Algorithms)?
+->DSA stands for Data Structures and Algorithms — it’s the foundation of writing efficient and optimized code.
+->A Data Structure is a way of organizing and storing data so it can be accessed and modified efficiently.
+    Examples: Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, HashMaps.
+->Data Structures help manage data efficiently, while Algorithms help process that data effectively.
+->For example, choosing between a HashMap (O(1)) and a List (O(n)) for searching can make a huge difference in speed.
+
+🧩 Types of Data Structures
+Data Structures are mainly divided into two types — Linear and Non-Linear.
+=>Linear Data Structures:
+Data elements are arranged sequentially (one after another).
+Traversal happens in a single level (one direction).
+Examples:
+ Array – fixed-size structure storing elements in contiguous memory.
+ Linked List – nodes connected using pointers.
+ Stack – follows LIFO (Last In, First Out).
+ Queue – follows FIFO (First In, First Out).
+
+=>Non-Linear Data Structures:
+Data elements are arranged in a hierarchical or connected way.
+Traversal can happen in multiple directions.
+Examples:
+ Tree – hierarchical structure (used in databases, XML parsing).
+ Graph – set of nodes and edges (used in networks, shortest path).
+Linear = one-to-one relationship; Non-linear = one-to-many or many-to-many.
+
+⚙️ When to Use Linear vs Non-Linear Data Structures
+->Linear Data Structures are used when data needs to be processed sequentially, one element after
+->Non-Linear Data Structures are used when data has hierarchical or network-like relationships.
+
+🌍 Real-Time Scenarios of Linear and Non-Linear Data Structures
+=>Linear Data Structures – Real-Time Example:
+Imagine a food delivery app (like Swiggy or Zomato) showing your order history — the orders are listed one after another in order (latest to oldest).
+This uses a List or Queue, where data is processed sequentially — first order, second order, and so on.
+Another example: Undo/Redo feature in editors uses a Stack (LIFO) structure.
+
+==>Non-Linear Data Structures – Real-Time Example:
+A file system on your computer (folders inside folders) is a perfect example of a Tree structure — root → subfolders → files.
+A social network (like LinkedIn or Facebook) uses a Graph to show connections — each user is a node, and relationships are edges.
+
+⏱ What is Time Complexity?
+Time Complexity is the measure of how much time an algorithm takes to run as the size of input increases.
+It helps us analyze the performance of an algorithm without actually running it.
+It is usually expressed in Big O notation (e.g., O(1), O(n), O(log n), O(n²)).
+It doesn’t measure real “clock time” — it measures the number of basic operations the algorithm performs.
+Example:
+A for loop running n times → O(n).
+A nested loop → O(n²).
+A binary search → O(log n).
+
+💾 What is Space Complexity?
+Space Complexity is the amount of memory an algorithm uses while executing.
+It includes memory for variables, data structures, input values, recursion stack, and temporary storage.
+It helps analyze how efficiently an algorithm uses memory as input size (n) increases.
+Example:
+int sum = 0;      // uses constant space → O(1)
+int[] arr = new int[n]; // uses extra memory for n elements → O(n)
+
+The space complexity of this code is O(n) because the array grows with input size, while variables use constant memory.
+
+
+Interview Questions & Answers
+===============================
+1)Why is Binary Search Not Suitable for Linked Lists?
+  Binary Search requires direct access to the middle element. In a LinkedList, there is no index-based access, so we must traverse nodes one by one.
+  Finding the middle node takes O(n) time. Therefore, Binary Search loses its advantage and becomes less efficient than expected.
+
+2)Stack and queue.
+    Stack and Queue are both linear data structures used to store and manage data, but they differ in the order in which elements are processed.
+    Stack
+    Stack follows the LIFO (Last In, First Out) principle.
+    The last element inserted is the first element removed.
+    Main operations:
+    push() → Insert element
+    pop() → Remove element
+    peek() → View top element
+    Example:
+    Push: 10, 20, 30
+
+    Top
+     |
+    30
+    20
+    10
+
+    Pop() => 30
+
+    Queue
+    Queue follows the FIFO (First In, First Out) principle.
+    The first element inserted is the first element removed.
+    Main operations:
+    offer()/add() → Insert element
+    poll()/remove() → Remove element
+    peek() → View front element
+    Example:
+    Front          Rear
+      |              |
+     10 -> 20 -> 30
+
+    Poll() => 10
+
+3)What Causes Hash Collision?
+  Hash Collision occurs when two different keys generate the same hash value and are stored in the same bucket.
+  HashMap handles collisions using LinkedList and, in Java 8+, converts heavily populated buckets into Red-Black Trees.
+  Good hashCode implementations help reduce collisions.
+
+  Example:
+  key1.hashCode() == key2.hashCode()
+
+4)Difference Between HashSet, LinkedHashSet, and TreeSet
+ HashSet, LinkedHashSet, and TreeSet all store unique elements, but they differ in ordering.
+ HashSet does not maintain any order and provides the best performance.
+ LinkedHashSet maintains insertion order while still offering near O(1) performance.
+ TreeSet stores elements in sorted order using a Red-Black Tree and has O(log n) performance.
+ Both HashSet and LinkedHashSet allow one null value, whereas TreeSet does not.
+ Choose HashSet for speed, LinkedHashSet for insertion order, and TreeSet for sorted data.
+
+ =>explain about Red-Black Tree. How it will work internally?
+
+5)What is a Tree?
+  A Tree is a hierarchical data structure consisting of nodes connected by edges.
+  The top node is called the root. Trees are used in file systems, databases, and search operations.
+  Common types include Binary Tree and Binary Search Tree.
+
+6)What is a Binary Tree?
+  A Binary Tree is a tree data structure in which each node can have at most two children:
+  Left Child
+  Right Child
+
+  There is no rule about how values are stored.
+  Example:
+
+          50
+         /  \
+       80    20
+      / \      \
+     10 90     30
+
+  This is a Binary Tree because each node has at most two children.
+
+7)What is a Binary Search Tree (BST)?
+  A Binary Search Tree (BST) is a special type of Binary Tree that follows these rules:
+  Left child value must be smaller than the parent.
+  Right child value must be greater than the parent.
+  The same rule applies recursively to all nodes.
+
+  Example:
+
+           50
+          /  \
+        30    70
+       / \   / \
+     20 40 60 80
+
+8)Difference Between Binary Tree and BST
+  Binary Tree
+  Each node can have at most two children.
+  No ordering rule for data.
+  Searching may require visiting many nodes.
+  Search complexity can be O(n).
+  Used for general hierarchical structures.
+
+  Binary Search Tree (BST)
+  Special type of Binary Tree.
+  Maintains sorted order using BST rules.
+  Left child < Parent < Right child.
+  Searching is faster because comparisons guide the search.
+  Average search complexity is O(log n).
+
+9)What is a Full Binary Tree? What is a Complete Binary Tree? What is a Perfect Binary Tree?
+ =>What is a Full Binary Tree?
+ A Full Binary Tree is a binary tree in which every node has either:
+ 0 children (leaf node), or
+ 2 children
+ No node can have only one child.
+ Example:- Positive
+           10
+          /  \
+         20   30
+        / \   / \
+       40 50 60 70
+
+    Negative:-
+              10
+             /  \
+            20   30
+           /
+          40
+ =>What is a Complete Binary Tree?
+   A Complete Binary Tree is a tree where:
+   All levels are completely filled except possibly the last level.
+   Nodes in the last level are filled from left to right.
+   Example:-Positive
+                10
+              /    \
+            20      30
+           / \     /
+         40  50  60
+
+   Negative:-
+              10
+            /    \
+          20      30
+           \      /
+           50    60
+
+ =>What is a Perfect Binary Tree?
+   A Perfect Binary Tree is a tree where:
+   All internal nodes have exactly two children.
+   All leaf nodes are at the same level.
+   Example:- Positive
+                  10
+                /    \
+              20      30
+             / \     / \
+           40  50  60  70
+
+   Negative:-
+               10
+             /    \
+           20      30
+          / \
+        40  50
+ | Tree Type            | Rule                                               |
+ | -------------------- | -------------------------------------------------- |
+ | Full Binary Tree     | Every node has 0 or 2 children                     |
+ | Complete Binary Tree | All levels filled, last level filled left to right |
+ | Perfect Binary Tree  | Full + all leaf nodes at same level                |
+
+10)How Do You Detect a Cycle in a Linked List?
+  A cycle in a linked list can be detected using Floyd's Cycle Detection Algorithm.
+  Two pointers, slow and fast, start from the head. The slow pointer moves one step at a time, while the fast pointer moves two steps.
+  If a cycle exists, the fast pointer eventually catches the slow pointer and both meet at the same node.
+  If the fast pointer reaches null, no cycle exists. This approach takes O(n) time and O(1) space, making it the most efficient solution.
+
+simple code
+public boolean hasCycle(ListNode head) {
+
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (fast != null && fast.next != null) {
+
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow == fast) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+11)When Would You Use Merge Sort Over Quick Sort?
+  Merge Sort is preferred when stable sorting is required, when sorting linked lists, or when guaranteed O(n log n) performance is needed.
+  It is also commonly used for external sorting where data is too large to fit into memory.
+  Merge Sort always provides O(n log n) time complexity but requires O(n) extra space.
+  Quick Sort is generally faster for arrays because of better cache performance and lower memory usage.
+  However, its worst-case time complexity is O(n²). Therefore, Merge Sort is chosen for stability and predictable performance,
+  while Quick Sort is preferred for fast in-memory array sorting.
+
+  Merge Sort
+  = Stable
+  = Linked List
+  = Guaranteed O(n log n)
+
+  Quick Sort
+  = Faster for Arrays
+  = Less Memory
+  = Average O(n log n)
+
+12)Which Data Structure Would You Use for Caching?
+ For caching, a HashMap is commonly used because it provides O(1) average-time lookup, insertion, and deletion.
+ This allows frequently accessed data to be retrieved quickly without querying the database repeatedly.
+ In real-world applications, cache size is limited, so an LRU (Least Recently Used) cache is often implemented using a combination of a HashMap and a Doubly Linked List.
+ The HashMap provides fast lookups, while the Doubly Linked List maintains the order of recently accessed items.
+ In Java, LinkedHashMap can be used to implement an LRU cache efficiently.
+
+13)What is the Time Complexity of ArrayList Operations?
+   get(index) → O(1)
+   add() at end → O(1)
+   remove(index) → O(n)
+   insert at middle → O(n)
+   ArrayList is very efficient for reading data because it supports random access.
+   However, inserting or deleting elements in the middle requires shifting elements, making those operations slower.
+
+14)What is the Time Complexity of LinkedList Operations?
+   Insert at beginning → O(1)
+   Delete at beginning → O(1)
+   Search → O(n)
+   Access by index → O(n)
+   Since LinkedList does not support random access, it must traverse nodes sequentially.
+   Therefore, searching and index-based access are slower than ArrayList.
+
+15)What is BFS (Breadth First Search)? How it works internally?
+  Breadth First Search (BFS) is a traversal algorithm used for trees and graphs.
+  It visits nodes level by level, starting from the root or source node.
+  BFS uses a Queue data structure to maintain the order of nodes to be processed.
+  First, the root node is added to the queue. Then nodes are removed one by one, visited, and their neighbors or children are added to the queue.
+  This process continues until the queue becomes empty. BFS has O(n) time complexity and is commonly used to find the shortest path in an unweighted graph.
+
+  BFS uses a Queue (FIFO) internally.
+  Example Tree
+            1
+          /   \
+         2     3
+        / \   / \
+       4  5  6   7
+
+  BFS Traversal
+  1 → 2 → 3 → 4 → 5 → 6 → 7
+
+  Time Complexity
+  For n nodes:
+  Time  : O(n)
+  Space : O(n)
+
+16)What is DFS (Depth First Search)? How it will work internally?
+  Depth First Search (DFS) is a traversal algorithm used for trees and graphs that explores a path as deep as possible before backtracking.
+  It uses a Stack data structure, either explicitly or through recursion.
+  Starting from the root node, DFS visits a node, then recursively visits its children until it reaches a leaf node.
+  After that, it backtracks and explores other branches. DFS has O(n) time complexity because each node is visited once.
+  It is commonly used in tree traversals, path finding, cycle detection, and graph problems.
+
+  Example Tree
+            1
+          /   \
+         2     3
+        / \   / \
+       4  5  6   7
+
+    DFS Traversal (Preorder)
+    1 → 2 → 4 → 5 → 3 → 6 → 7
+
+    Time & Space Complexity
+    For n nodes:
+    Time  : O(n)
+    Space : O(n)
+
+17)What is a Heap?
+A Heap is a Complete Binary Tree that follows a special ordering property.
+In a Max Heap, the parent node is greater than or equal to its children, while in a Min Heap, the parent node is smaller than or equal to its children.
+Heaps are commonly used to implement Priority Queues because they allow quick access to the highest or lowest priority element.
+Internally, heaps are usually stored in arrays rather than using tree nodes. Insert and delete operations take O(log n) time due to heapify operations,
+while accessing the root element takes O(1) time. In Java, the PriorityQueue class is implemented using a heap.
+
+Types of Heap
+1. Max Heap
+In a Max Heap:
+Parent >= Children
+Largest element is always at the root.
+Example:
+
+         100
+        /   \
+      80     70
+     / \    / \
+   40 50  30 20
+
+Root contains the maximum value.
+
+2. Min Heap
+In a Min Heap:
+Parent <= Children
+Smallest element is always at the root.
+Example:
+
+          10
+        /    \
+      20      30
+     / \     / \
+   40 50   60 70
+
+18)
+
+

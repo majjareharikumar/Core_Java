@@ -1,0 +1,286 @@
+1)Why Binary Search is Not Suitable for Linked Lists?
+  Binary Search is generally not suitable for Linked Lists because it requires direct access to the middle element.
+  In a linked list, there is no index-based access, so we must traverse nodes sequentially to find the middle element.
+  Finding the middle node takes O(n) time, which increases the overall complexity.
+  Therefore, Binary Search loses its advantage and linear search is often preferred for linked lists.
+
+  =>Can Binary Search be implemented on a Linked List?
+  Yes, it can be implemented using slow and fast pointers to find the middle node,
+  but it is inefficient because finding the middle node takes O(n) time.
+  Therefore, the overall performance is worse than Binary Search on arrays.
+
+  =>Is linear search is often preferred for linked lists?
+  Yes, linear search is often preferred for linked lists because linked lists do not provide direct access to elements by index.
+  To access any node, we must traverse from the head node sequentially.
+  Binary search is inefficient because finding the middle element itself requires traversal.
+  Therefore, linear search with O(n) time complexity is generally the preferred searching technique for linked lists.
+
+2)How will you detect a cycle in a Linked List without using extra space?
+  the most common answer is Floyd's Cycle Detection Algorithm (Slow and Fast Pointer).
+  We use two pointers:
+  Slow pointer moves one step at a time.
+  Fast pointer moves two steps at a time.
+  If there is no cycle, the fast pointer will reach null.
+  If a cycle exists, the fast pointer will eventually meet the slow pointer inside the cycle.
+  This approach does not use any extra data structure like HashSet.
+  Time Complexity: O(n)
+  Space Complexity: O(1)
+
+  =>Why do slow and fast pointers meet if a cycle exists?
+  Because the fast pointer moves faster than the slow pointer.
+  Once both enter the cycle, the fast pointer keeps gaining on the slow pointer and will eventually catch up, causing them to meet.
+
+3)Stack and queue.
+  Stack and Queue are both linear data structures used to store and manage data, but they differ in the order in which elements are processed.
+  Stack
+  Stack follows the LIFO (Last In, First Out) principle.
+  The last element inserted is the first element removed.
+  Main operations:
+  push() → Insert element
+  pop() → Remove element
+  peek() → View top element
+  Example:
+  Push: 10, 20, 30
+
+  Top
+   |
+  30
+  20
+  10
+
+  Pop() => 30
+
+  Queue
+  Queue follows the FIFO (First In, First Out) principle.
+  The first element inserted is the first element removed.
+  Main operations:
+  offer()/add() → Insert element
+  poll()/remove() → Remove element
+  peek() → View front element
+  Example:
+  Front          Rear
+    |              |
+   10 -> 20 -> 30
+
+  Poll() => 10
+
+4)Can you tell me the difference between full, complete, and perfect binary tree?
+ 1. Full Binary Tree
+ A Full Binary Tree is a tree where every node has either 0 or 2 children. No node can have only one child.
+
+ Example:
+
+         1
+        / \
+       2   3
+      / \
+     4   5
+
+ ✅ Valid (every node has either 0 or 2 children)
+
+ 2. Complete Binary Tree
+ A Complete Binary Tree is a tree where:
+ All levels are completely filled except possibly the last level.
+ Nodes in the last level are filled from left to right.
+
+ Example:
+
+         1
+        / \
+       2   3
+      / \  /
+     4  5 6
+
+ ✅ Valid Complete Binary Tree
+
+ 3. Perfect Binary Tree
+ A Perfect Binary Tree is a tree where:
+ All internal nodes have exactly 2 children.
+ All leaf nodes are at the same level.
+ Every level is completely filled.
+
+ Example:
+
+           1
+         /   \
+        2     3
+       / \   / \
+      4  5  6  7
+
+ ✅ Perfect Binary Tree
+
+ One-Line Memory Trick
+ Full → No node has only one child.
+ Complete → Fill levels left to right.
+ Perfect → Full + Complete + all leaves at the same level.
+
+ =>Is every Perfect Binary Tree also Full and Complete?
+  Yes. A Perfect Binary Tree satisfies the conditions of both a Full Binary Tree and a Complete Binary Tree.
+
+  =>Is every Complete Binary Tree a Full Binary Tree?
+  Answer: No. A Complete Binary Tree may contain nodes with only one child on the last level.
+
+5)What Causes a Hash Collision?
+  A hash collision occurs when two different keys generate the same hash value (same bucket/index) in a hash-based data structure such as a HashMap.
+
+  Example
+  Suppose the hash function produces:
+  Key: "ABC" -> Hash Value: 5
+  Key: "XYZ" -> Hash Value: 5
+  Even though the keys are different, both map to the same bucket (5). This is called a hash collision.
+
+  Why Do Hash Collisions Occur?
+  The number of possible keys is very large.
+  The number of buckets in a HashMap is limited.
+  Different objects can produce the same hash value.
+  A poorly implemented hashCode() method can increase collisions.
+
+  =>Can two different objects have the same hashCode()?
+  Yes. Two different objects can have the same hashCode(). This causes a hash collision.
+  HashMap then uses both hashCode() and equals() to identify the correct key.
+
+6)can a graph have multiple spanning trees?
+  Yes, a graph can have multiple spanning trees.
+
+  What is a Spanning Tree?
+  A spanning tree is a subgraph that:
+  Includes all vertices of the graph.
+  Has no cycles.
+  Contains exactly V - 1 edges (where V is the number of vertices).
+  Keeps all vertices connected.
+  Example
+
+  Consider the graph:
+
+      A
+     / \
+    B---C
+
+  Edges: AB, BC, AC
+
+  Possible spanning trees:
+
+  Tree 1
+
+  A
+  |
+  B
+  |
+  C
+
+  Edges: AB, BC
+
+  Tree 2
+
+  A
+  |
+  C
+  |
+  B
+
+  Edges: AC, BC
+
+  Tree 3
+
+  B
+  |
+  A
+  |
+  C
+
+  Edges: AB, AC
+
+  So this graph has 3 different spanning trees.
+
+  Interview Answer (6–7 Lines)
+  Yes, a connected graph can have multiple spanning trees. A spanning tree is a connected subgraph that includes all vertices and contains no cycles.
+  To create a spanning tree, we remove enough edges to eliminate cycles while keeping all vertices connected.
+  Different combinations of edge removals can produce different spanning trees. A graph with cycles usually has multiple spanning trees,
+  whereas a graph that is already a tree has exactly one spanning tree.
+
+  =>How many spanning trees does a tree graph have?
+    Exactly one. Since a tree already has no cycles and contains V - 1 edges, removing any edge would disconnect the graph.
+
+7)Why Can't We Use Binary Search on Unsorted Data?
+  Binary Search works only on sorted data because it decides whether to search the left half or the right half based on comparisons with the middle element.
+
+  For example, in a sorted array:
+  10 20 30 40 50 60 70
+
+  If we search for 60:
+  Middle element = 40
+  Since 60 > 40, we know the element can only be on the right side.
+  We safely discard the left half.
+
+  However, in an unsorted array:
+  30 10 60 20 50 40 70
+  If the middle element is 20, we cannot determine whether 60 is on the left or right side. Discarding half of the array may cause us to miss the target.
+
+8)When we will use merge short over quick short
+  Merge Sort is preferred when stable sorting is required, when working with linked lists, or when guaranteed O(n log n) performance is needed.
+  It is also widely used for external sorting of large datasets stored on disk.
+  Quick Sort is usually faster for arrays in memory and uses less extra space, but its worst-case time complexity is O(n²).
+  Therefore, if stability and predictable performance are important, Merge Sort is a better choice.
+  If memory efficiency and average-case speed are more important, Quick Sort is generally preferred.
+
+  Easy Way to Remember
+  Merge Sort → Stable, Linked Lists, Guaranteed Performance.
+  Quick Sort → Faster in practice, Less Memory, Arrays.
+
+
+Problem
+Find the element with the second highest occurrence (frequency) in a list.
+
+Example
+List<Integer> list = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5);
+Frequency:
+1 -> 1
+2 -> 2
+3 -> 3
+4 -> 4  (highest)
+5 -> 2
+
+Second highest occurrence = 3
+Element = 3
+
+import java.util.*;
+
+public class SecondHighestFrequency {
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(
+                1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5);
+
+        Map<Integer, Integer> freqMap = new HashMap<>();
+
+        for (Integer num : list) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        int highest = 0;
+        int secondHighest = 0;
+        Integer result = null;
+
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+
+            int freq = entry.getValue();
+
+            if (freq > highest) {
+                secondHighest = highest;
+                highest = freq;
+            } else if (freq > secondHighest && freq < highest) {
+                secondHighest = freq;
+            }
+        }
+
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+            if (entry.getValue() == secondHighest) {
+                result = entry.getKey();
+                break;
+            }
+        }
+
+        System.out.println("Element with second highest occurrence: " + result);
+        System.out.println("Frequency: " + secondHighest);
+    }
+}

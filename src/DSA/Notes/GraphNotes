@@ -1,0 +1,176 @@
+Graph:-
+A Graph is a non-linear data structure used to represent relationships between objects.
+It consists of vertices (nodes) and edges (connections).
+Graphs can be directed or undirected, weighted or unweighted.
+They are commonly used to model real-world systems such as social networks, maps, flight routes, and computer networks.
+Graphs are typically stored using adjacency lists or adjacency matrices.
+BFS and DFS are the two most common algorithms used to traverse graphs.
+The time complexity of graph traversal is O(V + E), where V is the number of vertices and E is the number of edges.
+
+Types of Graphs
+1. Undirected Graph
+ Connection works both ways.
+ A ----- B
+ Means:
+ A ↔ B
+
+ Example:
+ Facebook friendship
+ WhatsApp contacts
+
+2. Directed Graph (Digraph)
+Connection has direction.
+A → B
+Means:
+A can reach B
+B cannot necessarily reach A
+Example:
+Instagram follow
+Twitter follow
+
+3. Weighted Graph
+Edges have weights/costs.
+A --5-- B
+ \      |
+ 2      3
+  \     |
+    C
+
+Example:
+Google Maps
+Flight routes
+
+Weight can represent:
+Distance
+Cost
+Time
+
+4.Unweighted Graph
+An Unweighted Graph looks similar, but there are no weights (numbers) on the edges.
+A ----- B
+ \     /
+  \   /
+    C
+    or
+    A ----- B
+    |
+    |
+    C
+
+->Example:
+Facebook friendships
+LinkedIn connections
+Computer network connections
+Social networks
+->Edge Represents:
+Friendship
+Connection
+Relationship
+Communication link
+
+=>How Graph is Stored?
+-> Adjacency List (Most Common)
+  Graph:
+  A ---- B
+  |
+  |
+  C
+
+  Stored as:
+  A -> [B, C]
+  B -> [A]
+  C -> [A]
+->Adjacency Matrix
+  Graph:
+  A ---- B
+  |
+  |
+  C
+  Stored as:
+       A B C
+  A    0 1 1
+  B    1 0 0
+  C    1 0 0
+
+  1 = Connected
+  0 = Not Connected
+
+=>Graph Traversal
+ Two important algorithms:
+ ->BFS (Breadth First Search)
+ Uses Queue.
+ Visits level by level.
+
+ ->DFS (Depth First Search)
+   Uses Stack or Recursion.
+   Goes deep first.
+
+ Example Graph
+        A
+       / \
+      B   C
+     / \
+    D   E
+
+  BFS
+  A → B → C → D → E
+
+  DFS
+  A → B → D → E → C
+
+=>Java Representation
+  Using Adjacency List:
+  import java.util.*;
+
+  public class GraphExample {
+
+      public static void main(String[] args) {
+
+          Map<String, List<String>> graph = new HashMap<>();
+
+          graph.put("A", Arrays.asList("B", "C"));
+          graph.put("B", Arrays.asList("D", "E"));
+          graph.put("C", Arrays.asList());
+          graph.put("D", Arrays.asList());
+          graph.put("E", Arrays.asList());
+
+          System.out.println(graph);
+      }
+  }
+
+  O/P:-
+  {
+  A=[B, C],
+  B=[D, E],
+  C=[],
+  D=[],
+  E=[]
+  }
+
+=>Time Complexity
+  Using Adjacency List:
+  BFS
+  O(V + E)
+  DFS
+  O(V + E)
+
+  Where:
+  V = Vertices (Nodes)
+  E = Edges (Connections)
+
+=>Common Applications
+  ->Google Maps
+  Cities = Nodes
+  Roads = Edges
+
+  ->Social Networks
+  Users = Nodes
+  Friendships = Edges
+
+  ->Flight Booking
+  Airports = Nodes
+  Flights = Edges
+
+  ->Computer Networks
+  Servers = Nodes
+  Connections = Edges
