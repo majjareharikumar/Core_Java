@@ -1,4 +1,4 @@
-package collections.List.LinkedList.CircularLinkedList;
+package DSA.LinkedList.CircularLinkedList;
 
 class Node{
     int data;

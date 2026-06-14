@@ -1,56 +1,50 @@
-package collections.List.LinkedList;
+package DSA.LinkedList;
 
-class Node1{
+class Node{
     int data;
-    Node1 next;
+    Node next;
 
-    Node1(int data){
+    Node(int data){
         this.data=data;
         this.next=null;
     }
 }
 
-class myLinkedList1{
-    Node1 head;
+class myLinkedList{
+    Node head;
 
     void add(int data){
-        Node1 newNode=new Node1(data);
+        Node newNode=new Node(data);
         if(head==null){
             head=newNode;
             return;
         }
 
-        Node1 temp=head;
+        Node temp=head;
         while(temp.next!=null){
             temp=temp.next;
         }
+
         temp.next=newNode;
     }
 
-    void addAtFirst(int data){
-        Node1 newNode=new Node1(data);
-        newNode.next=head;
-        head=newNode;
-    }
-
     void display(){
-        Node1 temp=head;
+        Node temp=head;
         while(temp!=null){
             System.out.print(temp.data+"->");
             temp=temp.next;
         }
         System.out.println("null");
     }
-
 }
 
-public class InsertAtBeginningDemo {
+public class linkedList {
     public static void main(String[] args) {
-        myLinkedList1 list=new myLinkedList1();
+
+        myLinkedList list= new myLinkedList();
         list.add(10);
         list.add(11);
-        list.addAtFirst(9);
+        list.add(12);
         list.display();
-
     }
 }

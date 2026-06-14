@@ -1,4 +1,4 @@
-package collections.List.LinkedList;
+package DSA.LinkedList;
 
 class Node4{
     int data;

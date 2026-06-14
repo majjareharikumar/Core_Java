@@ -1,4 +1,4 @@
-package collections.List.LinkedList.DoublyLinkedList;
+package DSA.LinkedList.DoublyLinkedList;
 
 
 

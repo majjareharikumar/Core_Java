@@ -1,4 +1,4 @@
-package collections.List.LinkedList;
+package DSA.LinkedList;
 
 //LinkedList is a linear data structure that stores elements (called nodes) in a sequence,
 // where each element points to the next.

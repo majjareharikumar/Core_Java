@@ -51,5 +51,13 @@ otherwise, they may be placed in different buckets, causing errors.
 If tow objects have the same hashCode, they may or may not be equal, which results in collisions handled via linked lists or red-black trees.
 Proper implementation of these methods ensures key uniqueness and correct lookup, insertion, and deletion in HashMap.
 
-
-
+Interview Summary
+-------------------------
+HashMap stores data as key-value pairs.
+Hashing is performed only on keys.
+Duplicate keys are not allowed; the latest value replaces the old one.
+Duplicate values are allowed.
+Collisions are stored in a linked list.
+In Java 8+, if a bucket has 8+ nodes and capacity is at least 64, the linked list becomes a Red-Black Tree.
+Default capacity is 16 and load factor is 0.75.
+Average time complexity for put/get is O(1).

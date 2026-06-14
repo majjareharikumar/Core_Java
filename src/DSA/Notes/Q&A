@@ -24,6 +24,7 @@ Traversal can happen in multiple directions.
 Examples:
  Tree – hierarchical structure (used in databases, XML parsing).
  Graph – set of nodes and edges (used in networks, shortest path).
+ Map-Key Value pair
 Linear = one-to-one relationship; Non-linear = one-to-many or many-to-many.
 
 ⚙️ When to Use Linear vs Non-Linear Data Structures
