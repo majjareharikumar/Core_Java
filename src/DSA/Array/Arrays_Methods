@@ -1,0 +1,30 @@
+Most Asked Array Methods in Interviews
+| Method                  | Interview Usage         |
+| ----------------------- | ----------------------- |
+| `Arrays.sort()`         | Sorting arrays          |
+| `Arrays.binarySearch()` | Searching               |
+| `Arrays.equals()`       | Compare arrays          |
+| `Arrays.toString()`     | Print array             |
+| `Arrays.copyOf()`       | Copy array              |
+| `Arrays.copyOfRange()`  | Sub-array creation      |
+| `Arrays.fill()`         | Initialize values       |
+| `Arrays.stream()`       | Java 8 array processing |
+| `Arrays.asList()`       | Convert to List         |
+| `arr.length`            | Get array size          |
+
+Java Arrays Methods Cheat Sheet
+| Method                  | Purpose                          | Example                        | Output                 | When to Use           |
+| ----------------------- | -------------------------------- | ------------------------------ | ---------------------- | --------------------- |
+| `Arrays.sort()`         | Sorts array in ascending order   | `Arrays.sort(arr)`             | Sorted array           | Sorting data          |
+| `Arrays.binarySearch()` | Searches element in sorted array | `Arrays.binarySearch(arr, 30)` | Index of element       | Fast searching        |
+| `Arrays.equals()`       | Compares two arrays              | `Arrays.equals(arr1, arr2)`    | `true/false`           | Array comparison      |
+| `Arrays.fill()`         | Fills array with same value      | `Arrays.fill(arr, 10)`         | All elements become 10 | Initialization        |
+| `Arrays.copyOf()`       | Copies array with new size       | `Arrays.copyOf(arr, 5)`        | New array              | Clone/resize array    |
+| `Arrays.copyOfRange()`  | Copies specific range            | `Arrays.copyOfRange(arr,1,4)`  | Partial array          | Extract sub-array     |
+| `Arrays.toString()`     | Converts array to String         | `Arrays.toString(arr)`         | `[10, 20, 30]`         | Printing arrays       |
+| `Arrays.deepToString()` | Prints multidimensional arrays   | `Arrays.deepToString(arr)`     | Nested output          | 2D/3D arrays          |
+| `Arrays.stream()`       | Creates stream from array        | `Arrays.stream(arr)`           | Stream object          | Java 8 operations     |
+| `Arrays.asList()`*      | Converts array to List           | `Arrays.asList(arr)`           | List                   | Collection conversion |
+| `Arrays.mismatch()`     | Finds first different index      | `Arrays.mismatch(arr1,arr2)`   | Index                  | Compare arrays        |
+| `Arrays.parallelSort()` | Parallel sorting                 | `Arrays.parallelSort(arr)`     | Sorted array           | Large arrays          |
+| `Arrays.setAll()`       | Set values using lambda          | `Arrays.setAll(arr,i->i*2)`    | Updated array          | Java 8 initialization |

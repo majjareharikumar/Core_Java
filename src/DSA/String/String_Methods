@@ -1,0 +1,49 @@
+Frequently Used in Coding Interviews
+| Problem                   | Methods Commonly Used                   |
+| ------------------------- | --------------------------------------- |
+| Reverse String            | `charAt()`, `length()`, `toCharArray()` |
+| Palindrome                | `charAt()`, `length()`, `equals()`      |
+| Count Characters          | `length()`, `charAt()`                  |
+| Remove Spaces             | `trim()`, `replace()`                   |
+| Count Words               | `split()`                               |
+| Find Duplicate Characters | `charAt()`, `toCharArray()`             |
+| Anagram Check             | `toCharArray()`, `toLowerCase()`        |
+| String Search             | `contains()`, `indexOf()`               |
+| Input Validation          | `isEmpty()`, `isBlank()`, `matches()`   |
+| Extract Data              | `substring()`, `split()`                |
+
+
+String Methods
+**********************************************************************************************
+| Method                  | Purpose                          | Example                              | Output         | When to Use                           |
+| ----------------------- | -------------------------------- | ------------------------------------ | -------------- | ------------------------------------- |
+| `length()`              | Returns number of characters     | `"Java".length()`                    | `4`            | Count characters, loop through string |
+| `charAt(index)`         | Returns character at given index | `"Java".charAt(1)`                   | `a`            | Reverse string, palindrome check      |
+| `substring(start)`      | Extract string from index        | `"Java".substring(2)`                | `va`           | Extract part of string                |
+| `substring(start,end)`  | Extract between indexes          | `"Java".substring(1,3)`              | `av`           | Get specific portion                  |
+| `equals()`              | Compares content                 | `"Java".equals("Java")`              | `true`         | Compare strings                       |
+| `equalsIgnoreCase()`    | Compare ignoring case            | `"java".equalsIgnoreCase("JAVA")`    | `true`         | Username/email validation             |
+| `contains()`            | Checks substring existence       | `"Hello Java".contains("Java")`      | `true`         | Search text                           |
+| `startsWith()`          | Checks prefix                    | `"Java".startsWith("Ja")`            | `true`         | Validate prefixes                     |
+| `endsWith()`            | Checks suffix                    | `"test.pdf".endsWith(".pdf")`        | `true`         | File extension check                  |
+| `indexOf()`             | First occurrence position        | `"banana".indexOf('a')`              | `1`            | Search character/string               |
+| `lastIndexOf()`         | Last occurrence position         | `"banana".lastIndexOf('a')`          | `5`            | Find last occurrence                  |
+| `replace()`             | Replaces characters/strings      | `"Java".replace("J","K")`            | `Kava`         | Data cleanup                          |
+| `replaceAll()`          | Replaces using regex             | `"a1b2".replaceAll("[0-9]","")`      | `ab`           | Remove digits/special chars           |
+| `toUpperCase()`         | Converts to uppercase            | `"java".toUpperCase()`               | `JAVA`         | Standardize input                     |
+| `toLowerCase()`         | Converts to lowercase            | `"JAVA".toLowerCase()`               | `java`         | Case-insensitive comparison           |
+| `trim()`                | Removes leading/trailing spaces  | `" Java ".trim()`                    | `Java`         | User input validation                 |
+| `split()`               | Splits string into array         | `"A,B,C".split(",")`                 | `[A,B,C]`      | CSV parsing                           |
+| `isEmpty()`             | Checks length is 0               | `"".isEmpty()`                       | `true`         | Empty string validation               |
+| `isBlank()` (Java 11)   | Checks empty or spaces           | `" ".isBlank()`                      | `true`         | Form validation                       |
+| `concat()`              | Joins strings                    | `"Java".concat("8")`                 | `Java8`        | String concatenation                  |
+| `compareTo()`           | Lexicographical comparison       | `"Apple".compareTo("Banana")`        | Negative value | Sorting strings                       |
+| `compareToIgnoreCase()` | Compare ignoring case            | `"java".compareToIgnoreCase("JAVA")` | `0`            | Case-insensitive sorting              |
+| `toCharArray()`         | Converts to char array           | `"Java".toCharArray()`               | `[J,a,v,a]`    | Character processing                  |
+| `valueOf()`             | Converts primitive to String     | `String.valueOf(123)`                | `"123"`        | Number to String conversion           |
+| `join()`                | Joins multiple strings           | `String.join("-", "A","B","C")`      | `A-B-C`        | Create formatted strings              |
+| `repeat()` (Java 11)    | Repeats string                   | `"Hi".repeat(3)`                     | `HiHiHi`       | Pattern generation                    |
+| `matches()`             | Matches regex                    | `"123".matches("\\d+")`              | `true`         | Validation using regex                |
+
+
+
