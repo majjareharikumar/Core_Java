@@ -1,0 +1,51 @@
+Arrays
+--------------
+1.Left rotate array by 1 place
+2.Left rotate array by k places
+3.Right rotate array by 1 place
+4.Right rotate array by k places
+5.Check array is sorted or not
+6.Find missing number in array
+7.find largest element
+8.Find second largest element
+9.find second index of target number
+10.occurrence of each number
+11.find duplicate numbers
+12.find second highest occurrence element
+13.Move zeros to end
+14.Move odd numbers to end
+15.Merge and sort
+16.Remove duplicates from Array
+17.Remove target element from array
+18.Find pivot value from arr(leftSum==rightSum)
+
+Linked List
+-------------------
+1.find kth node from end
+2.find kth node from start
+3.length of linked list
+4.Detect loop
+5.remove duplicates from sorted list
+6.remove duplicates from unsorted list
+7.find middle element of list
+8.remove nth node
+9.reverse linked list
+10.palindrome
+11.Intersection of lists.
+
+String
+-------------------
+1.Reverse string and Palindrome
+2.Revers sentence by words
+3.Check if 2 string having same characters or not(Anagram)
+4.Find one extra character
+5.Occurrence of each character
+6.Find duplicate character
+7.Find first not repeated character
+8.Find first repeated character
+9.Remove duplicates
+10.Check if sentence contains all alphabets or not (Panagram)
+
+11.Find second repeated char
+12.Find second non repeated char
+13.Remove special characters from string

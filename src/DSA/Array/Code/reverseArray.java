@@ -15,30 +15,19 @@ public class reverseArray {
         for(int l=a.length-1;l>=0;l--){
             k[index++]=a[l];
         }
-        for(int n:k){
-            System.out.print(n+" ");
-        }
+        System.out.println(Arrays.toString(k));
         System.out.println();
         //way2
-        int i=0,j=a.length-1,temp;
-        while(j>=i){
-            temp=a[i];
-            a[i]=a[j];
-            a[j]=temp;
-            i++;
-            j--;
+        int left=0;
+        int right=a.length-1;
+        while(left<right){
+            int temp=a[left];
+            a[left]=a[right];
+            a[right]=temp;
+            left++;
+            right--;
         }
-        for(int n:a){
-            System.out.print(n+" ");
-        }
+        System.out.println(Arrays.toString(a));
 
-        System.out.println();
-        int[] reverse= IntStream.range(0,a.length)
-                .map(p->a[a.length-p-1])
-                .toArray();
-
-        for(int n:reverse){
-            System.out.print(n+" ");
-        }
     }
 }

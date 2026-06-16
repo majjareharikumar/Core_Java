@@ -1,5 +1,7 @@
 package DSA.String;
 
+import java.util.Stack;
+
 public class ReverseString {
     public static void main(String[] args) {
         String str="majjareharikumar";
@@ -18,5 +20,16 @@ public class ReverseString {
         //SB
         String s= String.valueOf(new StringBuilder(str).reverse());
         System.out.println(s);
+
+        //By using stack
+        Stack sk=new Stack();
+        String result="";
+        for(int i=0;i<str.length();i++){
+            sk.push(str.charAt(i));
+        }
+        while(!sk.isEmpty()){
+            result+=sk.pop();
+        }
+        System.out.println(result);
     }
 }

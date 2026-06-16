@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 public class Findmissingnumber {
 
     public static void main(String[] args) {
-        int[] arr={1,2,3,5,6,7};
+        int[] arr={1,3,4,5,6,7};
         int n=arr.length+1;
         int expectedSum=n*(n+1)/2;
         int actualSum=0;
@@ -30,6 +30,16 @@ public class Findmissingnumber {
         int expect=IntStream.rangeClosed(s,e).sum();
         int actual1=IntStream.of(arr).sum();
         System.out.println(expect-actual1);
+
+        //Traditional way
+        int result=1;
+        for(int i=0;i<arr.length;i++){
+            int temp=arr[i]+1;
+            if(arr[i]==result){
+                result=temp;
+            }
+        }
+        System.out.println("Trad way:-"+result);
 
     }
 }

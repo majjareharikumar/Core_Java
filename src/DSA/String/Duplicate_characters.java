@@ -21,12 +21,12 @@ public class Duplicate_characters {
         System.out.println();
        //java 8
         System.out.println("Using java8");
-        Map<Character,Long> map1=word.chars()
+      word.chars()
                 .mapToObj(c->(char)c)
-                .collect(Collectors.groupingBy(c->c,Collectors.counting()));
-       map1.entrySet().stream()
+                .collect(Collectors.groupingBy(c->c,Collectors.counting()))
+       .entrySet().stream()
                .filter(e->e.getValue()>1)
-               .forEach(e-> System.out.print(e.getKey()+","));
+               .forEach(e-> System.out.println(e.getKey()+"->"+e.getValue()));
 
     }
 }

@@ -26,21 +26,20 @@ public class Anagram {
 
         //with string methods
         System.out.println("String mentods");
-        String str1="silentr";
+        String str1="silent";
         String str2="listen";
 
         str1=str1.toLowerCase();
         str2=str2.toLowerCase();
-        while (str1.length()>0 && str2.length()>0){
-            if(str1.length()!=str2.length()){
-                System.out.println("Not anagram");
-                return;
-            }
-            else{
+        if(str1.length()!=str2.length()){
+            System.out.println("It is not anagram");
+        }
+        while (str1.length()>0){
+
                 char c=str1.charAt(0);
                 str1=str1.replace(c+"","");
                 str2=str2.replace(c+"","");
-            }
+
         }
         if(str1.length()==str2.length()){
             System.out.println("It is Anagram");
