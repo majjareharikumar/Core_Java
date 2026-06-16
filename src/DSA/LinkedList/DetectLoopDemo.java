@@ -1,88 +1,46 @@
 package DSA.LinkedList;
 
-class Node4{
-    int data;
-    Node4 next;
 
-    Node4(int data){
-        this.data=data;
-        this.next=null;
-    }
-}
 
-class myLinkedList4{
-    Node4 head;
+public class DetectLoopDemo {
+    static class Node{
+        int data;
+        Node next;
 
-    void add(int data){
-        Node4 newNode=new Node4(data);
-        if(head==null){
-            head=newNode;
-            return;
+        Node(int data){
+            this.data=data;
         }
-
-        Node4 temp=head;
-        while(temp.next!=null){
-            temp=temp.next;
-        }
-        temp.next=newNode;
     }
 
-    void createLoop(){
-        if(head==null){
-            return;
-        }
+    public static boolean isLoopDetected(Node head){
 
-        Node4 temp=head;
-        Node4 loopNode=head.next;
+        Node slow=head;
+        Node fast=head;
 
-        while(temp.next!=null){
-            temp=temp.next;
-        }
-        temp.next=loopNode;
-    }
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
 
-    boolean detectLoop(){
-        Node4 slow =head;
-        Node4 fast=head;
-        while(fast!=null && fast.next!=null) {
-            slow = slow.next;
-            fast = fast.next.next;
-
-            if (slow == fast) {
-
+            if(fast==slow){
                 return true;
             }
         }
+
         return false;
-
     }
 
-    void display(){
-        Node4 temp=head;
-        while(temp!=null){
-            System.out.print(temp.data+"->");
-            temp=temp.next;
-        }
-        System.out.println("null");
-    }
-}
-
-public class DetectLoopDemo {
     public static void main(String[] args) {
-        myLinkedList4 list=new myLinkedList4();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(6);
-        list.display();
+        Node head=new Node(1);
+        head.next=new Node(2);
+        head.next.next=new Node(3);
+        head.next.next.next=new Node(4);
 
-        list.createLoop();
-        if(list.detectLoop()){
-            System.out.println("Loop detected in List");
-        }else{
-            System.out.println("No loop in list");
+        //create loop manually
+        head.next.next.next.next=head;
+        if(isLoopDetected(head)){
+            System.out.println("Loop detected");
+        }else {
+            System.out.println("Loop not detected");
         }
 
     }

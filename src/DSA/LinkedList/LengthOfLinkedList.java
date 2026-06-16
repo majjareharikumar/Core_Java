@@ -14,11 +14,10 @@ public class LengthOfLinkedList {
 
     public static int legthofList(Node head){
         int count=0;
-        Node temp=head;
 
-        while (temp!=null){
+        while (head!=null){
             count++;
-            temp=temp.next;
+            head=head.next;
         }
         return count;
     }

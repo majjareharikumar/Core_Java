@@ -24,7 +24,7 @@ public class KthNodeFromStart {
         head.next.next.next=new Node(5);
         head.next.next.next.next=new Node(6);
 
-        Node result=KthNodeStart(head,3);
+        Node result=KthNodeStart(head,9);
         if(result!=null){
             System.out.println("Kth Node element is :- "+result.data);
         }
