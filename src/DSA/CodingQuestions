@@ -1,51 +1,928 @@
 Arrays
 --------------
 1.Left rotate array by 1 place
+public static int[] leftroatate(int[] arr){
+        int first=arr[0];
+        for(int i=0;i<arr.length-1;i++){
+            arr[i]=arr[i+1];
+        }
+        arr[arr.length-1]=first;
+        return arr;
+    }
+
 2.Left rotate array by k places
+public static int[] leftrotatebyk(int[] arr,int k){
+
+        while (k>0){
+            int first=arr[0];
+            for(int i=0;i<arr.length-1;i++){
+                arr[i]=arr[i+1];
+            }
+            arr[arr.length-1]=first;
+            k--;
+        }
+        return arr;
+    }
+
 3.Right rotate array by 1 place
+public static void main(String[] args) {
+        int[] arr={1,2,3,4,5};
+        int last=arr[arr.length-1];
+
+        for(int i=arr.length-1;i>0;i--){
+            arr[i]=arr[i-1];
+        }
+        arr[0]=last;
+
+        System.out.println(Arrays.toString(arr));
+
+    }
 4.Right rotate array by k places
+public static void main(String[] args) {
+        int[] arr={1,2,3,4,5};
+        int k=2;
+
+        //time O(n*k) & space O(1)
+        while(k>0){
+
+            int last=arr[arr.length-1];
+            for(int i=arr.length-1;i>0;i--){
+                arr[i]=arr[i-1];
+            }
+            arr[0]=last;
+            k--;
+        }
+        System.out.println(Arrays.toString(arr));
+
+        //Another way with time O(n) & space O(n)
+
+        int n=arr.length;
+        int[] result=new int[n];
+        for(int i=0;i<n;i++){
+            result[(i+k)%n]=arr[i];
+        }
+        System.out.println(Arrays.toString(result));
+    }
 5.Check array is sorted or not
+public static boolean IsSorted(int[] a){
+
+        for(int i=1;i<a.length;i++){
+            if(a[i-1]>a[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 6.Find missing number in array
+int result=1;
+        for(int i=0;i<arr.length;i++){
+            int temp=arr[i]+1;
+            if(arr[i]==result){
+                result=temp;
+            }
+        }
+        System.out.println("Trad way:-"+result);
 7.find largest element
+public static int largeElement(int[] arr){
+        int j=arr[0];
+        for(int i=0;i<arr.length;i++){
+            if(j<arr[i]){
+                j=arr[i];
+            }
+        }
+
+        return j;
+        //return Arrays.stream(arr).max().getAsInt();
+    }
 8.Find second largest element
+public static void main(String[] args) {
+        int[] arr = {3, 2, 4, 5, 1, 6, 7, 4, 3,6};
+
+        int largest = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
+
+        for (int n : arr) {
+            if (n > largest) {
+                second = largest;
+                largest = n;
+            } else if (n > second && n != largest) {
+                second = n;
+            }
+        }
+        System.out.println("Second largest number:- " + second);
+
+        //Java8
+        int s=Arrays.stream(arr)
+                .boxed()
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .skip(1)
+                .findFirst()
+                .orElseThrow();
+        System.out.println(s);
+    }
 9.find second index of target number
+public static void main(String[] args) {
+        int[] arr={3,2,4,7,3,2,5,8,9,1,3,5,7};
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter Number");
+        int target=sc.nextInt();
+        int count=0,index=-1;
+
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==target){
+                count++;
+                if(count==2){
+                    index=i;
+                }
+            }
+
+        }
+        if(index!=-1){
+            System.out.println("Index of given number is:- "+index);
+        }
+        else {
+            System.out.println("Second index is not available for given number");
+        }
+    }
 10.occurrence of each number
+
 11.find duplicate numbers
+public static void main(String[] args) {
+        int[] arr={1,2,3,2,4,5,1,3,4,7,5};
+        Map<Integer,Integer> map=new LinkedHashMap<>();
+        for(int n:arr){
+
+            map.put(n,map.getOrDefault(n,0)+1);
+        }
+        System.out.println("Original Array");
+        for(int n:arr){
+            System.out.print(n+" ");
+        }
+        System.out.println("Duplicate values:-");
+        for(Map.Entry<Integer,Integer> entry: map.entrySet()){
+            if(entry.getValue()>1){
+                System.out.print( entry.getKey()+" ");
+            }
+        }
+
+        //java8
+        System.out.println("Using Java8");
+        Map<Long,Long> map1= Arrays.stream(arr)
+                .mapToObj(n->(long)n)
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        for(Map.Entry<Long,Long> entry:map1.entrySet()){
+            if(entry.getValue()>1){
+                System.out.print(entry.getKey()+" ");
+            }
+        }
+    }
 12.find second highest occurrence element
+public static void main(String[] args) {
+        int[] arr={1,2,3,2,1,4,2,5,4,6,3,4,7,5};
+
+        Map<Integer,Integer> map=new HashMap<>();
+        for(Integer n:arr){
+            map.put(n,map.getOrDefault(n,0)+1);
+        }
+
+        System.out.println("printing occurrence");
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            System.out.println(entry.getKey()+"->"+entry.getValue());
+        }
+
+        int first=0,second=0;
+        List<Integer> result=new ArrayList<>();
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            int feq=entry.getValue();
+
+            if(feq>first){
+                second=first;
+                first=feq;
+            }
+            else if(feq>second && feq<first){
+                second=feq;
+            }
+        }
+
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            if(entry.getValue()==second){
+                result.add(entry.getKey());
+
+            }
+        }
+
+        System.out.println("Second High occurrence element:-"+result);
+        System.out.println("Second high frequency:-"+second);
+    }
 13.Move zeros to end
+public static void main(String[] args) {
+        int[] arr={0, 1, 0,4,0, 0, 5,0, 2,0};
+
+        int index=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]!=0){
+                arr[index++]=arr[i];
+            }
+        }
+        while(index<arr.length){
+            arr[index++]=0;
+        }
+        System.out.println(Arrays.toString(arr));
+
+        //java8
+        int[] arr2=IntStream.concat(Arrays.stream(arr).filter(n->n!=0),Arrays.stream(arr).filter(n->n==0)).toArray();
+        System.out.println(Arrays.toString(arr2));
+    }
 14.Move odd numbers to end
+public static void EvenOdd(int[] arr){
+        Arrays.sort(arr);
+        int[] arr1=new int[arr.length];
+        int j=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]%2==0){
+                arr1[j++]=arr[i];
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]%2!=0)
+            {
+                arr1[j++]=arr[i];
+            }
+        }
+        System.out.println(Arrays.toString(arr1));
+
+        // Java 8
+       int[] a= IntStream.concat(Arrays.stream(arr).filter(n->n%2==0),Arrays.stream(arr).filter(n->n%2!=0)).toArray();
+        System.out.println(Arrays.toString(a));
+    }
+
 15.Merge and sort
+public static void main(String[] args) {
+        int[] arr1={2,5,1,6,9,7};
+        int[] arr2={3,7,4,8,10};
+        int[] result=new int[arr1.length+arr2.length];
+        for(int i=0;i<arr1.length;i++){
+            result[i]=arr1[i];
+        }
+        for(int i=0;i<arr2.length;i++){
+            result[arr1.length+i]=arr2[i];
+        }
+        Arrays.sort(result);
+        for(int n:result){
+            System.out.print(n+" ");
+        }
+
+        System.out.println();
+
+        //Java 8
+        System.out.println("Java 8");
+         IntStream.concat(Arrays.stream(arr1),Arrays.stream(arr2))
+                 .distinct()
+                .sorted()
+                .forEach(e->System.out.print(e+" "));
+
+    }
 16.Remove duplicates from Array
+public static void unique(int[] arr){
+        Set<Integer> set=new HashSet<>();
+        for(int a:arr){
+            set.add(a);
+        }
+
+
+         //arr=Arrays.stream(arr).distinct().toArray();
+        System.out.println(set);
+    }
 17.Remove target element from array
+public static void removeElement(int[] nums, int val){
+        List<Integer> al=new ArrayList();
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]!=val){
+                al.add(nums[i]);
+            }
+        }
+        nums= al.stream().mapToInt(Integer::intValue).toArray();
+      for(int n:nums){
+          System.out.print(n+",");
+      }
+
+    }
 18.Find pivot value from arr(leftSum==rightSum)
+public static int pivoteValue(int[] arr){
+
+        int totalSum=0;
+        for(int i:arr){
+            totalSum+=i;
+        }
+        int leftSum=0,rightSum=0;
+        for(int i=0;i<arr.length;i++){
+            rightSum=totalSum-leftSum-arr[i];
+
+            if(leftSum==rightSum){
+                return arr[i];
+            }
+            leftSum+=arr[i];
+        }
+
+        return -1;
+    }
 
 Linked List
 -------------------
 1.find kth node from end
+public static Node KthNode(Node head,int k){
+        if(head==null || k<=0){
+            return null;
+        }
+
+        Node first=head;
+        Node second =head;
+
+        for(int i=0;i<k;i++){
+            if(first==null){
+                return null;
+            }
+            first=first.next;
+        }
+
+        while(first!=null){
+            first=first.next;
+            second=second.next;
+        }
+        return second;
+    }
 2.find kth node from start
+public static Node KthNodeStart(Node head,int k){
+        if(head==null || k<=0){
+            return null;
+        }
+
+        Node current=head;
+        for(int i=1;i<k;i++){
+            if(current==null){
+                return null;
+            }
+            current=current.next;
+        }
+        return current;
+    }
 3.length of linked list
+public static int legthofList(Node head){
+        int count=0;
+
+        while (head!=null){
+            count++;
+            head=head.next;
+        }
+        return count;
+    }
 4.Detect loop
+public static boolean isLoopDetected(Node head){
+
+        Node slow=head;
+        Node fast=head;
+
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+
+            if(fast==slow){
+                return true;
+            }
+        }
+
+        return false;
+    }
 5.remove duplicates from sorted list
+public static Node removeDuplicates(Node head){
+        Node current=head;
+
+        while(current!=null && current.next!=null){
+            if(current.data==current.next.data){
+                current.next=current.next.next;
+            }
+            else{
+                current=current.next;
+            }
+        }
+        return head;
+    }
 6.remove duplicates from unsorted list
+public static Node removeDuplicates(Node head){
+        if(head==null) return null;
+        Set<Integer> set=new HashSet<>();
+        Node current=head;
+        Node prev=null;
+
+        while(current!=null){
+            if(set.contains(current.data)){
+                prev.next=current.next;
+            }
+            else {
+                set.add(current.data);
+                prev=current;
+            }
+            current=current.next;
+        }
+        return head;
+    }
 7.find middle element of list
+public static Node middleElement(Node head){
+        Node slow=head;
+        Node fast=head;
+
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
 8.remove nth node
+public static Node removeNthNode(Node head,int k){
+
+        Node slow=head;
+        Node fast=head;
+
+        //Move upto kth position
+        for(int i=0;i<k;i++){
+            fast=fast.next;
+        }
+
+        while(fast.next!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        slow.next=slow.next.next;
+        return head;
+    }
 9.reverse linked list
+public static Node reverse(Node head){
+        Node prev=null;
+        Node current=head;
+        Node next=null;
+
+        while(current!=null){
+             next=current.next;
+             current.next=prev;
+             prev=current;
+             current=next;
+        }
+        return prev;
+    }
 10.palindrome
+public static boolean isPalindrome(Node head){
+        if(head==null && head.next==null){
+            return true;
+        }
+        //find middle
+        Node slow=head;
+        Node fast=head;
+
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        //reverse secondHalf
+        Node secondHalf=reverse(slow);
+
+        //compare
+        Node firstHalf=head;
+        while(secondHalf!=null){
+            if(firstHalf.data!=secondHalf.data){
+                return false;
+            }
+            firstHalf=firstHalf.next;
+            secondHalf=secondHalf.next;
+        }
+        return true;
+
+    }
 11.Intersection of lists.
+public static Node getIntersection(Node heada,Node headb){
+        if(heada==null && headb==null){
+            return null;
+        }
+
+        Node p1=heada;
+        Node p2=headb;
+
+        while (p1!=p2){
+            p1=(p1==null)?headb:p1.next;
+            p2=(p2==null)?heada:p2.next;
+        }
+        return p2;
+    }
 
 String
 -------------------
 1.Reverse string and Palindrome
-2.Revers sentence by words
-3.Check if 2 string having same characters or not(Anagram)
-4.Find one extra character
-5.Occurrence of each character
-6.Find duplicate character
-7.Find first not repeated character
-8.Find first repeated character
-9.Remove duplicates
-10.Check if sentence contains all alphabets or not (Panagram)
+String str="majjareharikumar";
+        String reverse="";
+        for(int i=str.length()-1;i>=0;i--){
+            reverse+=str.charAt(i);
+        }
+        System.out.println(reverse);
 
+        String re=str.chars()
+                .mapToObj(c->(char)c)
+                .map(String::valueOf)
+                .reduce("",(a,b)->b+a);
+        System.out.println(re);
+2.Revers sentence by words
+public static void main(String[] args) {
+        String str="majjare hari nath kumar babu";
+        String[] words=str.split(" ");
+
+        String result="";
+
+        for(String word:words){
+            String reversword="";
+            for(int i=word.length()-1;i>=0;i--){
+                reversword+=word.charAt(i);
+            }
+            result+=reversword+" ";
+        }
+
+        System.out.println(result.trim());
+
+        //Java8
+        System.out.println("Using java8");
+        String reverse= Arrays.stream(words)
+                .map(word->new StringBuilder(word).reverse().toString())
+                .collect(Collectors.joining(" "));
+        System.out.println(reverse);
+    }
+3.Check if 2 string having same characters or not(Anagram)
+public static boolean isAnagram(String s1,String s2){
+        s1=s1.replaceAll(" ","").toLowerCase();
+        s2=s2.replaceAll(" ","").toLowerCase();
+
+        if(s1.length()!=s2.length()){
+            return false;
+        }
+
+        char[] arr1=s1.toCharArray();
+        char[] arr2=s2.toCharArray();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        return Arrays.equals(arr1,arr2);
+
+    }
+4.Find one extra character
+public static char findextrachar(String s1,String s2){
+        char[] arr1=s1.toCharArray();
+        char[] arr2=s2.toCharArray();
+
+        int sum1=0,sum2=0;
+        for(char a: arr1){
+            sum1+=a;
+        }
+        for (char a:arr2){
+            sum2+=a;
+        }
+        return (char)(sum2-sum1);
+
+        //return (char) (s2.chars().sum()-s1.chars().sum());
+    }
+5.Occurrence of each character
+public static void main(String[] args) {
+        String str="majjareharikumar";
+        Map<Character,Integer> map=new LinkedHashMap<>();
+        for(char c:str.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        for(Map.Entry<Character,Integer> entry:map.entrySet()){
+            System.out.println(entry.getKey()+"-->"+entry.getValue());
+        }
+
+        //Java8
+        System.out.println("using java8");
+        Map<Character,Long> map1=str.chars()
+                .mapToObj(c->(char)c)
+                .collect(Collectors.groupingBy(c->c,LinkedHashMap::new,Collectors.counting()));
+        map1.entrySet().stream()
+                .forEach(e-> System.out.println(e.getKey()+"-->"+e.getValue()));
+
+        //without map
+        System.out.println("Without map");
+        String s1=str;
+        while(s1.length()>0){
+            char c=s1.charAt(0);
+            String s2=s1.replace(c+"","");
+            int count=s1.length()-s2.length();
+            System.out.println(c+"->"+count);
+            s1=s2;
+        }
+
+    }
+6.Find duplicate character
+public static void main(String[] args) {
+       String word="programming";
+       Map<Character,Integer> map=new LinkedHashMap<>();
+       for(char c:word.toCharArray()){
+           map.put(c,map.getOrDefault(c,0)+1);
+       }
+        System.out.println("Duplicate characters");
+       for(Map.Entry<Character,Integer> entry:map.entrySet()){
+           if(entry.getValue()>1){
+               System.out.print(entry.getKey()+",");
+           }
+       }
+        System.out.println();
+       //java 8
+        System.out.println("Using java8");
+      word.chars()
+                .mapToObj(c->(char)c)
+                .collect(Collectors.groupingBy(c->c,Collectors.counting()))
+       .entrySet().stream()
+               .filter(e->e.getValue()>1)
+               .forEach(e-> System.out.println(e.getKey()+"->"+e.getValue()));
+
+    }
+7.Find first not repeated character
+public static void main(String[] args) {
+        String word="programming";
+        Map<Character,Integer> map=new LinkedHashMap<>();
+        for(char c:word.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        for(Map.Entry<Character,Integer> c:map.entrySet()){
+            if(c.getValue()==1){
+                System.out.println("First non repeating character:- "+c.getKey());
+                break;
+            }
+        }
+
+        //Java8
+        Map<Character,Long> map1=word.chars()
+                .mapToObj(c->(char)c)
+                .collect(Collectors.groupingBy(c->c,LinkedHashMap::new,Collectors.counting()));
+        System.out.println(map1);
+        Character c=map1.entrySet().stream()
+                .filter(e->e.getValue()==1)
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+        System.out.println(c);
+    }
+8.Find first repeated character
+public static void main(String[] args) {
+        String str="majjareharikumar";
+        Map<Character,Integer> map=new LinkedHashMap<>();
+        for(char c:str.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        for(Map.Entry<Character,Integer> c: map.entrySet()){
+            if(c.getValue()>1){
+                System.out.println("First repeated character:- "+c.getKey());
+                break;
+            }
+        }
+        //Java8
+        System.out.println("using java8");
+        Character ch=str.chars()
+                .mapToObj(c->(char)c)
+                .collect(Collectors.groupingBy(c->c,LinkedHashMap::new,Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(e->e.getValue()>1)
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+        System.out.println("First repeated character:- "+ch);
+    }
+9.Remove duplicates
+ public static void main(String[] args) {
+        String word="programming";
+        Set<Character> ch= new LinkedHashSet<>();
+        String result1="";
+        for(char c:word.toCharArray()){
+            ch.add(c);
+        }
+       for(char c:ch){
+           result1+=c;
+       }
+        System.out.println("Using set:- "+result1);
+
+       String result2="";
+       for(int i=0;i<word.length();i++){
+           char c=word.charAt(i);
+           if(result2.indexOf(c)==-1){
+               result2+=c;
+           }
+       }
+        System.out.println("With out collections:- "+result2);
+
+       //Java 8
+        String result3=word.chars()
+                .mapToObj(c->(char)c)
+                .map(String::valueOf)
+                .distinct()
+                .collect(Collectors.joining());
+        System.out.println("Using java8:- "+result3);
+    }
+10.Check if sentence contains all alphabets or not (Panagram)
+public static boolean isPanagram(String s){
+        char[] arr=s.toCharArray();
+        Set<Character> set=new HashSet<>();
+
+        for(char a: arr){
+            set.add(a);
+        }
+        if(set.size()<26){
+            return false;
+        }
+        return true;
+    }
 11.Find second repeated char
+public static void main(String[] args) {
+        String str="programming";
+        Map<Character,Integer> map=new LinkedHashMap<>();
+        for(char c:str.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        System.out.println(map);
+        List<Character> chars=new ArrayList<>();
+        for(Map.Entry<Character,Integer> entry:map.entrySet()){
+            if(entry.getValue()>1){
+                chars.add(entry.getKey());
+            }
+        }
+        System.out.println(chars);
+        System.out.println("Second repeated char is:- "+chars.get(1));
+
+        //Java 8
+        String s="programming";
+        List<Character> repetedChar=s.chars()
+                .mapToObj(c->(char)c)
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new,Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(e->e.getValue()>1)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        if(repetedChar.size()>=2){
+            System.out.println("Second repeated char:-"+repetedChar.get(1));
+        }else{
+            System.out.println("No second repeated char");
+        }
+    }
 12.Find second non repeated char
+public static void main(String[] args) {
+        String str="programming";
+        Map<Character,Integer> map=new LinkedHashMap<>();
+        for(char c:str.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        System.out.println(map);
+
+        List<Character> chars=new ArrayList<>();
+        for(Map.Entry<Character,Integer> entry:map.entrySet()){
+            if(entry.getValue()==1){
+                chars.add(entry.getKey());
+            }
+        }
+        System.out.println(chars);
+        System.out.println("Second Non repeating chars is:- "+chars.get(1));
+
+        //Java8
+        Character ch=str.chars()
+                .mapToObj(c->(char)c)
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        LinkedHashMap::new,
+                        Collectors.counting()
+                ))
+                .entrySet()
+                .stream()
+                .filter(e->e.getValue()==1)
+                .map(Map.Entry::getKey)
+                .skip(1)
+                .findFirst()
+                .orElseThrow();
+
+        System.out.println("Second non repeated char is:- "+ch);
+
+    }
 13.Remove special characters from string
+public static void main(String[] args) {
+        String str = "Ja@va! is# ve$ry ea%sy";
+        String result=str.replaceAll("[^a-zA-Z ]","");
+        System.out.println(result);
+
+        //Java8
+        System.out.println("Using java 8");
+        String re=str.chars()
+                .filter(c->Character.isLetterOrDigit(c)||c==' ')
+                .mapToObj(c->(char)c)
+                .map(String::valueOf)
+                .reduce("",String::concat);
+        System.out.println(re);
+    }
+
+Matrix
+--------------
+1.Print Matrix
+for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[i].length;j++){
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+2.Sum of Matrix Elements
+int sum=0;
+        for(int[] row:matrix){
+            for(int n:row){
+                sum+=n;
+            }
+        }
+        System.out.println(sum);
+3.Largest/Smallest Element
+public static void main(String[] args) {
+        int[][] matrix={{1,2,3},{40,5,6},{7,8,9}};
+
+        int largest=matrix[0][0];
+        for(int[] row:matrix){
+            for(int n:row){
+                if(n>largest){
+                    largest=n;
+                }
+            }
+        }
+        System.out.println(largest);
+    }
+4.Matrix Transpose
+for(int i=0;i<matrix[0].length;i++){
+            for(int j=0;j<matrix.length;j++){
+                System.out.print(matrix[j][i]+" ");
+            }
+            System.out.println();
+        }
+5.Primary Diagonal Sum
+for(int i=0;i<matrix.length;i++ ){
+            sum+=matrix[i][i];
+        }
+        System.out.println(sum);
+6.Secondary Diagonal Sum
+int sum=0;
+        int n=matrix.length;
+        for(int i=0;i<n;i++){
+            sum+=matrix[i][n-i-1];
+        }
+        System.out.println(sum);
+7.Rotate Matrix 90°
+int n=matrix.length;
+        for(int i=0;i<n;i++){
+            for(int j=n-1;j>=0;j--){
+                System.out.print(matrix[j][i]+" ");
+            }
+            System.out.println();
+        }
+8.Spiral Traversal
+
+9.Search Element
+boolean found=false;
+        for(int[] row:matrix){
+            for(int n:row){
+                if(n==target){
+                    found=true;
+                }
+            }
+        }
+        System.out.println(found);
+10.Matrix Multiplication
+int row=a.length;
+        int col=b[0].length;
+
+        int[][] result=new int[row][col];
+
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<b[0].length;j++){
+                for(int k=0;k<b.length;k++){
+                    result[i][j]+=a[i][k]*b[k][j];
+                }
+            }
+        }
+11.Matrix mirror
+public static void main(String[] args) {
+        int[][] matrix={{1,2,3},{4,5,6},{7,8,9}};
+
+        for(int i=0;i<matrix.length;i++){
+            for(int j=matrix[i].length-1;j>=0;j--){
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+12.Symmetric matrix
+boolean symetric=true;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=i+1;j<matrix.length;j++){
+                if(matrix[i][j]!=matrix[j][i]){
+                    symetric=false;
+                }
+            }
+        }
+        System.out.println("Is Symmetric:-"+symetric);

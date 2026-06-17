@@ -1,4 +1,4 @@
-package Matrix;
+package DSA.Matrix;
 
 public class MatrixTranspose {
     public static void main(String[] args) {

@@ -1,16 +1,13 @@
-package Matrix;
+package DSA.Matrix;
 
 public class MatrixSum {
     public static void main(String[] args) {
-        int[][] matrix={
-                {1,2,3},
-                {4,5,6},
-                {7,8,9}
-        };
+        int[][] matrix={{1,2,3},{4,5,6},{7,8,9}};
+
         int sum=0;
         for(int[] row:matrix){
-            for(int i:row){
-                sum+=i;
+            for(int n:row){
+                sum+=n;
             }
         }
         System.out.println(sum);

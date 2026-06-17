@@ -80,7 +80,7 @@ Communication link
   A -> [B, C]
   B -> [A]
   C -> [A]
-->Adjacency Matrix
+->Adjacency DSA.Matrix
   Graph:
   A ---- B
   |
