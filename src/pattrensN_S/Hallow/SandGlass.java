@@ -2,7 +2,7 @@ package pattrensN_S.Hallow;
 
 public class SandGlass {
     public static void main(String[] args) {
-        int n=10;
+        int n=11;
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 if(i==n-1 || i==j || i+j==n-1 || i==0){

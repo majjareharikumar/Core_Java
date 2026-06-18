@@ -5,114 +5,37 @@ It is useful when multiple objects can cause inconsistency.
 This pattern saves memory and controls resource usage.
 Commonly used for configuration, logging, and cache management.
 
-Simple Java Code
-public class SingleTon {
-    private SingleTon(){}
-
-    private static SingleTon instance;
-
-    public static SingleTon getInstance(){
-        if(instance==null){
-            instance=new SingleTon();
-        }
-        return instance;
-    }
-
-    public static void main(String[] args) {
-        SingleTon obj1=SingleTon.getInstance();
-        SingleTon obj2=SingleTon.getInstance();
-
-        System.out.println(obj1.equals(obj2));
-
-        System.out.println(obj1==obj2);
-    }
-}
-
 2. Factory Method Pattern
-Factory Method Pattern creates objects through a factory class instead of creating them directly using new.
-The client only requests an object, and the factory decides which object to create.
-This reduces dependency between classes and makes the code easy to maintain.
-New object types can be added without changing the client code.
-
-Without Factory Pattern
-Suppose you have a payment application.
-
-Payment payment = new UpiPayment();
-payment.pay();
-
-Tomorrow the user wants to pay using a Card:
-Payment payment = new CardPayment();
-payment.pay();
-
-Now the client code needs to know:
-Which class to create?
-When to create UpiPayment?
-When to create CardPayment?
-
-This creates dependency on concrete classes.
-
-With Factory Pattern
-Client simply says:
-Payment payment = PaymentFactory.getPayment("UPI");
-payment.pay();
-
-The factory decides:
-if(type.equals("UPI"))
-    return new UpiPayment();
-else
-    return new CardPayment();
-Now the client doesn't care which object is created.
-
-Simple java code
-  interface payment{
-      void pay();
-  }
-
-  class UPIPayment implements payment{
-
-      @Override
-      public void pay() {
-          System.out.println("paid using UPI");
-      }
-  }
-
-  class CreditCard implements payment{
-      @Override
-      public void pay(){
-          System.out.println("Paid using CreditCard");
-      }
-  }
-
-  class NetBanking implements payment{
-      @Override
-      public void pay(){
-          System.out.println("Paid using NetBanking");
-      }
-  }
-
-  class FactoryClass{
-      public static payment getPayment(String mode) {
-          if(mode.equalsIgnoreCase("upi")){
-              return new UPIPayment();
-          } else if (mode.equalsIgnoreCase("cred")) {
-              return new CreditCard();
-          }else if(mode.equalsIgnoreCase("netbanking")){
-              return new NetBanking();
-          }
-          throw new IllegalArgumentException("Invalid payment mode");
-      }
-  }
-  public class FactoryPattern {
-
-      public static void main(String[] args) {
-          Scanner sc=new Scanner(System.in);
-          System.out.println("Please enter payment mode");
-          String str=sc.nextLine();
-          payment pay=FactoryClass.getPayment(str);
-          pay.pay();
-      }
-  }
-
+Factory Method Pattern provides a way to create objects without exposing the creation logic to the client.
+Instead of using the new keyword directly, the client requests an object from a factory.
+The factory decides which object to create based on the input provided.
+This reduces dependency between the client and implementation classes.
+It makes the application easy to extend and maintain.
+Example: Creating UPI, Credit Card, or Net Banking payment objects.
 
 3. Abstract Factory Pattern
+Abstract Factory Pattern is used to create families of related objects.
+Instead of creating one object, it creates a group of related objects that work together.
+The client interacts with interfaces and does not know the actual implementation classes.
+This pattern ensures consistency among related objects.
+It improves flexibility and makes switching between object families easy.
+Example: Light Theme Factory and Dark Theme Factory creating buttons and text boxes.
+
+4.Builder Pattern
+
+  Builder Pattern is used to create complex objects step-by-step.
+  It separates the object construction process from the final object representation.
+  This pattern is useful when an object has many optional fields.
+  It improves code readability and avoids constructors with too many parameters.
+  The same building process can create different versions of an object.
+  Example: Creating a User object with name, age, email, phone, and address.
+
+5.Prototype Pattern
+
+  Prototype Pattern creates new objects by cloning an existing object.
+  Instead of creating an object from scratch, a copy of an existing object is used.
+  This improves performance when object creation is expensive or time-consuming.
+  The cloned object can be modified independently without affecting the original object.
+  It reduces the cost of repeatedly creating similar objects.
+  Example: Cloning an Employee template or Document template.
   
