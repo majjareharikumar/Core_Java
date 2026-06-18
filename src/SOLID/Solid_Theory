@@ -1,0 +1,42 @@
+SOLID is a set of five object-oriented design principles used to create clean, maintainable, scalable, and loosely coupled software.
+These principles help developers write code that is easy to understand, test, and modify.
+SRP(Single Responsibility Principle) → SRP ensures a class has a single responsibility
+OCP(Open Closed Principle) → OCP allows adding new features without modifying existing code
+LSP(Open Closed Principle) → Child Replaces Parent Safely
+ISP(Interface Segregation Principle) → Don't implement methods you don't use
+DIP(Dependency Inversion Principle) → Depend on interfaces, not implementations
+
+1. Single Responsibility Principle (SRP)
+Single Responsibility Principle states that a class should have only one responsibility and one reason to change.
+Each class should focus on a single business function rather than handling multiple tasks.
+This improves code readability, maintainability, and testability.
+In Spring Boot, Controller, Service, and Repository layers are common examples of SRP.
+This principle helps create clean and well-organized code.
+
+2. Open Closed Principle (OCP)
+Open Closed Principle states that software components should be open for extension but closed for modification.
+New functionality should be added without changing existing, tested code.
+This reduces the risk of introducing bugs into working functionality.
+OCP is commonly achieved using interfaces, inheritance, and polymorphism.
+It makes applications more flexible and scalable when new requirements arise.
+For example, adding a new payment method should require creating a new class instead of modifying existing payment logic.
+This principle helps in building maintainable applications.
+
+3. Liskov Substitution Principle (LSP)
+Liskov Substitution Principle states that a child class should be able to replace its parent class without affecting the flow of the application.
+A subclass must preserve the behavior and expectations defined by the parent class.
+Any code that works with the parent class should also work correctly with its child classes.
+LSP encourages proper inheritance design and class hierarchies.
+
+4. Interface Segregation Principle (ISP)
+Interface Segregation Principle states that a class should not be forced to implement methods that it does not use.
+Large and general-purpose interfaces should be divided into smaller, more specific interfaces.
+This allows classes to implement only the functionality relevant to them.
+ISP reduces unnecessary dependencies and avoids empty or unsupported method implementations.
+
+5. Dependency Inversion Principle (DIP)
+Dependency Inversion Principle states that high-level modules should not depend on low-level modules; both should depend on abstractions.
+Classes should depend on interfaces rather than concrete implementations.
+This reduces tight coupling between components and increases flexibility.
+Changes in implementation details do not affect business logic when abstractions are used.
+DIP is commonly implemented through Dependency Injection in Spring Boot.
